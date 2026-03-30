@@ -19,7 +19,7 @@ html { scroll-behavior: smooth; }
 body {
   background-color: var(--bg);
   background-image:
-    url('assets/home_wallpaper.webp'),
+    url('./assets/home_wallpaper.webp'),
     radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
   background-size: cover, 1px 1px;
   background-position: center, 0 0;

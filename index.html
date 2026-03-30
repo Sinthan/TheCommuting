@@ -11,8 +11,7 @@
 </head>
 <body>
 
-  <canvas id="rain-canvas"></canvas>
-  <div class="scanlines"></div>
+<div class="scanlines"></div>
   <div class="window-frame"></div>
 
   <div class="site-wrapper">
@@ -136,35 +135,6 @@
       hamburger.classList.toggle('open');
       drawer.classList.toggle('open');
     });
-
-    const canvas = document.getElementById('rain-canvas');
-    const ctx = canvas.getContext('2d');
-    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-    resize();
-    window.addEventListener('resize', resize);
-    const drops = Array.from({ length: 110 }, () => ({
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-      len: Math.random() * 16 + 7,
-      speed: Math.random() * 1.6 + 0.7,
-      opacity: Math.random() * 0.35 + 0.05,
-      width: Math.random() * 0.6 + 0.3
-    }));
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      drops.forEach(d => {
-        ctx.beginPath();
-        ctx.moveTo(d.x, d.y);
-        ctx.lineTo(d.x - d.len * 0.16, d.y + d.len);
-        ctx.strokeStyle = `rgba(140,110,200,${d.opacity})`;
-        ctx.lineWidth = d.width;
-        ctx.stroke();
-        d.y += d.speed;
-        if (d.y - d.len > canvas.height) { d.y = -d.len; d.x = Math.random() * canvas.width; }
-      });
-      requestAnimationFrame(draw);
-    }
-    draw();
   </script>
 
 </body>

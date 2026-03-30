@@ -4,14 +4,14 @@
   --bg:            #080808;
   --glass-bg:      rgba(255,255,255,0.03);
   --glass-border:  rgba(255,255,255,0.08);
-  --text-primary:  #d6d0c8;
-  --text-muted:    #8a9e94;
+  --text-primary:  #eeeae0;
+  --text-muted:    #a8b8ae;
   --accent:        #7b5ea7;
   --accent-bright: #a87fd4;
   --accent-dim:    rgba(123,94,167,0.15);
   --dot-color:     rgba(255,255,255,0.06);
   --green:         #4a8c5c;
-  --text-card-desc:#b0bdb8;
+  --text-card-desc:#c4cecc;
 }
 
 html { scroll-behavior: smooth; }
@@ -19,9 +19,9 @@ html { scroll-behavior: smooth; }
 body {
   background-color: var(--bg);
   background-image:
-    url('./home_wallpaper.jpg'),
+    url('./assets/home_wallpaper.jpg'),
     radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
-  background-size: cover, 18px 18px;
+  background-size: cover, 1px 1px;
   background-position: center, 0 0;
   background-attachment: fixed, fixed;
   color: var(--text-primary);
@@ -34,7 +34,7 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: rgba(8,8,8,0.74);
+  background: rgba(8,8,8,0.70);
   z-index: 0;
   pointer-events: none;
 }

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Commuting — Photos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Doto:ROND,wght@1,700&family=Share+Tech+Mono&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./photos.css">
+</head>
+<body>
+
+  <div class="scanlines"></div>
+  <div class="window-frame"></div>
+
+  <div class="site-wrapper">
+
+    <!-- SYSTEM BAR -->
+    <div class="sys-bar">
+      <div class="sys-bar-left">
+        <span class="sys-tag">SYS:ONLINE</span>
+        <span>UNIT // SIN-001</span>
+        <span>LOC // ARCHIVE</span>
+      </div>
+      <span>通勤 &mdash; PHOTO ARCHIVE</span>
+    </div>
+
+    <!-- NAV -->
+    <nav>
+      <a href="./index.html" class="nav-logo">
+        <span class="nav-logo-bracket">[</span>
+        The <span class="nav-logo-title">Commuting</span>
+        <span class="nav-logo-bracket">]</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="./photos.html" class="nav-active">Photos</a></li>
+        <li><a href="#">Stories</a></li>
+        <li><a href="#">Tech</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <div class="hamburger-bars">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </div>
+      </button>
+    </nav>
+
+    <!-- MOBILE DRAWER -->
+    <div class="nav-drawer" id="nav-drawer">
+      <a href="./photos.html">Photos</a>
+      <a href="#">Stories</a>
+      <a href="#">Tech</a>
+      <a href="#">About</a>
+    </div>
+
+    <!-- PAGE HEADER -->
+    <div class="archive-header">
+      <p class="archive-eyebrow">01 // PHOTOS</p>
+      <h1 class="archive-title">THE ARCHIVE</h1>
+      <p class="archive-sub">&gt;_ SELECT FOLDER TO LOAD CONTENTS</p>
+    </div>
+
+    <!-- ALBUM GRID -->
+    <main class="album-grid" id="album-grid">
+      <!-- Populated by JS from albums.json -->
+    </main>
+
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+      <div class="status-left">
+        <span><span class="status-dot"></span>Archive loaded</span>
+        <span id="album-count">— albums</span>
+        <span>CONN // UNSTABLE</span>
+      </div>
+      <span class="status-right">&copy; The Commuting — All rights reserved</span>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR PANEL -->
+  <div class="album-sidebar" id="album-sidebar" aria-hidden="true">
+    <div class="sidebar-header">
+      <span class="sidebar-tag">FOLDER //</span>
+      <h2 class="sidebar-title" id="sidebar-title">—</h2>
+      <button class="sidebar-close" id="sidebar-close" aria-label="Close">✕</button>
+    </div>
+    <div class="sidebar-strip" id="sidebar-strip">
+      <!-- Photos injected by JS -->
+    </div>
+    <div class="sidebar-footer">
+      <span id="sidebar-count">— images</span>
+    </div>
+  </div>
+
+  <!-- SIDEBAR BACKDROP -->
+  <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+  <script>
+    const grid       = document.getElementById('album-grid');
+    const sidebar    = document.getElementById('album-sidebar');
+    const backdrop   = document.getElementById('sidebar-backdrop');
+    const sideTitle  = document.getElementById('sidebar-title');
+    const sideStrip  = document.getElementById('sidebar-strip');
+    const sideCount  = document.getElementById('sidebar-count');
+    const sideClose  = document.getElementById('sidebar-close');
+    const albumCount = document.getElementById('album-count');
+    const hamburger  = document.getElementById('hamburger');
+    const drawer     = document.getElementById('nav-drawer');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      drawer.classList.toggle('open');
+    });
+
+    function openSidebar(album) {
+      sideTitle.textContent = album.name;
+      sideStrip.innerHTML = '';
+      album.images.forEach((img, i) => {
+        const el = document.createElement('div');
+        el.className = 'strip-item';
+        el.style.animationDelay = `${i * 0.06}s`;
+        const image = document.createElement('img');
+        image.src = `${album.folder}/${img}`;
+        image.alt = `${album.name} — ${img}`;
+        image.loading = 'lazy';
+        el.appendChild(image);
+        sideStrip.appendChild(el);
+      });
+      sideCount.textContent = `${album.images.length} image${album.images.length !== 1 ? 's' : ''}`;
+      sidebar.classList.add('open');
+      backdrop.classList.add('open');
+      sidebar.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeSidebar() {
+      sidebar.classList.remove('open');
+      backdrop.classList.remove('open');
+      sidebar.setAttribute('aria-hidden', 'true');
+    }
+
+    sideClose.addEventListener('click', closeSidebar);
+    backdrop.addEventListener('click', closeSidebar);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+
+    fetch('./albums.json')
+      .then(r => r.json())
+      .then(albums => {
+        albumCount.textContent = `${albums.length} albums`;
+
+        albums.forEach((album, i) => {
+          const card = document.createElement('div');
+          card.className = 'album-card';
+          card.style.animationDelay = `${i * 0.07}s`;
+          card.setAttribute('tabindex', '0');
+          card.setAttribute('role', 'button');
+          card.setAttribute('aria-label', `Open album: ${album.name}`);
+
+          card.innerHTML = `
+            <div class="folder-icon">
+              <div class="folder-tab"></div>
+              <div class="folder-body">
+                <div class="folder-dot-grid"></div>
+                <span class="folder-id">${String(i + 1).padStart(2, '0')}</span>
+              </div>
+            </div>
+            <span class="folder-name">${album.name}</span>
+            <span class="folder-count">${album.images.length} imgs</span>
+          `;
+
+          card.addEventListener('click', () => openSidebar(album));
+          card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openSidebar(album); });
+          grid.appendChild(card);
+        });
+      })
+      .catch(() => {
+        grid.innerHTML = '<p class="archive-error">&gt;_ ERROR: albums.json not found or invalid.</p>';
+      });
+  </script>
+
+</body>
+</html>

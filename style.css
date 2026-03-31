@@ -18,25 +18,52 @@ html { scroll-behavior: smooth; }
 
 body {
   background-color: var(--bg);
-  background-image:
-    url('./assets/home_wallpaper.webp'),
-    radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
-  background-size: cover, 1px 1px;
-  background-position: center, 0 0;
-  background-attachment: fixed, fixed;
   color: var(--text-primary);
   font-family: 'Share Tech Mono', monospace;
   overflow-x: hidden;
 }
 
-/* image darkening overlay */
-body::before {
+/* ── BACKGROUND: constrained to hero area only ── */
+/* sys-bar + nav ≈ 100px; warn-strip ≈ 36px from bottom of hero */
+.site-wrapper::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: rgba(8,8,8,0.70);
-  z-index: 0;
+  background-image:
+    url('./assets/home_wallpaper.webp'),
+    radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
+  background-size: cover, 18px 18px;
+  background-position: center, 0 0;
+  background-attachment: scroll, scroll;
+  z-index: -2;
+  /* clip: stop before navbar top and before warn-strip */
+  top: 100px;    /* approx height of sys-bar + nav */
+  bottom: 36px;  /* approx height of warn-strip */
   pointer-events: none;
+}
+
+/* darkening overlay — same bounds */
+.site-wrapper::after {
+  content: '';
+  position: fixed;
+  top: 100px;
+  bottom: 36px;
+  left: 0; right: 0;
+  background: rgba(8,8,8,0.70);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* solid bg behind nav and below warn-strip */
+.sys-bar,
+nav {
+  background-color: var(--bg);
+}
+
+.warn-strip,
+.cards,
+.status-bar {
+  background-color: var(--bg);
 }
 
 /* ── SCANLINES ── */
@@ -81,6 +108,38 @@ body::before {
     inset 0 0 80px rgba(0,0,0,0.8),
     inset 0 0 2px rgba(123,94,167,0.15);
 }
+
+/* ── DECORATIVE CHINESE TEXT LAYER ── */
+.bg-chinese {
+  position: fixed;
+  top: 100px;
+  bottom: 36px;
+  left: 0; right: 0;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  overflow: hidden;
+}
+
+.zh {
+  position: absolute;
+  writing-mode: vertical-rl;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.35em;
+  color: rgba(168,127,212,0.55);
+  white-space: nowrap;
+}
+
+/* Each column: varied position, size, opacity for a natural scattered feel */
+.zh-1 { left: 6%;   top: 5%;  font-size: 0.65rem; opacity: 0.75; }
+.zh-2 { left: 14%;  top: 30%; font-size: 0.9rem;  opacity: 0.60; }
+.zh-3 { left: 28%;  top: 10%; font-size: 0.55rem; opacity: 0.85; }
+.zh-4 { left: 42%;  top: 55%; font-size: 0.8rem;  opacity: 0.55; }
+.zh-5 { left: 58%;  top: 8%;  font-size: 0.7rem;  opacity: 0.70; }
+.zh-6 { left: 70%;  top: 40%; font-size: 0.6rem;  opacity: 0.80; }
+.zh-7 { left: 82%;  top: 15%; font-size: 0.85rem; opacity: 0.50; }
+.zh-8 { left: 91%;  top: 60%; font-size: 0.65rem; opacity: 0.65; }
 
 /* ── SITE WRAPPER ── */
 .site-wrapper {
@@ -165,7 +224,7 @@ nav::after {
   position: relative;
 }
 
-/* ── CHINESE VERTICAL DECORATION ── */
+/* ── CHINESE VERTICAL DECORATION (hero-specific) ── */
 .hero-jp {
   position: absolute;
   right: 0;
@@ -483,4 +542,11 @@ nav::after {
   .card { border-right: none; border-bottom: 1px solid var(--glass-border); }
   .hero-jp { display: none; }
   .hero-title { font-size: clamp(1.4rem, 6vw, 2.4rem); }
+
+  /* fewer, wider-spaced columns on mobile */
+  .zh-3, .zh-4, .zh-6, .zh-7 { display: none; }
+  .zh-1 { left: 5%;  }
+  .zh-2 { left: 25%; }
+  .zh-5 { left: 55%; }
+  .zh-8 { left: 80%; }
 }

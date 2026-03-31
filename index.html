@@ -11,8 +11,20 @@
 </head>
 <body>
 
-<div class="scanlines"></div>
+  <div class="scanlines"></div>
   <div class="window-frame"></div>
+
+  <!-- DECORATIVE CHINESE TEXT LAYER -->
+  <div class="bg-chinese" aria-hidden="true">
+    <span class="zh zh-1">通勤系統啟動中</span>
+    <span class="zh zh-2">窗邊座位已佔用</span>
+    <span class="zh zh-3">移動中請勿站立</span>
+    <span class="zh zh-4">信號微弱請稍候</span>
+    <span class="zh zh-5">路線未能確認中</span>
+    <span class="zh zh-6">記憶體載入失敗</span>
+    <span class="zh zh-7">通勤系統啟動中</span>
+    <span class="zh zh-8">下一站目的不明</span>
+  </div>
 
   <div class="site-wrapper">
 
@@ -34,7 +46,7 @@
         <span class="nav-logo-bracket">]</span>
       </a>
       <ul class="nav-links">
-        <li><a href="#">Photos</a></li>
+        <li><a href="./photos.html">Photos</a></li>
         <li><a href="#">Stories</a></li>
         <li><a href="#">Tech</a></li>
         <li><a href="#">About</a></li>
@@ -50,7 +62,7 @@
 
     <!-- MOBILE DRAWER -->
     <div class="nav-drawer" id="nav-drawer">
-      <a href="#">Photos</a>
+      <a href="./photos.html">Photos</a>
       <a href="#">Stories</a>
       <a href="#">Tech</a>
       <a href="#">About</a>
@@ -63,12 +75,11 @@
       <h1 class="hero-title">WELCOME <em>ABOARD</em>,<br>FEEL FREE TO EXPLORE</h1>
       <p class="hero-code">&gt;_ NEXT STOP... SIN-001 // MEMORY_LOST</p>
       <p class="hero-subtitle">
-        In this bus you just landed on, there's no clear destination, maybe just a clear start: </br> 
-        Sinthan a.k.a. Agostino Maria Cassese, will be your driver to a land of weird photos, 
-        stories from different lands and his own little wisdom from his personal carreer. 
+        In this bus you just landed on, there's no clear destination, maybe just a clear start:<br>
+        Sinthan a.k.a. Agostino Maria Cassese, will be your driver to a land of weird photos,
+        stories from different lands and his own little wisdom from his personal carreer.
         Please don't put your feet on the seats unless 真有趣
       </p>
-      
     </section>
 
     <!-- WARNING MARQUEE -->
@@ -91,15 +102,12 @@
 
     <!-- CARDS -->
     <div class="cards">
-      <div class="card">
+      <div class="card" onclick="location.href='./photos.html'" style="cursor:pointer;">
         <span class="card-kaomoji">( > ᴗ• )</span>
         <div class="card-number">01 // PHOTOS</div>
         <div class="card-title">The Archive</div>
         <p class="card-desc">I like to imagine myself in an alien bus, taking photos of weird landscapes... take a peak!</p>
-        <span class="card-arrow">→ ENTER</span>
-      </div>
-      <div class="card">
-        <span class="card-kaomoji">( ;´ - `;)</span>
+        <span class="card-arrow" onclick="location.href='./photos.html'">→ ENTER</span>
         <div class="card-number">02 // STORIES</div>
         <div class="card-title">Field Notes</div>
         <p class="card-desc">I write and I write too much, you can find some of that, here.</p>

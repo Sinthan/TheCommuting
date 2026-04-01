@@ -34,7 +34,7 @@ body {
     radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
   background-size: cover, 18px 18px;
   background-position: center, 0 0;
-  background-attachment: scroll, scroll;
+  background-attachment: fixed, fixed;
   z-index: -2;
   /* clip: stop before navbar top and before warn-strip */
   top: 100px;    /* approx height of sys-bar + nav */
@@ -312,10 +312,7 @@ nav::after {
   text-decoration: none;
   padding: 0.7rem 1.6rem;
   border: 1px solid;
-  transition: all 0.25s;
-}
-
-.btn-primary {
+  transition: background 0.25s, border-color 0.25s, color 0.25s, box-shadow 0.25s;
   background: var(--accent);
   border-color: var(--accent);
   color: #e8e4dc;
@@ -357,6 +354,7 @@ nav::after {
   display: inline-flex;
   gap: 4rem;
   animation: marquee 24s linear infinite;
+  will-change: transform;
 }
 
 @keyframes marquee {
@@ -430,10 +428,7 @@ nav::after {
   color: var(--accent-bright);
   opacity: 0;
   transform: translateX(-6px);
-  transition: all 0.25s;
-}
-
-/* ── STATUS BAR ── */
+  transition: opacity 0.25s, transform 0.25s;
 .status-bar {
   padding: 0.7rem 3.5rem;
   display: flex;
@@ -491,9 +486,7 @@ nav::after {
 .hamburger-bar {
   width: 20px; height: 2px;
   background: var(--green);
-  transition: all 0.25s;
-  display: block;
-}
+  transition: transform 0.25s, opacity 0.25s;
 
 .hamburger.open .hamburger-bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
 .hamburger.open .hamburger-bar:nth-child(2) { opacity: 0; }

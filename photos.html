@@ -7,8 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Doto:ROND,wght@1,700&family=Share+Tech+Mono&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" href="./photos.css">
+  <link rel="stylesheet" href="./style/style.css">
+  <link rel="stylesheet" href="./style/photos.css">
 </head>
 <body>
 
@@ -66,7 +66,7 @@
 
     <!-- ALBUM GRID -->
     <main class="album-grid" id="album-grid">
-      <!-- Populated by JS from albums.json -->
+      <!-- Populated by JS from scripts/albums.json -->
     </main>
 
     <!-- STATUS BAR -->
@@ -86,7 +86,7 @@
     <div class="sidebar-header">
       <span class="sidebar-tag">FOLDER //</span>
       <h2 class="sidebar-title" id="sidebar-title">—</h2>
-      <button class="sidebar-close" id="sidebar-close" aria-label="Close">✕</button>
+      <button class="sidebar-close" id="sidebar-close" aria-label="Close">X</button>
     </div>
     <div class="sidebar-strip" id="sidebar-strip">
       <!-- Photos injected by JS -->
@@ -132,8 +132,8 @@
     const lbPrev      = document.getElementById('lightbox-prev');
     const lbNext      = document.getElementById('lightbox-next');
 
-    let currentAlbum  = null;
-    let currentIndex  = 0;
+    let currentAlbum = null;
+    let currentIndex = 0;
 
     hamburger.addEventListener('click', () => {
       hamburger.classList.toggle('open');
@@ -171,9 +171,9 @@
     });
     document.addEventListener('keydown', e => {
       if (!lightbox.classList.contains('open')) return;
-      if (e.key === 'Escape')       closeLightbox();
-      if (e.key === 'ArrowLeft')    lbPrev.click();
-      if (e.key === 'ArrowRight')   lbNext.click();
+      if (e.key === 'Escape')     closeLightbox();
+      if (e.key === 'ArrowLeft')  lbPrev.click();
+      if (e.key === 'ArrowRight') lbNext.click();
     });
 
     /* ── SIDEBAR ── */
@@ -212,10 +212,11 @@
       if (e.key === 'Escape') closeSidebar();
     });
 
-    fetch('./albums.json')
+    /* ── LOAD ALBUMS ── */
+    fetch('./scripts/albums.json')
       .then(r => r.json())
       .then(albums => {
-        albumCount.textContent = `${albums.length} albums`;
+        albumCount.textContent = `${albums.length} album${albums.length !== 1 ? 's' : ''}`;
 
         albums.forEach((album, i) => {
           const card = document.createElement('div');
@@ -225,18 +226,15 @@
           card.setAttribute('role', 'button');
           card.setAttribute('aria-label', `Open album: ${album.name}`);
 
-          // build up to 4 preview images
           const previewImgs = album.images.slice(0, 4).map(img =>
             `<img class="folder-preview-img" src="${album.folder}/${img}" alt="" loading="lazy" onerror="this.style.display='none'">`
           ).join('');
-
-          const hasPreview = album.images.length > 0;
 
           card.innerHTML = `
             <div class="folder-icon">
               <div class="folder-tab"></div>
               <div class="folder-body">
-                ${hasPreview
+                ${album.images.length > 0
                   ? `<div class="folder-preview">${previewImgs}</div>`
                   : `<div class="folder-dot-grid"></div>`
                 }
@@ -248,12 +246,15 @@
           `;
 
           card.addEventListener('click', () => openSidebar(album));
-          card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openSidebar(album); });
+          card.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') openSidebar(album);
+          });
           grid.appendChild(card);
         });
       })
-      .catch(() => {
-        grid.innerHTML = '<p class="archive-error">&gt;_ ERROR: albums.json not found or invalid.</p>';
+      .catch(err => {
+        console.error('Failed to load albums.json:', err);
+        grid.innerHTML = '<p class="archive-error">&gt;_ ERROR: scripts/albums.json not found or invalid.</p>';
       });
   </script>
 

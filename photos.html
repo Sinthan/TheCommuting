@@ -94,8 +94,8 @@
         <h2 class="sidebar-title" id="sidebar-title">—</h2>
         <button class="sidebar-close" id="sidebar-close" aria-label="Close">X</button>
       </div>
-      <div class="sidebar-divider"></div>
-      <p class="sidebar-quote" id="sidebar-quote"></p>
+      <hr class="sidebar-divider">
+      <p class="sidebar-quote" id="sidebar-quote"><span class="sidebar-quote-prefix">&gt;_</span> <span id="sidebar-quote-text"></span></p>
     </div>
     <div class="sidebar-strip" id="sidebar-strip">
       <!-- Photos injected by JS -->
@@ -187,22 +187,29 @@
 
     /* ── SIDEBAR ── */
     function openSidebar(album) {
+      const isSameAlbum = currentAlbum && currentAlbum.id === album.id;
       currentAlbum = album;
       sideTitle.textContent = album.name;
-      document.getElementById('sidebar-quote').textContent = album.quote || '';
-      sideStrip.innerHTML = '';
-      album.images.forEach((img, i) => {
-        const el = document.createElement('div');
-        el.className = 'strip-item';
-        el.style.animationDelay = `${i * 0.06}s`;
-        const image = document.createElement('img');
-        image.src = `${album.folder}/${img}`;
-        image.alt = img;
-        image.loading = 'lazy';
-        image.addEventListener('click', () => openLightbox(album, i));
-        el.appendChild(image);
-        sideStrip.appendChild(el);
-      });
+      document.getElementById('sidebar-quote-text').textContent = album.quote || '';
+
+      if (!isSameAlbum) {
+        sideStrip.innerHTML = '';
+        album.images.forEach((img, i) => {
+          const el = document.createElement('div');
+          el.className = 'strip-item';
+          el.style.animationDelay = `${i * 0.06}s`;
+          const image = document.createElement('img');
+          image.src = `${album.folder}/${img}`;
+          image.alt = img;
+          image.loading = 'lazy';
+          image.width = 200;  /* prevents layout shift (CLS) */
+          image.height = 150;
+          image.addEventListener('click', () => openLightbox(album, i));
+          el.appendChild(image);
+          sideStrip.appendChild(el);
+        });
+      }
+
       sideCount.textContent = `${album.images.length} image${album.images.length !== 1 ? 's' : ''}`;
       sidebar.classList.add('open');
       backdrop.classList.add('open');

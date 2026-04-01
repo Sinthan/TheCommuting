@@ -6,6 +6,7 @@
   <title>The Commuting</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- display=swap: prevents invisible text while fonts load -->
   <link href="https://fonts.googleapis.com/css2?family=Doto:ROND,wght@1,700&family=Share+Tech+Mono&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style/style.css">
 </head>
@@ -40,7 +41,8 @@
 
     <!-- NAV -->
     <nav>
-      <a href="./index.html" class="nav-logo">
+      <!-- Fix: href="#" avoids full page reload when on homepage -->
+      <a href="#" class="nav-logo">
         <span class="nav-logo-bracket">[</span>
         The <span class="nav-logo-title">Commuting</span>
         <span class="nav-logo-bracket">]</span>

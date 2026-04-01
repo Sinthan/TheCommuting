@@ -18,52 +18,25 @@ html { scroll-behavior: smooth; }
 
 body {
   background-color: var(--bg);
-  color: var(--text-primary);
-  font-family: 'Share Tech Mono', monospace;
-  overflow-x: hidden;
-}
-
-/* ── BACKGROUND: constrained to hero area only ── */
-/* sys-bar + nav ≈ 100px; warn-strip ≈ 36px from bottom of hero */
-.site-wrapper::before {
-  content: '';
-  position: fixed;
-  inset: 0;
   background-image:
     url('./assets/home_wallpaper.webp'),
     radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
   background-size: cover, 18px 18px;
   background-position: center, 0 0;
   background-attachment: fixed, fixed;
-  z-index: -2;
-  /* clip: stop before navbar top and before warn-strip */
-  top: 100px;    /* approx height of sys-bar + nav */
-  bottom: 36px;  /* approx height of warn-strip */
-  pointer-events: none;
+  color: var(--text-primary);
+  font-family: 'Share Tech Mono', monospace;
+  overflow-x: hidden;
 }
 
-/* darkening overlay — same bounds */
-.site-wrapper::after {
+/* ── DARKENING OVERLAY ── */
+body::before {
   content: '';
   position: fixed;
-  top: 100px;
-  bottom: 36px;
-  left: 0; right: 0;
+  inset: 0;
   background: rgba(8,8,8,0.70);
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
-}
-
-/* solid bg behind nav and below warn-strip */
-.sys-bar,
-nav {
-  background-color: var(--bg);
-}
-
-.warn-strip,
-.cards,
-.status-bar {
-  background-color: var(--bg);
 }
 
 /* ── SCANLINES ── */
@@ -112,9 +85,7 @@ nav {
 /* ── DECORATIVE CHINESE TEXT LAYER ── */
 .bg-chinese {
   position: fixed;
-  top: 100px;
-  bottom: 36px;
-  left: 0; right: 0;
+  inset: 0;
   z-index: 1;
   pointer-events: none;
   user-select: none;
@@ -131,7 +102,6 @@ nav {
   white-space: nowrap;
 }
 
-/* Each column: varied position, size, opacity for a natural scattered feel */
 .zh-1 { left: 6%;   top: 5%;  font-size: 0.65rem; opacity: 0.75; }
 .zh-2 { left: 14%;  top: 30%; font-size: 0.9rem;  opacity: 0.60; }
 .zh-3 { left: 28%;  top: 10%; font-size: 0.55rem; opacity: 0.85; }
@@ -148,6 +118,15 @@ nav {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+/* solid bg on nav, cards, footer so bg image doesn't show through */
+.sys-bar,
+nav,
+.warn-strip,
+.cards,
+.status-bar {
+  background-color: var(--bg);
 }
 
 /* ── TOP SYSTEM BAR ── */
@@ -224,7 +203,7 @@ nav::after {
   position: relative;
 }
 
-/* ── CHINESE VERTICAL DECORATION (hero-specific) ── */
+/* ── CHINESE VERTICAL DECORATION ── */
 .hero-jp {
   position: absolute;
   right: 0;
@@ -313,6 +292,9 @@ nav::after {
   padding: 0.7rem 1.6rem;
   border: 1px solid;
   transition: background 0.25s, border-color 0.25s, color 0.25s, box-shadow 0.25s;
+}
+
+.btn-primary {
   background: var(--accent);
   border-color: var(--accent);
   color: #e8e4dc;
@@ -429,6 +411,9 @@ nav::after {
   opacity: 0;
   transform: translateX(-6px);
   transition: opacity 0.25s, transform 0.25s;
+}
+
+/* ── STATUS BAR ── */
 .status-bar {
   padding: 0.7rem 3.5rem;
   display: flex;
@@ -487,11 +472,14 @@ nav::after {
   width: 20px; height: 2px;
   background: var(--green);
   transition: transform 0.25s, opacity 0.25s;
+  display: block;
+}
 
 .hamburger.open .hamburger-bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
 .hamburger.open .hamburger-bar:nth-child(2) { opacity: 0; }
 .hamburger.open .hamburger-bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
+/* ── NAV DRAWER (mobile only) ── */
 .nav-drawer {
   display: none;
   position: fixed;
@@ -535,8 +523,6 @@ nav::after {
   .card { border-right: none; border-bottom: 1px solid var(--glass-border); }
   .hero-jp { display: none; }
   .hero-title { font-size: clamp(1.4rem, 6vw, 2.4rem); }
-
-  /* fewer, wider-spaced columns on mobile */
   .zh-3, .zh-4, .zh-6, .zh-7 { display: none; }
   .zh-1 { left: 5%;  }
   .zh-2 { left: 25%; }

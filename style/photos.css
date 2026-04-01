@@ -6,20 +6,11 @@ body {
   background-color: var(--bg);
 }
 
-.site-wrapper::before,
-.site-wrapper::after {
-  display: none;
-}
+/* active nav link — higher specificity, no !important */
+.nav-links .nav-active { color: var(--accent-bright); }
+.nav-links .nav-active::before { opacity: 1; }
 
-/* active nav link */
-.nav-links .nav-active {
-  color: var(--accent-bright);
-}
-.nav-links .nav-active::before {
-  opacity: 1;
-}
-
-/* photos page: site-wrapper must be fixed height for inner scroll */
+/* ── LAYOUT: fixed height viewport, inner scroll ── */
 .site-wrapper {
   height: 100vh;
   overflow: hidden;
@@ -29,15 +20,15 @@ body {
   display: flex;
   flex-direction: column;
   flex: 1;
-  min-height: 0; /* needed for flex child to scroll */
+  min-height: 0;
 }
 
+/* ── PAGE HEADER ── */
 .archive-header {
   padding: 2.8rem 3.5rem 1.6rem;
   border-bottom: 1px solid var(--glass-border);
   flex-shrink: 0;
   background-color: var(--bg);
-  z-index: 10;
 }
 
 .archive-eyebrow {
@@ -64,18 +55,23 @@ body {
   opacity: 0.7;
 }
 
-/* ── ALBUM GRID ── */
+/* ── ALBUM GRID (scrollable) ── */
 .album-grid {
   flex: 1;
   overflow-y: auto;
-  min-height: 0; /* critical for flex scroll to work */
+  min-height: 0;
   display: grid;
-  grid-template-columns: repeat(3, 240px);
+  grid-template-columns: repeat(3, 220px);
   gap: 4rem 3rem;
   padding: 4rem 3.5rem;
   justify-content: center;
   align-content: start;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(123,94,167,0.3) transparent;
 }
+
+.album-grid::-webkit-scrollbar { width: 4px; }
+.album-grid::-webkit-scrollbar-thumb { background: rgba(123,94,167,0.3); border-radius: 2px; }
 
 /* ── ALBUM CARD ── */
 .album-card {
@@ -102,9 +98,7 @@ body {
   transition: transform 0.2s;
 }
 
-.album-card:hover .folder-icon {
-  transform: translateY(-6px);
-}
+.album-card:hover .folder-icon { transform: translateY(-6px); }
 
 .folder-tab {
   width: 80px;
@@ -132,7 +126,7 @@ body {
   background: rgba(123,94,167,0.12);
 }
 
-/* ── 2×2 PREVIEW GRID inside folder ── */
+/* ── 2×2 PREVIEW GRID ── */
 .folder-preview {
   position: absolute;
   inset: 6px;
@@ -152,11 +146,9 @@ body {
   transition: opacity 0.2s;
 }
 
-.album-card:hover .folder-preview-img {
-  opacity: 1;
-}
+.album-card:hover .folder-preview-img { opacity: 1; }
 
-/* fallback dot grid shown when no images load */
+/* dot grid fallback */
 .folder-dot-grid {
   position: absolute;
   inset: 0;
@@ -177,9 +169,7 @@ body {
   text-shadow: 0 0 6px rgba(8,8,8,0.95);
 }
 
-.album-card:hover .folder-id {
-  color: var(--accent-bright);
-}
+.album-card:hover .folder-id { color: var(--accent-bright); }
 
 /* ── FOLDER LABELS ── */
 .folder-name {
@@ -191,9 +181,7 @@ body {
   transition: color 0.2s;
 }
 
-.album-card:hover .folder-name {
-  color: var(--accent-bright);
-}
+.album-card:hover .folder-name { color: var(--accent-bright); }
 
 .folder-count {
   font-size: 0.52rem;
@@ -211,7 +199,7 @@ body {
   padding: 2rem 0;
 }
 
-/* ── BOTTOM DRAWER — 75% width, 50% height, centered ── */
+/* ── BOTTOM DRAWER ── */
 .album-sidebar {
   position: fixed;
   bottom: 0;
@@ -229,9 +217,7 @@ body {
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.album-sidebar.open {
-  transform: translateY(0);
-}
+.album-sidebar.open { transform: translateY(0); }
 
 /* ── DRAWER HEADER ── */
 .sidebar-header {
@@ -245,7 +231,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
-  padding-right: 2.2rem; /* leave room for X button */
+  padding-right: 2.4rem;
   padding-bottom: 0.5rem;
 }
 
@@ -279,7 +265,7 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: border-color 0.2s, background 0.2s, color 0.2s;
+  transition: border-color 0.2s, background 0.2s;
   letter-spacing: 0;
 }
 
@@ -433,7 +419,7 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: border-color 0.2s, background 0.2s, color 0.2s;
+  transition: border-color 0.2s, background 0.2s;
 }
 
 .lightbox-close:hover {
@@ -462,7 +448,7 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: border-color 0.2s, background 0.2s, color 0.2s;
+  transition: border-color 0.2s, background 0.2s;
   letter-spacing: 0;
 }
 
@@ -496,7 +482,6 @@ body {
   .folder-body { width: 140px; height: 104px; }
   .folder-tab  { width: 54px; height: 13px; }
 
-  /* sidebar: 70% screen height, slides up from bottom */
   .album-sidebar {
     left: 0;
     width: 100%;
@@ -506,11 +491,9 @@ body {
     border-top: 1px solid rgba(123,94,167,0.3);
   }
 
-  /* switch from horizontal strip to 2-column grid */
   .sidebar-strip {
     overflow-x: hidden;
     overflow-y: auto;
-    flex-direction: row;
     flex-wrap: wrap;
     align-items: flex-start;
     align-content: flex-start;

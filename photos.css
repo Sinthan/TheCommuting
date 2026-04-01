@@ -193,13 +193,13 @@ body {
   padding: 2rem 0;
 }
 
-/* ── BOTTOM DRAWER — half width, centered ── */
+/* ── BOTTOM DRAWER — 75% width, 50% height, centered ── */
 .album-sidebar {
   position: fixed;
   bottom: 0;
-  left: 25%;
-  width: 50%;
-  height: 260px;
+  left: 12.5%;
+  width: 75%;
+  height: 50vh;
   background: rgba(8,8,8,0.97);
   border: 1px solid rgba(123,94,167,0.3);
   border-bottom: none;
@@ -244,23 +244,25 @@ body {
 }
 
 .sidebar-close {
+  font-family: 'Doto', monospace;
   background: none;
-  border: 1px solid rgba(168,127,212,0.3);
-  color: var(--text-muted);
+  border: 1px solid rgba(74,140,92,0.4);
+  color: var(--green);
   font-size: 0.65rem;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s;
   flex-shrink: 0;
+  letter-spacing: 0;
 }
 
 .sidebar-close:hover {
-  border-color: var(--accent-bright);
-  color: var(--accent-bright);
+  border-color: var(--green);
+  background: rgba(74,140,92,0.1);
 }
 
 /* ── HORIZONTAL PHOTO STRIP ── */
@@ -282,9 +284,10 @@ body {
 
 .strip-item {
   flex-shrink: 0;
-  height: 150px;
+  height: calc(50vh - 100px);
   opacity: 0;
   animation: fadeUp 0.35s forwards;
+  cursor: pointer;
 }
 
 .strip-item img {
@@ -292,11 +295,12 @@ body {
   width: auto;
   display: block;
   border: 1px solid rgba(123,94,167,0.2);
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, transform 0.2s;
 }
 
 .strip-item img:hover {
   border-color: var(--accent-bright);
+  transform: scale(1.02);
 }
 
 /* ── DRAWER FOOTER ── */
@@ -326,6 +330,111 @@ body {
   pointer-events: all;
 }
 
+/* ── LIGHTBOX ── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(8,8,8,0.97);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.lightbox.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.lightbox-img {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border: 1px solid rgba(123,94,167,0.2);
+  display: block;
+}
+
+.lightbox-top {
+  position: absolute;
+  top: 1.6rem;
+  left: 1.8rem;
+  right: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lightbox-name {
+  font-family: 'Doto', monospace;
+  font-size: clamp(0.8rem, 2vw, 1.1rem);
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+}
+
+.lightbox-close {
+  font-family: 'Doto', monospace;
+  background: none;
+  border: 1px solid rgba(74,140,92,0.4);
+  color: var(--green);
+  font-size: 0.7rem;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.lightbox-close:hover {
+  border-color: var(--green);
+  background: rgba(74,140,92,0.1);
+}
+
+.lightbox-arrows {
+  position: absolute;
+  top: 1.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.6rem;
+}
+
+.lightbox-arrow {
+  font-family: 'Doto', monospace;
+  background: none;
+  border: 1px solid rgba(74,140,92,0.4);
+  color: var(--green);
+  font-size: 0.75rem;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0;
+}
+
+.lightbox-arrow:hover {
+  border-color: var(--green);
+  background: rgba(74,140,92,0.1);
+}
+
+.lightbox-counter {
+  position: absolute;
+  bottom: 1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.52rem;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .archive-header { padding: 2rem 1.4rem 1.2rem; }
@@ -341,7 +450,20 @@ body {
   .album-sidebar {
     left: 0;
     width: 100%;
-    border-radius: 6px 6px 0 0;
-    height: 240px;
+    height: 100vh;
+    border-radius: 0;
+    border: none;
+    border-top: 1px solid rgba(123,94,167,0.3);
   }
+
+  .strip-item { height: calc(100vh - 120px); }
+
+  .lightbox-arrows {
+    top: auto;
+    bottom: 1.4rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .lightbox-counter { bottom: 4rem; }
 }

@@ -99,24 +99,86 @@
   <!-- SIDEBAR BACKDROP -->
   <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
 
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" aria-modal="true" role="dialog">
+    <div class="lightbox-top">
+      <span class="lightbox-name" id="lightbox-name">—</span>
+      <button class="lightbox-close" id="lightbox-close" aria-label="Close">X</button>
+    </div>
+    <div class="lightbox-arrows">
+      <button class="lightbox-arrow" id="lightbox-prev" aria-label="Previous">&#8592;</button>
+      <button class="lightbox-arrow" id="lightbox-next" aria-label="Next">&#8594;</button>
+    </div>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+    <div class="lightbox-counter" id="lightbox-counter">— / —</div>
+  </div>
+
   <script>
-    const grid       = document.getElementById('album-grid');
-    const sidebar    = document.getElementById('album-sidebar');
-    const backdrop   = document.getElementById('sidebar-backdrop');
-    const sideTitle  = document.getElementById('sidebar-title');
-    const sideStrip  = document.getElementById('sidebar-strip');
-    const sideCount  = document.getElementById('sidebar-count');
-    const sideClose  = document.getElementById('sidebar-close');
-    const albumCount = document.getElementById('album-count');
-    const hamburger  = document.getElementById('hamburger');
-    const drawer     = document.getElementById('nav-drawer');
+    const grid        = document.getElementById('album-grid');
+    const sidebar     = document.getElementById('album-sidebar');
+    const backdrop    = document.getElementById('sidebar-backdrop');
+    const sideTitle   = document.getElementById('sidebar-title');
+    const sideStrip   = document.getElementById('sidebar-strip');
+    const sideCount   = document.getElementById('sidebar-count');
+    const sideClose   = document.getElementById('sidebar-close');
+    const albumCount  = document.getElementById('album-count');
+    const hamburger   = document.getElementById('hamburger');
+    const drawer      = document.getElementById('nav-drawer');
+    const lightbox    = document.getElementById('lightbox');
+    const lbImg       = document.getElementById('lightbox-img');
+    const lbName      = document.getElementById('lightbox-name');
+    const lbCounter   = document.getElementById('lightbox-counter');
+    const lbClose     = document.getElementById('lightbox-close');
+    const lbPrev      = document.getElementById('lightbox-prev');
+    const lbNext      = document.getElementById('lightbox-next');
+
+    let currentAlbum  = null;
+    let currentIndex  = 0;
 
     hamburger.addEventListener('click', () => {
       hamburger.classList.toggle('open');
       drawer.classList.toggle('open');
     });
 
+    /* ── LIGHTBOX ── */
+    function openLightbox(album, index) {
+      currentAlbum = album;
+      currentIndex = index;
+      updateLightbox();
+      lightbox.classList.add('open');
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+    }
+
+    function updateLightbox() {
+      const img = currentAlbum.images[currentIndex];
+      lbImg.src = `${currentAlbum.folder}/${img}`;
+      lbImg.alt = img;
+      lbName.textContent = img.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ').toUpperCase();
+      lbCounter.textContent = `${currentIndex + 1} / ${currentAlbum.images.length}`;
+    }
+
+    lbClose.addEventListener('click', closeLightbox);
+    lbPrev.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + currentAlbum.images.length) % currentAlbum.images.length;
+      updateLightbox();
+    });
+    lbNext.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % currentAlbum.images.length;
+      updateLightbox();
+    });
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape')       closeLightbox();
+      if (e.key === 'ArrowLeft')    lbPrev.click();
+      if (e.key === 'ArrowRight')   lbNext.click();
+    });
+
+    /* ── SIDEBAR ── */
     function openSidebar(album) {
+      currentAlbum = album;
       sideTitle.textContent = album.name;
       sideStrip.innerHTML = '';
       album.images.forEach((img, i) => {
@@ -125,8 +187,9 @@
         el.style.animationDelay = `${i * 0.06}s`;
         const image = document.createElement('img');
         image.src = `${album.folder}/${img}`;
-        image.alt = `${album.name} — ${img}`;
+        image.alt = img;
         image.loading = 'lazy';
+        image.addEventListener('click', () => openLightbox(album, i));
         el.appendChild(image);
         sideStrip.appendChild(el);
       });
@@ -144,7 +207,10 @@
 
     sideClose.addEventListener('click', closeSidebar);
     backdrop.addEventListener('click', closeSidebar);
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+    document.addEventListener('keydown', e => {
+      if (lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeSidebar();
+    });
 
     fetch('./albums.json')
       .then(r => r.json())

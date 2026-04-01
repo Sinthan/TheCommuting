@@ -1,12 +1,85 @@
 [
   {
     "id": "album-01",
-    "name": "Completed",
-    "folder": "./assets/albums/Completed",
+    "name": "Busy",
+    "quote": "",
+    "folder": "./assets/albums/Busy",
     "images": [
-      "1.png",
-      "2.png",
-      "3.png"
+      "Documenting.webp",
+      "Family Gathering.webp",
+      "Hop On and Glue.webp",
+      "Rumors.webp",
+      "Rush.webp",
+      "Small.webp",
+      "Tired.webp"
+    ]
+  },
+  {
+    "id": "album-02",
+    "name": "Darning",
+    "quote": "",
+    "folder": "./assets/albums/Darning",
+    "images": [
+      "But maybe....webp",
+      "Directions.webp",
+      "Escluse.webp",
+      "Found, maybe.webp",
+      "In this toghether.webp",
+      "Leave it be.webp",
+      "Listening.webp",
+      "Lost again in you.webp",
+      "Search again with you.webp",
+      "Search.webp",
+      "Silence.webp",
+      "View.webp",
+      "What a.webp"
+    ]
+  },
+  {
+    "id": "album-03",
+    "name": "Lost&Found",
+    "quote": "",
+    "folder": "./assets/albums/Lost&Found",
+    "images": [
+      "Catch.webp",
+      "Curiosity.webp",
+      "Flags.webp",
+      "Getin.webp",
+      "Lady.webp",
+      "Memory Lost.webp",
+      "Noview.webp",
+      "Out.webp",
+      "Sharing.webp",
+      "Walk.webp",
+      "Window.webp"
+    ]
+  },
+  {
+    "id": "album-04",
+    "name": "Neon Beings",
+    "quote": "",
+    "folder": "./assets/albums/Neon Beings",
+    "images": [
+      "Fathers corner.webp",
+      "Gnam.webp",
+      "Inner dancing.webp",
+      "Reflect.webp"
+    ]
+  },
+  {
+    "id": "album-05",
+    "name": "Spaces of Changing",
+    "quote": "",
+    "folder": "./assets/albums/Spaces of Changing",
+    "images": [
+      "AndEnjoy.webp",
+      "FindBeauty.webp",
+      "FuckOff.webp",
+      "GetBackToNothing.webp",
+      "Grow.webp",
+      "Play.webp",
+      "Rest.webp",
+      "Study.webp"
     ]
   }
 ]

@@ -159,11 +159,21 @@
           card.setAttribute('role', 'button');
           card.setAttribute('aria-label', `Open album: ${album.name}`);
 
+          // build up to 4 preview images
+          const previewImgs = album.images.slice(0, 4).map(img =>
+            `<img class="folder-preview-img" src="${album.folder}/${img}" alt="" loading="lazy" onerror="this.style.display='none'">`
+          ).join('');
+
+          const hasPreview = album.images.length > 0;
+
           card.innerHTML = `
             <div class="folder-icon">
               <div class="folder-tab"></div>
               <div class="folder-body">
-                <div class="folder-dot-grid"></div>
+                ${hasPreview
+                  ? `<div class="folder-preview">${previewImgs}</div>`
+                  : `<div class="folder-dot-grid"></div>`
+                }
                 <span class="folder-id">${String(i + 1).padStart(2, '0')}</span>
               </div>
             </div>

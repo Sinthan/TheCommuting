@@ -89,9 +89,13 @@
   <!-- SIDEBAR PANEL -->
   <div class="album-sidebar" id="album-sidebar" aria-hidden="true">
     <div class="sidebar-header">
-      <span class="sidebar-tag">FOLDER //</span>
-      <h2 class="sidebar-title" id="sidebar-title">—</h2>
-      <button class="sidebar-close" id="sidebar-close" aria-label="Close">X</button>
+      <div class="sidebar-header-top">
+        <span class="sidebar-tag">FOLDER //</span>
+        <h2 class="sidebar-title" id="sidebar-title">—</h2>
+        <button class="sidebar-close" id="sidebar-close" aria-label="Close">X</button>
+      </div>
+      <div class="sidebar-divider"></div>
+      <p class="sidebar-quote" id="sidebar-quote"></p>
     </div>
     <div class="sidebar-strip" id="sidebar-strip">
       <!-- Photos injected by JS -->
@@ -185,6 +189,7 @@
     function openSidebar(album) {
       currentAlbum = album;
       sideTitle.textContent = album.name;
+      document.getElementById('sidebar-quote').textContent = album.quote || '';
       sideStrip.innerHTML = '';
       album.images.forEach((img, i) => {
         const el = document.createElement('div');

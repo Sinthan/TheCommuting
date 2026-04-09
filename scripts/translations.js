@@ -18,12 +18,7 @@ const TRANSLATIONS = {
     heroCode:    '>_ NEXT STOP... SIN-001 // MEMORY_LOST',
     heroSubtitle: "In this imaginary train trip you just embarked, there's no clear destination, maybe just a clear start:<br>Sinthan a.k.a. Agostino Maria Cassese, will be your driver to a land of weird photos, stories from different lands and his own little wisdom from his personal carreer. Please don't put your feet on the seats unless 真有趣",
 
-    // warn strip
-    warnActive:   '⚠ SYSTEM ACTIVE',
-    warnArchive:  'ARCHIVE INITIALISED',
-    warnRoute:    'ROUTE UNRESOLVED',
-    warnSeat:     'WINDOW SEAT OCCUPIED',
-    warnSignal:   'SIGNAL WEAK',
+    // warn strip keys removed — strip is intentionally not translated
 
     // cards
     card1Number:  '01 // PHOTOS',
@@ -65,12 +60,6 @@ const TRANSLATIONS = {
     heroCode:    '>_ PROSSIMA FERMATA... SIN-001 // MEMORIA_PERSA',
     heroSubtitle: "In questo viaggio in treno immaginario che hai appena intrapreso, non c'è una destinazione chiara, forse solo un inizio chiaro:<br>Sinthan, alias Agostino Maria Cassese, sarà il tuo conducente verso un mondo di foto strane, storie da terre diverse e la sua piccola saggezza dalla sua carriera personale. Per favore non mettere i piedi sui sedili a meno che 真有趣",
 
-    warnActive:   '⚠ SISTEMA ATTIVO',
-    warnArchive:  'ARCHIVIO AVVIATO',
-    warnRoute:    'PERCORSO NON RISOLTO',
-    warnSeat:     'POSTO AL FINESTRINO OCCUPATO',
-    warnSignal:   'SEGNALE DEBOLE',
-
     card1Number:  '01 // FOTO',
     card1Title:   "L'Archivio",
     card1Desc:    'Mi piace immaginarmi su un treno alieno, fotografando paesaggi strani... dai un\'occhiata!',
@@ -107,12 +96,6 @@ const TRANSLATIONS = {
     heroEyebrow: '窗邊座位 // 某處，行進中',
     heroCode:    '>_ 下一站... SIN-001 // 記憶遺失',
     heroSubtitle: "在這趟你剛踏上的想像火車旅程中，沒有明確的目的地，也許只有一個清晰的起點：<br>Sinthan，又名 Agostino Maria Cassese，將帶領你進入一個充滿奇異照片、來自不同土地的故事，以及他個人職業生涯中的小小智慧。請勿將腳放在座椅上，除非 真有趣",
-
-    warnActive:   '⚠ 系統運作中',
-    warnArchive:  '檔案已初始化',
-    warnRoute:    '路線未確認',
-    warnSeat:     '窗邊座位已佔用',
-    warnSignal:   '信號微弱',
 
     card1Number:  '01 // 相片',
     card1Title:   '檔案庫',
@@ -178,12 +161,7 @@ const TRANSLATIONS = {
     setText('t-hero-code', t.heroCode);
     setText('t-hero-subtitle', t.heroSubtitle);
 
-    // warn strip (all spans share same content pattern)
-    ['t-warn-active','t-warn-active-2'].forEach(id => setText(id, t.warnActive));
-    ['t-warn-archive','t-warn-archive-2'].forEach(id => setText(id, t.warnArchive));
-    ['t-warn-route','t-warn-route-2'].forEach(id => setText(id, t.warnRoute));
-    ['t-warn-seat','t-warn-seat-2'].forEach(id => setText(id, t.warnSeat));
-    ['t-warn-signal','t-warn-signal-2'].forEach(id => setText(id, t.warnSignal));
+    // warn strip — NOT translated, intentionally fixed English/Chinese
 
     // cards
     setText('t-card1-number', t.card1Number);
@@ -218,25 +196,10 @@ const TRANSLATIONS = {
     });
   }
 
-  function buildSwitcher() {
-    const wrapper = document.createElement('div');
-    wrapper.className = 'lang-switcher';
-    wrapper.innerHTML = `
-      <button class="lang-btn" id="lang-btn" aria-label="Change language">
-        <span id="lang-btn-label">${LANG_LABELS[currentLang]}</span>
-        <span class="lang-btn-arrow">▾</span>
-      </button>
-      <div class="lang-dropdown" id="lang-dropdown">
-        <button class="lang-option" data-lang="en">EN — English</button>
-        <button class="lang-option" data-lang="it">IT — Italiano</button>
-        <button class="lang-option" data-lang="zh">中文 — 繁體</button>
-      </div>
-    `;
-
-    document.body.appendChild(wrapper);
-
-    const btn = wrapper.querySelector('#lang-btn');
-    const dropdown = wrapper.querySelector('#lang-dropdown');
+  function initSwitcher() {
+    const btn = document.getElementById('lang-btn');
+    const dropdown = document.getElementById('lang-dropdown');
+    if (!btn || !dropdown) return;
 
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -244,7 +207,7 @@ const TRANSLATIONS = {
       btn.classList.toggle('open');
     });
 
-    wrapper.querySelectorAll('.lang-option').forEach(opt => {
+    dropdown.querySelectorAll('.lang-option').forEach(opt => {
       opt.addEventListener('click', () => {
         applyTranslations(opt.dataset.lang);
         dropdown.classList.remove('open');
@@ -259,7 +222,7 @@ const TRANSLATIONS = {
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    buildSwitcher();
+    initSwitcher();
     applyTranslations(currentLang);
   });
 })();

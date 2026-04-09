@@ -1,19 +1,20 @@
 /* ── PHOTOS PAGE — archive layout ── */
 
-/* no background image on this page */
 body {
   background-image: none;
   background-color: var(--bg);
+  overflow: hidden;
 }
 
-/* active nav link — higher specificity, no !important */
 .nav-links .nav-active { color: var(--accent-bright); }
 .nav-links .nav-active::before { opacity: 1; }
 
-/* ── LAYOUT: fixed height viewport, inner scroll ── */
+/* ── LAYOUT ── */
 .site-wrapper {
   height: 100vh;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .archive-page {
@@ -21,31 +22,34 @@ body {
   flex-direction: column;
   flex: 1;
   min-height: 0;
+  position: relative;
 }
 
 /* ── PAGE HEADER ── */
 .archive-header {
-  padding: 2.8rem 3.5rem 1.6rem;
+  padding: 1.6rem 3.5rem 1rem;
   border-bottom: 1px solid var(--glass-border);
   flex-shrink: 0;
   background-color: var(--bg);
+  z-index: 10;
+  position: relative;
 }
 
 .archive-eyebrow {
   font-size: 0.58rem;
   letter-spacing: 0.28em;
   color: var(--accent);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
   text-transform: uppercase;
 }
 
 .archive-title {
   font-family: 'Doto', monospace;
-  font-size: clamp(1.8rem, 4vw, 3.4rem);
+  font-size: clamp(1.4rem, 3vw, 2.6rem);
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--text-primary);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.2rem;
 }
 
 .archive-sub {
@@ -55,228 +59,261 @@ body {
   opacity: 0.7;
 }
 
-/* ── ALBUM GRID (scrollable) ── */
-.album-grid {
+/* ── TRAIN CABIN SCENE (fills remaining height) ── */
+.train-scene {
   flex: 1;
-  overflow-y: auto;
+  position: relative;
+  overflow: hidden;
   min-height: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 220px);
-  gap: 4rem 3rem;
-  padding: 4rem 3.5rem 42vh;
-  justify-content: center;
-  align-content: start;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(123,94,167,0.3) transparent;
 }
 
-.album-grid::-webkit-scrollbar { width: 4px; }
-.album-grid::-webkit-scrollbar-thumb { background: rgba(123,94,167,0.3); border-radius: 2px; }
-
-/* ── ALBUM CARD ── */
-.album-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.8rem;
-  cursor: pointer;
-  opacity: 0;
-  animation: fadeUp 0.5s forwards;
-  outline: none;
-}
-
-.album-card:focus-visible .folder-body {
-  border-color: var(--accent-bright);
-  box-shadow: 0 0 0 2px var(--accent-bright);
-}
-
-/* ── TRAIN SEAT BACKGROUND LAYER ── */
+/* ── BENCH SEATS BACKGROUND ── */
 .train-seats {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 38vh;
+  height: 52%;
   z-index: 1;
   pointer-events: none;
   display: flex;
   align-items: flex-end;
-  justify-content: center;
+  padding: 0;
   gap: 0;
-  padding: 0 2rem;
-  overflow: hidden;
 }
 
-.seat-unit {
-  flex: 1;
-  max-width: 280px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+/* the full bench — one continuous piece */
+.seat-bench {
+  width: 100%;
   position: relative;
 }
 
-.seat-partial {
-  max-width: 140px;
-  overflow: hidden;
-}
-
-/* seat back — tall upright with dot matrix texture */
+/* ── SEAT BACK (tall upright panel) ── */
 .seat-back {
-  height: 26vh;
-  border-radius: 8px 8px 0 0;
-  border: 1px solid rgba(123,94,167,0.2);
-  border-bottom: none;
-  background:
-    radial-gradient(circle, rgba(123,94,167,0.18) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(123,94,167,0.08), rgba(80,60,120,0.05));
-  background-size: 10px 10px, 100% 100%;
+  width: 100%;
+  height: 30vh;
   position: relative;
-  margin: 0 3px;
+  background:
+    radial-gradient(circle, rgba(123,94,167,0.22) 1px, transparent 1px),
+    linear-gradient(to bottom,
+      rgba(60,50,90,0.18) 0%,
+      rgba(40,32,65,0.12) 60%,
+      rgba(30,24,50,0.08) 100%
+    );
+  background-size: 10px 10px, 100% 100%;
+  border-top: 2px solid rgba(123,94,167,0.3);
+  border-left: 1px solid rgba(123,94,167,0.15);
+  border-right: 1px solid rgba(123,94,167,0.15);
 }
 
-/* thin headrest strip at top of seat back */
+/* headrest strip across top */
 .seat-back::before {
   content: '';
   position: absolute;
-  top: 0; left: 10%; right: 10%;
-  height: 12px;
-  background: rgba(123,94,167,0.12);
-  border-radius: 4px 4px 0 0;
-  border: 1px solid rgba(123,94,167,0.18);
-  border-bottom: none;
+  top: -1px;
+  left: 0; right: 0;
+  height: 14px;
+  background: rgba(123,94,167,0.18);
+  border-bottom: 1px solid rgba(123,94,167,0.25);
+  background-image: radial-gradient(circle, rgba(168,127,212,0.3) 1px, transparent 1px);
+  background-size: 8px 8px;
 }
 
-/* centre divider on seat back */
+/* vertical seat dividers — suggest individual seats */
 .seat-back::after {
   content: '';
   position: absolute;
-  top: 12px; bottom: 0;
-  left: 50%; width: 1px;
-  background: rgba(123,94,167,0.12);
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent calc(16.666% - 1px),
+    rgba(123,94,167,0.12) calc(16.666% - 1px),
+    rgba(123,94,167,0.12) 16.666%
+  );
 }
 
-/* seat cushion — shorter horizontal piece */
+/* ── SEAT CUSHION (horizontal bench bottom) ── */
 .seat-cushion {
-  height: 8vh;
-  border-radius: 0 0 4px 4px;
-  border: 1px solid rgba(123,94,167,0.18);
-  border-top: 2px solid rgba(123,94,167,0.25);
+  width: 100%;
+  height: 11vh;
   background:
-    radial-gradient(circle, rgba(123,94,167,0.15) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(100,80,150,0.08), rgba(60,45,90,0.04));
+    radial-gradient(circle, rgba(123,94,167,0.2) 1px, transparent 1px),
+    linear-gradient(to bottom,
+      rgba(70,55,105,0.22) 0%,
+      rgba(45,35,75,0.14) 100%
+    );
   background-size: 10px 10px, 100% 100%;
-  margin: 0 3px;
-}
-
-/* ── TRAIN WINDOW ICON ── */
-.folder-icon {
-  width: 220px;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.2s;
-  gap: 0;
-}
-
-.album-card:hover .folder-icon { transform: translateY(-5px); }
-
-/* ── OVERHEAD LUGGAGE RACK BAR ── */
-.folder-tab {
-  width: 220px;
-  height: 7px;
-  background: linear-gradient(to bottom, rgba(80,72,65,0.7), rgba(50,45,40,0.5));
-  border-radius: 2px 2px 0 0;
-  margin: 0;
-  border: none;
-  border-bottom: 1px solid rgba(20,18,15,0.6);
-  flex-shrink: 0;
-  /* dot matrix texture on rack */
-  background-image:
-    radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(80,72,65,0.7), rgba(50,45,40,0.5));
-  background-size: 6px 6px, 100% 100%;
-}
-
-/* ── WINDOW BODY ── */
-.folder-body {
-  width: 220px;
-  height: 130px;
-  background: rgba(30,26,22,0.88);
-  border: none;
-  border-radius: 0;
+  border-top: 2px solid rgba(123,94,167,0.35);
   position: relative;
-  overflow: hidden;
-  transition: background 0.2s;
-  flex-shrink: 0;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
 }
 
-.album-card:hover .folder-body { background: rgba(38,32,28,0.9); }
-
-/* top frame bar */
-.folder-body::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 10px;
-  background: rgba(22,18,14,0.95);
-  z-index: 4;
-}
-
-/* bottom frame bar */
-.folder-body::after {
+/* cushion front edge shadow */
+.seat-cushion::after {
   content: '';
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  height: 8px;
-  background: rgba(22,18,14,0.95);
-  z-index: 4;
+  height: 6px;
+  background: rgba(0,0,0,0.35);
+  border-radius: 0 0 3px 3px;
 }
 
-/* ── TWO-PANE WINDOW ── */
+/* ── WINDOW STRIP (horizontal scrolling track) ── */
+.album-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* sits above seats, below top of scene */
+  bottom: 41%;
+  z-index: 5;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 2.5rem;
+  padding: 1rem 4rem 0;
+  overflow: hidden; /* JS handles scrolling */
+}
+
+.album-grid::-webkit-scrollbar { display: none; }
+
+/* ── ALBUM CARD ── */
+.album-card {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  outline: none;
+  /* JS drives the translateX animation */
+  transform: translateX(120vw);
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s;
+  opacity: 0;
+}
+
+.album-card.in-view {
+  opacity: 1;
+}
+
+.album-card:focus-visible .folder-body {
+  outline: 2px solid var(--accent-bright);
+}
+
+/* ── LUGGAGE RACK BAR ── */
+.folder-tab {
+  width: var(--win-w, 280px);
+  height: 8px;
+  background:
+    radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(90,80,70,0.8), rgba(55,48,42,0.6));
+  background-size: 6px 6px, 100% 100%;
+  border-radius: 2px 2px 0 0;
+  border-bottom: 1px solid rgba(20,18,14,0.7);
+  flex-shrink: 0;
+}
+
+/* ── TRAIN WINDOW (the main icon) ── */
+.folder-body {
+  --win-w: 280px;
+  --win-h: 200px;
+  width: var(--win-w);
+  height: var(--win-h);
+  background: rgba(18,14,10,0.85);
+  border: 8px solid rgba(22,18,14,0.97);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  flex-shrink: 0;
+  box-shadow:
+    0 0 0 1px rgba(168,127,212,0.2),
+    inset 0 0 40px rgba(0,0,0,0.5);
+}
+
+.album-card:hover .folder-body {
+  border-color: rgba(35,28,20,0.97);
+  box-shadow:
+    0 0 0 1px var(--accent-bright),
+    inset 0 0 40px rgba(0,0,0,0.5),
+    0 8px 32px rgba(123,94,167,0.25);
+}
+
+/* ── WINDOW IMAGE ── */
 .folder-preview {
   position: absolute;
-  top: 10px;
-  bottom: 8px;
-  left: 8px;
-  right: 8px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
-  gap: 6px;
-  border-radius: 0;
-  overflow: visible;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  border-radius: 8px;
 }
 
-/* each pane: rounded, thick frame, glass reflection overlay */
 .folder-preview-img {
-  width: 100%;
+  width: 50%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.72;
+  opacity: 0.75;
   transition: opacity 0.2s;
-  border-radius: 5px 5px 4px 4px;
-  outline: 3px solid rgba(18,15,12,0.95);
-  outline-offset: -1px;
-  position: relative;
+  display: inline-block;
+  vertical-align: top;
+}
+
+/* centre mullion between panes */
+.folder-preview::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  width: 6px;
+  transform: translateX(-50%);
+  background: rgba(18,14,10,0.97);
+  z-index: 2;
 }
 
 .album-card:hover .folder-preview-img { opacity: 0.95; }
 
-/* glass reflection — pseudo via wrapper */
-.folder-preview-img::after {
-  content: '';
+/* ── DOT MATRIX GLASS OVERLAY ── */
+.folder-glass {
   position: absolute;
   inset: 0;
-  border-radius: 5px 5px 4px 4px;
+  border-radius: 8px;
+  z-index: 3;
+  pointer-events: none;
+  /* dot matrix pattern over the glass */
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 6px 6px;
+}
+
+/* diagonal light reflection — top left streak */
+.folder-glass::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 55%;
+  height: 40%;
   background: linear-gradient(
-    160deg,
-    rgba(255,255,255,0.12) 0%,
-    rgba(255,255,255,0.04) 35%,
+    135deg,
+    rgba(255,255,255,0.10) 0%,
+    rgba(255,255,255,0.04) 40%,
+    transparent 70%
+  );
+  border-radius: 8px 0 0 0;
+}
+
+/* bottom-right ambient reflection */
+.folder-glass::after {
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 35%;
+  height: 25%;
+  background: linear-gradient(
+    315deg,
+    rgba(168,127,212,0.07) 0%,
     transparent 60%
   );
-  pointer-events: none;
-  z-index: 2;
+  border-radius: 0 0 8px 0;
 }
 
 /* dot grid fallback */
@@ -284,24 +321,23 @@ body {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle, rgba(168,127,212,0.4) 1px, transparent 1px),
-    radial-gradient(circle, rgba(168,127,212,0.2) 1px, transparent 1px);
-  background-size: 22px 22px, 11px 11px;
-  background-position: 0 0, 5px 8px;
-  opacity: 0.5;
+    radial-gradient(circle, rgba(168,127,212,0.35) 1px, transparent 1px);
+  background-size: 14px 14px;
+  opacity: 0.6;
+  border-radius: 8px;
 }
 
 /* album number */
 .folder-id {
   position: absolute;
-  bottom: 12px;
+  bottom: 10px;
   right: 12px;
   font-family: 'Doto', monospace;
-  font-size: 0.58rem;
-  color: rgba(168,127,212,0.5);
+  font-size: 0.62rem;
+  color: rgba(168,127,212,0.55);
   letter-spacing: 0.1em;
   z-index: 5;
-  text-shadow: 0 0 6px rgba(8,8,8,0.95);
+  text-shadow: 0 0 8px rgba(8,8,8,0.95);
 }
 
 .album-card:hover .folder-id { color: var(--accent-bright); }
@@ -309,11 +345,12 @@ body {
 /* ── FOLDER LABELS ── */
 .folder-name {
   font-family: 'Playfair Display', serif;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--text-primary);
   text-align: center;
   letter-spacing: 0.02em;
   transition: color 0.2s;
+  z-index: 6;
 }
 
 .album-card:hover .folder-name { color: var(--accent-bright); }
@@ -323,15 +360,50 @@ body {
   letter-spacing: 0.18em;
   color: var(--text-muted);
   text-transform: uppercase;
+  z-index: 6;
 }
 
 /* ── ERROR STATE ── */
 .archive-error {
-  grid-column: 1 / -1;
   font-size: 0.7rem;
   color: rgba(192,57,43,0.7);
   letter-spacing: 0.12em;
-  padding: 2rem 0;
+  padding: 2rem;
+  z-index: 6;
+}
+
+/* ── SCROLL HINT ARROWS ── */
+.scroll-arrows {
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+
+.scroll-arrow {
+  font-family: 'Doto', monospace;
+  background: none;
+  border: 1px solid rgba(74,140,92,0.4);
+  color: var(--green);
+  font-size: 0.8rem;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: all;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.scroll-arrow:hover {
+  border-color: var(--green);
+  background: rgba(74,140,92,0.1);
 }
 
 /* ── BOTTOM DRAWER ── */
@@ -354,7 +426,6 @@ body {
 
 .album-sidebar.open { transform: translateY(0); }
 
-/* ── DRAWER HEADER ── */
 .sidebar-header {
   padding: 0.85rem 1.4rem 0;
   flex-shrink: 0;
@@ -433,7 +504,6 @@ body {
   flex-shrink: 0;
 }
 
-/* ── HORIZONTAL PHOTO STRIP ── */
 .sidebar-strip {
   flex: 1;
   overflow-x: auto;
@@ -471,7 +541,6 @@ body {
   transform: scale(1.02);
 }
 
-/* ── DRAWER FOOTER ── */
 .sidebar-footer {
   padding: 0.35rem 1.4rem;
   border-top: 1px solid rgba(123,94,167,0.15);
@@ -482,7 +551,6 @@ body {
   flex-shrink: 0;
 }
 
-/* ── BACKDROP ── */
 .sidebar-backdrop {
   position: fixed;
   inset: 0;
@@ -512,10 +580,7 @@ body {
   transition: opacity 0.3s;
 }
 
-.lightbox.open {
-  opacity: 1;
-  pointer-events: all;
-}
+.lightbox.open { opacity: 1; pointer-events: all; }
 
 .lightbox-img {
   max-width: 90vw;
@@ -557,10 +622,7 @@ body {
   transition: border-color 0.2s, background 0.2s;
 }
 
-.lightbox-close:hover {
-  border-color: var(--green);
-  background: rgba(74,140,92,0.1);
-}
+.lightbox-close:hover { border-color: var(--green); background: rgba(74,140,92,0.1); }
 
 .lightbox-arrows {
   position: absolute;
@@ -587,10 +649,7 @@ body {
   letter-spacing: 0;
 }
 
-.lightbox-arrow:hover {
-  border-color: var(--green);
-  background: rgba(74,140,92,0.1);
-}
+.lightbox-arrow:hover { border-color: var(--green); background: rgba(74,140,92,0.1); }
 
 .lightbox-counter {
   position: absolute;
@@ -605,59 +664,27 @@ body {
 
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
-  .archive-header { padding: 1.6rem 1.4rem 1rem; }
+  .archive-header { padding: 1.2rem 1.4rem 0.8rem; }
 
-  .album-grid {
-    grid-template-columns: repeat(2, 140px);
-    gap: 2.4rem 1.6rem;
-    padding: 2rem 1rem;
+  .folder-body {
+    --win-w: 200px;
+    --win-h: 150px;
+    width: 200px;
+    height: 150px;
   }
+  .folder-tab { width: 200px; }
 
-  .folder-icon { width: 140px; }
-  .folder-body { width: 140px; height: 84px; }
-  .folder-tab  { width: 140px; height: 5px; }
+  .seat-back  { height: 22vh; }
+  .seat-cushion { height: 8vh; }
+  .train-seats { height: 44%; }
+  .album-grid { bottom: 34%; padding: 0.5rem 1.5rem 0; gap: 1.5rem; }
 
-  .train-seats { height: 28vh; gap: 0; padding: 0 0.5rem; }
-  .seat-back   { height: 20vh; }
-  .seat-cushion { height: 6vh; }
+  .album-sidebar { left: 0; width: 100%; height: 70vh; border-radius: 10px 10px 0 0; border: none; border-top: 1px solid rgba(123,94,167,0.3); }
 
-  .album-sidebar {
-    left: 0;
-    width: 100%;
-    height: 70vh;
-    border-radius: 10px 10px 0 0;
-    border: none;
-    border-top: 1px solid rgba(123,94,167,0.3);
-  }
+  .sidebar-strip { overflow-x: hidden; overflow-y: auto; flex-wrap: wrap; align-items: flex-start; align-content: flex-start; padding: 0.8rem; gap: 0.5rem; }
+  .strip-item { width: calc(50% - 0.25rem); height: auto; }
+  .strip-item img { width: 100%; height: 110px; object-fit: cover; }
 
-  .sidebar-strip {
-    overflow-x: hidden;
-    overflow-y: auto;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    align-content: flex-start;
-    padding: 0.8rem;
-    gap: 0.5rem;
-  }
-
-  .strip-item {
-    width: calc(50% - 0.25rem);
-    height: auto;
-    flex-shrink: 0;
-  }
-
-  .strip-item img {
-    width: 100%;
-    height: 110px;
-    object-fit: cover;
-  }
-
-  .lightbox-arrows {
-    top: auto;
-    bottom: 1.4rem;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
+  .lightbox-arrows { top: auto; bottom: 1.4rem; left: 50%; transform: translateX(-50%); }
   .lightbox-counter { bottom: 4rem; }
 }

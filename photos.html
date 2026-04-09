@@ -15,27 +15,6 @@
   <div class="scanlines"></div>
   <div class="window-frame"></div>
 
-  <!-- TRAIN SEAT BACKGROUND (visible on archive page) -->
-  <div class="train-seats" aria-hidden="true">
-    <!-- three seat units facing the viewer -->
-    <div class="seat-unit">
-      <div class="seat-back"></div>
-      <div class="seat-cushion"></div>
-    </div>
-    <div class="seat-unit">
-      <div class="seat-back"></div>
-      <div class="seat-cushion"></div>
-    </div>
-    <div class="seat-unit">
-      <div class="seat-back"></div>
-      <div class="seat-cushion"></div>
-    </div>
-    <div class="seat-unit seat-partial">
-      <div class="seat-back"></div>
-      <div class="seat-cushion"></div>
-    </div>
-  </div>
-
   <div class="site-wrapper">
 
     <!-- SYSTEM BAR -->
@@ -91,36 +70,53 @@
       <a href="#" id="t-nav-about-m">About</a>
     </div>
 
-    <!-- ARCHIVE PAGE WRAPPER -->
+    <!-- ARCHIVE PAGE -->
     <div class="archive-page">
 
-      <!-- PAGE HEADER (sticky) -->
+      <!-- HEADER -->
       <div class="archive-header">
         <p class="archive-eyebrow" id="t-archive-eyebrow">01 // PHOTOS</p>
         <h1 class="archive-title" id="t-archive-title">THE ARCHIVE</h1>
-        <p class="archive-sub" id="t-archive-sub">&gt;_ SELECT FOLDER TO LOAD CONTENTS</p>
+        <p class="archive-sub" id="t-archive-sub">&gt;_ SELECT A WINDOW TO OPEN THE ALBUM</p>
       </div>
 
-      <!-- ALBUM GRID (scrollable) -->
-      <main class="album-grid" id="album-grid">
-        <!-- Populated by JS from scripts/albums.json -->
-      </main>
+      <!-- TRAIN SCENE -->
+      <div class="train-scene">
+
+        <!-- WINDOW STRIP (horizontal, JS-animated) -->
+        <main class="album-grid" id="album-grid"></main>
+
+        <!-- NAV ARROWS -->
+        <div class="scroll-arrows">
+          <button class="scroll-arrow" id="arrow-prev" aria-label="Previous">&#8592;</button>
+          <button class="scroll-arrow" id="arrow-next" aria-label="Next">&#8594;</button>
+        </div>
+
+        <!-- BENCH SEATS BACKGROUND -->
+        <div class="train-seats" aria-hidden="true">
+          <div class="seat-bench">
+            <div class="seat-back"></div>
+            <div class="seat-cushion"></div>
+          </div>
+        </div>
+
+      </div><!-- end train-scene -->
+
+      <!-- STATUS BAR -->
+      <div class="status-bar">
+        <div class="status-left">
+          <span><span class="status-dot"></span><span id="t-archive-loaded">Archive loaded</span></span>
+          <span id="album-count">— albums</span>
+          <span id="t-status-conn">CONN // UNSTABLE</span>
+        </div>
+        <span class="status-right" id="t-status-copyright">&copy; The Commuting — All rights reserved</span>
+      </div>
 
     </div><!-- end archive-page -->
 
-    <!-- STATUS BAR -->
-    <div class="status-bar">
-      <div class="status-left">
-        <span><span class="status-dot"></span><span id="t-archive-loaded">Archive loaded</span></span>
-        <span id="album-count">— albums</span>
-        <span id="t-status-conn">CONN // UNSTABLE</span>
-      </div>
-      <span class="status-right" id="t-status-copyright">&copy; The Commuting — All rights reserved</span>
-    </div>
-
   </div>
 
-  <!-- SIDEBAR PANEL -->
+  <!-- SIDEBAR -->
   <div class="album-sidebar" id="album-sidebar" aria-hidden="true">
     <div class="sidebar-header">
       <div class="sidebar-header-top">
@@ -129,17 +125,17 @@
         <button class="sidebar-close" id="sidebar-close" aria-label="Close">X</button>
       </div>
       <hr class="sidebar-divider">
-      <p class="sidebar-quote" id="sidebar-quote"><span class="sidebar-quote-prefix">&gt;_</span> <span id="sidebar-quote-text"></span></p>
+      <p class="sidebar-quote" id="sidebar-quote">
+        <span class="sidebar-quote-prefix">&gt;_</span>
+        <span id="sidebar-quote-text"></span>
+      </p>
     </div>
-    <div class="sidebar-strip" id="sidebar-strip">
-      <!-- Photos injected by JS -->
-    </div>
+    <div class="sidebar-strip" id="sidebar-strip"></div>
     <div class="sidebar-footer">
       <span id="sidebar-count">— images</span>
     </div>
   </div>
 
-  <!-- SIDEBAR BACKDROP -->
   <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
 
   <!-- LIGHTBOX -->
@@ -157,30 +153,68 @@
   </div>
 
   <script>
-    const grid        = document.getElementById('album-grid');
-    const sidebar     = document.getElementById('album-sidebar');
-    const backdrop    = document.getElementById('sidebar-backdrop');
-    const sideTitle   = document.getElementById('sidebar-title');
-    const sideStrip   = document.getElementById('sidebar-strip');
-    const sideCount   = document.getElementById('sidebar-count');
-    const sideClose   = document.getElementById('sidebar-close');
-    const albumCount  = document.getElementById('album-count');
-    const hamburger   = document.getElementById('hamburger');
-    const drawer      = document.getElementById('nav-drawer');
-    const lightbox    = document.getElementById('lightbox');
-    const lbImg       = document.getElementById('lightbox-img');
-    const lbName      = document.getElementById('lightbox-name');
-    const lbCounter   = document.getElementById('lightbox-counter');
-    const lbClose     = document.getElementById('lightbox-close');
-    const lbPrev      = document.getElementById('lightbox-prev');
-    const lbNext      = document.getElementById('lightbox-next');
+    const grid       = document.getElementById('album-grid');
+    const sidebar    = document.getElementById('album-sidebar');
+    const backdrop   = document.getElementById('sidebar-backdrop');
+    const sideTitle  = document.getElementById('sidebar-title');
+    const sideStrip  = document.getElementById('sidebar-strip');
+    const sideCount  = document.getElementById('sidebar-count');
+    const sideClose  = document.getElementById('sidebar-close');
+    const albumCount = document.getElementById('album-count');
+    const hamburger  = document.getElementById('hamburger');
+    const drawer     = document.getElementById('nav-drawer');
+    const lightbox   = document.getElementById('lightbox');
+    const lbImg      = document.getElementById('lightbox-img');
+    const lbName     = document.getElementById('lightbox-name');
+    const lbCounter  = document.getElementById('lightbox-counter');
+    const lbClose    = document.getElementById('lightbox-close');
+    const lbPrev     = document.getElementById('lightbox-prev');
+    const lbNext     = document.getElementById('lightbox-next');
+    const arrowPrev  = document.getElementById('arrow-prev');
+    const arrowNext  = document.getElementById('arrow-next');
 
     let currentAlbum = null;
     let currentIndex = 0;
+    let cards        = [];
+    let currentCard  = 0;
 
     hamburger.addEventListener('click', () => {
       hamburger.classList.toggle('open');
       drawer.classList.toggle('open');
+    });
+
+    /* ── HORIZONTAL TRAIN SCROLL ── */
+    function showCard(index) {
+      if (!cards.length) return;
+      index = Math.max(0, Math.min(index, cards.length - 1));
+      currentCard = index;
+
+      cards.forEach((card, i) => {
+        const offset = (i - index) * 110; // vw percent spacing
+        card.style.transform = `translateX(${offset}vw)`;
+        card.style.opacity   = i === index ? '1' : i === index - 1 || i === index + 1 ? '0.4' : '0';
+        card.classList.add('in-view');
+      });
+
+      arrowPrev.style.opacity = index === 0 ? '0.3' : '1';
+      arrowNext.style.opacity = index === cards.length - 1 ? '0.3' : '1';
+    }
+
+    arrowNext.addEventListener('click', () => showCard(currentCard + 1));
+    arrowPrev.addEventListener('click', () => showCard(currentCard - 1));
+
+    document.addEventListener('keydown', e => {
+      if (sidebar.classList.contains('open') || lightbox.classList.contains('open')) return;
+      if (e.key === 'ArrowRight') showCard(currentCard + 1);
+      if (e.key === 'ArrowLeft')  showCard(currentCard - 1);
+    });
+
+    /* swipe support */
+    let touchStartX = 0;
+    document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    document.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 50) dx < 0 ? showCard(currentCard + 1) : showCard(currentCard - 1);
     });
 
     /* ── LIGHTBOX ── */
@@ -191,9 +225,7 @@
       lightbox.classList.add('open');
     }
 
-    function closeLightbox() {
-      lightbox.classList.remove('open');
-    }
+    function closeLightbox() { lightbox.classList.remove('open'); }
 
     function updateLightbox() {
       const img = currentAlbum.images[currentIndex];
@@ -236,7 +268,7 @@
           image.src = `${album.folder}/${img}`;
           image.alt = img;
           image.loading = 'lazy';
-          image.width = 200;  /* prevents layout shift (CLS) */
+          image.width = 200;
           image.height = 150;
           image.addEventListener('click', () => openLightbox(album, i));
           el.appendChild(image);
@@ -272,27 +304,24 @@
         albums.forEach((album, i) => {
           const card = document.createElement('div');
           card.className = 'album-card';
-          card.style.animationDelay = `${i * 0.07}s`;
           card.setAttribute('tabindex', '0');
           card.setAttribute('role', 'button');
           card.setAttribute('aria-label', `Open album: ${album.name}`);
 
-          // previews load from thumbs/ subfolder — small files only
           const thumbFolder = `${album.folder}/thumbs`;
           const previewImgs = album.images.slice(0, 2).map(img =>
-            `<img class="folder-preview-img" src="${thumbFolder}/${img}" alt="" loading="lazy" width="80" height="110" onerror="this.src='${album.folder}/${img}'">`
+            `<img class="folder-preview-img" src="${thumbFolder}/${img}" alt="" loading="lazy" width="140" height="200" onerror="this.src='${album.folder}/${img}'">`
           ).join('');
 
           card.innerHTML = `
-            <div class="folder-icon">
-              <div class="folder-tab"></div>
-              <div class="folder-body">
-                ${album.images.length > 0
-                  ? `<div class="folder-preview">${previewImgs}</div>`
-                  : `<div class="folder-dot-grid"></div>`
-                }
-                <span class="folder-id">${String(i + 1).padStart(2, '0')}</span>
-              </div>
+            <div class="folder-tab"></div>
+            <div class="folder-body">
+              ${album.images.length > 0
+                ? `<div class="folder-preview">${previewImgs}</div>`
+                : `<div class="folder-dot-grid"></div>`
+              }
+              <div class="folder-glass"></div>
+              <span class="folder-id">${String(i + 1).padStart(2, '0')}</span>
             </div>
             <span class="folder-name">${album.name}</span>
             <span class="folder-count">${album.images.length} imgs</span>
@@ -302,8 +331,13 @@
           card.addEventListener('keydown', e => {
             if (e.key === 'Enter' || e.key === ' ') openSidebar(album);
           });
+
           grid.appendChild(card);
+          cards.push(card);
         });
+
+        // initialise — first card centred, rest off-screen right
+        showCard(0);
       })
       .catch(err => {
         console.error('Failed to load albums.json:', err);

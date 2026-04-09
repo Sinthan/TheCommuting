@@ -256,8 +256,10 @@
           card.setAttribute('role', 'button');
           card.setAttribute('aria-label', `Open album: ${album.name}`);
 
-          const previewImgs = album.images.slice(0, 3).map(img =>
-            `<img class="folder-preview-img" src="${album.folder}/${img}" alt="" loading="lazy" width="80" height="110" onerror="this.style.display='none'">`
+          // previews load from thumbs/ subfolder — small files only
+          const thumbFolder = `${album.folder}/thumbs`;
+          const previewImgs = album.images.slice(0, 2).map(img =>
+            `<img class="folder-preview-img" src="${thumbFolder}/${img}" alt="" loading="lazy" width="80" height="110" onerror="this.src='${album.folder}/${img}'">`
           ).join('');
 
           card.innerHTML = `

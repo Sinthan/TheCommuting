@@ -6,7 +6,6 @@
   <title>The Commuting</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- display=swap: prevents invisible text while fonts load -->
   <link href="https://fonts.googleapis.com/css2?family=Doto:ROND,wght@1,700&family=Share+Tech+Mono&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style/style.css">
 </head>
@@ -33,25 +32,24 @@
     <div class="sys-bar">
       <div class="sys-bar-left">
         <span class="sys-tag">SYS:ONLINE</span>
-        <span>UNIT // SIN-001</span>
-        <span>LOC // UNRESOLVED</span>
+        <span id="t-sys-unit">UNIT // SIN-001</span>
+        <span id="t-sys-loc">LOC // UNRESOLVED</span>
       </div>
-      <span>通勤 &mdash; IN TRANSIT</span>
+      <span>通勤 &mdash; <span id="t-sys-status">IN TRANSIT</span></span>
     </div>
 
     <!-- NAV -->
     <nav>
-      <!-- Fix: href="#" avoids full page reload when on homepage -->
       <a href="#" class="nav-logo">
         <span class="nav-logo-bracket">[</span>
         The <span class="nav-logo-title">Commuting</span>
         <span class="nav-logo-bracket">]</span>
       </a>
       <ul class="nav-links">
-        <li><a href="./photos.html">Photos</a></li>
-        <li><a href="#">Stories</a></li>
-        <li><a href="#">Tech</a></li>
-        <li><a href="#">About</a></li>
+        <li><a href="./photos.html" id="t-nav-photos">Photos</a></li>
+        <li><a href="#" id="t-nav-stories">Stories</a></li>
+        <li><a href="#" id="t-nav-tech">Tech</a></li>
+        <li><a href="#" id="t-nav-about">About</a></li>
       </ul>
       <button class="hamburger" id="hamburger" aria-label="Menu">
         <div class="hamburger-bars">
@@ -64,20 +62,20 @@
 
     <!-- MOBILE DRAWER -->
     <div class="nav-drawer" id="nav-drawer">
-      <a href="./photos.html">Photos</a>
-      <a href="#">Stories</a>
-      <a href="#">Tech</a>
-      <a href="#">About</a>
+      <a href="./photos.html" id="t-nav-photos-m">Photos</a>
+      <a href="#" id="t-nav-stories-m">Stories</a>
+      <a href="#" id="t-nav-tech-m">Tech</a>
+      <a href="#" id="t-nav-about-m">About</a>
     </div>
 
     <!-- HERO -->
     <section class="hero">
       <div class="hero-jp">通勤 — 窗邊座位 — 移動中</div>
-      <p class="hero-eyebrow">Window seat // somewhere, in transit</p>
+      <p class="hero-eyebrow" id="t-hero-eyebrow">Window seat // somewhere, in transit</p>
       <h1 class="hero-title">WELCOME <em>ABOARD</em>,<br>FEEL FREE TO EXPLORE</h1>
-      <p class="hero-code">&gt;_ NEXT STOP... SIN-001 // MEMORY_LOST</p>
-      <p class="hero-subtitle">
-        In this bus you just landed on, there's no clear destination, maybe just a clear start:<br>
+      <p class="hero-code" id="t-hero-code">&gt;_ NEXT STOP... SIN-001 // MEMORY_LOST</p>
+      <p class="hero-subtitle" id="t-hero-subtitle">
+        In this imaginary train trip you just embarked, there's no clear destination, maybe just a clear start:<br>
         Sinthan a.k.a. Agostino Maria Cassese, will be your driver to a land of weird photos,
         stories from different lands and his own little wisdom from his personal carreer.
         Please don't put your feet on the seats unless 真有趣
@@ -87,17 +85,17 @@
     <!-- WARNING MARQUEE -->
     <div class="warn-strip">
       <div class="warn-strip-inner">
-        <span>&#9888; SYSTEM ACTIVE</span>
-        <span>ARCHIVE INITIALISED</span>
-        <span>ROUTE UNRESOLVED</span>
-        <span>WINDOW SEAT OCCUPIED</span>
-        <span>SIGNAL WEAK</span>
+        <span id="t-warn-active">⚠ SYSTEM ACTIVE</span>
+        <span id="t-warn-archive">ARCHIVE INITIALISED</span>
+        <span id="t-warn-route">ROUTE UNRESOLVED</span>
+        <span id="t-warn-seat">WINDOW SEAT OCCUPIED</span>
+        <span id="t-warn-signal">SIGNAL WEAK</span>
         <span>通勤系統啟動中</span>
-        <span>&#9888; SYSTEM ACTIVE</span>
-        <span>ARCHIVE INITIALISED</span>
-        <span>ROUTE UNRESOLVED</span>
-        <span>WINDOW SEAT OCCUPIED</span>
-        <span>SIGNAL WEAK</span>
+        <span id="t-warn-active-2">⚠ SYSTEM ACTIVE</span>
+        <span id="t-warn-archive-2">ARCHIVE INITIALISED</span>
+        <span id="t-warn-route-2">ROUTE UNRESOLVED</span>
+        <span id="t-warn-seat-2">WINDOW SEAT OCCUPIED</span>
+        <span id="t-warn-signal-2">SIGNAL WEAK</span>
         <span>通勤系統啟動中</span>
       </div>
     </div>
@@ -106,23 +104,23 @@
     <div class="cards">
       <div class="card" onclick="location.href='./photos.html'">
         <span class="card-kaomoji">( > ᴗ• )</span>
-        <div class="card-number">01 // PHOTOS</div>
-        <div class="card-title">The Archive</div>
-        <p class="card-desc">I like to imagine myself in an alien bus, taking photos of weird landscapes... take a peak!</p>
+        <div class="card-number" id="t-card1-number">01 // PHOTOS</div>
+        <div class="card-title" id="t-card1-title">The Archive</div>
+        <p class="card-desc" id="t-card1-desc">I like to imagine myself in an alien train, taking photos of weird landscapes... take a peak!</p>
         <span class="card-arrow">→ ENTER</span>
       </div>
       <div class="card">
         <span class="card-kaomoji">( ;´ - `;)</span>
-        <div class="card-number">02 // STORIES</div>
-        <div class="card-title">Field Notes</div>
-        <p class="card-desc">I write and I write too much, you can find some of that, here.</p>
+        <div class="card-number" id="t-card2-number">02 // STORIES</div>
+        <div class="card-title" id="t-card2-title">Field Notes</div>
+        <p class="card-desc" id="t-card2-desc">I write and I write too much, you can find some of that, here.</p>
         <span class="card-arrow">→ ENTER</span>
       </div>
       <div class="card">
         <span class="card-kaomoji">(ㆆ_ㆆ)</span>
-        <div class="card-number">03 // TECH</div>
-        <div class="card-title">A Working Life</div>
-        <p class="card-desc">Professional carreer, passions and dedication in the previous stops of my life.</p>
+        <div class="card-number" id="t-card3-number">03 // TECH</div>
+        <div class="card-title" id="t-card3-title">A Working Life</div>
+        <p class="card-desc" id="t-card3-desc">Professional carreer, passions and dedication in the previous stops of my life.</p>
         <span class="card-arrow">→ ENTER</span>
       </div>
     </div>
@@ -130,11 +128,11 @@
     <!-- STATUS BAR -->
     <div class="status-bar">
       <div class="status-left">
-        <span><span class="status-dot"></span>In transit</span>
-        <span>PWR // 100%</span>
-        <span>CONN // UNSTABLE</span>
+        <span><span class="status-dot"></span><span id="t-status-transit">In transit</span></span>
+        <span id="t-status-pwr">PWR // 100%</span>
+        <span id="t-status-conn">CONN // UNSTABLE</span>
       </div>
-      <span class="status-right">&copy; The Commuting — All rights reserved</span>
+      <span class="status-right" id="t-status-copyright">&copy; The Commuting — All rights reserved</span>
     </div>
 
   </div>
@@ -147,6 +145,7 @@
       drawer.classList.toggle('open');
     });
   </script>
+  <script src="./scripts/translations.js"></script>
 
 </body>
 </html>

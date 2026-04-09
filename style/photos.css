@@ -90,7 +90,7 @@ body {
   box-shadow: 0 0 0 2px var(--accent-bright);
 }
 
-/* ── FOLDER ICON ── */
+/* ── TRAIN WINDOW ICON ── */
 .folder-icon {
   width: 220px;
   display: flex;
@@ -100,30 +100,60 @@ body {
 
 .album-card:hover .folder-icon { transform: translateY(-6px); }
 
+/* the "tab" becomes a small overhead luggage rack bar */
 .folder-tab {
-  width: 80px;
-  height: 18px;
-  border: 1px solid rgba(168,127,212,0.5);
+  width: 160px;
+  height: 8px;
+  border: 1px solid rgba(168,127,212,0.3);
   border-bottom: none;
-  border-radius: 5px 5px 0 0;
-  background: rgba(123,94,167,0.12);
-  margin-left: 10px;
+  border-radius: 2px 2px 0 0;
+  background: rgba(123,94,167,0.08);
+  margin-left: 30px;
 }
 
+/* the window body: thick rounded frame like a train window */
 .folder-body {
   width: 220px;
   height: 160px;
-  border: 1px solid rgba(168,127,212,0.45);
-  border-radius: 2px 10px 10px 10px;
-  background: rgba(123,94,167,0.06);
+  border: 6px solid rgba(168,127,212,0.45);
+  border-radius: 18px;
+  background: rgba(8,8,8,0.7);
   position: relative;
   overflow: hidden;
   transition: border-color 0.2s, background 0.2s;
+  box-shadow:
+    inset 0 0 30px rgba(0,0,0,0.6),
+    0 2px 12px rgba(0,0,0,0.5);
 }
 
 .album-card:hover .folder-body {
   border-color: var(--accent-bright);
-  background: rgba(123,94,167,0.12);
+  background: rgba(20,10,35,0.75);
+}
+
+/* inner window reflection — thin highlight at top like glass */
+.folder-body::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.12), transparent);
+  border-radius: 2px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* side frame grooves */
+.folder-body::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(168,127,212,0.12);
+  border-radius: 12px;
+  pointer-events: none;
+  z-index: 2;
 }
 
 /* ── 2×2 PREVIEW GRID ── */
@@ -148,24 +178,27 @@ body {
 
 .album-card:hover .folder-preview-img { opacity: 1; }
 
-/* dot grid fallback */
+/* dot grid fallback — distant lights seen through window at night */
 .folder-dot-grid {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle, rgba(168,127,212,0.25) 1px, transparent 1px);
-  background-size: 8px 8px;
-  opacity: 0.6;
+  background:
+    radial-gradient(circle, rgba(168,127,212,0.4) 1px, transparent 1px),
+    radial-gradient(circle, rgba(168,127,212,0.2) 1px, transparent 1px);
+  background-size: 22px 22px, 11px 11px;
+  background-position: 0 0, 5px 8px;
+  opacity: 0.5;
 }
 
 .folder-id {
   position: absolute;
-  bottom: 5px;
-  right: 7px;
+  bottom: 8px;
+  right: 10px;
   font-family: 'Doto', monospace;
   font-size: 0.6rem;
-  color: rgba(168,127,212,0.55);
+  color: rgba(168,127,212,0.6);
   letter-spacing: 0.1em;
-  z-index: 1;
+  z-index: 3;
   text-shadow: 0 0 6px rgba(8,8,8,0.95);
 }
 
@@ -479,8 +512,8 @@ body {
   }
 
   .folder-icon { width: 140px; }
-  .folder-body { width: 140px; height: 104px; }
-  .folder-tab  { width: 54px; height: 13px; }
+  .folder-body { width: 140px; height: 104px; border-radius: 12px; border-width: 5px; }
+  .folder-tab  { width: 100px; height: 6px; margin-left: 20px; }
 
   .album-sidebar {
     left: 0;

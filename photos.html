@@ -15,6 +15,27 @@
   <div class="scanlines"></div>
   <div class="window-frame"></div>
 
+  <!-- TRAIN SEAT BACKGROUND (visible on archive page) -->
+  <div class="train-seats" aria-hidden="true">
+    <!-- three seat units facing the viewer -->
+    <div class="seat-unit">
+      <div class="seat-back"></div>
+      <div class="seat-cushion"></div>
+    </div>
+    <div class="seat-unit">
+      <div class="seat-back"></div>
+      <div class="seat-cushion"></div>
+    </div>
+    <div class="seat-unit">
+      <div class="seat-back"></div>
+      <div class="seat-cushion"></div>
+    </div>
+    <div class="seat-unit seat-partial">
+      <div class="seat-back"></div>
+      <div class="seat-cushion"></div>
+    </div>
+  </div>
+
   <div class="site-wrapper">
 
     <!-- SYSTEM BAR -->
@@ -272,8 +293,6 @@
                 }
                 <span class="folder-id">${String(i + 1).padStart(2, '0')}</span>
               </div>
-              <div class="folder-panel"></div>
-              <div class="folder-seat"></div>
             </div>
             <span class="folder-name">${album.name}</span>
             <span class="folder-count">${album.images.length} imgs</span>

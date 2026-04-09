@@ -63,7 +63,7 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 220px);
   gap: 4rem 3rem;
-  padding: 4rem 3.5rem;
+  padding: 4rem 3.5rem 42vh;
   justify-content: center;
   align-content: start;
   scrollbar-width: thin;
@@ -90,6 +90,85 @@ body {
   box-shadow: 0 0 0 2px var(--accent-bright);
 }
 
+/* ── TRAIN SEAT BACKGROUND LAYER ── */
+.train-seats {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 38vh;
+  z-index: 1;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0;
+  padding: 0 2rem;
+  overflow: hidden;
+}
+
+.seat-unit {
+  flex: 1;
+  max-width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: relative;
+}
+
+.seat-partial {
+  max-width: 140px;
+  overflow: hidden;
+}
+
+/* seat back — tall upright with dot matrix texture */
+.seat-back {
+  height: 26vh;
+  border-radius: 8px 8px 0 0;
+  border: 1px solid rgba(123,94,167,0.2);
+  border-bottom: none;
+  background:
+    radial-gradient(circle, rgba(123,94,167,0.18) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(123,94,167,0.08), rgba(80,60,120,0.05));
+  background-size: 10px 10px, 100% 100%;
+  position: relative;
+  margin: 0 3px;
+}
+
+/* thin headrest strip at top of seat back */
+.seat-back::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 12px;
+  background: rgba(123,94,167,0.12);
+  border-radius: 4px 4px 0 0;
+  border: 1px solid rgba(123,94,167,0.18);
+  border-bottom: none;
+}
+
+/* centre divider on seat back */
+.seat-back::after {
+  content: '';
+  position: absolute;
+  top: 12px; bottom: 0;
+  left: 50%; width: 1px;
+  background: rgba(123,94,167,0.12);
+}
+
+/* seat cushion — shorter horizontal piece */
+.seat-cushion {
+  height: 8vh;
+  border-radius: 0 0 4px 4px;
+  border: 1px solid rgba(123,94,167,0.18);
+  border-top: 2px solid rgba(123,94,167,0.25);
+  background:
+    radial-gradient(circle, rgba(123,94,167,0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(100,80,150,0.08), rgba(60,45,90,0.04));
+  background-size: 10px 10px, 100% 100%;
+  margin: 0 3px;
+}
+
 /* ── TRAIN WINDOW ICON ── */
 .folder-icon {
   width: 220px;
@@ -101,61 +180,60 @@ body {
 
 .album-card:hover .folder-icon { transform: translateY(-5px); }
 
-/* ── OVERHEAD BAR (luggage rack suggestion) ── */
+/* ── OVERHEAD LUGGAGE RACK BAR ── */
 .folder-tab {
   width: 220px;
-  height: 6px;
-  background: linear-gradient(to bottom, rgba(100,90,80,0.5), rgba(60,55,50,0.3));
+  height: 7px;
+  background: linear-gradient(to bottom, rgba(80,72,65,0.7), rgba(50,45,40,0.5));
   border-radius: 2px 2px 0 0;
   margin: 0;
   border: none;
+  border-bottom: 1px solid rgba(20,18,15,0.6);
   flex-shrink: 0;
+  /* dot matrix texture on rack */
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(80,72,65,0.7), rgba(50,45,40,0.5));
+  background-size: 6px 6px, 100% 100%;
 }
 
-/* ── WINDOW UNIT (wall + 3 panes) ── */
+/* ── WINDOW BODY ── */
 .folder-body {
   width: 220px;
   height: 130px;
-  background: rgba(45,40,35,0.85); /* train wall colour */
+  background: rgba(30,26,22,0.88);
   border: none;
   border-radius: 0;
   position: relative;
   overflow: hidden;
   transition: background 0.2s;
   flex-shrink: 0;
-  /* outer wall texture */
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
 }
 
-.album-card:hover .folder-body {
-  background: rgba(55,48,42,0.9);
-}
+.album-card:hover .folder-body { background: rgba(38,32,28,0.9); }
 
-/* The three panes are rendered via the folder-preview structure.
-   We override it below for the train window layout.
-   The ::before and ::after add frame elements */
-
-/* top frame bar above all panes */
+/* top frame bar */
 .folder-body::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 10px;
-  background: rgba(30,26,22,0.9);
+  background: rgba(22,18,14,0.95);
   z-index: 4;
 }
 
-/* bottom frame bar below all panes */
+/* bottom frame bar */
 .folder-body::after {
   content: '';
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: 8px;
-  background: rgba(30,26,22,0.9);
+  background: rgba(22,18,14,0.95);
   z-index: 4;
 }
 
-/* ── THREE-PANE WINDOW LAYOUT ── */
+/* ── TWO-PANE WINDOW ── */
 .folder-preview {
   position: absolute;
   top: 10px;
@@ -163,7 +241,6 @@ body {
   left: 8px;
   right: 8px;
   display: grid;
-  /* two equal panes side by side */
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
   gap: 6px;
@@ -171,23 +248,38 @@ body {
   overflow: visible;
 }
 
-/* each pane gets a frame and rounded corners */
+/* each pane: rounded, thick frame, glass reflection overlay */
 .folder-preview-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.7;
+  opacity: 0.72;
   transition: opacity 0.2s;
-  border-radius: 6px 6px 4px 4px;
-  outline: 3px solid rgba(25,22,18,0.95); /* thick dark frame per pane */
+  border-radius: 5px 5px 4px 4px;
+  outline: 3px solid rgba(18,15,12,0.95);
   outline-offset: -1px;
-  /* glass reflection */
-  box-shadow: inset 0 3px 6px rgba(255,255,255,0.08);
+  position: relative;
 }
 
 .album-card:hover .folder-preview-img { opacity: 0.95; }
 
-/* dot grid fallback — distant lights at night */
+/* glass reflection — pseudo via wrapper */
+.folder-preview-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 5px 5px 4px 4px;
+  background: linear-gradient(
+    160deg,
+    rgba(255,255,255,0.12) 0%,
+    rgba(255,255,255,0.04) 35%,
+    transparent 60%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* dot grid fallback */
 .folder-dot-grid {
   position: absolute;
   inset: 0;
@@ -199,7 +291,7 @@ body {
   opacity: 0.5;
 }
 
-/* album number — bottom right of window wall */
+/* album number */
 .folder-id {
   position: absolute;
   bottom: 12px;
@@ -213,54 +305,6 @@ body {
 }
 
 .album-card:hover .folder-id { color: var(--accent-bright); }
-
-/* ── WALL PANEL below windows ── */
-.folder-panel {
-  width: 220px;
-  height: 18px;
-  background: linear-gradient(to bottom, rgba(50,44,38,0.9), rgba(40,35,30,0.95));
-  flex-shrink: 0;
-  border-top: 1px solid rgba(20,18,15,0.8);
-}
-
-/* ── BENCH SEAT ── */
-.folder-seat {
-  width: 220px;
-  height: 38px;
-  position: relative;
-  flex-shrink: 0;
-  overflow: hidden;
-}
-
-/* seat back cushion */
-.folder-seat::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 4px; right: 4px;
-  height: 22px;
-  background: linear-gradient(to bottom, rgba(160,50,40,0.35), rgba(120,35,28,0.25));
-  border-radius: 3px 3px 0 0;
-  border: 1px solid rgba(180,60,50,0.2);
-  border-bottom: none;
-}
-
-/* seat cushion divisions — 4 seats */
-.folder-seat::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 4px; right: 4px;
-  height: 22px;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      transparent 0px,
-      transparent calc(25% - 1px),
-      rgba(0,0,0,0.3) calc(25% - 1px),
-      rgba(0,0,0,0.3) 25%
-    );
-  border-radius: 3px 3px 0 0;
-  z-index: 1;
-}
 
 /* ── FOLDER LABELS ── */
 .folder-name {
@@ -572,8 +616,10 @@ body {
   .folder-icon { width: 140px; }
   .folder-body { width: 140px; height: 84px; }
   .folder-tab  { width: 140px; height: 5px; }
-  .folder-panel { width: 140px; height: 12px; }
-  .folder-seat { width: 140px; height: 26px; }
+
+  .train-seats { height: 28vh; gap: 0; padding: 0 0.5rem; }
+  .seat-back   { height: 20vh; }
+  .seat-cushion { height: 6vh; }
 
   .album-sidebar {
     left: 0;

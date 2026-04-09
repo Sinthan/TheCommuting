@@ -96,89 +96,98 @@ body {
   display: flex;
   flex-direction: column;
   transition: transform 0.2s;
+  gap: 0;
 }
 
-.album-card:hover .folder-icon { transform: translateY(-6px); }
+.album-card:hover .folder-icon { transform: translateY(-5px); }
 
-/* the "tab" becomes a small overhead luggage rack bar */
+/* ── OVERHEAD BAR (luggage rack suggestion) ── */
 .folder-tab {
-  width: 160px;
-  height: 8px;
-  border: 1px solid rgba(168,127,212,0.3);
-  border-bottom: none;
+  width: 220px;
+  height: 6px;
+  background: linear-gradient(to bottom, rgba(100,90,80,0.5), rgba(60,55,50,0.3));
   border-radius: 2px 2px 0 0;
-  background: rgba(123,94,167,0.08);
-  margin-left: 30px;
+  margin: 0;
+  border: none;
+  flex-shrink: 0;
 }
 
-/* the window body: thick rounded frame like a train window */
+/* ── WINDOW UNIT (wall + 3 panes) ── */
 .folder-body {
   width: 220px;
-  height: 160px;
-  border: 6px solid rgba(168,127,212,0.45);
-  border-radius: 18px;
-  background: rgba(8,8,8,0.7);
+  height: 130px;
+  background: rgba(45,40,35,0.85); /* train wall colour */
+  border: none;
+  border-radius: 0;
   position: relative;
   overflow: hidden;
-  transition: border-color 0.2s, background 0.2s;
-  box-shadow:
-    inset 0 0 30px rgba(0,0,0,0.6),
-    0 2px 12px rgba(0,0,0,0.5);
+  transition: background 0.2s;
+  flex-shrink: 0;
+  /* outer wall texture */
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
 }
 
 .album-card:hover .folder-body {
-  border-color: var(--accent-bright);
-  background: rgba(20,10,35,0.75);
+  background: rgba(55,48,42,0.9);
 }
 
-/* inner window reflection — thin highlight at top like glass */
+/* The three panes are rendered via the folder-preview structure.
+   We override it below for the train window layout.
+   The ::before and ::after add frame elements */
+
+/* top frame bar above all panes */
 .folder-body::before {
   content: '';
   position: absolute;
-  top: 8px;
-  left: 14px;
-  right: 14px;
-  height: 2px;
-  background: linear-gradient(to right, transparent, rgba(255,255,255,0.12), transparent);
-  border-radius: 2px;
-  z-index: 2;
-  pointer-events: none;
+  top: 0; left: 0; right: 0;
+  height: 10px;
+  background: rgba(30,26,22,0.9);
+  z-index: 4;
 }
 
-/* side frame grooves */
+/* bottom frame bar below all panes */
 .folder-body::after {
   content: '';
   position: absolute;
-  inset: 6px;
-  border: 1px solid rgba(168,127,212,0.12);
-  border-radius: 12px;
-  pointer-events: none;
-  z-index: 2;
+  bottom: 0; left: 0; right: 0;
+  height: 8px;
+  background: rgba(30,26,22,0.9);
+  z-index: 4;
 }
 
-/* ── 2×2 PREVIEW GRID ── */
+/* ── THREE-PANE WINDOW LAYOUT ── */
 .folder-preview {
   position: absolute;
-  inset: 6px;
+  top: 10px;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 2px;
-  border-radius: 2px;
-  overflow: hidden;
+  /* narrow left + wide centre + narrow right — like the photo */
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 6px; /* thick mullion between panes */
+  border-radius: 0;
+  overflow: visible;
 }
 
+/* each pane gets a frame and rounded corners */
 .folder-preview-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.65;
+  opacity: 0.7;
   transition: opacity 0.2s;
+  border-radius: 6px 6px 4px 4px;
+  outline: 3px solid rgba(25,22,18,0.95); /* thick dark frame per pane */
+  outline-offset: -1px;
+  /* glass reflection */
+  box-shadow: inset 0 3px 6px rgba(255,255,255,0.08);
 }
 
-.album-card:hover .folder-preview-img { opacity: 1; }
+.album-card:hover .folder-preview-img { opacity: 0.95; }
 
-/* dot grid fallback — distant lights seen through window at night */
+/* dot grid fallback — distant lights at night */
 .folder-dot-grid {
   position: absolute;
   inset: 0;
@@ -190,19 +199,68 @@ body {
   opacity: 0.5;
 }
 
+/* album number — bottom right of window wall */
 .folder-id {
   position: absolute;
-  bottom: 8px;
-  right: 10px;
+  bottom: 12px;
+  right: 12px;
   font-family: 'Doto', monospace;
-  font-size: 0.6rem;
-  color: rgba(168,127,212,0.6);
+  font-size: 0.58rem;
+  color: rgba(168,127,212,0.5);
   letter-spacing: 0.1em;
-  z-index: 3;
+  z-index: 5;
   text-shadow: 0 0 6px rgba(8,8,8,0.95);
 }
 
 .album-card:hover .folder-id { color: var(--accent-bright); }
+
+/* ── WALL PANEL below windows ── */
+.folder-panel {
+  width: 220px;
+  height: 18px;
+  background: linear-gradient(to bottom, rgba(50,44,38,0.9), rgba(40,35,30,0.95));
+  flex-shrink: 0;
+  border-top: 1px solid rgba(20,18,15,0.8);
+}
+
+/* ── BENCH SEAT ── */
+.folder-seat {
+  width: 220px;
+  height: 38px;
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* seat back cushion */
+.folder-seat::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 4px; right: 4px;
+  height: 22px;
+  background: linear-gradient(to bottom, rgba(160,50,40,0.35), rgba(120,35,28,0.25));
+  border-radius: 3px 3px 0 0;
+  border: 1px solid rgba(180,60,50,0.2);
+  border-bottom: none;
+}
+
+/* seat cushion divisions — 4 seats */
+.folder-seat::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 4px; right: 4px;
+  height: 22px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent calc(25% - 1px),
+      rgba(0,0,0,0.3) calc(25% - 1px),
+      rgba(0,0,0,0.3) 25%
+    );
+  border-radius: 3px 3px 0 0;
+  z-index: 1;
+}
 
 /* ── FOLDER LABELS ── */
 .folder-name {
@@ -512,8 +570,10 @@ body {
   }
 
   .folder-icon { width: 140px; }
-  .folder-body { width: 140px; height: 104px; border-radius: 12px; border-width: 5px; }
-  .folder-tab  { width: 100px; height: 6px; margin-left: 20px; }
+  .folder-body { width: 140px; height: 84px; }
+  .folder-tab  { width: 140px; height: 5px; }
+  .folder-panel { width: 140px; height: 12px; }
+  .folder-seat { width: 140px; height: 26px; }
 
   .album-sidebar {
     left: 0;

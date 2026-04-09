@@ -256,8 +256,8 @@
           card.setAttribute('role', 'button');
           card.setAttribute('aria-label', `Open album: ${album.name}`);
 
-          const previewImgs = album.images.slice(0, 4).map(img =>
-            `<img class="folder-preview-img" src="${album.folder}/${img}" alt="" loading="lazy" onerror="this.style.display='none'">`
+          const previewImgs = album.images.slice(0, 3).map(img =>
+            `<img class="folder-preview-img" src="${album.folder}/${img}" alt="" loading="lazy" width="80" height="110" onerror="this.style.display='none'">`
           ).join('');
 
           card.innerHTML = `
@@ -270,6 +270,8 @@
                 }
                 <span class="folder-id">${String(i + 1).padStart(2, '0')}</span>
               </div>
+              <div class="folder-panel"></div>
+              <div class="folder-seat"></div>
             </div>
             <span class="folder-name">${album.name}</span>
             <span class="folder-count">${album.images.length} imgs</span>

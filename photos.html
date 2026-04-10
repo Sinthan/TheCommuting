@@ -96,10 +96,6 @@
         <!-- WINDOW CAROUSEL -->
         <main class="album-grid" id="album-grid"></main>
 
-        <!-- MOBILE CAROUSEL ARROWS (hidden on desktop) -->
-        <button class="mobile-arrow mobile-arrow-next disabled" id="mobile-next" aria-label="Next album">↓</button>
-        <button class="mobile-arrow mobile-arrow-prev disabled" id="mobile-prev" aria-label="Previous album">↑</button>
-
         <!-- SCROLL HINT -->
         <div class="scroll-hint">scroll ↕</div>
 
@@ -191,8 +187,6 @@
     const lbNext       = document.getElementById('lightbox-next');
     const rackName     = document.getElementById('rack-album-name');
     const rackQuote    = document.getElementById('rack-album-quote');
-    const mobilePrev   = document.getElementById('mobile-prev');
-    const mobileNext   = document.getElementById('mobile-next');
 
     let currentAlbum = null;
     let lbAlbum      = null;
@@ -213,10 +207,14 @@
       if (rackQuote) rackQuote.textContent = album.quote || '';
     }
 
-    /* ── MOBILE ARROW STATE ── */
+    /* ── MOBILE ARROW STATE — update data-disabled on arrows inside each card ── */
     function updateArrows() {
-      if (mobilePrev) mobilePrev.classList.toggle('disabled', currentCard === 0);
-      if (mobileNext) mobileNext.classList.toggle('disabled', currentCard === cards.length - 1);
+      cards.forEach((card, i) => {
+        const nextBtn = card.querySelector('[data-dir="next"]');
+        const prevBtn = card.querySelector('[data-dir="prev"]');
+        if (nextBtn) nextBtn.classList.toggle('disabled', i >= cards.length - 1);
+        if (prevBtn) prevBtn.classList.toggle('disabled', i <= 0);
+      });
     }
 
     /* ── CAROUSEL ── */
@@ -228,21 +226,39 @@
       isAnimating = true;
       currentCard = index;
 
+      /* measure actual card width for precise offset */
+      const cardW  = cards[0].querySelector('.folder-body')
+                       ? cards[0].querySelector('.folder-body').offsetWidth
+                       : cards[0].offsetWidth;
+      const sceneW = grid.offsetWidth || window.innerWidth;
+      /* offset = half scene + 75% of card → card edge is 25% into view */
+      const offset = Math.round(sceneW / 2 + cardW * 0.75);
+
       cards.forEach((card, i) => {
         card.classList.remove('active', 'prev', 'next');
-        if (i === currentCard)         card.classList.add('active');
-        else if (i === currentCard - 1) card.classList.add('prev');
-        else if (i === currentCard + 1) card.classList.add('next');
-        // others: no class → off-screen via default CSS transform
+        if (i === currentCard) {
+          card.style.transform = 'translate(-50%, -50%) translateX(0)';
+          card.style.opacity   = '1';
+          card.classList.add('active');
+        } else if (i === currentCard - 1) {
+          card.style.transform = `translate(-50%, -50%) translateX(-${offset}px)`;
+          card.style.opacity   = '0.5';
+          card.classList.add('prev');
+        } else if (i === currentCard + 1) {
+          card.style.transform = `translate(-50%, -50%) translateX(${offset}px)`;
+          card.style.opacity   = '0.5';
+          card.classList.add('next');
+        } else {
+          const far = offset + cardW;
+          card.style.transform = `translate(-50%, -50%) translateX(${i < currentCard ? -far : far}px)`;
+          card.style.opacity   = '0';
+        }
       });
 
       updateArrows();
       if (albumsData[currentCard]) updateRack(albumsData[currentCard]);
       setTimeout(() => { isAnimating = false; }, 700);
     }
-
-    if (mobilePrev) mobilePrev.addEventListener('click', () => goTo(currentCard - 1));
-    if (mobileNext) mobileNext.addEventListener('click', () => goTo(currentCard + 1));
 
     /* ── SCROLL / WHEEL ── */
     let wheelAccum = 0;
@@ -386,6 +402,7 @@
           ).join('');
 
           card.innerHTML = `
+            <button class="mobile-arrow mobile-arrow-next" data-dir="next" aria-label="Next album">↓</button>
             <div class="folder-body">
               ${album.images.length > 0
                 ? `<div class="folder-preview">${previewImgs}</div>`
@@ -394,7 +411,16 @@
               <div class="folder-glass"></div>
               <span class="folder-id">VIEW // ${String(i + 1).padStart(2, '0')}</span>
             </div>
+            <button class="mobile-arrow mobile-arrow-prev" data-dir="prev" aria-label="Previous album">↑</button>
           `;
+
+          /* mobile arrow clicks — stop propagation so card click doesn't fire */
+          card.querySelectorAll('.mobile-arrow').forEach(btn => {
+            btn.addEventListener('click', e => {
+              e.stopPropagation();
+              goTo(currentCard + (btn.dataset.dir === 'next' ? 1 : -1));
+            });
+          });
 
           /* clicking the window opens the sidebar */
           card.addEventListener('click', () => {
@@ -409,14 +435,33 @@
           cards.push(card);
         });
 
-        /* ── INIT — set classes without transition ── */
+        /* ── INIT ── */
         requestAnimationFrame(() => {
           cards.forEach(c => { c.style.transition = 'none'; });
           requestAnimationFrame(() => {
-            if (cards[0]) cards[0].classList.add('active');
-            if (cards[1]) cards[1].classList.add('next');
+            /* measure then position */
+            const cardW  = cards[0].querySelector('.folder-body').offsetWidth;
+            const sceneW = grid.offsetWidth || window.innerWidth;
+            const offset = Math.round(sceneW / 2 + cardW * 0.75);
+
+            cards.forEach((card, i) => {
+              if (i === 0) {
+                card.style.transform = 'translate(-50%, -50%) translateX(0)';
+                card.style.opacity   = '1';
+                card.classList.add('active');
+              } else if (i === 1) {
+                card.style.transform = `translate(-50%, -50%) translateX(${offset}px)`;
+                card.style.opacity   = '0.5';
+                card.classList.add('next');
+              } else {
+                card.style.transform = `translate(-50%, -50%) translateX(${offset + cardW}px)`;
+                card.style.opacity   = '0';
+              }
+            });
+
             updateArrows();
             if (albumsData[0]) updateRack(albumsData[0]);
+
             requestAnimationFrame(() => {
               cards.forEach(c => { c.style.transition = ''; });
             });

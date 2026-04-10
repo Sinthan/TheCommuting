@@ -171,7 +171,7 @@
   <!-- SIDEBAR PANEL -->
   <div class="album-sidebar" id="album-sidebar" aria-hidden="true">
     <div class="sidebar-header">
-      <span class="sidebar-tag">FOLDER //</span>
+      <span class="sidebar-tag">VIEW //</span>
       <h2 class="sidebar-title" id="sidebar-title">—</h2>
       <button class="sidebar-close" id="sidebar-close" aria-label="Close">X</button>
     </div>
@@ -310,18 +310,20 @@
           dot.className = 'stop-dot';
           stop.appendChild(dot);
 
-          /* stop label with header connector */
+          /* stop label — will sit above the window, aligned to it */
           const label = document.createElement('div');
           label.className = 'stop-label';
           label.innerHTML = `
-            <div class="stop-header">
-              <div class="stop-title-block">
-                <span class="stop-label-eyebrow">Next stop:</span>
-                <span class="stop-label-name">${album.name}</span>
-              </div>
+            <div class="stop-connector">
+              <div class="connector-line"></div>
+              <div class="connector-tick"></div>
+            </div>
+            <div class="stop-title-block">
+              <span class="stop-label-eyebrow">Next stop:</span>
+              <span class="stop-label-name">${album.name}</span>
+              ${album.quote ? `<span class="stop-label-quote">${album.quote}</span>` : ''}
             </div>
           `;
-          stop.appendChild(label);
 
           /* train window */
           const win = document.createElement('div');
@@ -356,6 +358,7 @@
           win.addEventListener('keydown', e => {
             if (e.key === 'Enter' || e.key === ' ') openSidebar(album);
           });
+          stop.appendChild(label);
           stop.appendChild(win);
           timeline.appendChild(stop);
         });

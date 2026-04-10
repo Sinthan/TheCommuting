@@ -82,13 +82,24 @@
       <!-- TRAIN SCENE -->
       <div class="train-scene">
 
+        <!-- LUGGAGE RACK — fixed background, text updated by JS -->
+        <div class="luggage-rack" aria-hidden="true">
+          <div class="rack-bar rack-bar-1"></div>
+          <div class="rack-bar rack-bar-2"></div>
+          <div class="rack-bar rack-bar-3"></div>
+          <div class="rack-info">
+            <span class="rack-album-name" id="rack-album-name">&nbsp;</span>
+            <span class="rack-album-quote" id="rack-album-quote">&nbsp;</span>
+          </div>
+        </div>
+
         <!-- WINDOW CAROUSEL -->
         <main class="album-grid" id="album-grid"></main>
 
         <!-- SCROLL HINT -->
         <div class="scroll-hint">scroll ↕</div>
 
-        <!-- BENCH SEATS -->
+        <!-- BENCH SEATS — 4 units -->
         <div class="train-seats" aria-hidden="true">
           <div class="seat-bench">
             <div class="seat-back">
@@ -96,12 +107,8 @@
               <div class="seat-back-unit"></div>
               <div class="seat-back-unit"></div>
               <div class="seat-back-unit"></div>
-              <div class="seat-back-unit"></div>
-              <div class="seat-back-unit"></div>
             </div>
             <div class="seat-cushion">
-              <div class="seat-cushion-unit"></div>
-              <div class="seat-cushion-unit"></div>
               <div class="seat-cushion-unit"></div>
               <div class="seat-cushion-unit"></div>
               <div class="seat-cushion-unit"></div>
@@ -178,9 +185,13 @@
     const lbClose    = document.getElementById('lightbox-close');
     const lbPrev     = document.getElementById('lightbox-prev');
     const lbNext     = document.getElementById('lightbox-next');
+    const rackName   = document.getElementById('rack-album-name');
+    const rackQuote  = document.getElementById('rack-album-quote');
 
-    let currentAlbum = null;
-    let currentIndex = 0;
+    let currentAlbum = null;   // used by sidebar
+    let currentIndex = 0;      // used by sidebar (unused now but kept for safety)
+    let lbAlbum      = null;   // lightbox album — separate from carousel state
+    let lbIndex      = 0;      // lightbox image index
     let cards        = [];
     let currentCard  = 0;
     let isAnimating  = false;
@@ -190,10 +201,18 @@
       drawer.classList.toggle('open');
     });
 
+    let albumsData   = [];
+
+    /* ── RACK TEXT UPDATE ── */
+    function updateRack(album) {
+      if (!rackName || !rackQuote) return;
+      rackName.textContent  = album.name;
+      rackQuote.textContent = album.quote || '';
+    }
+
     /* ── CAROUSEL ── */
     function goTo(index) {
       if (isAnimating || !cards.length) return;
-      // clamp — non-infinite
       index = Math.max(0, Math.min(index, cards.length - 1));
       if (index === currentCard) return;
 
@@ -202,15 +221,12 @@
 
       cards.forEach((card, i) => {
         card.classList.remove('active', 'prev', 'next');
-        if (i === currentCard) {
-          card.classList.add('active');
-        } else if (i === currentCard - 1) {
-          card.classList.add('prev');
-        } else if (i === currentCard + 1) {
-          card.classList.add('next');
-        }
-        // everything else stays off-screen (default CSS handles via no class)
+        if (i === currentCard)     card.classList.add('active');
+        else if (i === currentCard - 1) card.classList.add('prev');
+        else if (i === currentCard + 1) card.classList.add('next');
       });
+
+      if (albumsData[currentCard]) updateRack(albumsData[currentCard]);
 
       setTimeout(() => { isAnimating = false; }, 700);
     }
@@ -260,8 +276,8 @@
 
     /* ── LIGHTBOX ── */
     function openLightbox(album, index) {
-      currentAlbum = album;
-      currentIndex = index;
+      lbAlbum = album;
+      lbIndex = index;
       updateLightbox();
       lightbox.classList.add('open');
     }
@@ -269,27 +285,27 @@
     function closeLightbox() { lightbox.classList.remove('open'); }
 
     function updateLightbox() {
-      const img = currentAlbum.images[currentIndex];
-      lbImg.src = `${currentAlbum.folder}/${img}`;
+      const img = lbAlbum.images[lbIndex];
+      lbImg.src = `${lbAlbum.folder}/${img}`;
       lbImg.alt = img;
       lbName.textContent = img.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ').toUpperCase();
-      lbCounter.textContent = `${currentIndex + 1} / ${currentAlbum.images.length}`;
+      lbCounter.textContent = `${lbIndex + 1} / ${lbAlbum.images.length}`;
     }
 
     lbClose.addEventListener('click', closeLightbox);
     lbPrev.addEventListener('click', () => {
-      currentIndex = (currentIndex - 1 + currentAlbum.images.length) % currentAlbum.images.length;
+      lbIndex = (lbIndex - 1 + lbAlbum.images.length) % lbAlbum.images.length;
       updateLightbox();
     });
     lbNext.addEventListener('click', () => {
-      currentIndex = (currentIndex + 1) % currentAlbum.images.length;
+      lbIndex = (lbIndex + 1) % lbAlbum.images.length;
       updateLightbox();
     });
     document.addEventListener('keydown', e => {
       if (!lightbox.classList.contains('open')) return;
-      if (e.key === 'Escape')     closeLightbox();
-      if (e.key === 'ArrowLeft')  lbPrev.click();
-      if (e.key === 'ArrowRight') lbNext.click();
+      if (e.key === 'Escape')     { e.stopPropagation(); closeLightbox(); }
+      if (e.key === 'ArrowLeft')  { e.stopPropagation(); lbIndex = (lbIndex - 1 + lbAlbum.images.length) % lbAlbum.images.length; updateLightbox(); }
+      if (e.key === 'ArrowRight') { e.stopPropagation(); lbIndex = (lbIndex + 1) % lbAlbum.images.length; updateLightbox(); }
     });
 
     /* ── SIDEBAR ── */
@@ -342,14 +358,14 @@
       .then(albums => {
         albumCount.textContent = `${albums.length} album${albums.length !== 1 ? 's' : ''}`;
 
+        albumsData = albums;
+
         albums.forEach((album, i) => {
           const card = document.createElement('div');
           card.className = 'album-card';
           card.setAttribute('tabindex', '0');
           card.setAttribute('role', 'button');
           card.setAttribute('aria-label', `Open album: ${album.name}`);
-
-          // CSS default keeps cards off-screen right via transform in stylesheet
           card.style.transition = 'none';
 
           const thumbFolder = `${album.folder}/thumbs`;
@@ -358,20 +374,14 @@
           ).join('');
 
           card.innerHTML = `
-            <div class="folder-rack">
-              <span class="rack-name">${album.name}</span>
-              <span class="rack-quote">${album.quote || ''}</span>
-            </div>
             <div class="folder-body">
               ${album.images.length > 0
                 ? `<div class="folder-preview">${previewImgs}</div>`
                 : `<div class="folder-dot-grid"></div>`
               }
               <div class="folder-glass"></div>
-              <span class="folder-id">${String(i + 1).padStart(2, '0')}</span>
+              <span class="folder-id">VIEW // ${String(i + 1).padStart(2, '0')}</span>
             </div>
-            <span class="folder-name">${album.name}</span>
-            <span class="folder-count">${album.images.length} imgs</span>
           `;
 
           card.addEventListener('click', () => openSidebar(album));
@@ -383,13 +393,13 @@
           cards.push(card);
         });
 
-        // initialise positions via classes
+        // initialise positions
         if (cards.length > 0) {
           cards[0].style.transition = 'none';
           cards[0].classList.add('active');
           if (cards[1]) cards[1].classList.add('next');
+          updateRack(albumsData[0]);
         }
-        // force reflow then re-enable transitions
         grid.getBoundingClientRect();
         cards.forEach(c => { c.style.transition = ''; });
       })

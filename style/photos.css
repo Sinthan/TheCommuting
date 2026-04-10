@@ -72,9 +72,11 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 48%;
+  height: 38%;
   z-index: 2;
   pointer-events: none;
+  display: flex;
+  flex-direction: column;
 }
 
 .seat-bench {
@@ -85,118 +87,127 @@ body {
   flex-direction: column;
 }
 
-/* ── SEAT BACK ── */
+/* ── SEAT BACK — individual units with gap ── */
 .seat-back {
   flex: 1;
   position: relative;
-  /* main body of the backrest */
+  display: flex;
+  gap: 6px;
+  padding: 0 10px;
+  align-items: stretch;
+  overflow: hidden;
+  /* subtle wall behind seats */
+  background: linear-gradient(to bottom, rgba(20,14,35,0.0), rgba(30,20,50,0.08));
+}
+
+/* each individual seat back unit */
+.seat-back-unit {
+  flex: 1;
+  position: relative;
   background:
-    radial-gradient(circle, rgba(123,94,167,0.20) 1px, transparent 1px),
+    radial-gradient(circle, rgba(123,94,167,0.18) 1px, transparent 1px),
     linear-gradient(to bottom,
-      rgba(30,22,50,0.05) 0%,
-      rgba(55,42,88,0.16) 40%,
-      rgba(70,52,108,0.22) 100%
+      rgba(55,42,88,0.22) 0%,
+      rgba(70,52,108,0.28) 60%,
+      rgba(80,60,120,0.32) 100%
     );
   background-size: 10px 10px, 100% 100%;
-  /* curved top edge — the backrest curves forward at top */
-  border-radius: 0 0 0 0;
+  border-top: 2px solid rgba(168,127,212,0.3);
+  border-left: 1px solid rgba(123,94,167,0.15);
+  border-right: 1px solid rgba(123,94,167,0.15);
+  border-radius: 6px 6px 0 0;
   clip-path: polygon(
-    0% 8%,
-    2% 4%,
-    5% 2%,
-    10% 1%,
-    90% 1%,
-    95% 2%,
-    98% 4%,
-    100% 8%,
-    100% 100%,
-    0% 100%
+    0% 10%, 3% 4%, 8% 1%, 92% 1%, 97% 4%, 100% 10%,
+    100% 100%, 0% 100%
   );
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* headrest padding — slightly protruding curved top */
-.seat-back::before {
+/* headrest bump at top of each seat */
+.seat-back-unit::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 5%;
-  right: 5%;
-  height: 18%;
+  top: 0; left: 15%; right: 15%;
+  height: 22%;
   background:
-    radial-gradient(circle, rgba(168,127,212,0.28) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(90,68,140,0.30), rgba(65,48,105,0.18));
+    radial-gradient(circle, rgba(168,127,212,0.3) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(100,75,155,0.35), rgba(75,55,118,0.2));
   background-size: 8px 8px, 100% 100%;
-  border-radius: 0 0 60% 60% / 0 0 30px 30px;
-  border-bottom: 1px solid rgba(168,127,212,0.2);
+  border-radius: 0 0 50% 50% / 0 0 20px 20px;
+  border-bottom: 1px solid rgba(168,127,212,0.22);
 }
 
-/* seat dividers — 6 individual seat backs */
-.seat-back::after {
-  content: '';
+/* TRAIN // UNRESOLVED label on each seat */
+.seat-back-unit::after {
+  content: 'TRAIN // UNRESOLVED';
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.38rem;
+  letter-spacing: 0.18em;
+  color: rgba(168,127,212,0.28);
+  text-align: center;
   position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    90deg,
-    transparent 0%,
-    transparent calc(16.666% - 1px),
-    rgba(123,94,167,0.14) calc(16.666% - 1px),
-    rgba(123,94,167,0.14) 16.666%
-  );
+  bottom: 18%;
+  left: 0; right: 0;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 /* ── SEAT CUSHION ── */
 .seat-cushion {
-  height: 32%;
+  height: 28%;
   position: relative;
+  display: flex;
+  gap: 6px;
+  padding: 0 10px;
+  background: transparent;
+}
+
+.seat-cushion-unit {
+  flex: 1;
   background:
-    radial-gradient(circle, rgba(123,94,167,0.22) 1px, transparent 1px),
+    radial-gradient(circle, rgba(123,94,167,0.2) 1px, transparent 1px),
     linear-gradient(to bottom,
-      rgba(80,60,120,0.28) 0%,
-      rgba(55,40,88,0.20) 60%,
-      rgba(35,26,58,0.12) 100%
+      rgba(85,65,128,0.32) 0%,
+      rgba(60,44,95,0.24) 60%,
+      rgba(35,26,58,0.15) 100%
     );
   background-size: 10px 10px, 100% 100%;
-  /* cushion is wider than it is tall — slight forward protrusion */
-  border-top: 3px solid rgba(168,127,212,0.35);
-  /* rounded front edge of cushion */
-  border-radius: 0 0 8px 8px;
+  border-top: 2px solid rgba(168,127,212,0.32);
+  border-left: 1px solid rgba(123,94,167,0.15);
+  border-right: 1px solid rgba(123,94,167,0.15);
+  border-radius: 0 0 5px 5px;
+  position: relative;
   overflow: hidden;
 }
 
-/* cushion top highlight — the fabric catching light */
-.seat-cushion::before {
+/* top highlight */
+.seat-cushion-unit::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 30%;
-  background: linear-gradient(
-    to bottom,
-    rgba(168,127,212,0.12),
-    transparent
-  );
+  height: 35%;
+  background: linear-gradient(to bottom, rgba(168,127,212,0.10), transparent);
 }
 
-/* cushion front shadow — depth */
-.seat-cushion::after {
+/* bottom shadow */
+.seat-cushion-unit::after {
   content: '';
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  height: 25%;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgba(0,0,0,0.5)
-  );
+  height: 30%;
+  background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.55));
 }
 
 /* ── WINDOW CAROUSEL ── */
 .album-grid {
   position: absolute;
   inset: 0;
-  bottom: 38%; /* windows sit above the seat area */
+  bottom: 33%;
   z-index: 5;
   overflow: hidden;
-  /* carousel container — JS translates children */
 }
 
 /* ── ALBUM CARD ── */
@@ -204,43 +215,107 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) translateX(100vw);
+  /* default: off-screen right */
+  transform: translate(-50%, -50%) translateX(120vw);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.8rem;
+  gap: 0;
   cursor: pointer;
   outline: none;
-  transition:
-    transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    opacity   0.5s ease;
+  transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease;
   opacity: 0;
   will-change: transform, opacity;
 }
 
+/* active: centred, full opacity */
 .album-card.active {
+  transform: translate(-50%, -50%) translateX(0);
   opacity: 1;
 }
 
+/* prev: 25% visible on left — window centre at -75vw from screen centre */
 .album-card.prev {
-  opacity: 0.3;
+  transform: translate(-50%, -50%) translateX(-75vw);
+  opacity: 0.5;
 }
 
+/* next: 25% visible on right */
 .album-card.next {
-  opacity: 0.3;
+  transform: translate(-50%, -50%) translateX(75vw);
+  opacity: 0.5;
 }
 
-/* ── LUGGAGE RACK BAR ── */
-.folder-tab {
+/* ── LUGGAGE RACK ── */
+.folder-rack {
   width: min(55vw, 480px);
-  height: 10px;
+  min-height: 48px;
   background:
-    radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(80,72,65,0.85), rgba(45,40,36,0.65));
-  background-size: 7px 7px, 100% 100%;
-  border-radius: 3px 3px 0 0;
-  border-bottom: 2px solid rgba(15,12,10,0.9);
+    radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(55,48,42,0.95), rgba(35,30,26,0.9));
+  background-size: 6px 6px, 100% 100%;
+  border-radius: 4px 4px 0 0;
+  border: 1px solid rgba(80,70,60,0.6);
+  border-bottom: 3px solid rgba(18,14,10,0.98);
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  gap: 0.2rem;
+  position: relative;
+  /* horizontal rack bars as background stripes */
+  box-shadow:
+    inset 0 4px 0 rgba(255,255,255,0.05),
+    inset 0 8px 0 rgba(0,0,0,0.2),
+    inset 0 12px 0 rgba(255,255,255,0.03);
+}
+
+/* rack bar lines */
+.folder-rack::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 4px 4px 0 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 10px,
+    rgba(0,0,0,0.15) 10px,
+    rgba(0,0,0,0.15) 11px
+  );
+  pointer-events: none;
+}
+
+.rack-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.78rem;
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rack-quote {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.52rem;
+  color: rgba(168,127,212,0.65);
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rack-quote::before {
+  content: '>_ ';
+  color: var(--green);
 }
 
 /* ── TRAIN WINDOW ── */
@@ -367,26 +442,9 @@ body {
 
 .album-card.active .folder-id { color: var(--accent-bright); }
 
-/* ── FOLDER LABELS ── */
-.folder-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem;
-  color: var(--text-primary);
-  text-align: center;
-  letter-spacing: 0.02em;
-  transition: color 0.2s;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
-}
-
-.album-card.active .folder-name { color: var(--accent-bright); }
-
-.folder-count {
-  font-size: 0.54rem;
-  letter-spacing: 0.18em;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  text-shadow: 0 1px 6px rgba(0,0,0,0.8);
-}
+/* ── FOLDER LABELS — hidden, info moved to rack ── */
+.folder-name { display: none; }
+.folder-count { display: none; }
 
 /* ── SCROLL HINT ── */
 .scroll-hint {

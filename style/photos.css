@@ -88,7 +88,7 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;       /* centers stops horizontally */
+  align-items: flex-start;
   padding: 3rem 3.5rem 6rem 0;
   min-height: 100%;
 }
@@ -130,7 +130,7 @@ body {
 /* ── SINGLE STOP ── */
 .timeline-stop {
   position: relative;
-  width: min(680px, calc(100% - 10rem));
+  width: calc(100% - 5rem); /* fill width after left margin */
   margin-left: 5rem;
   display: flex;
   flex-direction: column;
@@ -141,14 +141,11 @@ body {
 
 .timeline-stop:last-child { margin-bottom: 0; }
 
-/* ── DOT — anchored to the left line via negative left from timeline padding ── */
+/* ── DOT — reliable left: line at 4.5rem, stop starts at 5rem, gap=0.5rem, dot half=8px ── */
 .stop-dot {
   position: absolute;
-  /* line is at 4.5rem from timeline left.
-     stop has margin-left:5rem, so from stop's left edge the line is at -(5rem - 4.5rem) = -0.5rem.
-     to center a 16px dot on it: left = -0.5rem - 8px */
   left: calc(-0.5rem - 8px);
-  top: 1.4rem;
+  top: 1.2rem;
   width: 16px;
   height: 16px;
   border-radius: 50%;
@@ -171,26 +168,47 @@ body {
   50%       { box-shadow: 0 0 6px var(--accent-bright), 0 0 2px #fff, 0 0 10px var(--accent); opacity: 0.5; }
 }
 
-/* ── CONNECTOR LINE from dot to stop content ── */
-.stop-dot::after {
+/* hide old dot pseudo */
+.stop-dot::after { display: none; }
+
+/* ── STOP LABEL with -| connector ── */
+/* The connector is drawn on .stop-label as:
+   ::before = horizontal line from stop left edge toward label
+   ::after  = vertical tick at the end ( -| )
+   padding-left makes room so text doesn't overlap the connector */
+.stop-label {
+  position: relative;
+  margin-bottom: 1rem;
+  padding-left: 2rem;         /* width of horizontal connector */
+}
+
+/* horizontal line */
+.stop-label::before {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 100%;
-  transform: translateY(-50%);
-  width: calc(0.5rem + 8px); /* exactly spans from dot right edge to stop left edge */
+  left: 0;
+  top: calc(1.2rem + 8px);    /* aligns with dot centre */
+  width: 1.8rem;
   height: 1px;
-  background: rgba(168,127,212,0.25);
+  background: rgba(168,127,212,0.3);
   transition: background 0.4s;
 }
 
-.timeline-stop.active .stop-dot::after {
-  background: rgba(168,127,212,0.6);
+/* vertical tick ( | ) at right end */
+.stop-label::after {
+  content: '';
+  position: absolute;
+  left: 1.8rem;
+  top: calc(1.2rem + 8px - 7px);
+  width: 1px;
+  height: 14px;
+  background: rgba(168,127,212,0.3);
+  transition: background 0.4s;
 }
 
-/* ── STOP LABEL ── */
-.stop-label {
-  margin-bottom: 1rem;
+.timeline-stop.active .stop-label::before,
+.timeline-stop.active .stop-label::after {
+  background: rgba(168,127,212,0.7);
 }
 
 .stop-label-eyebrow {
@@ -221,12 +239,13 @@ body {
   color: var(--accent);
 }
 
-/* ── TRAIN WINDOW (replaces folder-window) ── */
+/* ── TRAIN WINDOW ── */
 .train-window {
   width: 100%;
-  max-width: 580px;
+  max-width: 640px;
   cursor: pointer;
   outline: none;
+  align-self: center; /* center horizontally within the stop */
 }
 
 .train-window:focus-visible .window-frame-outer { border-color: var(--accent-bright); }
@@ -352,7 +371,7 @@ body {
   flex-direction: row;
   align-items: center;
   gap: 1rem;
-  width: min(680px, calc(100% - 10rem));
+  width: calc(100% - 5rem);
   margin-left: 5rem;
   padding-top: 1rem;
 }
@@ -639,27 +658,23 @@ body {
   .timeline::before { left: 2rem; width: 3px; }
   .timeline::after  { left: calc(2rem - 1px); width: 5px; }
 
+  /* line at 2rem, stop margin-left at 3rem, gap = 1rem = 16px
+     dot left = -(1rem + 8px) to centre on line */
   .timeline-stop {
-    width: calc(100% - 4.5rem);
+    width: calc(100% - 3rem);
     margin-left: 3rem;
     margin-bottom: 3.5rem;
   }
 
   .timeline-end {
-    width: calc(100% - 4.5rem);
+    width: calc(100% - 3rem);
     margin-left: 3rem;
   }
 
-  /* on mobile, line is at 2rem; stop margin-left is 3rem; gap = 1rem = 16px
-     dot left = -(1rem + 8px) */
   .stop-dot {
     left: calc(-1rem - 8px);
     width: 14px;
     height: 14px;
-  }
-
-  .stop-dot::after {
-    width: calc(1rem + 8px);
   }
 
   .timeline-end-dot {
@@ -670,7 +685,7 @@ body {
 
   .stop-label-name { font-size: 1rem; }
 
-  .train-window { max-width: 100%; }
+  .train-window { max-width: 100%; align-self: stretch; }
 
   /* mobile drawer: 65% height, smaller previews */
   .album-sidebar {

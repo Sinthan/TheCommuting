@@ -21,10 +21,10 @@
     <div class="sys-bar">
       <div class="sys-bar-left">
         <span class="sys-tag">SYS:ONLINE</span>
-        <span id="t-sys-unit">UNIT // SIN-001</span>
-        <span id="t-sys-loc">LOC // ARCHIVE</span>
+        <span>UNIT // SIN-001</span>
+        <span>LOC // ARCHIVE</span>
       </div>
-      <span>通勤 &mdash; <span id="t-sys-archive">PHOTO ARCHIVE</span></span>
+      <span>通勤 &mdash; PHOTO ARCHIVE</span>
     </div>
 
     <!-- NAV -->
@@ -35,23 +35,10 @@
         <span class="nav-logo-bracket">]</span>
       </a>
       <ul class="nav-links">
-        <li><a href="./photos.html" class="nav-active" id="t-nav-photos">Photos</a></li>
-        <li><a href="#" id="t-nav-stories">Stories</a></li>
-        <li><a href="#" id="t-nav-tech">Tech</a></li>
-        <li><a href="#" id="t-nav-about">About</a></li>
-        <li class="nav-lang-item">
-          <div class="lang-switcher lang-switcher-inline">
-            <button class="lang-btn" id="lang-btn" aria-label="Change language">
-              <span id="lang-btn-label">EN</span>
-              <span class="lang-btn-arrow">▾</span>
-            </button>
-            <div class="lang-dropdown" id="lang-dropdown">
-              <button class="lang-option" data-lang="en">EN — English</button>
-              <button class="lang-option" data-lang="it">IT — Italiano</button>
-              <button class="lang-option" data-lang="zh">中文 — 繁體</button>
-            </div>
-          </div>
-        </li>
+        <li><a href="./photos.html" class="nav-active">Photos</a></li>
+        <li><a href="#">Stories</a></li>
+        <li><a href="#">Tech</a></li>
+        <li><a href="#">About</a></li>
       </ul>
       <button class="hamburger" id="hamburger" aria-label="Menu">
         <div class="hamburger-bars">
@@ -64,93 +51,58 @@
 
     <!-- MOBILE DRAWER -->
     <div class="nav-drawer" id="nav-drawer">
-      <a href="./photos.html" id="t-nav-photos-m">Photos</a>
-      <a href="#" id="t-nav-stories-m">Stories</a>
-      <a href="#" id="t-nav-tech-m">Tech</a>
-      <a href="#" id="t-nav-about-m">About</a>
+      <a href="./photos.html">Photos</a>
+      <a href="#">Stories</a>
+      <a href="#">Tech</a>
+      <a href="#">About</a>
     </div>
 
     <!-- ARCHIVE PAGE -->
     <div class="archive-page">
 
+      <!-- STICKY HEADER -->
       <div class="archive-header">
-        <p class="archive-eyebrow" id="t-archive-eyebrow">01 // PHOTOS</p>
-        <h1 class="archive-title" id="t-archive-title">THE ARCHIVE</h1>
-        <p class="archive-sub" id="t-archive-sub">&gt;_ SCROLL TO MOVE THROUGH THE TRAIN</p>
+        <p class="archive-eyebrow">01 // PHOTOS</p>
+        <h1 class="archive-title">THE ARCHIVE</h1>
+        <p class="archive-sub">&gt;_ SCROLL TO BROWSE STOPS</p>
       </div>
 
-      <!-- TRAIN SCENE -->
-      <div class="train-scene">
-
-        <!-- LUGGAGE RACK — fixed background, text updated by JS -->
-        <div class="luggage-rack" aria-hidden="true">
-          <div class="rack-bar rack-bar-1"></div>
-          <div class="rack-bar rack-bar-2"></div>
-          <div class="rack-bar rack-bar-3"></div>
-          <div class="rack-info">
-            <span class="rack-album-name" id="rack-album-name">&nbsp;</span>
-            <span class="rack-album-quote" id="rack-album-quote">&nbsp;</span>
-          </div>
+      <!-- SCROLLABLE TIMELINE -->
+      <div class="timeline-scroll">
+        <div class="timeline" id="timeline">
+          <!-- stops injected by JS -->
         </div>
-
-        <!-- WINDOW CAROUSEL -->
-        <main class="album-grid" id="album-grid"></main>
-
-        <!-- SCROLL HINT -->
-        <div class="scroll-hint">scroll ↕</div>
-
-        <!-- BENCH SEATS — 4 units -->
-        <div class="train-seats" aria-hidden="true">
-          <div class="seat-bench">
-            <div class="seat-back">
-              <div class="seat-back-unit"></div>
-              <div class="seat-back-unit"></div>
-              <div class="seat-back-unit"></div>
-              <div class="seat-back-unit"></div>
-            </div>
-            <div class="seat-cushion">
-              <div class="seat-cushion-unit"></div>
-              <div class="seat-cushion-unit"></div>
-              <div class="seat-cushion-unit"></div>
-              <div class="seat-cushion-unit"></div>
-            </div>
-          </div>
-        </div>
-
       </div>
 
-      <!-- STATUS BAR -->
-      <div class="status-bar">
-        <div class="status-left">
-          <span><span class="status-dot"></span><span id="t-archive-loaded">Archive loaded</span></span>
-          <span id="album-count">— albums</span>
-          <span id="t-status-conn">CONN // UNSTABLE</span>
-        </div>
-        <span class="status-right" id="t-status-copyright">&copy; The Commuting — All rights reserved</span>
-      </div>
+    </div><!-- end archive-page -->
 
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+      <div class="status-left">
+        <span><span class="status-dot"></span>Archive loaded</span>
+        <span id="album-count">— stops</span>
+        <span>CONN // UNSTABLE</span>
+      </div>
+      <span class="status-right">&copy; The Commuting — All rights reserved</span>
     </div>
 
   </div>
 
-  <!-- SIDEBAR -->
+  <!-- SIDEBAR PANEL -->
   <div class="album-sidebar" id="album-sidebar" aria-hidden="true">
     <div class="sidebar-header">
-      <div class="sidebar-header-top">
-        <span class="sidebar-tag">FOLDER //</span>
-        <h2 class="sidebar-title" id="sidebar-title">—</h2>
-        <button class="sidebar-close" id="sidebar-close" aria-label="Close">X</button>
-      </div>
-      <hr class="sidebar-divider">
-      <p class="sidebar-quote" id="sidebar-quote">
-        <span class="sidebar-quote-prefix">&gt;_</span>
-        <span id="sidebar-quote-text"></span>
-      </p>
+      <span class="sidebar-tag">FOLDER //</span>
+      <h2 class="sidebar-title" id="sidebar-title">—</h2>
+      <span class="sidebar-quote" id="sidebar-quote"></span>
+      <button class="sidebar-close" id="sidebar-close" aria-label="Close">X</button>
     </div>
     <div class="sidebar-strip" id="sidebar-strip"></div>
-    <div class="sidebar-footer"><span id="sidebar-count">— images</span></div>
+    <div class="sidebar-footer">
+      <span id="sidebar-count">— images</span>
+    </div>
   </div>
 
+  <!-- SIDEBAR BACKDROP -->
   <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
 
   <!-- LIGHTBOX -->
@@ -168,151 +120,37 @@
   </div>
 
   <script>
-    const grid         = document.getElementById('album-grid');
-    const sidebar      = document.getElementById('album-sidebar');
-    const backdrop     = document.getElementById('sidebar-backdrop');
-    const sideTitle    = document.getElementById('sidebar-title');
-    const sideStrip    = document.getElementById('sidebar-strip');
-    const sideCount    = document.getElementById('sidebar-count');
-    const sideClose    = document.getElementById('sidebar-close');
-    const albumCount   = document.getElementById('album-count');
-    const hamburger    = document.getElementById('hamburger');
-    const drawer       = document.getElementById('nav-drawer');
-    const lightbox     = document.getElementById('lightbox');
-    const lbImg        = document.getElementById('lightbox-img');
-    const lbName       = document.getElementById('lightbox-name');
-    const lbCounter    = document.getElementById('lightbox-counter');
-    const lbClose      = document.getElementById('lightbox-close');
-    const lbPrev       = document.getElementById('lightbox-prev');
-    const lbNext       = document.getElementById('lightbox-next');
-    const rackName     = document.getElementById('rack-album-name');
-    const rackQuote    = document.getElementById('rack-album-quote');
+    const timeline   = document.getElementById('timeline');
+    const sidebar    = document.getElementById('album-sidebar');
+    const backdrop   = document.getElementById('sidebar-backdrop');
+    const sideTitle  = document.getElementById('sidebar-title');
+    const sideQuote  = document.getElementById('sidebar-quote');
+    const sideStrip  = document.getElementById('sidebar-strip');
+    const sideCount  = document.getElementById('sidebar-count');
+    const sideClose  = document.getElementById('sidebar-close');
+    const albumCount = document.getElementById('album-count');
+    const hamburger  = document.getElementById('hamburger');
+    const drawer     = document.getElementById('nav-drawer');
+    const lightbox   = document.getElementById('lightbox');
+    const lbImg      = document.getElementById('lightbox-img');
+    const lbName     = document.getElementById('lightbox-name');
+    const lbCounter  = document.getElementById('lightbox-counter');
+    const lbClose    = document.getElementById('lightbox-close');
+    const lbPrev     = document.getElementById('lightbox-prev');
+    const lbNext     = document.getElementById('lightbox-next');
 
     let currentAlbum = null;
-    let lbAlbum      = null;
-    let lbIndex      = 0;
-    let albumsData   = [];
-    let cards        = [];
-    let currentCard  = 0;
-    let isAnimating  = false;
+    let currentIndex = 0;
 
     hamburger.addEventListener('click', () => {
       hamburger.classList.toggle('open');
       drawer.classList.toggle('open');
     });
 
-    /* ── RACK UPDATE ── */
-    function updateRack(album) {
-      if (rackName)  rackName.textContent  = album.name;
-      if (rackQuote) rackQuote.textContent = album.quote || '';
-    }
-
-    /* ── MOBILE ARROW STATE — update data-disabled on arrows inside each card ── */
-    function updateArrows() {
-      cards.forEach((card, i) => {
-        const nextBtn = card.querySelector('[data-dir="next"]');
-        const prevBtn = card.querySelector('[data-dir="prev"]');
-        if (nextBtn) nextBtn.classList.toggle('disabled', i >= cards.length - 1);
-        if (prevBtn) prevBtn.classList.toggle('disabled', i <= 0);
-      });
-    }
-
-    /* ── CAROUSEL ── */
-    function goTo(index) {
-      if (isAnimating || !cards.length) return;
-      index = Math.max(0, Math.min(index, cards.length - 1));
-      if (index === currentCard) return;
-
-      isAnimating = true;
-      currentCard = index;
-
-      /* measure actual card width for precise offset */
-      const cardW  = cards[0].querySelector('.folder-body')
-                       ? cards[0].querySelector('.folder-body').offsetWidth
-                       : cards[0].offsetWidth;
-      const sceneW = grid.offsetWidth || window.innerWidth;
-      /* offset = half scene + 75% of card → card edge is 25% into view */
-      const offset = Math.round(sceneW / 2 + cardW * 0.75);
-
-      cards.forEach((card, i) => {
-        card.classList.remove('active', 'prev', 'next');
-        if (i === currentCard) {
-          card.style.transform = 'translate(-50%, -50%) translateX(0)';
-          card.style.opacity   = '1';
-          card.classList.add('active');
-        } else if (i === currentCard - 1) {
-          card.style.transform = `translate(-50%, -50%) translateX(-${offset}px)`;
-          card.style.opacity   = '0.5';
-          card.classList.add('prev');
-        } else if (i === currentCard + 1) {
-          card.style.transform = `translate(-50%, -50%) translateX(${offset}px)`;
-          card.style.opacity   = '0.5';
-          card.classList.add('next');
-        } else {
-          const far = offset + cardW;
-          card.style.transform = `translate(-50%, -50%) translateX(${i < currentCard ? -far : far}px)`;
-          card.style.opacity   = '0';
-        }
-      });
-
-      updateArrows();
-      if (albumsData[currentCard]) updateRack(albumsData[currentCard]);
-      setTimeout(() => { isAnimating = false; }, 700);
-    }
-
-    /* ── SCROLL / WHEEL ── */
-    let wheelAccum = 0;
-    let wheelTimer = null;
-
-    document.addEventListener('wheel', e => {
-      if (sidebar.classList.contains('open') || lightbox.classList.contains('open')) return;
-      e.preventDefault();
-      wheelAccum += e.deltaY;
-      clearTimeout(wheelTimer);
-      wheelTimer = setTimeout(() => {
-        if (Math.abs(wheelAccum) > 30) goTo(currentCard + (wheelAccum > 0 ? 1 : -1));
-        wheelAccum = 0;
-      }, 50);
-    }, { passive: false });
-
-    /* ── KEYBOARD ── */
-    document.addEventListener('keydown', e => {
-      if (lightbox.classList.contains('open')) {
-        if (e.key === 'Escape')     { closeLightbox(); return; }
-        if (e.key === 'ArrowLeft')  { lbIndex = (lbIndex - 1 + lbAlbum.images.length) % lbAlbum.images.length; updateLightbox(); return; }
-        if (e.key === 'ArrowRight') { lbIndex = (lbIndex + 1) % lbAlbum.images.length; updateLightbox(); return; }
-        return;
-      }
-      if (sidebar.classList.contains('open')) {
-        if (e.key === 'Escape') closeSidebar();
-        return;
-      }
-      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') goTo(currentCard + 1);
-      if (e.key === 'ArrowUp'   || e.key === 'ArrowLeft')  goTo(currentCard - 1);
-    });
-
-    /* ── TOUCH SWIPE ── */
-    let touchStartY = 0, touchStartX = 0;
-    document.addEventListener('touchstart', e => {
-      touchStartY = e.touches[0].clientY;
-      touchStartX = e.touches[0].clientX;
-    }, { passive: true });
-    document.addEventListener('touchend', e => {
-      if (sidebar.classList.contains('open') || lightbox.classList.contains('open')) return;
-      const dy = e.changedTouches[0].clientY - touchStartY;
-      const dx = e.changedTouches[0].clientX - touchStartX;
-      // on mobile use vertical swipe as primary; horizontal as fallback
-      if (Math.abs(dy) > 40) {
-        dy > 0 ? goTo(currentCard - 1) : goTo(currentCard + 1);
-      } else if (Math.abs(dx) > 40) {
-        dx < 0 ? goTo(currentCard + 1) : goTo(currentCard - 1);
-      }
-    });
-
     /* ── LIGHTBOX ── */
     function openLightbox(album, index) {
-      lbAlbum = album;
-      lbIndex = index;
+      currentAlbum = album;
+      currentIndex = index;
       updateLightbox();
       lightbox.classList.add('open');
     }
@@ -320,53 +158,47 @@
     function closeLightbox() { lightbox.classList.remove('open'); }
 
     function updateLightbox() {
-      const img = lbAlbum.images[lbIndex];
-      lbImg.src = `${lbAlbum.folder}/${img}`;
+      const img = currentAlbum.images[currentIndex];
+      lbImg.src = `${currentAlbum.folder}/${img}`;
       lbImg.alt = img;
       lbName.textContent = img.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ').toUpperCase();
-      lbCounter.textContent = `${lbIndex + 1} / ${lbAlbum.images.length}`;
+      lbCounter.textContent = `${currentIndex + 1} / ${currentAlbum.images.length}`;
     }
 
     lbClose.addEventListener('click', closeLightbox);
-    /* click on image = next photo */
-    lbImg.addEventListener('click', () => {
-      lbIndex = (lbIndex + 1) % lbAlbum.images.length;
-      updateLightbox();
-    });
     lbPrev.addEventListener('click', () => {
-      lbIndex = (lbIndex - 1 + lbAlbum.images.length) % lbAlbum.images.length;
+      currentIndex = (currentIndex - 1 + currentAlbum.images.length) % currentAlbum.images.length;
       updateLightbox();
     });
     lbNext.addEventListener('click', () => {
-      lbIndex = (lbIndex + 1) % lbAlbum.images.length;
+      currentIndex = (currentIndex + 1) % currentAlbum.images.length;
       updateLightbox();
+    });
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape')     closeLightbox();
+      if (e.key === 'ArrowLeft')  lbPrev.click();
+      if (e.key === 'ArrowRight') lbNext.click();
     });
 
     /* ── SIDEBAR ── */
     function openSidebar(album) {
-      const isSameAlbum = currentAlbum && currentAlbum.id === album.id;
       currentAlbum = album;
       sideTitle.textContent = album.name;
-      document.getElementById('sidebar-quote-text').textContent = album.quote || '';
-
-      if (!isSameAlbum) {
-        sideStrip.innerHTML = '';
-        album.images.forEach((img, i) => {
-          const el = document.createElement('div');
-          el.className = 'strip-item';
-          el.style.animationDelay = `${i * 0.06}s`;
-          const image = document.createElement('img');
-          image.src = `${album.folder}/${img}`;
-          image.alt = img;
-          image.loading = 'lazy';
-          image.width = 200;
-          image.height = 150;
-          image.addEventListener('click', () => openLightbox(album, i));
-          el.appendChild(image);
-          sideStrip.appendChild(el);
-        });
-      }
-
+      sideQuote.textContent = album.quote || '';
+      sideStrip.innerHTML = '';
+      album.images.forEach((img, i) => {
+        const el = document.createElement('div');
+        el.className = 'strip-item';
+        el.style.animationDelay = `${i * 0.06}s`;
+        const image = document.createElement('img');
+        image.src = `${album.folder}/${img}`;
+        image.alt = img;
+        image.loading = 'lazy';
+        image.addEventListener('click', () => openLightbox(album, i));
+        el.appendChild(image);
+        sideStrip.appendChild(el);
+      });
       sideCount.textContent = `${album.images.length} image${album.images.length !== 1 ? 's' : ''}`;
       sidebar.classList.add('open');
       backdrop.classList.add('open');
@@ -381,102 +213,81 @@
 
     sideClose.addEventListener('click', closeSidebar);
     backdrop.addEventListener('click', closeSidebar);
+    document.addEventListener('keydown', e => {
+      if (lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeSidebar();
+    });
 
-    /* ── LOAD ALBUMS ── */
+    /* ── LOAD ALBUMS & BUILD TIMELINE ── */
     fetch('./scripts/albums.json')
       .then(r => r.json())
       .then(albums => {
-        albumCount.textContent = `${albums.length} album${albums.length !== 1 ? 's' : ''}`;
-        albumsData = albums;
+        albumCount.textContent = `${albums.length} stop${albums.length !== 1 ? 's' : ''}`;
 
         albums.forEach((album, i) => {
-          const card = document.createElement('div');
-          card.className = 'album-card';
-          card.setAttribute('tabindex', '0');
-          card.setAttribute('role', 'button');
-          card.setAttribute('aria-label', `Open album: ${album.name}`);
+          const stop = document.createElement('div');
+          stop.className = 'timeline-stop';
 
-          const thumbFolder = `${album.folder}/thumbs`;
-          const previewImgs = album.images.slice(0, 2).map(img =>
-            `<img class="folder-preview-img" src="${thumbFolder}/${img}" alt="" loading="lazy" width="140" height="200" onerror="this.src='${album.folder}/${img}'">`
+          /* blinking dot */
+          const dot = document.createElement('div');
+          dot.className = 'stop-dot';
+          stop.appendChild(dot);
+
+          /* stop label */
+          const label = document.createElement('div');
+          label.className = 'stop-label';
+          label.innerHTML = `
+            <div class="stop-label-eyebrow">Next stop:</div>
+            <div class="stop-label-name">${album.name}</div>
+            ${album.quote ? `<div class="stop-label-quote">${album.quote}</div>` : ''}
+          `;
+          stop.appendChild(label);
+
+          /* folder window */
+          const win = document.createElement('div');
+          win.className = 'folder-window';
+          win.setAttribute('tabindex', '0');
+          win.setAttribute('role', 'button');
+          win.setAttribute('aria-label', `Open album: ${album.name}`);
+
+          const previewImgs = album.images.slice(0, 4).map(img =>
+            `<img class="folder-preview-img" src="${album.folder}/${img}" alt="" loading="lazy" onerror="this.style.display='none'">`
           ).join('');
 
-          card.innerHTML = `
-            <button class="mobile-arrow mobile-arrow-next" data-dir="next" aria-label="Next album">↓</button>
+          win.innerHTML = `
+            <div class="folder-tab"></div>
             <div class="folder-body">
               ${album.images.length > 0
                 ? `<div class="folder-preview">${previewImgs}</div>`
                 : `<div class="folder-dot-grid"></div>`
               }
-              <div class="folder-glass"></div>
-              <span class="folder-id">VIEW // ${String(i + 1).padStart(2, '0')}</span>
+              <span class="folder-id">${String(i + 1).padStart(2, '0')}</span>
+              <span class="folder-enter">→ OPEN</span>
             </div>
-            <button class="mobile-arrow mobile-arrow-prev" data-dir="prev" aria-label="Previous album">↑</button>
-            <span class="folder-name">${album.name}</span>
-            <span class="folder-count">${album.images.length} imgs</span>
           `;
 
-          /* mobile arrow clicks — stop propagation so card click doesn't fire */
-          card.querySelectorAll('.mobile-arrow').forEach(btn => {
-            btn.addEventListener('click', e => {
-              e.stopPropagation();
-              goTo(currentCard + (btn.dataset.dir === 'next' ? 1 : -1));
-            });
-          });
-
-          /* clicking the window: on desktop navigate if not active, then open sidebar */
-          card.addEventListener('click', () => {
-            const isMobile = window.matchMedia('(max-width: 768px)').matches;
-            if (!isMobile && i !== currentCard) { goTo(i); return; }
-            openSidebar(album);
-          });
-          card.addEventListener('keydown', e => {
+          win.addEventListener('click', () => openSidebar(album));
+          win.addEventListener('keydown', e => {
             if (e.key === 'Enter' || e.key === ' ') openSidebar(album);
           });
-
-          grid.appendChild(card);
-          cards.push(card);
+          stop.appendChild(win);
+          timeline.appendChild(stop);
         });
 
-        /* ── INIT ── */
-        requestAnimationFrame(() => {
-          cards.forEach(c => { c.style.transition = 'none'; });
-          requestAnimationFrame(() => {
-            /* measure then position */
-            const cardW  = cards[0].querySelector('.folder-body').offsetWidth;
-            const sceneW = grid.offsetWidth || window.innerWidth;
-            const offset = Math.round(sceneW / 2 + cardW * 0.75);
-
-            cards.forEach((card, i) => {
-              if (i === 0) {
-                card.style.transform = 'translate(-50%, -50%) translateX(0)';
-                card.style.opacity   = '1';
-                card.classList.add('active');
-              } else if (i === 1) {
-                card.style.transform = `translate(-50%, -50%) translateX(${offset}px)`;
-                card.style.opacity   = '0.5';
-                card.classList.add('next');
-              } else {
-                card.style.transform = `translate(-50%, -50%) translateX(${offset + cardW}px)`;
-                card.style.opacity   = '0';
-              }
-            });
-
-            updateArrows();
-            if (albumsData[0]) updateRack(albumsData[0]);
-
-            requestAnimationFrame(() => {
-              cards.forEach(c => { c.style.transition = ''; });
-            });
-          });
-        });
+        /* terminal end of line */
+        const end = document.createElement('div');
+        end.className = 'timeline-end';
+        end.innerHTML = `
+          <div class="timeline-end-dot"></div>
+          <span class="timeline-end-label">END OF LINE</span>
+        `;
+        timeline.appendChild(end);
       })
       .catch(err => {
         console.error('Failed to load albums.json:', err);
-        grid.innerHTML = '<p class="archive-error">&gt;_ ERROR: scripts/albums.json not found or invalid.</p>';
+        timeline.innerHTML = '<p class="archive-error">&gt;_ ERROR: scripts/albums.json not found or invalid.</p>';
       });
   </script>
 
-  <script src="./scripts/translations.js"></script>
 </body>
 </html>

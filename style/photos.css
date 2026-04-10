@@ -88,12 +88,12 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  padding: 3rem 3.5rem 6rem 8rem;
+  align-items: center;       /* centers stops horizontally */
+  padding: 3rem 3.5rem 6rem 0;
   min-height: 100%;
 }
 
-/* ── VERTICAL LINE (thicker) ── */
+/* ── VERTICAL LINE — fixed to left of viewport inside scroll area ── */
 .timeline::before {
   content: '';
   position: absolute;
@@ -130,8 +130,8 @@ body {
 /* ── SINGLE STOP ── */
 .timeline-stop {
   position: relative;
-  width: 100%;
-  max-width: 700px;
+  width: min(680px, calc(100% - 10rem)); /* fills screen minus line area */
+  margin-left: 5rem;                     /* clears the left line */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -141,12 +141,13 @@ body {
 
 .timeline-stop:last-child { margin-bottom: 0; }
 
-/* ── DOT ON THE LINE (bigger) ── */
+/* ── DOT ON THE LINE ── */
 .stop-dot {
   position: absolute;
-  left: -3.5rem;
+  /* dot sits on the line: line is at 4.5rem from timeline left,
+     stop has margin-left:5rem, so dot must be at -(5rem - 4.5rem + half dot) = -0.75rem from stop */
+  left: calc(-0.625rem - 2px); /* = -(0.5rem margin gap) - half of 16px dot */
   top: 0.6rem;
-  transform: translateX(-50%);
   width: 16px;
   height: 16px;
   border-radius: 50%;
@@ -169,17 +170,17 @@ body {
   50%       { box-shadow: 0 0 6px var(--accent-bright), 0 0 2px #fff, 0 0 10px var(--accent); opacity: 0.5; }
 }
 
-/* ── CONNECTOR LINE: dot to label (length set by JS) ── */
+/* ── CONNECTOR LINE: dot to label ── */
 .stop-dot::after {
   content: '';
   position: absolute;
   top: 50%;
   left: 100%;
   transform: translateY(-50%);
-  width: var(--connector-width, 2rem);
+  width: 1.2rem;
   height: 1px;
   background: rgba(168,127,212,0.25);
-  transition: background 0.4s, width 0.3s;
+  transition: background 0.4s;
 }
 
 .timeline-stop.active .stop-dot::after {
@@ -350,17 +351,19 @@ body {
   flex-direction: row;
   align-items: center;
   gap: 1rem;
-  margin-left: -3.5rem;
+  width: min(680px, calc(100% - 10rem));
+  margin-left: 5rem;
   padding-top: 1rem;
 }
 
 .timeline-end-dot {
+  position: absolute;
+  left: calc(-0.625rem - 2px);
   width: 16px;
   height: 16px;
   border-radius: 50%;
   border: 2px solid rgba(168,127,212,0.5);
   background: var(--bg);
-  transform: translateX(-50%);
   flex-shrink: 0;
 }
 
@@ -630,16 +633,33 @@ body {
 @media (max-width: 768px) {
   .archive-header { padding: 1.4rem 1.4rem 1rem; }
 
-  .timeline { padding: 2rem 1.4rem 4rem 5rem; }
+  .timeline { padding: 2rem 1rem 4rem 0; }
 
-  .timeline::before { left: 2.2rem; width: 3px; }
-  .timeline::after  { left: calc(2.2rem - 1px); width: 5px; }
+  .timeline::before { left: 2rem; width: 3px; }
+  .timeline::after  { left: calc(2rem - 1px); width: 5px; }
 
-  .timeline-stop { margin-bottom: 3.5rem; }
+  .timeline-stop {
+    width: calc(100% - 4.5rem);
+    margin-left: 3rem;
+    margin-bottom: 3.5rem;
+  }
 
-  .stop-dot { left: -2.8rem; width: 14px; height: 14px; }
+  .timeline-end {
+    width: calc(100% - 4.5rem);
+    margin-left: 3rem;
+  }
 
-  .timeline-end { margin-left: -2.8rem; }
+  .stop-dot {
+    left: calc(-0.625rem - 2px);
+    width: 14px;
+    height: 14px;
+  }
+
+  .timeline-end-dot {
+    left: calc(-0.625rem - 2px);
+    width: 14px;
+    height: 14px;
+  }
 
   .stop-label-name { font-size: 1rem; }
 
@@ -655,9 +675,7 @@ body {
     border-top: 1px solid rgba(123,94,167,0.3);
   }
 
-  .strip-item {
-    height: calc(65vh - 130px);
-  }
+  .strip-item { height: calc(65vh - 130px); }
 
   .strip-item img {
     height: 100%;

@@ -39,6 +39,19 @@
         <li><a href="#">Stories</a></li>
         <li><a href="#">Tech</a></li>
         <li><a href="#">About</a></li>
+        <li class="nav-lang-item">
+          <div class="lang-switcher lang-switcher-inline">
+            <button class="lang-btn" id="lang-btn" aria-label="Change language">
+              <span id="lang-btn-label">EN</span>
+              <span class="lang-btn-arrow">▾</span>
+            </button>
+            <div class="lang-dropdown" id="lang-dropdown">
+              <button class="lang-option" data-lang="en">EN — English</button>
+              <button class="lang-option" data-lang="it">IT — Italiano</button>
+              <button class="lang-option" data-lang="zh">中文 — 繁體</button>
+            </div>
+          </div>
+        </li>
       </ul>
       <button class="hamburger" id="hamburger" aria-label="Menu">
         <div class="hamburger-bars">
@@ -129,9 +142,9 @@
       </svg>
       <!-- STICKY HEADER -->
       <div class="archive-header">
-        <p class="archive-eyebrow">01 // PHOTOS</p>
-        <h1 class="archive-title">THE ARCHIVE</h1>
-        <p class="archive-sub">&gt;_ SCROLL TO BROWSE STOPS</p>
+        <p class="archive-eyebrow" id="t-archive-eyebrow">01 // PHOTOS</p>
+        <h1 class="archive-title" id="t-archive-title">THE ARCHIVE</h1>
+        <p class="archive-sub" id="t-archive-sub">&gt;_ SCROLL TO BROWSE STOPS</p>
       </div>
 
       <!-- SCROLLABLE TIMELINE -->
@@ -146,11 +159,11 @@
     <!-- STATUS BAR -->
     <div class="status-bar">
       <div class="status-left">
-        <span><span class="status-dot"></span>Archive loaded</span>
+        <span><span class="status-dot"></span><span id="t-archive-loaded">Archive loaded</span></span>
         <span id="album-count">— stops</span>
-        <span>CONN // UNSTABLE</span>
+        <span id="t-status-conn">CONN // UNSTABLE</span>
       </div>
-      <span class="status-right">&copy; The Commuting — All rights reserved</span>
+      <span class="status-right" id="t-status-copyright">&copy; The Commuting — All rights reserved</span>
     </div>
 
   </div>
@@ -354,30 +367,6 @@
         `;
         timeline.appendChild(end);
 
-        /* ── DYNAMIC CONNECTOR: stretch dot→label line to center window on screen ── */
-        function updateConnectors() {
-          const lineX = timeline.getBoundingClientRect().left + parseFloat(getComputedStyle(timeline, '::before').left || '72');
-          stops.forEach(stop => {
-            const win = stop.querySelector('.train-window');
-            const dot = stop.querySelector('.stop-dot');
-            if (!win || !dot) return;
-            const winRect = win.getBoundingClientRect();
-            const dotRect = dot.getBoundingClientRect();
-            const windowCenter = window.innerWidth / 2;
-            const winLeft = winRect.left;
-            const dotRight = dotRect.right;
-            /* connector spans from dot right edge to window left edge */
-            const connectorPx = Math.max(16, winLeft - dotRight);
-            dot.style.setProperty('--connector-width', connectorPx + 'px');
-          });
-        }
-
-        /* run once after layout, then on resize */
-        requestAnimationFrame(() => {
-          updateConnectors();
-          window.addEventListener('resize', updateConnectors);
-        });
-
         /* ── INTERSECTION OBSERVER: one active stop at a time ── */
         const scrollContainer = document.querySelector('.timeline-scroll');
         const stops = document.querySelectorAll('.timeline-stop');
@@ -405,6 +394,8 @@
         timeline.innerHTML = '<p class="archive-error">&gt;_ ERROR: scripts/albums.json not found or invalid.</p>';
       });
   </script>
+
+  <script src="./scripts/translations.js"></script>
 
 </body>
 </html>

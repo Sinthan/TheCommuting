@@ -96,9 +96,9 @@
         <!-- WINDOW CAROUSEL -->
         <main class="album-grid" id="album-grid"></main>
 
-        <!-- DESKTOP CAROUSEL ARROWS -->
-        <button class="carousel-arrow carousel-arrow-prev disabled" id="carousel-prev" aria-label="Previous album">&#8592;</button>
-        <button class="carousel-arrow carousel-arrow-next" id="carousel-next" aria-label="Next album">&#8594;</button>
+        <!-- MOBILE CAROUSEL ARROWS (hidden on desktop) -->
+        <button class="mobile-arrow mobile-arrow-next disabled" id="mobile-next" aria-label="Next album">↓</button>
+        <button class="mobile-arrow mobile-arrow-prev disabled" id="mobile-prev" aria-label="Previous album">↑</button>
 
         <!-- SCROLL HINT -->
         <div class="scroll-hint">scroll ↕</div>
@@ -191,8 +191,8 @@
     const lbNext       = document.getElementById('lightbox-next');
     const rackName     = document.getElementById('rack-album-name');
     const rackQuote    = document.getElementById('rack-album-quote');
-    const carouselPrev = document.getElementById('carousel-prev');
-    const carouselNext = document.getElementById('carousel-next');
+    const mobilePrev   = document.getElementById('mobile-prev');
+    const mobileNext   = document.getElementById('mobile-next');
 
     let currentAlbum = null;
     let lbAlbum      = null;
@@ -213,11 +213,10 @@
       if (rackQuote) rackQuote.textContent = album.quote || '';
     }
 
-    /* ── CAROUSEL ARROW STATE ── */
+    /* ── MOBILE ARROW STATE ── */
     function updateArrows() {
-      if (!carouselPrev || !carouselNext) return;
-      carouselPrev.classList.toggle('disabled', currentCard === 0);
-      carouselNext.classList.toggle('disabled', currentCard === cards.length - 1);
+      if (mobilePrev) mobilePrev.classList.toggle('disabled', currentCard === 0);
+      if (mobileNext) mobileNext.classList.toggle('disabled', currentCard === cards.length - 1);
     }
 
     /* ── CAROUSEL ── */
@@ -242,8 +241,8 @@
       setTimeout(() => { isAnimating = false; }, 700);
     }
 
-    if (carouselPrev) carouselPrev.addEventListener('click', () => goTo(currentCard - 1));
-    if (carouselNext) carouselNext.addEventListener('click', () => goTo(currentCard + 1));
+    if (mobilePrev) mobilePrev.addEventListener('click', () => goTo(currentCard - 1));
+    if (mobileNext) mobileNext.addEventListener('click', () => goTo(currentCard + 1));
 
     /* ── SCROLL / WHEEL ── */
     let wheelAccum = 0;

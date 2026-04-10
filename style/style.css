@@ -489,7 +489,7 @@ nav::after {
   border-left: 1px solid rgba(74,140,92,0.25);
   z-index: 99;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 3rem 2rem;
   gap: 0.5rem;
   transform: translateX(100%);
@@ -609,4 +609,41 @@ nav::after {
 
 @media (max-width: 768px) {
   .nav-lang-item { display: none; }
+}
+
+/* ── MOBILE DRAWER LANGUAGE SELECTOR ── */
+.drawer-lang {
+  margin-top: auto;
+  padding-top: 1.4rem;
+  border-top: 1px solid rgba(123,94,167,0.18);
+}
+
+.drawer-lang-label {
+  font-size: 0.52rem;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.6rem;
+}
+
+.drawer-lang-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.drawer-lang-options .lang-option {
+  text-align: left;
+  padding: 0.6rem 0;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+}
+
+.drawer-lang-options .lang-option::before {
+  content: '//';
+  margin-right: 0.4em;
+  color: var(--accent);
 }

@@ -5,6 +5,19 @@ body {
   background-color: var(--bg);
 }
 
+/* ── DOT MATRIX TRAIN (bird-eye SVG) ── */
+.train-bg {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80vw;
+  max-width: 600px;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+}
+
 /* active nav link */
 .nav-active { color: var(--accent-bright) !important; }
 .nav-active::before { opacity: 1 !important; }
@@ -75,41 +88,52 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 3rem 3.5rem 6rem;
+  align-items: stretch;
+  padding: 3rem 3.5rem 6rem 8rem;
   min-height: 100%;
 }
 
-/* ── VERTICAL LINE ── */
+/* ── VERTICAL LINE (left side, solid, thick) ── */
 .timeline::before {
   content: '';
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 1px;
-  /* dot matrix dashed line */
-  background-image: repeating-linear-gradient(
-    to bottom,
-    rgba(168,127,212,0.5) 0px,
-    rgba(168,127,212,0.5) 4px,
-    transparent 4px,
-    transparent 10px
-  );
+  left: 4.5rem;
+  width: 3px;
+  background: rgba(168,127,212,0.35);
   z-index: 0;
+}
+
+/* ── TRAVELING LIGHT PULSE on line ── */
+.timeline::after {
+  content: '';
+  position: absolute;
+  left: 4.5rem;
+  top: 0;
+  width: 3px;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--accent-bright), transparent);
+  z-index: 0;
+  animation: lineTravel 4s ease-in-out infinite;
+}
+
+@keyframes lineTravel {
+  0%   { top: 0; opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { top: calc(100% - 60px); opacity: 0; }
 }
 
 /* ── SINGLE STOP ── */
 .timeline-stop {
   position: relative;
   width: 100%;
-  max-width: 900px;
+  max-width: 700px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding-left: calc(50% + 2.5rem);
-  margin-bottom: 6rem;
+  margin-bottom: 5rem;
   z-index: 1;
 }
 
@@ -118,16 +142,29 @@ body {
 /* ── DOT ON THE LINE ── */
 .stop-dot {
   position: absolute;
-  left: 50%;
+  left: -3.5rem;
   top: 0.6rem;
   transform: translateX(-50%);
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: var(--accent-bright);
-  box-shadow: 0 0 8px var(--accent);
-  animation: pulse 2.4s infinite;
+  background: rgba(168,127,212,0.35);
+  border: 2px solid rgba(168,127,212,0.5);
   z-index: 2;
+  transition: background 0.4s, box-shadow 0.4s, border-color 0.4s;
+}
+
+/* only the active stop pulses */
+.timeline-stop.active .stop-dot {
+  background: var(--accent-bright);
+  border-color: var(--accent-bright);
+  box-shadow: 0 0 12px var(--accent), 0 0 4px var(--accent-bright);
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { box-shadow: 0 0 12px var(--accent), 0 0 4px var(--accent-bright); }
+  50%      { box-shadow: 0 0 20px var(--accent-bright), 0 0 8px var(--accent-bright); }
 }
 
 /* ── CONNECTOR LINE: dot to label ── */
@@ -139,7 +176,12 @@ body {
   transform: translateY(-50%);
   width: 2rem;
   height: 1px;
-  background: rgba(168,127,212,0.4);
+  background: rgba(168,127,212,0.25);
+  transition: background 0.4s;
+}
+
+.timeline-stop.active .stop-dot::after {
+  background: rgba(168,127,212,0.5);
 }
 
 /* ── STOP LABEL ── */
@@ -277,10 +319,11 @@ body {
   position: relative;
   z-index: 1;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 0.5rem;
-  padding-top: 2rem;
+  gap: 1rem;
+  margin-left: -3.5rem;
+  padding-top: 1rem;
 }
 
 .timeline-end-dot {
@@ -289,6 +332,8 @@ body {
   border-radius: 50%;
   border: 2px solid rgba(168,127,212,0.5);
   background: var(--bg);
+  transform: translateX(-50%);
+  flex-shrink: 0;
 }
 
 .timeline-end-label {
@@ -548,11 +593,6 @@ body {
 }
 
 /* ── KEYFRAMES ── */
-@keyframes pulse {
-  0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--accent); }
-  50%       { opacity: 0.3; box-shadow: 0 0 2px var(--accent); }
-}
-
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -562,10 +602,16 @@ body {
 @media (max-width: 768px) {
   .archive-header { padding: 1.4rem 1.4rem 1rem; }
 
-  .timeline { padding: 2rem 1.4rem 4rem; }
+  .timeline { padding: 2rem 1.4rem 4rem 5rem; }
 
-  /* shift stops to right of line on mobile too */
-  .timeline-stop { padding-left: calc(50% + 1.4rem); margin-bottom: 4rem; }
+  .timeline::before { left: 2.2rem; }
+  .timeline::after  { left: 2.2rem; }
+
+  .timeline-stop { margin-bottom: 3.5rem; }
+
+  .stop-dot { left: -2.8rem; }
+
+  .timeline-end { margin-left: -2.8rem; }
 
   .stop-label-name { font-size: 1rem; }
 

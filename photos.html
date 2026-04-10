@@ -310,26 +310,30 @@
           `;
           stop.appendChild(label);
 
-          /* folder window */
+          /* train window */
           const win = document.createElement('div');
-          win.className = 'folder-window';
+          win.className = 'train-window';
           win.setAttribute('tabindex', '0');
           win.setAttribute('role', 'button');
           win.setAttribute('aria-label', `Open album: ${album.name}`);
 
           const previewImgs = album.images.slice(0, 4).map(img =>
-            `<img class="folder-preview-img" src="${album.folder}/${img}" alt="" loading="lazy" onerror="this.style.display='none'">`
+            `<img class="window-preview-img" src="${album.folder}/${img}" alt="" loading="lazy" onerror="this.style.display='none'">`
           ).join('');
 
           win.innerHTML = `
-            <div class="folder-tab"></div>
-            <div class="folder-body">
-              ${album.images.length > 0
-                ? `<div class="folder-preview">${previewImgs}</div>`
-                : `<div class="folder-dot-grid"></div>`
-              }
-              <span class="folder-id">${String(i + 1).padStart(2, '0')}</span>
-              <span class="folder-enter">→ OPEN</span>
+            <div class="window-frame-outer">
+              <div class="window-pane">
+                ${album.images.length > 0
+                  ? `<div class="window-preview">${previewImgs}</div>`
+                  : `<div class="window-dot-grid"></div>`
+                }
+                <div class="window-reflection"></div>
+                <div class="window-label">
+                  <span class="window-label-tag">VIEW // ${String(i + 1).padStart(2, '0')}</span>
+                </div>
+                <span class="window-enter">→ OPEN</span>
+              </div>
             </div>
           `;
 
@@ -349,6 +353,30 @@
           <span class="timeline-end-label">END OF LINE</span>
         `;
         timeline.appendChild(end);
+
+        /* ── DYNAMIC CONNECTOR: stretch dot→label line to center window on screen ── */
+        function updateConnectors() {
+          const lineX = timeline.getBoundingClientRect().left + parseFloat(getComputedStyle(timeline, '::before').left || '72');
+          stops.forEach(stop => {
+            const win = stop.querySelector('.train-window');
+            const dot = stop.querySelector('.stop-dot');
+            if (!win || !dot) return;
+            const winRect = win.getBoundingClientRect();
+            const dotRect = dot.getBoundingClientRect();
+            const windowCenter = window.innerWidth / 2;
+            const winLeft = winRect.left;
+            const dotRight = dotRect.right;
+            /* connector spans from dot right edge to window left edge */
+            const connectorPx = Math.max(16, winLeft - dotRight);
+            dot.style.setProperty('--connector-width', connectorPx + 'px');
+          });
+        }
+
+        /* run once after layout, then on resize */
+        requestAnimationFrame(() => {
+          updateConnectors();
+          window.addEventListener('resize', updateConnectors);
+        });
 
         /* ── INTERSECTION OBSERVER: one active stop at a time ── */
         const scrollContainer = document.querySelector('.timeline-scroll');

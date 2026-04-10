@@ -412,6 +412,8 @@
               <span class="folder-id">VIEW // ${String(i + 1).padStart(2, '0')}</span>
             </div>
             <button class="mobile-arrow mobile-arrow-prev" data-dir="prev" aria-label="Previous album">↑</button>
+            <span class="folder-name">${album.name}</span>
+            <span class="folder-count">${album.images.length} imgs</span>
           `;
 
           /* mobile arrow clicks — stop propagation so card click doesn't fire */
@@ -422,9 +424,10 @@
             });
           });
 
-          /* clicking the window opens the sidebar */
+          /* clicking the window: on desktop navigate if not active, then open sidebar */
           card.addEventListener('click', () => {
-            if (i !== currentCard) { goTo(i); return; }
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+            if (!isMobile && i !== currentCard) { goTo(i); return; }
             openSidebar(album);
           });
           card.addEventListener('keydown', e => {

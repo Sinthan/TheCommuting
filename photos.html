@@ -173,7 +173,6 @@
     <div class="sidebar-header">
       <span class="sidebar-tag">FOLDER //</span>
       <h2 class="sidebar-title" id="sidebar-title">—</h2>
-      <span class="sidebar-quote" id="sidebar-quote"></span>
       <button class="sidebar-close" id="sidebar-close" aria-label="Close">X</button>
     </div>
     <div class="sidebar-strip" id="sidebar-strip"></div>
@@ -204,7 +203,6 @@
     const sidebar    = document.getElementById('album-sidebar');
     const backdrop   = document.getElementById('sidebar-backdrop');
     const sideTitle  = document.getElementById('sidebar-title');
-    const sideQuote  = document.getElementById('sidebar-quote');
     const sideStrip  = document.getElementById('sidebar-strip');
     const sideCount  = document.getElementById('sidebar-count');
     const sideClose  = document.getElementById('sidebar-close');
@@ -265,7 +263,6 @@
     function openSidebar(album) {
       currentAlbum = album;
       sideTitle.textContent = album.name;
-      sideQuote.textContent = album.quote || '';
       sideStrip.innerHTML = '';
       album.images.forEach((img, i) => {
         const el = document.createElement('div');
@@ -313,13 +310,16 @@
           dot.className = 'stop-dot';
           stop.appendChild(dot);
 
-          /* stop label */
+          /* stop label with header connector */
           const label = document.createElement('div');
           label.className = 'stop-label';
           label.innerHTML = `
-            <div class="stop-label-eyebrow">Next stop:</div>
-            <div class="stop-label-name">${album.name}</div>
-            ${album.quote ? `<div class="stop-label-quote">${album.quote}</div>` : ''}
+            <div class="stop-header">
+              <div class="stop-title-block">
+                <span class="stop-label-eyebrow">Next stop:</span>
+                <span class="stop-label-name">${album.name}</span>
+              </div>
+            </div>
           `;
           stop.appendChild(label);
 
@@ -330,9 +330,11 @@
           win.setAttribute('role', 'button');
           win.setAttribute('aria-label', `Open album: ${album.name}`);
 
-          const previewImgs = album.images.slice(0, 4).map(img =>
-            `<img class="window-preview-img" src="${album.folder}/${img}" alt="" loading="lazy" onerror="this.style.display='none'">`
-          ).join('');
+          const previewImgs = album.images.slice(0, 4).map(img => {
+            const thumbPath = `${album.folder}/thumbs/${img}`;
+            const fullPath  = `${album.folder}/${img}`;
+            return `<img class="window-preview-img" src="${thumbPath}" alt="" loading="lazy" onerror="this.src='${fullPath}'">`; 
+          }).join('');
 
           win.innerHTML = `
             <div class="window-frame-outer">

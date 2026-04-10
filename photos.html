@@ -96,6 +96,10 @@
         <!-- WINDOW CAROUSEL -->
         <main class="album-grid" id="album-grid"></main>
 
+        <!-- DESKTOP CAROUSEL ARROWS -->
+        <button class="carousel-arrow carousel-arrow-prev disabled" id="carousel-prev" aria-label="Previous album">&#8592;</button>
+        <button class="carousel-arrow carousel-arrow-next" id="carousel-next" aria-label="Next album">&#8594;</button>
+
         <!-- SCROLL HINT -->
         <div class="scroll-hint">scroll ↕</div>
 
@@ -168,30 +172,32 @@
   </div>
 
   <script>
-    const grid       = document.getElementById('album-grid');
-    const sidebar    = document.getElementById('album-sidebar');
-    const backdrop   = document.getElementById('sidebar-backdrop');
-    const sideTitle  = document.getElementById('sidebar-title');
-    const sideStrip  = document.getElementById('sidebar-strip');
-    const sideCount  = document.getElementById('sidebar-count');
-    const sideClose  = document.getElementById('sidebar-close');
-    const albumCount = document.getElementById('album-count');
-    const hamburger  = document.getElementById('hamburger');
-    const drawer     = document.getElementById('nav-drawer');
-    const lightbox   = document.getElementById('lightbox');
-    const lbImg      = document.getElementById('lightbox-img');
-    const lbName     = document.getElementById('lightbox-name');
-    const lbCounter  = document.getElementById('lightbox-counter');
-    const lbClose    = document.getElementById('lightbox-close');
-    const lbPrev     = document.getElementById('lightbox-prev');
-    const lbNext     = document.getElementById('lightbox-next');
-    const rackName   = document.getElementById('rack-album-name');
-    const rackQuote  = document.getElementById('rack-album-quote');
+    const grid         = document.getElementById('album-grid');
+    const sidebar      = document.getElementById('album-sidebar');
+    const backdrop     = document.getElementById('sidebar-backdrop');
+    const sideTitle    = document.getElementById('sidebar-title');
+    const sideStrip    = document.getElementById('sidebar-strip');
+    const sideCount    = document.getElementById('sidebar-count');
+    const sideClose    = document.getElementById('sidebar-close');
+    const albumCount   = document.getElementById('album-count');
+    const hamburger    = document.getElementById('hamburger');
+    const drawer       = document.getElementById('nav-drawer');
+    const lightbox     = document.getElementById('lightbox');
+    const lbImg        = document.getElementById('lightbox-img');
+    const lbName       = document.getElementById('lightbox-name');
+    const lbCounter    = document.getElementById('lightbox-counter');
+    const lbClose      = document.getElementById('lightbox-close');
+    const lbPrev       = document.getElementById('lightbox-prev');
+    const lbNext       = document.getElementById('lightbox-next');
+    const rackName     = document.getElementById('rack-album-name');
+    const rackQuote    = document.getElementById('rack-album-quote');
+    const carouselPrev = document.getElementById('carousel-prev');
+    const carouselNext = document.getElementById('carousel-next');
 
-    let currentAlbum = null;   // used by sidebar
-    let currentIndex = 0;      // used by sidebar (unused now but kept for safety)
-    let lbAlbum      = null;   // lightbox album — separate from carousel state
-    let lbIndex      = 0;      // lightbox image index
+    let currentAlbum = null;
+    let lbAlbum      = null;
+    let lbIndex      = 0;
+    let albumsData   = [];
     let cards        = [];
     let currentCard  = 0;
     let isAnimating  = false;
@@ -201,13 +207,17 @@
       drawer.classList.toggle('open');
     });
 
-    let albumsData   = [];
-
-    /* ── RACK TEXT UPDATE ── */
+    /* ── RACK UPDATE ── */
     function updateRack(album) {
-      if (!rackName || !rackQuote) return;
-      rackName.textContent  = album.name;
-      rackQuote.textContent = album.quote || '';
+      if (rackName)  rackName.textContent  = album.name;
+      if (rackQuote) rackQuote.textContent = album.quote || '';
+    }
+
+    /* ── CAROUSEL ARROW STATE ── */
+    function updateArrows() {
+      if (!carouselPrev || !carouselNext) return;
+      carouselPrev.classList.toggle('disabled', currentCard === 0);
+      carouselNext.classList.toggle('disabled', currentCard === cards.length - 1);
     }
 
     /* ── CAROUSEL ── */
@@ -221,38 +231,47 @@
 
       cards.forEach((card, i) => {
         card.classList.remove('active', 'prev', 'next');
-        if (i === currentCard)     card.classList.add('active');
+        if (i === currentCard)         card.classList.add('active');
         else if (i === currentCard - 1) card.classList.add('prev');
         else if (i === currentCard + 1) card.classList.add('next');
+        // others: no class → off-screen via default CSS transform
       });
 
+      updateArrows();
       if (albumsData[currentCard]) updateRack(albumsData[currentCard]);
-
       setTimeout(() => { isAnimating = false; }, 700);
     }
+
+    if (carouselPrev) carouselPrev.addEventListener('click', () => goTo(currentCard - 1));
+    if (carouselNext) carouselNext.addEventListener('click', () => goTo(currentCard + 1));
 
     /* ── SCROLL / WHEEL ── */
     let wheelAccum = 0;
     let wheelTimer = null;
 
-    function handleWheel(e) {
+    document.addEventListener('wheel', e => {
       if (sidebar.classList.contains('open') || lightbox.classList.contains('open')) return;
       e.preventDefault();
       wheelAccum += e.deltaY;
       clearTimeout(wheelTimer);
       wheelTimer = setTimeout(() => {
-        if (Math.abs(wheelAccum) > 30) {
-          goTo(currentCard + (wheelAccum > 0 ? 1 : -1));
-        }
+        if (Math.abs(wheelAccum) > 30) goTo(currentCard + (wheelAccum > 0 ? 1 : -1));
         wheelAccum = 0;
       }, 50);
-    }
-
-    document.addEventListener('wheel', handleWheel, { passive: false });
+    }, { passive: false });
 
     /* ── KEYBOARD ── */
     document.addEventListener('keydown', e => {
-      if (sidebar.classList.contains('open') || lightbox.classList.contains('open')) return;
+      if (lightbox.classList.contains('open')) {
+        if (e.key === 'Escape')     { closeLightbox(); return; }
+        if (e.key === 'ArrowLeft')  { lbIndex = (lbIndex - 1 + lbAlbum.images.length) % lbAlbum.images.length; updateLightbox(); return; }
+        if (e.key === 'ArrowRight') { lbIndex = (lbIndex + 1) % lbAlbum.images.length; updateLightbox(); return; }
+        return;
+      }
+      if (sidebar.classList.contains('open')) {
+        if (e.key === 'Escape') closeSidebar();
+        return;
+      }
       if (e.key === 'ArrowDown' || e.key === 'ArrowRight') goTo(currentCard + 1);
       if (e.key === 'ArrowUp'   || e.key === 'ArrowLeft')  goTo(currentCard - 1);
     });
@@ -267,7 +286,8 @@
       if (sidebar.classList.contains('open') || lightbox.classList.contains('open')) return;
       const dy = e.changedTouches[0].clientY - touchStartY;
       const dx = e.changedTouches[0].clientX - touchStartX;
-      if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 40) {
+      // on mobile use vertical swipe as primary; horizontal as fallback
+      if (Math.abs(dy) > 40) {
         dy > 0 ? goTo(currentCard - 1) : goTo(currentCard + 1);
       } else if (Math.abs(dx) > 40) {
         dx < 0 ? goTo(currentCard + 1) : goTo(currentCard - 1);
@@ -293,6 +313,11 @@
     }
 
     lbClose.addEventListener('click', closeLightbox);
+    /* click on image = next photo */
+    lbImg.addEventListener('click', () => {
+      lbIndex = (lbIndex + 1) % lbAlbum.images.length;
+      updateLightbox();
+    });
     lbPrev.addEventListener('click', () => {
       lbIndex = (lbIndex - 1 + lbAlbum.images.length) % lbAlbum.images.length;
       updateLightbox();
@@ -300,12 +325,6 @@
     lbNext.addEventListener('click', () => {
       lbIndex = (lbIndex + 1) % lbAlbum.images.length;
       updateLightbox();
-    });
-    document.addEventListener('keydown', e => {
-      if (!lightbox.classList.contains('open')) return;
-      if (e.key === 'Escape')     { e.stopPropagation(); closeLightbox(); }
-      if (e.key === 'ArrowLeft')  { e.stopPropagation(); lbIndex = (lbIndex - 1 + lbAlbum.images.length) % lbAlbum.images.length; updateLightbox(); }
-      if (e.key === 'ArrowRight') { e.stopPropagation(); lbIndex = (lbIndex + 1) % lbAlbum.images.length; updateLightbox(); }
     });
 
     /* ── SIDEBAR ── */
@@ -347,17 +366,12 @@
 
     sideClose.addEventListener('click', closeSidebar);
     backdrop.addEventListener('click', closeSidebar);
-    document.addEventListener('keydown', e => {
-      if (lightbox.classList.contains('open')) return;
-      if (e.key === 'Escape') closeSidebar();
-    });
 
     /* ── LOAD ALBUMS ── */
     fetch('./scripts/albums.json')
       .then(r => r.json())
       .then(albums => {
         albumCount.textContent = `${albums.length} album${albums.length !== 1 ? 's' : ''}`;
-
         albumsData = albums;
 
         albums.forEach((album, i) => {
@@ -366,7 +380,6 @@
           card.setAttribute('tabindex', '0');
           card.setAttribute('role', 'button');
           card.setAttribute('aria-label', `Open album: ${album.name}`);
-          card.style.transition = 'none';
 
           const thumbFolder = `${album.folder}/thumbs`;
           const previewImgs = album.images.slice(0, 2).map(img =>
@@ -384,7 +397,11 @@
             </div>
           `;
 
-          card.addEventListener('click', () => openSidebar(album));
+          /* clicking the window opens the sidebar */
+          card.addEventListener('click', () => {
+            if (i !== currentCard) { goTo(i); return; }
+            openSidebar(album);
+          });
           card.addEventListener('keydown', e => {
             if (e.key === 'Enter' || e.key === ' ') openSidebar(album);
           });
@@ -393,15 +410,19 @@
           cards.push(card);
         });
 
-        // initialise positions
-        if (cards.length > 0) {
-          cards[0].style.transition = 'none';
-          cards[0].classList.add('active');
-          if (cards[1]) cards[1].classList.add('next');
-          updateRack(albumsData[0]);
-        }
-        grid.getBoundingClientRect();
-        cards.forEach(c => { c.style.transition = ''; });
+        /* ── INIT — set classes without transition ── */
+        requestAnimationFrame(() => {
+          cards.forEach(c => { c.style.transition = 'none'; });
+          requestAnimationFrame(() => {
+            if (cards[0]) cards[0].classList.add('active');
+            if (cards[1]) cards[1].classList.add('next');
+            updateArrows();
+            if (albumsData[0]) updateRack(albumsData[0]);
+            requestAnimationFrame(() => {
+              cards.forEach(c => { c.style.transition = ''; });
+            });
+          });
+        });
       })
       .catch(err => {
         console.error('Failed to load albums.json:', err);

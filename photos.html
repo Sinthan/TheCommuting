@@ -310,20 +310,21 @@
           dot.className = 'stop-dot';
           stop.appendChild(dot);
 
-          /* stop label — will sit above the window, aligned to it */
+          /* stop label — above window, indent set by JS */
           const label = document.createElement('div');
           label.className = 'stop-label';
           label.innerHTML = `
-            <div class="stop-connector">
-              <div class="connector-line"></div>
-              <div class="connector-tick"></div>
-            </div>
-            <div class="stop-title-block">
-              <span class="stop-label-eyebrow">Next stop:</span>
-              <span class="stop-label-name">${album.name}</span>
-              ${album.quote ? `<span class="stop-label-quote">${album.quote}</span>` : ''}
-            </div>
+            <span class="stop-label-eyebrow">Next stop:</span>
+            <span class="stop-label-name">${album.name}</span>
+            ${album.quote ? `<span class="stop-label-quote">${album.quote}</span>` : ''}
           `;
+
+          /* connector elements — absolute on stop */
+          const connector = document.createElement('div');
+          connector.className = 'stop-connector';
+
+          const tick = document.createElement('div');
+          tick.className = 'stop-connector-tick';
 
           /* train window */
           const win = document.createElement('div');
@@ -358,6 +359,8 @@
           win.addEventListener('keydown', e => {
             if (e.key === 'Enter' || e.key === ' ') openSidebar(album);
           });
+          stop.appendChild(connector);
+          stop.appendChild(tick);
           stop.appendChild(label);
           stop.appendChild(win);
           timeline.appendChild(stop);
@@ -371,6 +374,33 @@
           <span class="timeline-end-label">END OF LINE</span>
         `;
         timeline.appendChild(end);
+
+        /* ── SET CONNECTOR WIDTH = stop left offset (= window left edge from dot right) ── */
+        function updateConnectors() {
+          stops.forEach(stop => {
+            const stopRect = stop.getBoundingClientRect();
+            const timelineRect = timeline.getBoundingClientRect();
+            /* dot right edge = stop left - (0.5rem + 8px - 8px) = stop left - 0.5rem */
+            /* connector = from stop left (0) to wherever we want — we want it to end
+               at the label left padding boundary which is stop's left edge = 0 in stop coords.
+               But we want label aligned to window. window is full-width of stop.
+               So connector goes from 0 to 0 (= stop left) — just the gap from dot to stop edge.
+               That gap = 0.5rem = 8px. We want it a bit wider for visual clarity. */
+            const connW = Math.round(stopRect.left - timelineRect.left - 72 + 8);
+            /* 72 = 4.5rem line position; 8 = half dot to right edge of dot */
+            const safeW = Math.max(24, connW);
+            stop.style.setProperty('--connector-w', safeW + 'px');
+            stop.style.setProperty('--label-indent', (safeW + 8) + 'px'); /* tick width = 4px + padding */
+            /* also update tick position */
+            const tickEl = stop.querySelector('.stop-connector-tick');
+            if (tickEl) tickEl.style.left = safeW + 'px';
+          });
+        }
+
+        requestAnimationFrame(() => {
+          updateConnectors();
+          window.addEventListener('resize', updateConnectors);
+        });
 
         /* ── INTERSECTION OBSERVER: one active stop at a time ── */
         const scrollContainer = document.querySelector('.timeline-scroll');

@@ -106,7 +106,6 @@ body {
 }
 
 /* ── TRAVELING VERTICAL PULSE ── */
-/* Travels down the vertical line, stops at active dot position */
 .timeline::after {
   content: '';
   position: absolute;
@@ -116,24 +115,27 @@ body {
   height: 50px;
   background: linear-gradient(to bottom,
     transparent 0%,
-    rgba(168,127,212,0.4) 25%,
-    var(--accent-bright) 55%,
-    rgba(255,255,255,0.9) 80%,
-    rgba(255,255,255,0.5) 100%
+    rgba(168,127,212,0.5) 20%,
+    var(--accent-bright) 50%,
+    rgba(255,255,255,0.95) 75%,
+    rgba(255,255,255,0.6) 100%
   );
   z-index: 3;
   border-radius: 3px;
-  filter: blur(0.5px);
-  animation: lineTravel 3.5s ease-in-out infinite;
+  animation: lineTravel 3s linear infinite;
 }
 
+/* 3s linear cycle:
+   0-3%  fade in at top
+   3-80% travel to dot
+   80-90% hold at dot (dot lights up)
+   90-100% fade out */
 @keyframes lineTravel {
-  0%   { top: 0px; opacity: 0; }
-  6%   { opacity: 1; }
-  /* arrive at dot, linger */
-  80%  { top: var(--pulse-stop, 50%); opacity: 1; }
-  88%  { top: var(--pulse-stop, 50%); opacity: 0; }
-  100% { top: var(--pulse-stop, 50%); opacity: 0; }
+  0%   { top: 0;                       opacity: 0; }
+  3%   { top: 0;                       opacity: 1; }
+  80%  { top: var(--pulse-stop, 45%);  opacity: 1; }
+  90%  { top: var(--pulse-stop, 45%);  opacity: 0; }
+  100% { top: var(--pulse-stop, 45%);  opacity: 0; }
 }
 
 /* ── SINGLE STOP ── */
@@ -149,108 +151,100 @@ body {
 }
 .timeline-stop:last-child { margin-bottom: 0; }
 
-/* ── DOT ── */
+/* ── DOT ── solid, visible at rest, bright when pulse hits ── */
 .stop-dot {
   position: absolute;
   left: calc(-0.5rem - 8px);
-  top: 1.6rem;
+  top: 3.2rem;
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: rgba(60,40,90,0.9);
-  border: 2px solid rgba(168,127,212,0.4);
+  background: rgba(100,70,150,1);
+  border: 2px solid rgba(168,127,212,0.85);
   z-index: 4;
-  transition: background 0.4s, box-shadow 0.4s, border-color 0.4s;
 }
 
-/* active dot — blinks, triggered when pulse arrives */
 .timeline-stop.active .stop-dot {
-  background: var(--accent-bright);
-  border-color: #d4a8ff;
-  box-shadow: 0 0 18px var(--accent-bright), 0 0 8px #fff, 0 0 32px var(--accent);
-  animation: dotPulse 3.5s ease-in-out infinite;
+  animation: dotPulse 3s linear infinite;
 }
 
-/* dotPulse in sync with lineTravel:
-   dim while pulse travels down (0-80%), bright when pulse arrives (80-88%), then hold */
+/* synced with lineTravel (3s linear):
+   dim at rest (0-78%), bright when pulse arrives (82-92%), fade back */
 @keyframes dotPulse {
-  0%   { opacity: 0.35; box-shadow: 0 0 4px var(--accent); }
-  78%  { opacity: 0.35; box-shadow: 0 0 4px var(--accent); }
-  84%  { opacity: 1;    box-shadow: 0 0 22px var(--accent-bright), 0 0 10px #fff, 0 0 36px var(--accent); }
-  92%  { opacity: 1;    box-shadow: 0 0 18px var(--accent-bright), 0 0 6px #fff, 0 0 28px var(--accent); }
-  100% { opacity: 0.35; box-shadow: 0 0 4px var(--accent); }
+  0%   { background: rgba(100,70,150,1);  border-color: rgba(168,127,212,0.85); box-shadow: none; }
+  78%  { background: rgba(100,70,150,1);  border-color: rgba(168,127,212,0.85); box-shadow: none; }
+  84%  { background: var(--accent-bright); border-color: #e0c8ff; box-shadow: 0 0 20px var(--accent-bright), 0 0 8px #fff, 0 0 32px var(--accent); }
+  92%  { background: var(--accent-bright); border-color: #e0c8ff; box-shadow: 0 0 14px var(--accent-bright), 0 0 4px #fff, 0 0 22px var(--accent); }
+  100% { background: rgba(100,70,150,1);  border-color: rgba(168,127,212,0.85); box-shadow: none; }
 }
 
 .stop-dot::after { display: none; }
 
-/* ── STOP LABEL — sits above the window ── */
-.stop-label {
-  width: 100%;
-  margin-bottom: 0.5rem;
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  gap: 0;
-}
-
-/* ── CONNECTOR: horizontal line + tick, from stop-left to title ── */
+/* ── CONNECTOR — absolute, from dot-right to title left, 4px thick ── */
+/* Sits at the same vertical centre as the dot.
+   dot top: 3.2rem, dot height: 16px → centre = 3.2rem + 8px
+   line height: 4px → top = 3.2rem + 8px - 2px = 3.2rem + 6px */
 .stop-connector {
-  display: flex;
-  align-items: center;
-  align-self: flex-end;           /* aligns to bottom of label = dot level */
-  padding-bottom: calc(0.5rem + 2px);
-  flex-shrink: 0;
-}
-
-.connector-line {
-  width: 2rem;
-  height: 1px;
-  background: rgba(168,127,212,0.3);
-  transition: background 0.3s, box-shadow 0.3s;
-  position: relative;
+  position: absolute;
+  left: 0;
+  top: calc(3.2rem + 6px);
+  height: 4px;
+  width: var(--connector-w, 2rem);
+  background: rgba(168,127,212,0.45);
+  border-radius: 0 2px 2px 0;
+  z-index: 3;
   overflow: hidden;
 }
 
-/* animated light travelling along horizontal connector */
-.connector-line::after {
+.timeline-stop.active .stop-connector {
+  background: rgba(168,127,212,0.6);
+}
+
+/* light pulse travels from left to right along connector */
+.stop-connector::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to right, transparent, var(--accent-bright), transparent);
+  top: 0; bottom: 0;
+  left: -60px;
+  width: 60px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.95), var(--accent-bright), transparent);
   opacity: 0;
 }
 
-.timeline-stop.active .connector-line::after {
-  animation: connectorPulse 3.5s ease-in-out infinite;
+.timeline-stop.active .stop-connector::after {
+  animation: connectorPulse 3s linear infinite;
 }
 
+/* starts at 88% (when dot peaks), sweeps across by 98% */
 @keyframes connectorPulse {
-  0%   { left: -100%; opacity: 0; }
-  82%  { left: -100%; opacity: 0; }
-  88%  { left: -100%; opacity: 1; }
-  96%  { left: 100%;  opacity: 1; }
+  0%   { left: -60px; opacity: 0; }
+  88%  { left: -60px; opacity: 0; }
+  89%  { left: -60px; opacity: 1; }
+  98%  { left: 100%;  opacity: 1; }
   100% { left: 100%;  opacity: 0; }
 }
 
-.connector-tick {
-  width: 1px;
-  height: 14px;
-  background: rgba(168,127,212,0.3);
-  transition: background 0.3s;
-  flex-shrink: 0;
+/* ── VERTICAL TICK | at end of connector ── */
+.stop-connector-tick {
+  position: absolute;
+  left: var(--connector-w, 2rem);
+  top: calc(3.2rem + 6px - 8px);
+  height: 20px;
+  width: 4px;
+  background: rgba(168,127,212,0.45);
+  border-radius: 2px;
+  z-index: 3;
 }
 
-.timeline-stop.active .connector-line { background: rgba(168,127,212,0.6); }
-.timeline-stop.active .connector-tick { background: rgba(168,127,212,0.6); }
+.timeline-stop.active .stop-connector-tick {
+  background: rgba(168,127,212,0.7);
+}
 
-/* ── TITLE BLOCK ── */
-.stop-title-block {
-  padding-left: 0.5rem;
-  display: flex;
-  flex-direction: column;
+/* ── STOP LABEL — left-aligned to window, above it ── */
+.stop-label {
+  width: 100%;
+  margin-bottom: 0.6rem;
+  padding-left: var(--label-indent, 2.5rem);
 }
 
 .stop-label-eyebrow {
@@ -259,6 +253,7 @@ body {
   color: var(--text-muted);
   text-transform: uppercase;
   margin-bottom: 0.1rem;
+  display: block;
 }
 
 .stop-label-name {
@@ -267,6 +262,7 @@ body {
   color: var(--text-primary);
   letter-spacing: 0.02em;
   line-height: 1.2;
+  display: block;
 }
 
 .stop-label-quote {
@@ -284,8 +280,11 @@ body {
   color: var(--accent);
 }
 
-/* remove old stop-header */
-.stop-header { display: none; }
+/* ── remove old elements ── */
+.stop-header  { display: none; }
+.stop-title-block { padding-left: 0; }
+.connector-line, .connector-tick { display: none; }
+
 
 /* ── TRAIN WINDOW ── */
 .train-window {

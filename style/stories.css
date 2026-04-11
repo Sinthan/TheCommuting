@@ -77,25 +77,26 @@ body {
   font-family: 'Doto', monospace;
   font-size: 0.85rem;
   letter-spacing: 0.22em;
-  color: rgba(255,255,255,0.95);
-  text-shadow: 0 0 12px rgba(255,255,255,0.15);
+  color: var(--green);
+  text-shadow: 0 0 12px rgba(74,140,92,0.4);
 }
 
 .board-time-wrap {
   display: flex;
   align-items: center;
   gap: 0.6rem;
+  font-family: 'Doto', monospace;
   font-size: 0.6rem;
   letter-spacing: 0.18em;
-  color: rgba(255,255,255,0.6);
+  color: rgba(74,140,92,0.7);
   text-transform: uppercase;
 }
 
 .board-time {
   font-family: 'Doto', monospace;
   font-size: 1rem;
-  color: rgba(255,255,255,0.9);
-  text-shadow: 0 0 14px rgba(255,255,255,0.15);
+  color: var(--green);
+  text-shadow: 0 0 12px rgba(74,140,92,0.4);
   letter-spacing: 0.12em;
 }
 
@@ -138,8 +139,8 @@ body {
 }
 
 .board-row:hover .dest-name {
-  color: rgba(255,200,80,1);
-  text-shadow: 0 0 16px rgba(255,255,255,0.25);
+  color: var(--green);
+  text-shadow: 0 0 14px rgba(74,140,92,0.5);
 }
 
 .bd-val {

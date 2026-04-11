@@ -6,11 +6,12 @@ body {
 }
 
 /* ── PARALLAX SHINKANSEN WALLPAPER ── */
+/* position: absolute inside .archive-page (overflow: hidden) → caged between header and status bar */
 .shinkansen-bg {
-  position: fixed;
-  top: var(--shinkansen-top, 0px); /* set by JS after measuring archive-header */
+  position: absolute;
+  top: 0;           /* archive-page starts right below archive-header */
   right: 0;
-  width: 51vw;         /* +35% from 38vw */
+  width: 51vw;
   max-width: 680px;
   height: auto;
   pointer-events: none;
@@ -36,6 +37,8 @@ body {
   flex-direction: column;
   flex: 1;
   min-height: 0;
+  position: relative;   /* establishes containing block for absolute SVG */
+  overflow: hidden;     /* clips SVG outside this area — cages train between header and status bar */
 }
 
 /* ── STICKY HEADER ── */
@@ -245,13 +248,10 @@ body {
 }
 
 /* ── STOP LABEL — aligned to window left edge ── */
-/* train-window is full-width of stop (or centered if narrower than max-width)
-   label uses same padding-left as window offset, set by JS via --label-indent
-   +10% extra rightward nudge via --label-extra-indent */
 .stop-label {
   width: 100%;
   margin-bottom: 0.6rem;
-  padding-left: calc(var(--label-indent, 0px) * 1.10);
+  padding-left: calc(var(--label-indent, 0px) * 1.045);
 }
 
 .stop-label-eyebrow {

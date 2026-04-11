@@ -110,23 +110,37 @@ body {
 }
 
 /* ── TRAVELING VERTICAL PULSE ── */
-.timeline::after {
+/* global traveling pulse removed — each active stop runs its own local beam */
+.timeline::after { display: none; }
+
+/* ── LOCAL VERTICAL BEAM on active stop only ── */
+/* sits on the line, travels down into the active stop's dot */
+.timeline-stop.active::before {
   content: '';
   position: absolute;
-  left: calc(4.5rem - 2px);
-  top: 0;
-  width: 8px;
-  height: 40px;
+  left: calc(-0.5rem - 8px + 6px);
+  top: -60px;
+  width: 4px;
+  height: 60px;
   background: linear-gradient(to bottom,
     transparent 0%,
-    rgba(168,127,212,0.4) 20%,
-    var(--accent-bright) 55%,
-    rgba(255,255,255,0.95) 80%,
-    transparent 100%
+    rgba(168,127,212,0.5) 30%,
+    var(--accent-bright) 70%,
+    rgba(255,255,255,0.95) 100%
   );
+  border-radius: 2px;
   z-index: 3;
-  border-radius: 4px;
-  animation: routeSignal 5s linear infinite;
+  animation: beamDescend 3.5s ease-in infinite;
+  pointer-events: none;
+}
+
+@keyframes beamDescend {
+  0%   { top: -60px; opacity: 0; }
+  8%   { opacity: 1; }
+  55%  { top: 3.2rem; opacity: 1; }
+  62%  { top: 3.2rem; height: 20px; opacity: 0.6; }
+  66%  { top: calc(3.2rem + 8px); height: 4px; opacity: 0; }
+  100% { top: calc(3.2rem + 8px); height: 4px; opacity: 0; }
 }
 
 /*
@@ -175,7 +189,7 @@ body {
 }
 
 .timeline-stop.active .stop-dot {
-  animation: stationArrival 5s linear infinite;
+  animation: stationArrival 3.5s ease-in infinite;
 }
 
 /*
@@ -187,13 +201,10 @@ body {
   94–100% settle back to rest
 */
 @keyframes stationArrival {
-  0%   { background: rgba(100,70,150,1);   border-color: rgba(168,127,212,0.85); box-shadow: none;                                                                    transform: scale(1);    }
-  78%  { background: rgba(100,70,150,1);   border-color: rgba(168,127,212,0.85); box-shadow: none;                                                                    transform: scale(1);    }
-  80%  { background: rgba(190,150,235,1);  border-color: #d8b8ff;                box-shadow: 0 0 0 5px rgba(168,127,212,0.25);                                        transform: scale(1.4);  }
-  83%  { background: var(--accent-bright); border-color: #fff;                   box-shadow: 0 0 0 8px rgba(168,127,212,0.12), 0 0 18px var(--accent-bright), 0 0 5px #fff; transform: scale(1.55); }
-  90%  { background: var(--accent-bright); border-color: #e0c8ff;                box-shadow: 0 0 0 3px rgba(168,127,212,0.1),  0 0 10px var(--accent-bright);          transform: scale(1.2);  }
-  96%  { background: rgba(115,80,160,1);   border-color: rgba(168,127,212,0.9);  box-shadow: 0 0 4px rgba(168,127,212,0.2);                                            transform: scale(1.04); }
-  100% { background: rgba(100,70,150,1);   border-color: rgba(168,127,212,0.85); box-shadow: none;                                                                    transform: scale(1);    }
+  0%,55% { background: rgba(100,70,150,1);   border-color: rgba(168,127,212,0.85); box-shadow: none; transform: scale(1); }
+  64%    { background: var(--accent-bright); border-color: #fff; box-shadow: 0 0 0 6px rgba(168,127,212,0.2), 0 0 18px var(--accent-bright), 0 0 5px #fff; transform: scale(1.5); }
+  78%    { background: var(--accent-bright); border-color: #e0c8ff; box-shadow: 0 0 0 2px rgba(168,127,212,0.1), 0 0 8px var(--accent-bright); transform: scale(1.15); }
+  100%   { background: rgba(100,70,150,1);   border-color: rgba(168,127,212,0.85); box-shadow: none; transform: scale(1); }
 }
 
 .stop-dot::after { display: none; }
@@ -236,17 +247,15 @@ body {
   fires at 83% (just as dot peaks), sweeps to window edge by 95%, fades
 */
 .timeline-stop.active .stop-connector::after {
-  animation: connectorFire 5s linear infinite;
+  animation: connectorFire 3.5s ease-in infinite;
 }
 
 @keyframes connectorFire {
-  0%    { left: -80px; opacity: 0; }
-  83%   { left: -80px; opacity: 0; }
-  84%   { left: -80px; opacity: 1; }
-  95%   { left: 100%;  opacity: 0.85; }
-  97%   { left: 100%;  opacity: 0; }
-  97.1% { left: -80px; opacity: 0; }
-  100%  { left: -80px; opacity: 0; }
+  0%,65% { left: -80px; opacity: 0; }
+  66%    { left: -80px; opacity: 1; }
+  82%    { left: 100%;  opacity: 0.9; }
+  85%    { left: 100%;  opacity: 0; }
+  100%   { left: 100%;  opacity: 0; }
 }
 
 /* ── VERTICAL TICK | at end of connector ── */

@@ -24,6 +24,9 @@ const TRANSLATIONS = {
     archiveSub:    '>_ SCROLL TO BROWSE STOPS',
     archiveLoaded: 'Archive loaded',
 
+    // stories sub-label only (eyebrow + title stay fixed)
+    storiesSub: '>_ Dispatches from the window seat — click on a train to read',
+
     // gallery next-stop eyebrow (translated)
     nextStop: 'Next stop:',
   },
@@ -44,6 +47,8 @@ const TRANSLATIONS = {
     archiveSub:    '>_ SCORRI PER SFOGLIARE LE FERMATE',
     archiveLoaded: 'Archivio caricato',
 
+    storiesSub: '>_ Dispacci dal finestrino — clicca su un treno per leggere',
+
     nextStop: 'Prossima fermata:',
   },
 
@@ -62,6 +67,8 @@ const TRANSLATIONS = {
 
     archiveSub:    '>_ 滾動瀏覽各站',
     archiveLoaded: '檔案已載入',
+
+    storiesSub: '>_ 來自窗邊座位的筆記 — 點擊列車閱讀',
 
     nextStop: '下一站：',
   }
@@ -119,6 +126,9 @@ const TRANSLATIONS = {
     // archive — sub-label + loaded status only (eyebrow + title stay fixed)
     setText('t-archive-sub',    t.archiveSub);
     setText('t-archive-loaded', t.archiveLoaded);
+
+    // stories — sub-label only (eyebrow + title stay fixed)
+    setText('t-stories-sub', t.storiesSub);
 
     // gallery: update all rendered next-stop eyebrow labels live
     document.querySelectorAll('.stop-label-eyebrow').forEach(el => {

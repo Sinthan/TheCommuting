@@ -96,8 +96,8 @@
     <!-- STATUS BAR -->
     <div class="status-bar">
       <div class="status-left">
-        <span><span class="status-dot"></span>In transit</span>
-        <span>PWR // 100%</span>
+        <span><span class="status-dot"></span>Stories online</span>
+        <span id="status-train-count">— trains to read</span>
         <span>CONN // UNSTABLE</span>
       </div>
       <span class="status-right">&copy; The Commuting — All rights reserved</span>
@@ -272,7 +272,8 @@
         row.addEventListener('click', () => openDrawer(row));
         container.appendChild(row);
       });
-    }
+
+      document.getElementById('status-train-count').textContent = `${stories.length} trains to read`;
 
     // ── DRAWER ──────────────────────────────────────────────────────────────
     const drawer = document.getElementById('story-drawer');

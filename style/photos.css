@@ -131,15 +131,16 @@ body {
 
 /* 3s linear cycle:
    0-3%  fade in at top
-   3-80% travel to dot
-   80-90% hold at dot (dot lights up)
-   90-100% fade out */
+   3-78% travel to dot
+   78-84% compress into dot (shrink height, shift to dot centre)
+   84-100% dot glows, line gone */
 @keyframes lineTravel {
-  0%   { top: 0;                       opacity: 0; }
-  3%   { top: 0;                       opacity: 1; }
-  80%  { top: var(--pulse-stop, 45%);  opacity: 1; }
-  90%  { top: var(--pulse-stop, 45%);  opacity: 0; }
-  100% { top: var(--pulse-stop, 45%);  opacity: 0; }
+  0%   { top: 0;                        height: 18px; opacity: 0; transform: scaleX(1); }
+  3%   { top: 0;                        height: 18px; opacity: 1; transform: scaleX(1); }
+  78%  { top: var(--pulse-stop, 45%);   height: 18px; opacity: 1; transform: scaleX(1); }
+  84%  { top: calc(var(--pulse-stop, 45%) + 6px); height: 4px;  opacity: 0.6; transform: scaleX(0.3); }
+  85%  { top: calc(var(--pulse-stop, 45%) + 6px); height: 4px;  opacity: 0; }
+  100% { top: calc(var(--pulse-stop, 45%) + 6px); height: 4px;  opacity: 0; }
 }
 
 /* ── SINGLE STOP ── */
@@ -173,12 +174,12 @@ body {
   animation: dotPulse 3s ease-in-out infinite;
 }
 
-/* synced with lineTravel (3s linear):
-   dim at rest (0-78%), bright when pulse arrives (82-92%), fade back */
+/* synced with lineTravel (3s):
+   dim at rest (0-78%), lights up as line compresses into it (78-84%), holds then fades */
 @keyframes dotPulse {
   0%   { background: rgba(100,70,150,1);  border-color: rgba(168,127,212,0.85); box-shadow: none; }
   78%  { background: rgba(100,70,150,1);  border-color: rgba(168,127,212,0.85); box-shadow: none; }
-  84%  { background: var(--accent-bright); border-color: #e0c8ff; box-shadow: 0 0 20px var(--accent-bright), 0 0 8px #fff, 0 0 32px var(--accent); }
+  82%  { background: var(--accent-bright); border-color: #e0c8ff; box-shadow: 0 0 22px var(--accent-bright), 0 0 10px #fff, 0 0 36px var(--accent); }
   92%  { background: var(--accent-bright); border-color: #e0c8ff; box-shadow: 0 0 14px var(--accent-bright), 0 0 4px #fff, 0 0 22px var(--accent); }
   100% { background: rgba(100,70,150,1);  border-color: rgba(168,127,212,0.85); box-shadow: none; }
 }

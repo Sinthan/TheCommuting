@@ -289,22 +289,23 @@ body {
 }
 
 .story-drawer-close {
+  font-family: 'Doto', monospace;
   background: none;
-  border: 1px solid rgba(74,140,92,0.35);
+  border: 1px solid rgba(74,140,92,0.4);
   color: var(--green);
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.75rem;
-  padding: 0.3rem 0.65rem;
+  font-size: 0.65rem;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  letter-spacing: 0.1em;
-  transition: border-color 0.2s, color 0.2s;
+  letter-spacing: 0;
+  transition: border-color 0.2s, background 0.2s;
   flex-shrink: 0;
 }
 
-.story-drawer-close:hover {
-  border-color: var(--green);
-  color: #fff;
-}
+.story-drawer-close:hover { border-color: var(--green); background: rgba(74,140,92,0.1); }
 
 /* DRAWER TITLE AREA */
 .story-drawer-title-wrap {

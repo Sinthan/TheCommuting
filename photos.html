@@ -284,7 +284,7 @@
       currentIndex = (currentIndex - 1 + currentAlbum.images.length) % currentAlbum.images.length;
       updateLightbox();
     });
-    lbImg.addEventListener('click', () => { lbNext.click(); });
+    lbImg.addEventListener('click', e => { e.stopPropagation(); lbNext.click(); });
     lbImg.style.cursor = 'pointer';
     lbNext.addEventListener('click', () => {
       currentIndex = (currentIndex + 1) % currentAlbum.images.length;
@@ -297,11 +297,7 @@
       if (e.key === 'ArrowRight') lbNext.click();
     });
 
-    // Click black space (lightbox bg) to close
-    lightbox.addEventListener('click', e => {
-      if (e.target === lightbox || e.target === lbImg) return;
-      closeLightbox();
-    });
+    // Click black background to close (image click is stopped above)
     lightbox.addEventListener('click', e => {
       if (e.target === lightbox) closeLightbox();
     });

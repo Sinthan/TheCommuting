@@ -122,7 +122,7 @@ body {
   );
   z-index: 3;
   border-radius: 3px;
-  animation: lineTravel 3s linear infinite;
+  animation: lineTravel 3s ease-in-out infinite;
 }
 
 /* 3s linear cycle:
@@ -154,7 +154,7 @@ body {
 /* ── DOT ── solid, visible at rest, bright when pulse hits ── */
 .stop-dot {
   position: absolute;
-  left: calc(-0.5rem - 8px);
+  left: calc(-2.5rem - 8px);
   top: 3.2rem;
   width: 16px;
   height: 16px;
@@ -165,7 +165,7 @@ body {
 }
 
 .timeline-stop.active .stop-dot {
-  animation: dotPulse 3s linear infinite;
+  animation: dotPulse 3s ease-in-out infinite;
 }
 
 /* synced with lineTravel (3s linear):
@@ -189,7 +189,7 @@ body {
   left: 0;
   top: calc(3.2rem + 6px);
   height: 4px;
-  width: var(--connector-w, 2rem);
+  width: var(--connector-w, 6rem);
   background: rgba(168,127,212,0.45);
   border-radius: 0 2px 2px 0;
   z-index: 3;
@@ -212,7 +212,7 @@ body {
 }
 
 .timeline-stop.active .stop-connector::after {
-  animation: connectorPulse 3s linear infinite;
+  animation: connectorPulse 3s ease-in-out infinite;
 }
 
 /* starts at 88% (when dot peaks), sweeps across by 98% */
@@ -227,7 +227,7 @@ body {
 /* ── VERTICAL TICK | at end of connector ── */
 .stop-connector-tick {
   position: absolute;
-  left: var(--connector-w, 2rem);
+  left: var(--connector-w, 6rem);
   top: calc(3.2rem + 6px - 8px);
   height: 20px;
   width: 4px;

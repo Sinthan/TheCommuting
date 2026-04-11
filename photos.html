@@ -248,6 +248,8 @@
       currentIndex = (currentIndex - 1 + currentAlbum.images.length) % currentAlbum.images.length;
       updateLightbox();
     });
+    lbImg.addEventListener('click', () => { lbNext.click(); });
+    lbImg.style.cursor = 'pointer';
     lbNext.addEventListener('click', () => {
       currentIndex = (currentIndex + 1) % currentAlbum.images.length;
       updateLightbox();

@@ -438,7 +438,7 @@ body {
   }
 
   :root {
-    --board-cols: 60px 1fr 56px 56px;
+    --board-cols: 56px 2fr 54px 50px;
   }
 
   /* Hide train column on mobile */

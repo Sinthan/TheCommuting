@@ -1,0 +1,20 @@
+[
+  {
+    "id": "story-01",
+    "title": "The Last Train to Nowhere",
+    "info": "Every departure is a small death. Every arrival, a resurrection you didn't ask for.",
+    "file": "./assets/stories/the-last-train-to-nowhere.txt"
+  },
+  {
+    "id": "story-02",
+    "title": "Field Notes: Milano Centrale",
+    "info": "Marble floors and iron vaults. The station remembers everyone who passed through.",
+    "file": "./assets/stories/field-notes-milano-centrale.txt"
+  },
+  {
+    "id": "story-03",
+    "title": "On Carrying Things",
+    "info": "A bag never tells you what it holds until you're already halfway there.",
+    "file": "./assets/stories/on-carrying-things.txt"
+  }
+]

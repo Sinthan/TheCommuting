@@ -1,0 +1,478 @@
+/* ══════════════════════════════════════════════════════════════════
+   stories.css — Field Notes / Departures Board
+   Paths relative to style/ folder
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── OVERRIDE: no wallpaper on this page, keep bg dark ── */
+body {
+  background-image:
+    radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
+  background-size: 18px 18px;
+  background-attachment: fixed;
+}
+
+/* ── PAGE HEADER ─────────────────────────────────────────────────── */
+.stories-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 2.2rem 3.5rem 1.8rem;
+  border-bottom: 1px solid rgba(123,94,167,0.18);
+  gap: 2rem;
+}
+
+.stories-eyebrow {
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  color: var(--accent-bright);
+  margin-bottom: 0.6rem;
+  text-transform: uppercase;
+}
+
+.stories-title {
+  font-family: 'Doto', monospace;
+  font-size: clamp(1.6rem, 4vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+.stories-title em {
+  font-style: normal;
+  color: var(--accent-bright);
+}
+
+.stories-header-right {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.stories-header-meta {
+  font-size: 0.54rem;
+  letter-spacing: 0.24em;
+  color: var(--accent-bright);
+  margin-bottom: 0.35rem;
+}
+
+.stories-header-sub {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+
+/* ── DEPARTURES WRAP ─────────────────────────────────────────────── */
+.departures-wrap {
+  flex: 1;
+  margin: 2rem 3.5rem;
+  border: 1px solid rgba(123,94,167,0.25);
+  background: rgba(0,0,0,0.55);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Amber glow overlay — inner light of the board */
+.departures-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255,160,40,0.025) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── BOARD HEADER ────────────────────────────────────────────────── */
+.board-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.6rem;
+  border-bottom: 1px solid rgba(255,160,40,0.18);
+  background: rgba(255,160,40,0.04);
+  position: relative;
+  z-index: 1;
+}
+
+.board-station {
+  font-family: 'Doto', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.22em;
+  color: rgba(255,180,60,0.85);
+  text-shadow: 0 0 12px rgba(255,160,40,0.45);
+}
+
+.board-time-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  color: rgba(255,180,60,0.55);
+  text-transform: uppercase;
+}
+
+.board-time {
+  font-family: 'Doto', monospace;
+  font-size: 1rem;
+  color: rgba(255,180,60,0.9);
+  text-shadow: 0 0 14px rgba(255,160,40,0.5);
+  letter-spacing: 0.12em;
+}
+
+/* ── COLUMN HEADERS ──────────────────────────────────────────────── */
+.board-col-headers {
+  display: grid;
+  grid-template-columns: var(--board-cols);
+  padding: 0.5rem 1.6rem;
+  border-bottom: 1px solid rgba(255,160,40,0.12);
+  background: rgba(255,160,40,0.03);
+  position: relative;
+  z-index: 1;
+}
+
+.board-col-headers span {
+  font-size: 0.52rem;
+  letter-spacing: 0.26em;
+  color: rgba(255,180,60,0.45);
+  text-transform: uppercase;
+}
+
+/* ── ROWS ────────────────────────────────────────────────────────── */
+.board-rows {
+  position: relative;
+  z-index: 1;
+}
+
+.board-row {
+  display: grid;
+  grid-template-columns: var(--board-cols);
+  padding: 0.72rem 1.6rem;
+  border-bottom: 1px solid rgba(255,160,40,0.06);
+  cursor: pointer;
+  transition: background 0.18s;
+  align-items: center;
+}
+
+.board-row:hover {
+  background: rgba(255,160,40,0.06);
+}
+
+.board-row:hover .dest-name {
+  color: rgba(255,200,80,1);
+  text-shadow: 0 0 16px rgba(255,160,40,0.6);
+}
+
+.bd-val {
+  font-family: 'Doto', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: rgba(255,180,60,0.82);
+  text-shadow: 0 0 8px rgba(255,140,30,0.3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* destination is Playfair-ish but we keep dot-matrix for board feel */
+.dest-name {
+  font-family: 'Doto', monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 0.18s, text-shadow 0.18s;
+}
+
+/* Info col: muted, smaller */
+.info-val {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+  color: rgba(255,180,60,0.45);
+  text-shadow: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Delay styling */
+.delay-val {
+  font-size: 0.72rem;
+}
+
+.board-row--delayed .delay-val {
+  color: rgba(192,57,43,0.9);
+  text-shadow: 0 0 8px rgba(192,57,43,0.5);
+  animation: blink-delay 1.8s step-end infinite;
+}
+
+.board-row--big-delay .delay-val {
+  color: #e74c3c;
+  text-shadow: 0 0 12px rgba(231,76,60,0.7);
+}
+
+@keyframes blink-delay {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.25; }
+}
+
+/* Grid layout shared between headers and rows */
+:root {
+  --board-cols: 90px 90px 1fr 70px 72px 1fr;
+}
+
+/* Error / loading */
+.board-error {
+  padding: 2rem 1.6rem;
+  font-size: 0.65rem;
+  color: rgba(192,57,43,0.7);
+  letter-spacing: 0.16em;
+}
+
+/* ── STORY DRAWER ────────────────────────────────────────────────── */
+.story-drawer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 72vh;
+  background: rgba(6,5,10,0.97);
+  border-top: 1px solid rgba(123,94,167,0.4);
+  z-index: 200;
+  transform: translateY(100%);
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 -20px 60px rgba(0,0,0,0.8);
+}
+
+.story-drawer.open {
+  transform: translateY(0);
+}
+
+.story-drawer-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* DRAWER HEADER */
+.story-drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.9rem 2rem;
+  border-bottom: 1px solid rgba(255,160,40,0.15);
+  background: rgba(255,160,40,0.03);
+  flex-shrink: 0;
+}
+
+.story-drawer-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  color: rgba(255,180,60,0.65);
+  text-transform: uppercase;
+  flex-wrap: wrap;
+}
+
+.story-drawer-train {
+  font-family: 'Doto', monospace;
+  font-size: 0.78rem;
+  color: rgba(255,180,60,0.9);
+  text-shadow: 0 0 10px rgba(255,140,30,0.4);
+}
+
+.story-drawer-sep {
+  color: var(--accent);
+  opacity: 0.5;
+}
+
+.story-drawer-time {
+  font-family: 'Doto', monospace;
+  color: rgba(255,180,60,0.8);
+}
+
+.story-drawer-delay {
+  display: none;
+  background: rgba(192,57,43,0.15);
+  border: 1px solid rgba(192,57,43,0.4);
+  color: rgba(231,76,60,0.9);
+  padding: 0.1rem 0.5rem;
+  font-size: 0.52rem;
+  letter-spacing: 0.14em;
+}
+
+.story-drawer-close {
+  background: none;
+  border: 1px solid rgba(74,140,92,0.35);
+  color: var(--green);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  padding: 0.3rem 0.65rem;
+  cursor: pointer;
+  letter-spacing: 0.1em;
+  transition: border-color 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+
+.story-drawer-close:hover {
+  border-color: var(--green);
+  color: #fff;
+}
+
+/* DRAWER TITLE AREA */
+.story-drawer-title-wrap {
+  padding: 1.2rem 2rem 1rem;
+  border-bottom: 1px solid rgba(123,94,167,0.15);
+  flex-shrink: 0;
+}
+
+.story-drawer-dest {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.1rem, 3vw, 1.8rem);
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.story-drawer-quote {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--accent-bright);
+  opacity: 0.8;
+  border-left: 2px solid rgba(123,94,167,0.4);
+  padding-left: 0.75rem;
+  font-style: italic;
+}
+
+/* STORY BODY */
+.story-body-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.8rem 2rem 2.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(123,94,167,0.3) transparent;
+}
+
+.story-body-scroll::-webkit-scrollbar { width: 4px; }
+.story-body-scroll::-webkit-scrollbar-track { background: transparent; }
+.story-body-scroll::-webkit-scrollbar-thumb { background: rgba(123,94,167,0.3); border-radius: 2px; }
+
+.story-body-text {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.story-body-text p {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.82rem;
+  line-height: 2;
+  color: var(--text-muted);
+  margin-bottom: 1.4em;
+}
+
+/* First paragraph: slightly brighter */
+.story-body-text p:first-child {
+  color: var(--text-primary);
+  font-size: 0.86rem;
+}
+
+.story-loading {
+  font-size: 0.65rem;
+  letter-spacing: 0.24em;
+  color: rgba(255,180,60,0.5);
+  padding: 2rem 0;
+  animation: blink-delay 1s step-end infinite;
+}
+
+.story-load-err {
+  color: rgba(192,57,43,0.7);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+}
+
+/* ── BACKDROP ────────────────────────────────────────────────────── */
+.story-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 199;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.story-backdrop.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ── NAV ACTIVE STATE ────────────────────────────────────────────── */
+.nav-active {
+  color: var(--green) !important;
+}
+
+.nav-active::before {
+  opacity: 1 !important;
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .stories-header {
+    padding: 1.6rem 1.4rem 1.4rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+
+  .stories-header-right { text-align: left; }
+
+  .departures-wrap {
+    margin: 1.2rem 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  :root {
+    --board-cols: 72px 60px 1fr 56px 56px;
+  }
+
+  /* Hide info column on mobile */
+  .col-info, .info-val { display: none; }
+
+  .board-col-headers,
+  .board-row {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .board-header {
+    padding: 0.65rem 1rem;
+  }
+
+  .story-drawer {
+    height: 85vh;
+  }
+
+  .story-drawer-header,
+  .story-drawer-title-wrap,
+  .story-body-scroll {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+  }
+
+  .bd-val { font-size: 0.7rem; }
+  .dest-name { font-size: 0.72rem; }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --board-cols: 62px 52px 1fr 52px 50px;
+  }
+  .board-station { font-size: 0.68rem; }
+  .board-time { font-size: 0.82rem; }
+}

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Commuting — Field Notes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Doto:ROND,wght@1,700&family=Share+Tech+Mono&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style/style.css">
+  <link rel="stylesheet" href="./style/stories.css">
+</head>
+<body>
+
+  <div class="scanlines"></div>
+  <div class="window-frame"></div>
+
+  <div class="site-wrapper">
+
+    <!-- SYSTEM BAR -->
+    <div class="sys-bar">
+      <div class="sys-bar-left">
+        <span class="sys-tag">SYS:ONLINE</span>
+        <span>UNIT // SIN-001</span>
+        <span>LOC // FIELD NOTES</span>
+      </div>
+      <span>通勤 &mdash; DEPARTURES</span>
+    </div>
+
+    <!-- NAV -->
+    <nav>
+      <a href="./index.html" class="nav-logo">
+        <span class="nav-logo-bracket">[</span>
+        The <span class="nav-logo-title">Commuting</span>
+        <span class="nav-logo-bracket">]</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="./photos.html">Photos</a></li>
+        <li><a href="./stories.html" class="nav-active">Stories</a></li>
+        <li><a href="#">Tech</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <div class="hamburger-bars">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </div>
+      </button>
+    </nav>
+
+    <!-- MOBILE DRAWER -->
+    <div class="nav-drawer" id="nav-drawer">
+      <a href="./photos.html">Photos</a>
+      <a href="./stories.html">Stories</a>
+      <a href="#">Tech</a>
+      <a href="#">About</a>
+    </div>
+
+    <!-- PAGE HEADER -->
+    <div class="stories-header">
+      <div class="stories-header-left">
+        <div class="stories-eyebrow">&gt;_ FIELD NOTES // SIN-001</div>
+        <h1 class="stories-title">Field <em>Notes</em></h1>
+      </div>
+      <div class="stories-header-right">
+        <div class="stories-header-meta">02 // STORIES</div>
+        <div class="stories-header-sub">Dispatches from the window seat</div>
+      </div>
+    </div>
+
+    <!-- DEPARTURES BOARD -->
+    <div class="departures-wrap">
+
+      <!-- BOARD HEADER -->
+      <div class="board-header">
+        <div class="board-station">UNKNOWN CITY STATION</div>
+        <div class="board-time-wrap">
+          <span class="board-time-label">CURRENT TIME:</span>
+          <span class="board-time" id="board-clock">--:--</span>
+        </div>
+      </div>
+
+      <!-- BOARD TABLE -->
+      <div class="board-table-wrap">
+        <div class="board-col-headers">
+          <span class="col-train">TRAIN</span>
+          <span class="col-platform">PLATFORM</span>
+          <span class="col-dest">DESTINATION</span>
+          <span class="col-time">TIME</span>
+          <span class="col-delay">DELAY</span>
+          <span class="col-info">INFORMATION</span>
+        </div>
+        <div class="board-rows" id="board-rows">
+          <!-- injected by JS -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+      <div class="status-left">
+        <span><span class="status-dot"></span>In transit</span>
+        <span>PWR // 100%</span>
+        <span>CONN // UNSTABLE</span>
+      </div>
+      <span class="status-right">&copy; The Commuting — All rights reserved</span>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM DRAWER -->
+  <div class="story-drawer" id="story-drawer">
+    <div class="story-drawer-inner">
+
+      <!-- DRAWER HEADER -->
+      <div class="story-drawer-header">
+        <div class="story-drawer-meta">
+          <span class="story-drawer-train" id="drawer-train">--</span>
+          <span class="story-drawer-sep">//</span>
+          <span class="story-drawer-platform">PLATFORM <span id="drawer-platform">--</span></span>
+          <span class="story-drawer-sep">//</span>
+          <span class="story-drawer-time" id="drawer-time">--:--</span>
+          <span class="story-drawer-delay" id="drawer-delay-badge"></span>
+        </div>
+        <button class="story-drawer-close" id="story-drawer-close" aria-label="Close">✕</button>
+      </div>
+
+      <!-- STORY TITLE -->
+      <div class="story-drawer-title-wrap">
+        <div class="story-drawer-dest" id="drawer-dest">—</div>
+        <div class="story-drawer-quote" id="drawer-quote"></div>
+      </div>
+
+      <!-- STORY BODY -->
+      <div class="story-body-scroll">
+        <div class="story-body-text" id="story-body-text">
+          <div class="story-loading" id="story-loading">LOADING...</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DRAWER BACKDROP -->
+  <div class="story-backdrop" id="story-backdrop"></div>
+
+  <script>
+    // ── HELPERS ─────────────────────────────────────────────────────────────
+    const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+    const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+
+    const LETTERS = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+    function trainCode() {
+      const l1 = LETTERS[rand(0, LETTERS.length - 1)];
+      const l2 = LETTERS[rand(0, LETTERS.length - 1)];
+      const n = rand(100, 999);
+      return `${l1}${l2} ${n}`;
+    }
+
+    function platformNum(weird) {
+      if (weird) {
+        const opts = [
+          () => `${rand(1,9)}.${rand(1,9)}`,
+          () => `${rand(1,20)}½`,
+          () => `${rand(1,9)}¾`,
+          () => `0${rand(1,9)}`,
+          () => `${rand(1,9)}A`,
+        ];
+        return pick(opts)();
+      }
+      return String(rand(1, 22));
+    }
+
+    // Generate times: each one must be later than the previous
+    function generateTimes(count, baseHour, baseMin) {
+      const times = [];
+      let h = baseHour, m = baseMin;
+      for (let i = 0; i < count; i++) {
+        m += rand(2, 18);
+        if (m >= 60) { m -= 60; h += 1; }
+        if (h >= 24) h -= 24;
+        times.push(`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`);
+      }
+      return times;
+    }
+
+    // ── CLOCK ───────────────────────────────────────────────────────────────
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2,'0');
+      const m = String(now.getMinutes()).padStart(2,'0');
+      document.getElementById('board-clock').textContent = `${h}:${m}`;
+    }
+    updateClock();
+    setInterval(updateClock, 10000);
+
+    // ── BUILD BOARD ─────────────────────────────────────────────────────────
+    async function buildBoard() {
+      let stories = [];
+      try {
+        const res = await fetch('./scripts/stories.json');
+        stories = await res.json();
+      } catch(e) {
+        document.getElementById('board-rows').innerHTML =
+          '<div class="board-error">// SIGNAL LOST — could not load manifest</div>';
+        return;
+      }
+
+      const now = new Date();
+      const baseH = now.getHours();
+      const baseM = now.getMinutes();
+      const times = generateTimes(stories.length, baseH, baseM);
+
+      // One story is always the big delay (60–120 min)
+      const bigDelayIdx = rand(0, stories.length - 1);
+
+      const container = document.getElementById('board-rows');
+      container.innerHTML = '';
+
+      stories.forEach((story, i) => {
+        const train = trainCode();
+
+        // 10% weird platform
+        const isWeird = Math.random() < 0.10;
+        const platform = platformNum(isWeird);
+
+        // Delay logic
+        let delayMins = 0;
+        let delayLabel = '';
+        if (i === bigDelayIdx) {
+          delayMins = rand(60, 120);
+          delayLabel = `${delayMins}'`;
+        } else if (Math.random() < 0.08) {
+          delayMins = rand(5, 10);
+          delayLabel = `${delayMins}'`;
+        }
+
+        const row = document.createElement('div');
+        row.className = 'board-row' + (delayMins > 0 ? ' board-row--delayed' : '');
+        if (i === bigDelayIdx) row.classList.add('board-row--big-delay');
+        row.dataset.story = JSON.stringify(story);
+        row.dataset.train = train;
+        row.dataset.platform = platform;
+        row.dataset.time = times[i];
+        row.dataset.delay = delayLabel;
+
+        row.innerHTML = `
+          <span class="col-train bd-val">${train}</span>
+          <span class="col-platform bd-val">${platform}</span>
+          <span class="col-dest bd-val dest-name">${story.title}</span>
+          <span class="col-time bd-val">${times[i]}</span>
+          <span class="col-delay bd-val delay-val">${delayLabel || '—'}</span>
+          <span class="col-info bd-val info-val">${story.info}</span>
+        `;
+
+        row.addEventListener('click', () => openDrawer(row));
+        container.appendChild(row);
+      });
+    }
+
+    // ── DRAWER ──────────────────────────────────────────────────────────────
+    const drawer = document.getElementById('story-drawer');
+    const backdrop = document.getElementById('story-backdrop');
+
+    async function openDrawer(row) {
+      const story = JSON.parse(row.dataset.story);
+      const delay = row.dataset.delay;
+
+      document.getElementById('drawer-train').textContent = row.dataset.train;
+      document.getElementById('drawer-platform').textContent = row.dataset.platform;
+      document.getElementById('drawer-time').textContent = row.dataset.time;
+      document.getElementById('drawer-dest').textContent = story.title;
+      document.getElementById('drawer-quote').textContent = `>_ ${story.info}`;
+
+      const badge = document.getElementById('drawer-delay-badge');
+      if (delay && delay !== '—') {
+        badge.textContent = `DELAYED ${delay}`;
+        badge.style.display = 'inline-block';
+      } else {
+        badge.style.display = 'none';
+      }
+
+      const bodyEl = document.getElementById('story-body-text');
+      bodyEl.innerHTML = '<div class="story-loading">LOADING...</div>';
+
+      // Open drawer
+      drawer.classList.add('open');
+      backdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+
+      // Fetch text
+      try {
+        const res = await fetch(story.file);
+        const text = await res.text();
+        // Split into paragraphs
+        const paras = text.split(/\n\n+/).filter(p => p.trim());
+        bodyEl.innerHTML = paras.map(p => `<p>${p.replace(/\n/g,'<br>')}</p>`).join('');
+      } catch(e) {
+        bodyEl.innerHTML = '<p class="story-load-err">// Could not load text file. Run on a local server.</p>';
+      }
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      backdrop.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('story-drawer-close').addEventListener('click', closeDrawer);
+    backdrop.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+    // ── HAMBURGER ───────────────────────────────────────────────────────────
+    const hamburger = document.getElementById('hamburger');
+    const navDrawer = document.getElementById('nav-drawer');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navDrawer.classList.toggle('open');
+    });
+
+    // ── INIT ─────────────────────────────────────────────────────────────────
+    buildBoard();
+  </script>
+
+</body>
+</html>

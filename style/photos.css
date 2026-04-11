@@ -768,12 +768,15 @@ body {
   }
 
   /* connector top = dot centre - 2px (half connector height) */
+  /* connector left = mobile dot right edge = calc(-1rem - 8px + 14px) = calc(-1rem + 6px) */
   .stop-connector {
+    left: calc(-1rem + 6px);
     top: calc(2.6rem + (100vw - 3rem) * 9 / 32);
   }
 
-  /* tick top = dot centre - 10px (half tick height 20px) */
+  /* tick left = connector left + connector width */
   .stop-connector-tick {
+    left: calc(-1rem + 6px + var(--connector-w, 2rem));
     top: calc(2.6rem + (100vw - 3rem) * 9 / 32 - 10px);
   }
 

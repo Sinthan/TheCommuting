@@ -253,7 +253,7 @@ body {
 }
 
 .stop-label-eyebrow {
-  font-size: 0.5rem;
+  font-size: 0.59rem;    /* was 0.5rem, +18% */
   letter-spacing: 0.26em;
   color: var(--text-muted);
   text-transform: uppercase;
@@ -263,7 +263,7 @@ body {
 
 .stop-label-name {
   font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
+  font-size: 1.53rem;    /* was 1.3rem, +18% */
   color: var(--text-primary);
   letter-spacing: 0.02em;
   line-height: 1.2;
@@ -272,7 +272,7 @@ body {
 
 .stop-label-quote {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 0.6rem;
+  font-size: 0.71rem;    /* was 0.6rem, +18% */
   color: var(--text-muted);
   letter-spacing: 0.08em;
   margin-top: 0.3rem;
@@ -294,10 +294,10 @@ body {
 /* ── TRAIN WINDOW ── */
 .train-window {
   width: 100%;
-  max-width: 640px;
+  max-width: 832px;   /* was 640px, +30% */
   cursor: pointer;
   outline: none;
-  align-self: center; /* center horizontally within the stop */
+  align-self: center;
 }
 
 .train-window:focus-visible .window-frame-outer { border-color: var(--accent-bright); }
@@ -754,11 +754,25 @@ body {
     margin-left: 3rem;
   }
 
-  /* mobile: line at 2rem, stop margin-left at 3rem → dot offset = -(1rem + 8px) */
+  /* mobile: line at 2rem, stop margin-left at 3rem → dot offset = -(1rem + 8px)
+     dot top aligned to window vertical centre:
+     label block ≈ 2.6rem tall + window half-height ≈ (100vw - 3rem)*9/32
+     Using calc for precision; dot centre = top + 7px */
   .stop-dot {
     left: calc(-1rem - 8px);
+    top: calc(2.6rem + (100vw - 3rem) * 9 / 32 - 7px);
     width: 14px;
     height: 14px;
+  }
+
+  /* connector top = dot centre - 2px (half connector height) */
+  .stop-connector {
+    top: calc(2.6rem + (100vw - 3rem) * 9 / 32);
+  }
+
+  /* tick top = dot centre - 10px (half tick height 20px) */
+  .stop-connector-tick {
+    top: calc(2.6rem + (100vw - 3rem) * 9 / 32 - 10px);
   }
 
   .timeline-end-dot {
@@ -767,7 +781,9 @@ body {
     height: 14px;
   }
 
-  .stop-label-name { font-size: 1rem; }
+  .stop-label-name  { font-size: 1rem; }
+  .stop-label-eyebrow { font-size: 0.52rem; }
+  .stop-label-quote { font-size: 0.62rem; }
 
   .train-window { max-width: 100%; align-self: stretch; }
 

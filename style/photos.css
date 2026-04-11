@@ -116,35 +116,35 @@ body {
   left: calc(4.5rem - 2px);
   top: 0;
   width: 8px;
-  height: 60px;
+  height: 40px;
   background: linear-gradient(to bottom,
     transparent 0%,
-    rgba(168,127,212,0.3) 15%,
-    var(--accent-bright) 45%,
-    rgba(255,255,255,0.98) 65%,
-    rgba(255,255,255,0.4) 100%
+    rgba(168,127,212,0.4) 20%,
+    var(--accent-bright) 55%,
+    rgba(255,255,255,0.95) 80%,
+    transparent 100%
   );
   z-index: 3;
   border-radius: 4px;
-  animation: routeSignal 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: routeSignal 5s linear infinite;
 }
 
-/* ─────────────────────────────────────────────────────────
-   ROUTE SIGNAL — single 4s cycle, all phases:
-   0–5%    fade in at top of spine
-   5–68%   travel down spine (ease-in acceleration)
-   68–76%  decelerate into station dot
-   76–84%  compress into dot → dot absorbs signal
-   84–100% hold invisible, reset
-───────────────────────────────────────────────────────── */
+/*
+  routeSignal — 5s linear, no easing to avoid bounce:
+  0–4%    fade in at top
+  4–72%   constant-speed travel down the spine
+  72–78%  approach: slight deceleration (handled by keyframe spacing)
+  78–82%  compress and vanish into dot
+  82–100% invisible, hold
+*/
 @keyframes routeSignal {
-  0%   { top: 0%;                             height: 60px; opacity: 0;   filter: blur(0px); }
-  5%   { top: 0%;                             height: 60px; opacity: 1;   filter: blur(0px); }
-  65%  { top: calc(var(--pulse-stop, 42%) - 4%); height: 60px; opacity: 1;   filter: blur(0px); }
-  72%  { top: calc(var(--pulse-stop, 42%) - 1%); height: 30px; opacity: 1;   filter: blur(1px); }
-  76%  { top: var(--pulse-stop, 42%);          height: 10px; opacity: 0.8; filter: blur(2px); }
-  80%  { top: var(--pulse-stop, 42%);          height: 4px;  opacity: 0;   filter: blur(3px); }
-  100% { top: var(--pulse-stop, 42%);          height: 4px;  opacity: 0;   filter: blur(0px); }
+  0%   { top: 0%;                       height: 40px; opacity: 0; }
+  4%   { top: 0%;                       height: 40px; opacity: 1; }
+  72%  { top: calc(var(--pulse-stop, 42%) - 3%); height: 40px; opacity: 1; }
+  78%  { top: var(--pulse-stop, 42%);   height: 16px; opacity: 0.7; }
+  82%  { top: var(--pulse-stop, 42%);   height: 4px;  opacity: 0; }
+  82.1%{ top: 0%;                       height: 40px; opacity: 0; }
+  100% { top: 0%;                       height: 40px; opacity: 0; }
 }
 
 /* ── SINGLE STOP ── */
@@ -160,7 +160,7 @@ body {
 }
 .timeline-stop:last-child { margin-bottom: 0; }
 
-/* ── DOT — station marker, lights up as signal arrives ── */
+/* ── DOT — station marker ── */
 .stop-dot {
   position: absolute;
   left: calc(-0.5rem - 8px);
@@ -175,28 +175,30 @@ body {
 }
 
 .timeline-stop.active .stop-dot {
-  animation: stationArrival 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: stationArrival 5s linear infinite;
 }
 
-/* Station arrival: signal compresses into dot → dot expands briefly like a station marker
-   then fires the connector pulse → settles back
-   78–82%  absorb: dot swells as signal hits
-   82–86%  peak glow, ring expands outward
-   86–94%  connector fires (dot holds bright)
-   94–100% fade back to rest */
+/*
+  stationArrival — synced to routeSignal (5s linear):
+  0–78%   dim at rest
+  78–82%  signal arrives → dot absorbs, swells
+  82–86%  peak flash — station lights up
+  86–94%  connector sweeps (dot holds glow)
+  94–100% settle back to rest
+*/
 @keyframes stationArrival {
-  0%   { background: rgba(100,70,150,1);   border-color: rgba(168,127,212,0.85); box-shadow: none;                                                          transform: scale(1);   }
-  76%  { background: rgba(100,70,150,1);   border-color: rgba(168,127,212,0.85); box-shadow: none;                                                          transform: scale(1);   }
-  80%  { background: rgba(180,140,230,1);  border-color: #e0c8ff;                box-shadow: 0 0 0 4px rgba(168,127,212,0.3);                               transform: scale(1.35);}
-  84%  { background: var(--accent-bright); border-color: #fff;                   box-shadow: 0 0 0 7px rgba(168,127,212,0.15), 0 0 20px var(--accent-bright), 0 0 6px #fff; transform: scale(1.5); }
-  90%  { background: var(--accent-bright); border-color: #e0c8ff;                box-shadow: 0 0 0 4px rgba(168,127,212,0.12), 0 0 12px var(--accent-bright);transform: scale(1.25);}
-  97%  { background: rgba(120,85,165,1);   border-color: rgba(168,127,212,0.9);  box-shadow: 0 0 4px rgba(168,127,212,0.3);                                  transform: scale(1.05);}
-  100% { background: rgba(100,70,150,1);   border-color: rgba(168,127,212,0.85); box-shadow: none;                                                          transform: scale(1);   }
+  0%   { background: rgba(100,70,150,1);   border-color: rgba(168,127,212,0.85); box-shadow: none;                                                                    transform: scale(1);    }
+  78%  { background: rgba(100,70,150,1);   border-color: rgba(168,127,212,0.85); box-shadow: none;                                                                    transform: scale(1);    }
+  80%  { background: rgba(190,150,235,1);  border-color: #d8b8ff;                box-shadow: 0 0 0 5px rgba(168,127,212,0.25);                                        transform: scale(1.4);  }
+  83%  { background: var(--accent-bright); border-color: #fff;                   box-shadow: 0 0 0 8px rgba(168,127,212,0.12), 0 0 18px var(--accent-bright), 0 0 5px #fff; transform: scale(1.55); }
+  90%  { background: var(--accent-bright); border-color: #e0c8ff;                box-shadow: 0 0 0 3px rgba(168,127,212,0.1),  0 0 10px var(--accent-bright);          transform: scale(1.2);  }
+  96%  { background: rgba(115,80,160,1);   border-color: rgba(168,127,212,0.9);  box-shadow: 0 0 4px rgba(168,127,212,0.2);                                            transform: scale(1.04); }
+  100% { background: rgba(100,70,150,1);   border-color: rgba(168,127,212,0.85); box-shadow: none;                                                                    transform: scale(1);    }
 }
 
 .stop-dot::after { display: none; }
 
-/* ── CONNECTOR — signal fires rightward from dot to window ── */
+/* ── CONNECTOR — signal fires rightward dot → window ── */
 .stop-connector {
   position: absolute;
   left: calc(-0.5rem + 8px);
@@ -221,26 +223,30 @@ body {
   width: 80px;
   background: linear-gradient(to right,
     transparent 0%,
-    rgba(168,127,212,0.6) 30%,
-    rgba(255,255,255,0.95) 60%,
+    rgba(168,127,212,0.5) 25%,
+    rgba(255,255,255,0.9) 55%,
     var(--accent-bright) 80%,
     transparent 100%
   );
   opacity: 0;
 }
 
-/* Connector fires just after dot peaks (84%), sweeps across, fades at window edge */
+/*
+  connectorFire — synced (5s linear):
+  fires at 83% (just as dot peaks), sweeps to window edge by 95%, fades
+*/
 .timeline-stop.active .stop-connector::after {
-  animation: connectorFire 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: connectorFire 5s linear infinite;
 }
 
 @keyframes connectorFire {
-  0%   { left: -80px; opacity: 0; }
-  84%  { left: -80px; opacity: 0; }
-  85%  { left: -80px; opacity: 1; }
-  96%  { left: 100%;  opacity: 0.8; }
-  98%  { left: 100%;  opacity: 0; }
-  100% { left: -80px; opacity: 0; }
+  0%    { left: -80px; opacity: 0; }
+  83%   { left: -80px; opacity: 0; }
+  84%   { left: -80px; opacity: 1; }
+  95%   { left: 100%;  opacity: 0.85; }
+  97%   { left: 100%;  opacity: 0; }
+  97.1% { left: -80px; opacity: 0; }
+  100%  { left: -80px; opacity: 0; }
 }
 
 /* ── VERTICAL TICK | at end of connector ── */

@@ -13,51 +13,32 @@ body {
 
 /* ── PAGE HEADER ─────────────────────────────────────────────────── */
 .stories-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  padding: 2.2rem 3.5rem 1.8rem;
-  border-bottom: 1px solid rgba(123,94,167,0.18);
-  gap: 2rem;
+  padding: 1.8rem 3.5rem 1.4rem;
+  border-bottom: 1px solid var(--glass-border);
 }
 
 .stories-eyebrow {
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   letter-spacing: 0.28em;
-  color: var(--accent-bright);
-  margin-bottom: 0.6rem;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
   text-transform: uppercase;
 }
 
 .stories-title {
   font-family: 'Doto', monospace;
-  font-size: clamp(1.6rem, 4vw, 2.8rem);
+  font-size: clamp(1.6rem, 3.5vw, 3rem);
   font-weight: 700;
-  letter-spacing: 0.06em;
-  line-height: 1;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
 }
 
-.stories-title em {
-  font-style: normal;
-  color: var(--accent-bright);
-}
-
-.stories-header-right {
-  text-align: right;
-  flex-shrink: 0;
-}
-
-.stories-header-meta {
-  font-size: 0.54rem;
-  letter-spacing: 0.24em;
-  color: var(--accent-bright);
-  margin-bottom: 0.35rem;
-}
-
-.stories-header-sub {
-  font-size: 0.68rem;
-  color: var(--text-muted);
-  letter-spacing: 0.1em;
+.stories-sub {
+  font-size: 0.56rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  opacity: 0.65;
+  margin-top: 0.3rem;
 }
 
 /* ── DEPARTURES WRAP ─────────────────────────────────────────────── */
@@ -420,19 +401,14 @@ body {
   opacity: 1 !important;
 }
 
-/* ── MOBILE ROW CARD (hidden on desktop) ─────────────────────────── */
+/* ── MOBILE ROW CARD (hidden always — unused) ────────────────────── */
 .row-mobile { display: none; }
 
 /* ── RESPONSIVE ──────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .stories-header {
-    padding: 1.6rem 1.4rem 1.4rem;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.8rem;
+    padding: 1.6rem 1.4rem 1rem;
   }
-
-  .stories-header-right { text-align: left; }
 
   .departures-wrap {
     margin: 1.2rem 0;
@@ -440,65 +416,22 @@ body {
     border-right: none;
   }
 
-  /* Switch board rows to single-column card layout */
-  .board-col-headers { display: none; }
+  :root {
+    --board-cols: 58px 3fr 58px 58px;
+  }
 
+  /* Hide train and info columns on mobile */
+  .col-train, .col-info, .info-val { display: none; }
+  .board-row > .col-train { display: none; }
+
+  .board-col-headers,
   .board-row {
-    display: block;
-    padding: 0.9rem 1.2rem;
-  }
-
-  /* Hide all desktop grid spans */
-  .board-row > .bd-val { display: none; }
-
-  /* Show mobile card */
-  .row-mobile {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .row-mobile-dest {
-    font-family: 'Doto', monospace;
-    font-size: 1rem;
-    letter-spacing: 0.06em;
-    color: rgba(255,180,60,0.88);
-    text-shadow: 0 0 10px rgba(255,140,30,0.3);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transition: color 0.15s, text-shadow 0.15s;
-  }
-
-  .board-row:hover .row-mobile-dest {
-    color: rgba(255,210,80,1);
-    text-shadow: 0 0 16px rgba(255,160,40,0.6);
-  }
-
-  .row-mobile-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: 'Doto', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-    color: rgba(255,180,60,0.45);
-  }
-
-  .row-mobile-sep {
-    color: rgba(123,94,167,0.4);
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.55rem;
-  }
-
-  .row-mobile-delay.blink-delay {
-    color: rgba(192,57,43,0.9);
-    text-shadow: 0 0 6px rgba(192,57,43,0.5);
-    animation: blink-delay 1.8s step-end infinite;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .board-header {
-    padding: 0.65rem 1.2rem;
+    padding: 0.65rem 1rem;
   }
 
   .story-drawer {
@@ -511,10 +444,12 @@ body {
     padding-left: 1.2rem;
     padding-right: 1.2rem;
   }
+
+  .bd-val { font-size: 0.7rem; }
+  .dest-name { font-size: 0.75rem; }
 }
 
 @media (max-width: 480px) {
   .board-station { font-size: 0.68rem; }
   .board-time { font-size: 0.82rem; }
-  .row-mobile-dest { font-size: 0.9rem; }
 }

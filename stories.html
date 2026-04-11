@@ -163,10 +163,19 @@
       if (weird) {
         const opts = [
           () => `${rand(1,9)}.${rand(1,9)}`,
-          () => `${rand(1,20)}½`,
-          () => `${rand(1,9)}¾`,
+          () => `${rand(1,20)}\u00BD`,
+          () => `${rand(1,9)}\u00BE`,
+          () => `${rand(1,9)}\u2153`,
           () => `0${rand(1,9)}`,
           () => `${rand(1,9)}A`,
+          () => `${pick(['\u03A9','\u03A8','\u0394','\u03A3','\u039B','\u039E','\u03A0','\u03A6'])}${rand(1,9)}`,
+          () => `${rand(1,9)}${pick(['\u2135','\u2136','\u2127','\u2129','\u212E','\u213A'])}`,
+          () => pick(['\u2070\u00B9','\u00B9\u00B2','\u00B2\u00B3','\u00B3\u2074','\u2074\u2075']),
+          () => `${rand(1,9)}${pick(['\u0337','\u0338','\u0334','\u0335'])}${rand(1,9)}`,
+          () => pick(['\u{1D130}', '\u{1D131}', '\u{1D132}', '\u{1D135}', '\u{1D136}']),
+          () => pick(['\u29DC','\u2300','\u2298','\u2297','\u2295','\u229B','\u229E','\u229F']),
+          () => `${rand(1,9)}${pick(['\u2080','\u2081','\u2082','\u2083','\u2084','\u2085','\u2086','\u2087','\u2088','\u2089'])}`,
+          () => pick(['\u2205','\u221E','\u2204','\u2203','\u2207','\u2206']),
         ];
         return pick(opts)();
       }
@@ -251,8 +260,18 @@
           <span class="col-platform bd-val">${platform}</span>
           <span class="col-dest bd-val dest-name">${story.title}</span>
           <span class="col-time bd-val">${times[i]}</span>
-          <span class="col-delay bd-val delay-val">${delayLabel || '—'}</span>
+          <span class="col-delay bd-val delay-val">${delayLabel || '\u2014'}</span>
           <span class="col-info bd-val info-val">${story.info}</span>
+          <div class="row-mobile">
+            <div class="row-mobile-dest">${story.title}</div>
+            <div class="row-mobile-meta">
+              <span class="row-mobile-plat">${platform}</span>
+              <span class="row-mobile-sep">//</span>
+              <span class="row-mobile-time">${times[i]}</span>
+              <span class="row-mobile-sep">//</span>
+              <span class="row-mobile-delay ${delayMins > 0 ? 'blink-delay' : ''}">${delayLabel || '\u2014'}</span>
+            </div>
+          </div>
         `;
 
         row.addEventListener('click', () => openDrawer(row));

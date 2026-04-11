@@ -420,6 +420,9 @@ body {
   opacity: 1 !important;
 }
 
+/* ── MOBILE ROW CARD (hidden on desktop) ─────────────────────────── */
+.row-mobile { display: none; }
+
 /* ── RESPONSIVE ──────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .stories-header {
@@ -437,22 +440,65 @@ body {
     border-right: none;
   }
 
-  :root {
-    --board-cols: 56px 2fr 54px 50px;
+  /* Switch board rows to single-column card layout */
+  .board-col-headers { display: none; }
+
+  .board-row {
+    display: block;
+    padding: 0.9rem 1.2rem;
   }
 
-  /* Hide train column on mobile */
-  .col-train, .board-row .bd-val:first-child { display: none; }
-  .col-info, .info-val { display: none; }
+  /* Hide all desktop grid spans */
+  .board-row > .bd-val { display: none; }
 
-  .board-col-headers,
-  .board-row {
-    padding-left: 1rem;
-    padding-right: 1rem;
+  /* Show mobile card */
+  .row-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .row-mobile-dest {
+    font-family: 'Doto', monospace;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    color: rgba(255,180,60,0.88);
+    text-shadow: 0 0 10px rgba(255,140,30,0.3);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.15s, text-shadow 0.15s;
+  }
+
+  .board-row:hover .row-mobile-dest {
+    color: rgba(255,210,80,1);
+    text-shadow: 0 0 16px rgba(255,160,40,0.6);
+  }
+
+  .row-mobile-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Doto', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: rgba(255,180,60,0.45);
+  }
+
+  .row-mobile-sep {
+    color: rgba(123,94,167,0.4);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.55rem;
+  }
+
+  .row-mobile-delay.blink-delay {
+    color: rgba(192,57,43,0.9);
+    text-shadow: 0 0 6px rgba(192,57,43,0.5);
+    animation: blink-delay 1.8s step-end infinite;
   }
 
   .board-header {
-    padding: 0.65rem 1rem;
+    padding: 0.65rem 1.2rem;
   }
 
   .story-drawer {
@@ -465,15 +511,10 @@ body {
     padding-left: 1.2rem;
     padding-right: 1.2rem;
   }
-
-  .bd-val { font-size: 0.7rem; }
-  .dest-name { font-size: 0.72rem; }
 }
 
 @media (max-width: 480px) {
-  :root {
-    --board-cols: 62px 52px 1fr 52px 50px;
-  }
   .board-station { font-size: 0.68rem; }
   .board-time { font-size: 0.82rem; }
+  .row-mobile-dest { font-size: 0.9rem; }
 }

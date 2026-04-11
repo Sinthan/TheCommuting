@@ -29,6 +29,19 @@ const TRANSLATIONS = {
 
     // gallery next-stop eyebrow (translated)
     nextStop: 'Next stop:',
+
+    // tech page
+    techSub:    '>_ BOARDING PASS — CAREER IN TRANSIT',
+    techDl:     '↓ RESUME.PDF',
+    tabExp:     'EXPERIENCE',
+    tabEdu:     'EDUCATION',
+    tabProj:    'PROJECTS',
+    tabSkills:  'SKILLS',
+    tabInt:     'INTERESTS',
+    intLinux:   'Passionate about open-source software and Linux ecosystems.',
+    intScifi:   'Avid reader and writer. Writes books when the mind gets too loud.',
+    intDesign:  'Interested in Architectural, Fashion and Communication Design.',
+    intGdr:     'Into tabletop role-playing games and collaborative world-building.',
   },
 
   it: {
@@ -50,6 +63,18 @@ const TRANSLATIONS = {
     storiesSub: '>_ Dispacci dal finestrino — clicca su un treno per leggere',
 
     nextStop: 'Prossima fermata:',
+
+    techSub:    '>_ CARTA D\'IMBARCO — CARRIERA IN TRANSITO',
+    techDl:     '↓ CURRICULUM.PDF',
+    tabExp:     'ESPERIENZA',
+    tabEdu:     'FORMAZIONE',
+    tabProj:    'PROGETTI',
+    tabSkills:  'COMPETENZE',
+    tabInt:     'INTERESSI',
+    intLinux:   'Appassionato di software open-source e sistemi Linux.',
+    intScifi:   'Lettore e scrittore. Scrive libri quando la mente è troppo affollata.',
+    intDesign:  'Interessato al Design Architettonico, della Moda e della Comunicazione.',
+    intGdr:     'Appassionato di giochi di ruolo da tavolo e world-building collaborativo.',
   },
 
   zh: {
@@ -71,6 +96,18 @@ const TRANSLATIONS = {
     storiesSub: '>_ 來自窗邊座位的筆記 — 點擊列車閱讀',
 
     nextStop: '下一站：',
+
+    techSub:    '>_ 登機證 — 職業生涯進行中',
+    techDl:     '↓ 履歷.PDF',
+    tabExp:     '工作經歷',
+    tabEdu:     '學歷',
+    tabProj:    '專案',
+    tabSkills:  '技能',
+    tabInt:     '興趣',
+    intLinux:   '熱衷於開源軟體與 Linux 系統。',
+    intScifi:   '愛閱讀、愛寫作。思緒紛亂時提筆寫書。',
+    intDesign:  '對建築、時尚與傳播設計充滿興趣。',
+    intGdr:     '喜愛桌上角色扮演遊戲與共同世界構建。',
   }
 };
 
@@ -129,6 +166,19 @@ const TRANSLATIONS = {
 
     // stories — sub-label only (eyebrow + title stay fixed)
     setText('t-stories-sub', t.storiesSub);
+
+    // tech page
+    setText('t-tech-sub',    t.techSub);
+    setText('t-tech-dl',     t.techDl);
+    setText('t-tab-exp',     t.tabExp);
+    setText('t-tab-edu',     t.tabEdu);
+    setText('t-tab-proj',    t.tabProj);
+    setText('t-tab-skills',  t.tabSkills);
+    setText('t-tab-int',     t.tabInt);
+    setText('t-int-linux',   t.intLinux);
+    setText('t-int-scifi',   t.intScifi);
+    setText('t-int-design',  t.intDesign);
+    setText('t-int-gdr',     t.intGdr);
 
     // gallery: update all rendered next-stop eyebrow labels live
     document.querySelectorAll('.stop-label-eyebrow').forEach(el => {

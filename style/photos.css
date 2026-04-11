@@ -119,28 +119,27 @@ body {
   content: '';
   position: absolute;
   left: calc(-0.5rem - 8px + 6px);
-  top: -60px;
+  top: -100vh;
   width: 4px;
-  height: 60px;
+  height: 80px;
   background: linear-gradient(to bottom,
     transparent 0%,
-    rgba(168,127,212,0.5) 30%,
+    rgba(168,127,212,0.35) 25%,
     var(--accent-bright) 70%,
     rgba(255,255,255,0.95) 100%
   );
   border-radius: 2px;
   z-index: 3;
-  animation: beamDescend 3.5s ease-in infinite;
+  animation: beamDescend 4s linear infinite;
   pointer-events: none;
+  will-change: top, opacity;
 }
 
 @keyframes beamDescend {
-  0%   { top: -60px; opacity: 0; }
-  8%   { opacity: 1; }
-  55%  { top: 3.2rem; opacity: 1; }
-  62%  { top: 3.2rem; height: 20px; opacity: 0.6; }
-  66%  { top: calc(3.2rem + 8px); height: 4px; opacity: 0; }
-  100% { top: calc(3.2rem + 8px); height: 4px; opacity: 0; }
+  0%    { top: -100vh; opacity: 1; }
+  60%   { top: 3.2rem; opacity: 1; }
+  66%   { top: 3.2rem; opacity: 0; }
+  100%  { top: 3.2rem; opacity: 0; }
 }
 
 /*
@@ -788,6 +787,10 @@ body {
      dot top aligned to window vertical centre:
      label block ≈ 2.6rem tall + window half-height ≈ (100vw - 3rem)*9/32
      Using calc for precision; dot centre = top + 7px */
+  .timeline-stop.active::before {
+    left: calc(-1rem - 8px + 5px);
+  }
+
   .stop-dot {
     left: calc(-1rem - 8px);
     top: calc(2.6rem + (100vw - 3rem) * 9 / 32 - 7px);

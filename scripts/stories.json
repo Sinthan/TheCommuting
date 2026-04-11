@@ -3,19 +3,19 @@
     "id": "story-01",
     "title": "Una dentista asceta",
     "info": "SCIFI | Perso in una città conglomerato, a tu per tu con un male oscuro.",
-    "file": "./assets/stories/Una-dentista-asceta.txt"
+    "file": "./assets/stories/Una dentista asceta.txt"
   },
   {
     "id": "story-02",
     "title": "Un solitario dittatore",
     "info": "SCIFI | Spesso i muri che costruiamo a torno a noi, sono la nostra stessa fine.",
-    "file": "./assets/stories/Un-solitario-dittatore.txt"
+    "file": "./assets/stories/Un solitario dittatore.txt"
   },
   {
     "id": "story-03",
     "title": "Bloody Parade",
     "info": "Horror | Ho sognato l'arrivo di un circo, spero di non farlo mai più.",
-    "file": "./assets/stories/Bloody-Parade.txt"
+    "file": "./assets/stories/Bloody Parade.txt"
   },
   {
     "id": "story-04",
@@ -27,6 +27,6 @@
     "id": "story-05",
     "title": "Wind From Dunchersnatch",
     "info": "Horror | Preferirei strapparmi le orecchie, piuttosto che sentirlo ululare di nuovo.",
-    "file": "./assets/stories/Wind-from-Dunchersnatch.txt"
+    "file": "./assets/stories/Wind from Dunchersnatch.txt"
   }
 ]

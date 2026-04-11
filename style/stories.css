@@ -256,7 +256,7 @@ body {
   gap: 0.8rem;
   font-size: 0.62rem;
   letter-spacing: 0.18em;
-  color: rgba(255,255,255,0.82);
+  color: var(--green);
   text-transform: uppercase;
   flex-wrap: wrap;
 }
@@ -264,8 +264,8 @@ body {
 .story-drawer-train {
   font-family: 'Doto', monospace;
   font-size: 0.78rem;
-  color: rgba(255,255,255,0.9);
-  text-shadow: 0 0 10px rgba(255,255,255,0.12);
+  color: var(--green);
+  text-shadow: 0 0 10px rgba(74,140,92,0.4);
 }
 
 .story-drawer-sep {
@@ -275,7 +275,7 @@ body {
 
 .story-drawer-time {
   font-family: 'Doto', monospace;
-  color: rgba(255,255,255,0.75);
+  color: var(--green);
 }
 
 .story-drawer-delay {
@@ -324,8 +324,8 @@ body {
 .story-drawer-quote {
   font-size: 0.68rem;
   letter-spacing: 0.08em;
-  color: rgba(255,255,255,0.82);
-  border-left: 2px solid rgba(123,94,167,0.4);
+  color: var(--green);
+  border-left: 2px solid rgba(74,140,92,0.5);
   padding-left: 0.75rem;
   font-style: italic;
 }

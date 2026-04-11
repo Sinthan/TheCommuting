@@ -110,54 +110,43 @@ body {
 }
 
 /* ── TRAVELING VERTICAL PULSE ── */
-/* global traveling pulse removed — each active stop runs its own local beam */
 .timeline::after { display: none; }
 
-/* ── LOCAL VERTICAL BEAM on active stop only ── */
-/* sits on the line, travels down into the active stop's dot */
+/*
+  ROUTE MAP BEAM — 5s cycle, linear, all events anchored to same timeline:
+  0%–5%   : beam spawns above dot, invisible
+  5%–58%  : beam descends toward dot at constant speed
+  58%–62% : beam compresses into dot, fades out
+  62%+    : dot flash, connector fire, settle, hold
+*/
 .timeline-stop.active::before {
   content: '';
   position: absolute;
   left: calc(-0.5rem - 8px + 6px);
-  top: -100vh;
+  top: calc(3.2rem - 160px); /* fixed origin: 160px above the dot */
   width: 4px;
-  height: 80px;
+  height: 48px;
   background: linear-gradient(to bottom,
     transparent 0%,
-    rgba(168,127,212,0.35) 25%,
-    var(--accent-bright) 70%,
-    rgba(255,255,255,0.95) 100%
+    rgba(168,127,212,0.2) 30%,
+    var(--accent-bright) 75%,
+    rgba(255,255,255,0.9) 100%
   );
   border-radius: 2px;
   z-index: 3;
-  animation: beamDescend 4s linear infinite;
+  animation: beamDescend 5s linear infinite;
   pointer-events: none;
-  will-change: top, opacity;
+  will-change: transform, opacity;
 }
 
+/* translate instead of top — GPU accelerated, no layout thrash */
 @keyframes beamDescend {
-  0%    { top: -100vh; opacity: 1; }
-  60%   { top: 3.2rem; opacity: 1; }
-  66%   { top: 3.2rem; opacity: 0; }
-  100%  { top: 3.2rem; opacity: 0; }
-}
-
-/*
-  routeSignal — 5s linear, no easing to avoid bounce:
-  0–4%    fade in at top
-  4–72%   constant-speed travel down the spine
-  72–78%  approach: slight deceleration (handled by keyframe spacing)
-  78–82%  compress and vanish into dot
-  82–100% invisible, hold
-*/
-@keyframes routeSignal {
-  0%   { top: 0%;                       height: 40px; opacity: 0; }
-  4%   { top: 0%;                       height: 40px; opacity: 1; }
-  72%  { top: calc(var(--pulse-stop, 42%) - 3%); height: 40px; opacity: 1; }
-  78%  { top: var(--pulse-stop, 42%);   height: 16px; opacity: 0.7; }
-  82%  { top: var(--pulse-stop, 42%);   height: 4px;  opacity: 0; }
-  82.1%{ top: 0%;                       height: 40px; opacity: 0; }
-  100% { top: 0%;                       height: 40px; opacity: 0; }
+  0%    { transform: translateY(0px);    opacity: 0; }
+  5%    { transform: translateY(0px);    opacity: 1; }
+  58%   { transform: translateY(148px);  opacity: 1; }
+  62%   { transform: translateY(160px);  opacity: 0; height: 16px; }
+  62.1% { transform: translateY(0px);    opacity: 0; height: 48px; }
+  100%  { transform: translateY(0px);    opacity: 0; }
 }
 
 /* ── SINGLE STOP ── */
@@ -188,22 +177,23 @@ body {
 }
 
 .timeline-stop.active .stop-dot {
-  animation: stationArrival 3.5s ease-in infinite;
+  animation: stationArrival 5s linear infinite;
 }
 
 /*
-  stationArrival — synced to routeSignal (5s linear):
-  0–78%   dim at rest
-  78–82%  signal arrives → dot absorbs, swells
-  82–86%  peak flash — station lights up
-  86–94%  connector sweeps (dot holds glow)
-  94–100% settle back to rest
+  stationArrival — synced to beamDescend (5s linear):
+  0%–62%  : dim, waiting
+  62%–65% : beam arrives → dot absorbs, tight flash (scale 1.2 max — no halo bleed)
+  65%–72% : dwell lit — train is "at station"
+  72%–80% : settle back to rest glow
+  80%–100%: hold dim until next cycle
 */
 @keyframes stationArrival {
-  0%,55% { background: rgba(100,70,150,1);   border-color: rgba(168,127,212,0.85); box-shadow: none; transform: scale(1); }
-  64%    { background: var(--accent-bright); border-color: #fff; box-shadow: 0 0 0 6px rgba(168,127,212,0.2), 0 0 18px var(--accent-bright), 0 0 5px #fff; transform: scale(1.5); }
-  78%    { background: var(--accent-bright); border-color: #e0c8ff; box-shadow: 0 0 0 2px rgba(168,127,212,0.1), 0 0 8px var(--accent-bright); transform: scale(1.15); }
-  100%   { background: rgba(100,70,150,1);   border-color: rgba(168,127,212,0.85); box-shadow: none; transform: scale(1); }
+  0%,62%  { background: rgba(100,70,150,1);    border-color: rgba(168,127,212,0.85); box-shadow: none; transform: scale(1); }
+  65%     { background: #d4a8ff;               border-color: #fff;                  box-shadow: 0 0 0 3px rgba(168,127,212,0.25), 0 0 10px var(--accent-bright); transform: scale(1.2); }
+  72%     { background: var(--accent-bright);  border-color: #e0c8ff;               box-shadow: 0 0 6px var(--accent-bright); transform: scale(1.1); }
+  80%     { background: rgba(100,70,150,1);    border-color: rgba(168,127,212,0.85); box-shadow: none; transform: scale(1); }
+  100%    { background: rgba(100,70,150,1);    border-color: rgba(168,127,212,0.85); box-shadow: none; transform: scale(1); }
 }
 
 .stop-dot::after { display: none; }
@@ -241,20 +231,19 @@ body {
   opacity: 0;
 }
 
-/*
-  connectorFire — synced (5s linear):
-  fires at 83% (just as dot peaks), sweeps to window edge by 95%, fades
-*/
 .timeline-stop.active .stop-connector::after {
-  animation: connectorFire 3.5s ease-in infinite;
+  animation: connectorFire 5s linear infinite;
 }
 
+/*
+  connectorFire — 5s, fires at 65% (dot is lit), sweeps right, fades by 78%
+*/
 @keyframes connectorFire {
-  0%,65% { left: -80px; opacity: 0; }
-  66%    { left: -80px; opacity: 1; }
-  82%    { left: 100%;  opacity: 0.9; }
-  85%    { left: 100%;  opacity: 0; }
-  100%   { left: 100%;  opacity: 0; }
+  0%,64%  { left: -80px; opacity: 0; }
+  65%     { left: -80px; opacity: 1; }
+  76%     { left: 100%;  opacity: 0.85; }
+  78%     { left: 100%;  opacity: 0; }
+  100%    { left: 100%;  opacity: 0; }
 }
 
 /* ── VERTICAL TICK | at end of connector ── */

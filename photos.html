@@ -357,8 +357,6 @@
           /* blinking dot */
           const dot = document.createElement('div');
           dot.className = 'stop-dot';
-          /* stagger idle breathe so dots don't pulse in sync */
-          dot.style.animationDelay = `${(i * 0.65).toFixed(2)}s`;
           stop.appendChild(dot);
 
           /* stop label — above window */

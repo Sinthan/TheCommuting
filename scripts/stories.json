@@ -1,20 +1,32 @@
 [
   {
     "id": "story-01",
-    "title": "The Last Train to Nowhere",
-    "info": "Every departure is a small death. Every arrival, a resurrection you didn't ask for.",
-    "file": "./assets/stories/the-last-train-to-nowhere.txt"
+    "title": "Una dentista asceta",
+    "info": "SCIFI | Perso in una città conglomerato, a tu per tu con un male oscuro.",
+    "file": "./assets/stories/Una-dentista-asceta.txt"
   },
   {
     "id": "story-02",
-    "title": "Field Notes: Milano Centrale",
-    "info": "Marble floors and iron vaults. The station remembers everyone who passed through.",
-    "file": "./assets/stories/field-notes-milano-centrale.txt"
+    "title": "Un solitario dittatore",
+    "info": "SCIFI | Spesso i muri che costruiamo a torno a noi, sono la nostra stessa fine.",
+    "file": "./assets/stories/Un-solitario-dittatore.txt"
   },
   {
     "id": "story-03",
-    "title": "On Carrying Things",
-    "info": "A bag never tells you what it holds until you're already halfway there.",
-    "file": "./assets/stories/on-carrying-things.txt"
+    "title": "Bloody Parade",
+    "info": "Horror | Ho sognato l'arrivo di un circo, spero di non farlo mai più.",
+    "file": "./assets/stories/Bloody-Parade.txt"
+  },
+  {
+    "id": "story-04",
+    "title": "Dirt",
+    "info": "Horror | Lindo e pinto è solo dio, ma io posso fare miracoli.",
+    "file": "./assets/stories/Dirt.txt"
+  },
+  {
+    "id": "story-05",
+    "title": "Wind From Dunchersnatch",
+    "info": "Horror | Preferirei strapparmi le orecchie, piuttosto che sentirlo ululare di nuovo.",
+    "file": "./assets/stories/Wind-from-Dunchersnatch.txt"
   }
 ]

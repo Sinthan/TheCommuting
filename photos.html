@@ -490,11 +490,9 @@
           const dotEl = activeStop.querySelector('.stop-dot');
           if (!dotEl) return;
           const dotRect = dotEl.getBoundingClientRect();
-          /* dot centre relative to timeline top */
+          /* dot centre relative to timeline top — beam travels this far */
           const dotCentreFromTop = dotRect.top - timelineRect.top + dotRect.height / 2;
-          const timelineHeight = timeline.scrollHeight;
-          const pct = (dotCentreFromTop / timelineHeight) * 100;
-          timeline.style.setProperty('--pulse-stop', `calc(${pct.toFixed(1)}% - 40px)`);
+          timeline.style.setProperty('--beam-end', `${Math.round(dotCentreFromTop)}px`);
         }
 
         const observer = new IntersectionObserver(entries => {

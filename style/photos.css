@@ -109,45 +109,51 @@ body {
   border-radius: 2px;
 }
 
-/* ── TRAVELING VERTICAL PULSE ── */
-.timeline::after { display: none; }
-
+/* ── TRAVELING VERTICAL BEAM — lives on timeline, not on stop ── */
 /*
-  ROUTE MAP BEAM — 5s cycle, linear, all events anchored to same timeline:
-  0%–5%   : beam spawns above dot, invisible
-  5%–58%  : beam descends toward dot at constant speed
-  58%–62% : beam compresses into dot, fades out
+  ROUTE MAP BEAM — 5s cycle, all events anchored to same timeline:
+  0%–5%   : beam at top, invisible
+  5%–58%  : descends at constant speed toward active dot
+  58%–62% : compresses into dot, fades out
   62%+    : dot flash, connector fire, settle, hold
+  Centered on the vertical line via left offset.
+  Travel distance driven by --beam-end (px, set by JS).
 */
-.timeline-stop.active::before {
+.timeline::after {
   content: '';
   position: absolute;
-  left: calc(-0.5rem - 8px + 6px);
-  top: calc(3.2rem - 160px); /* fixed origin: 160px above the dot */
-  width: 4px;
-  height: 48px;
+  /* centred on desktop line (left: 4.5rem, line width: 4px) */
+  left: calc(4.5rem - 5px);
+  top: 0;
+  width: 10px;
+  height: 80px;
   background: linear-gradient(to bottom,
     transparent 0%,
-    rgba(168,127,212,0.2) 30%,
-    var(--accent-bright) 75%,
-    rgba(255,255,255,0.9) 100%
+    rgba(168,127,212,0.15) 20%,
+    rgba(168,127,212,0.6) 55%,
+    var(--accent-bright) 80%,
+    rgba(255,255,255,0.95) 100%
   );
-  border-radius: 2px;
+  border-radius: 3px;
   z-index: 3;
-  animation: beamDescend 5s linear infinite;
   pointer-events: none;
   will-change: transform, opacity;
+  animation: beamDescend 5s linear infinite;
+  /* fallback travel if JS hasn't set --beam-end yet */
+  --beam-end: 300px;
 }
 
-/* translate instead of top — GPU accelerated, no layout thrash */
 @keyframes beamDescend {
-  0%    { transform: translateY(0px);    opacity: 0; }
-  5%    { transform: translateY(0px);    opacity: 1; }
-  58%   { transform: translateY(148px);  opacity: 1; }
-  62%   { transform: translateY(160px);  opacity: 0; height: 16px; }
-  62.1% { transform: translateY(0px);    opacity: 0; height: 48px; }
-  100%  { transform: translateY(0px);    opacity: 0; }
+  0%    { transform: translateY(0px);                       opacity: 0; height: 80px; }
+  5%    { transform: translateY(0px);                       opacity: 1; height: 80px; }
+  58%   { transform: translateY(calc(var(--beam-end) - 80px)); opacity: 1; height: 80px; }
+  62%   { transform: translateY(var(--beam-end));            opacity: 0; height: 20px; }
+  62.1% { transform: translateY(0px);                       opacity: 0; height: 80px; }
+  100%  { transform: translateY(0px);                       opacity: 0; height: 80px; }
 }
+
+/* beam no longer lives on the stop */
+.timeline-stop.active::before { display: none; }
 
 /* ── SINGLE STOP ── */
 .timeline-stop {
@@ -757,7 +763,7 @@ body {
   .timeline { padding: 2rem 1rem 4rem 0; }
 
   .timeline::before { left: 2rem; width: 3px; }
-  .timeline::after  { left: calc(2rem - 1px); width: 5px; }
+  .timeline::after  { left: calc(2rem - 5px); width: 10px; }
 
   /* line at 2rem, stop margin-left at 3rem, gap = 1rem = 16px
      dot left = -(1rem + 8px) to centre on line */
@@ -776,9 +782,7 @@ body {
      dot top aligned to window vertical centre:
      label block ≈ 2.6rem tall + window half-height ≈ (100vw - 3rem)*9/32
      Using calc for precision; dot centre = top + 7px */
-  .timeline-stop.active::before {
-    left: calc(-1rem - 8px + 5px);
-  }
+  /* beam is on .timeline::after — no stop-level override needed */
 
   .stop-dot {
     left: calc(-1rem - 8px);

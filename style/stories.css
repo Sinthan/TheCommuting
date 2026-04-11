@@ -56,7 +56,7 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255,160,40,0.025) 0%, transparent 70%);
+  background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255,255,255,0.02) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
@@ -67,8 +67,8 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem 1.6rem;
-  border-bottom: 1px solid rgba(255,160,40,0.18);
-  background: rgba(255,160,40,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.03);
   position: relative;
   z-index: 1;
 }
@@ -77,8 +77,8 @@ body {
   font-family: 'Doto', monospace;
   font-size: 0.85rem;
   letter-spacing: 0.22em;
-  color: rgba(255,180,60,0.85);
-  text-shadow: 0 0 12px rgba(255,160,40,0.45);
+  color: rgba(255,255,255,0.85);
+  text-shadow: 0 0 12px rgba(255,255,255,0.15);
 }
 
 .board-time-wrap {
@@ -87,15 +87,15 @@ body {
   gap: 0.6rem;
   font-size: 0.6rem;
   letter-spacing: 0.18em;
-  color: rgba(255,180,60,0.55);
+  color: rgba(255,255,255,0.45);
   text-transform: uppercase;
 }
 
 .board-time {
   font-family: 'Doto', monospace;
   font-size: 1rem;
-  color: rgba(255,180,60,0.9);
-  text-shadow: 0 0 14px rgba(255,160,40,0.5);
+  color: rgba(255,255,255,0.9);
+  text-shadow: 0 0 14px rgba(255,255,255,0.15);
   letter-spacing: 0.12em;
 }
 
@@ -104,8 +104,8 @@ body {
   display: grid;
   grid-template-columns: var(--board-cols);
   padding: 0.5rem 1.6rem;
-  border-bottom: 1px solid rgba(255,160,40,0.12);
-  background: rgba(255,160,40,0.03);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.02);
   position: relative;
   z-index: 1;
 }
@@ -113,7 +113,7 @@ body {
 .board-col-headers span {
   font-size: 0.52rem;
   letter-spacing: 0.26em;
-  color: rgba(255,180,60,0.45);
+  color: rgba(255,255,255,0.35);
   text-transform: uppercase;
 }
 
@@ -127,27 +127,27 @@ body {
   display: grid;
   grid-template-columns: var(--board-cols);
   padding: 0.72rem 1.6rem;
-  border-bottom: 1px solid rgba(255,160,40,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
   cursor: pointer;
   transition: background 0.18s;
   align-items: center;
 }
 
 .board-row:hover {
-  background: rgba(255,160,40,0.06);
+  background: rgba(255,255,255,0.05);
 }
 
 .board-row:hover .dest-name {
   color: rgba(255,200,80,1);
-  text-shadow: 0 0 16px rgba(255,160,40,0.6);
+  text-shadow: 0 0 16px rgba(255,255,255,0.25);
 }
 
 .bd-val {
   font-family: 'Doto', monospace;
   font-size: 0.78rem;
   letter-spacing: 0.1em;
-  color: rgba(255,180,60,0.82);
-  text-shadow: 0 0 8px rgba(255,140,30,0.3);
+  color: rgba(255,255,255,0.82);
+  text-shadow: 0 0 8px rgba(255,255,255,0.1);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -169,7 +169,7 @@ body {
   font-family: 'Share Tech Mono', monospace;
   font-size: 0.58rem;
   letter-spacing: 0.06em;
-  color: rgba(255,180,60,0.45);
+  color: rgba(255,255,255,0.35);
   text-shadow: none;
   white-space: nowrap;
   overflow: hidden;
@@ -244,8 +244,8 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 0.9rem 2rem;
-  border-bottom: 1px solid rgba(255,160,40,0.15);
-  background: rgba(255,160,40,0.03);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.02);
   flex-shrink: 0;
 }
 
@@ -255,7 +255,7 @@ body {
   gap: 0.8rem;
   font-size: 0.62rem;
   letter-spacing: 0.18em;
-  color: rgba(255,180,60,0.65);
+  color: rgba(255,255,255,0.55);
   text-transform: uppercase;
   flex-wrap: wrap;
 }
@@ -263,8 +263,8 @@ body {
 .story-drawer-train {
   font-family: 'Doto', monospace;
   font-size: 0.78rem;
-  color: rgba(255,180,60,0.9);
-  text-shadow: 0 0 10px rgba(255,140,30,0.4);
+  color: rgba(255,255,255,0.9);
+  text-shadow: 0 0 10px rgba(255,255,255,0.12);
 }
 
 .story-drawer-sep {
@@ -274,7 +274,7 @@ body {
 
 .story-drawer-time {
   font-family: 'Doto', monospace;
-  color: rgba(255,180,60,0.8);
+  color: rgba(255,255,255,0.75);
 }
 
 .story-drawer-delay {
@@ -323,8 +323,7 @@ body {
 .story-drawer-quote {
   font-size: 0.68rem;
   letter-spacing: 0.08em;
-  color: var(--accent-bright);
-  opacity: 0.8;
+  color: rgba(255,255,255,0.7);
   border-left: 2px solid rgba(123,94,167,0.4);
   padding-left: 0.75rem;
   font-style: italic;
@@ -354,6 +353,7 @@ body {
   line-height: 2;
   color: var(--text-muted);
   margin-bottom: 1.4em;
+  text-align: justify;
 }
 
 /* First paragraph: slightly brighter */
@@ -365,7 +365,7 @@ body {
 .story-loading {
   font-size: 0.65rem;
   letter-spacing: 0.24em;
-  color: rgba(255,180,60,0.5);
+  color: rgba(255,255,255,0.4);
   padding: 2rem 0;
   animation: blink-delay 1s step-end infinite;
 }

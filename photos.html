@@ -312,11 +312,14 @@
           dot.className = 'stop-dot';
           stop.appendChild(dot);
 
-          /* stop label — above window, indent set by JS */
+          /* stop label — above window */
           const label = document.createElement('div');
           label.className = 'stop-label';
+          const nextStopText = (typeof window.getCurrentNextStop === 'function')
+            ? window.getCurrentNextStop()
+            : 'Next stop:';
           label.innerHTML = `
-            <span class="stop-label-eyebrow">Next stop:</span>
+            <span class="stop-label-eyebrow">${nextStopText}</span>
             <span class="stop-label-name">${album.name}</span>
             ${album.quote ? `<span class="stop-label-quote">${album.quote}</span>` : ''}
           `;
@@ -343,15 +346,15 @@
 
           win.innerHTML = `
             <div class="window-frame-outer">
+              <div class="window-label">
+                <span class="window-label-tag">VIEW // ${String(i + 1).padStart(2, '0')}</span>
+              </div>
               <div class="window-pane">
                 ${album.images.length > 0
                   ? `<div class="window-preview">${previewImgs}</div>`
                   : `<div class="window-dot-grid"></div>`
                 }
                 <div class="window-reflection"></div>
-                <div class="window-label">
-                  <span class="window-label-tag">VIEW // ${String(i + 1).padStart(2, '0')}</span>
-                </div>
                 <span class="window-enter">→ OPEN</span>
               </div>
             </div>
@@ -377,32 +380,44 @@
         `;
         timeline.appendChild(end);
 
-        /* ── SET CONNECTOR WIDTH = stop left offset (= window left edge from dot right) ── */
+        /* ── SET CONNECTOR WIDTH = dot-right to window-left-edge ── */
         function updateConnectors() {
-          stops.forEach(stop => {
+          document.querySelectorAll('.timeline-stop').forEach(stop => {
+            const dotEl   = stop.querySelector('.stop-dot');
+            const winEl   = stop.querySelector('.train-window');
+            if (!dotEl || !winEl) return;
+
+            const dotRect = dotEl.getBoundingClientRect();
+            const winRect = winEl.getBoundingClientRect();
             const stopRect = stop.getBoundingClientRect();
-            const timelineRect = timeline.getBoundingClientRect();
-            /* dot right edge = stop left - (0.5rem + 8px - 8px) = stop left - 0.5rem */
-            /* connector = from stop left (0) to wherever we want — we want it to end
-               at the label left padding boundary which is stop's left edge = 0 in stop coords.
-               But we want label aligned to window. window is full-width of stop.
-               So connector goes from 0 to 0 (= stop left) — just the gap from dot to stop edge.
-               That gap = 0.5rem = 8px. We want it a bit wider for visual clarity. */
-            const connW = Math.round(stopRect.left - timelineRect.left - 72 + 8);
-            /* 72 = 4.5rem line position; 8 = half dot to right edge of dot */
-            const safeW = Math.max(24, connW);
-            stop.style.setProperty('--connector-w', safeW + 'px');
-            stop.style.setProperty('--label-indent', (safeW + 8) + 'px'); /* tick width = 4px + padding */
-            /* also update tick position */
-            const tickEl = stop.querySelector('.stop-connector-tick');
-            if (tickEl) tickEl.style.left = safeW + 'px';
+
+            /* connector width: from dot right edge to window left edge, in stop-local coords */
+            const dotRightInStop  = dotRect.right  - stopRect.left;  /* negative value */
+            const winLeftInStop   = winRect.left   - stopRect.left;   /* 0 or positive if centered */
+            const connW = Math.max(8, winLeftInStop - dotRightInStop);
+
+            /* label indent = from stop left to window left */
+            const labelIndent = Math.max(0, winLeftInStop);
+
+            stop.style.setProperty('--connector-w', connW + 'px');
+            stop.style.setProperty('--label-indent', labelIndent + 'px');
           });
         }
 
-        requestAnimationFrame(() => {
-          updateConnectors();
-          window.addEventListener('resize', updateConnectors);
-        });
+        /* Run after layout settles — use double rAF + small timeout to ensure
+           font rendering doesn't shift measurements */
+        function scheduleConnectorUpdate() {
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              updateConnectors();
+            });
+          });
+        }
+
+        scheduleConnectorUpdate();
+        // Also re-run after fonts likely loaded
+        document.fonts.ready.then(() => { updateConnectors(); });
+        window.addEventListener('resize', updateConnectors);
 
         /* ── INTERSECTION OBSERVER: one active stop at a time ── */
         const scrollContainer = document.querySelector('.timeline-scroll');

@@ -152,9 +152,10 @@ body {
 .timeline-stop:last-child { margin-bottom: 0; }
 
 /* ── DOT ── solid, visible at rest, bright when pulse hits ── */
+/* timeline line at 4.5rem; stop margin-left at 5rem → dot offset = -(0.5rem + half dot) */
 .stop-dot {
   position: absolute;
-  left: calc(-2.5rem - 8px);
+  left: calc(-0.5rem - 8px);
   top: 3.2rem;
   width: 16px;
   height: 16px;
@@ -180,16 +181,17 @@ body {
 
 .stop-dot::after { display: none; }
 
-/* ── CONNECTOR — absolute, from dot-right to title left, 4px thick ── */
-/* Sits at the same vertical centre as the dot.
+/* ── CONNECTOR — from dot right edge to window left edge ── */
+/* dot right = calc(-0.5rem - 8px + 16px) = calc(-0.5rem + 8px) in stop coords
+   connector spans from dot right to window left edge (var set by JS)
    dot top: 3.2rem, dot height: 16px → centre = 3.2rem + 8px
-   line height: 4px → top = 3.2rem + 8px - 2px = 3.2rem + 6px */
+   line height: 4px → top = 3.2rem + 8px - 2px = calc(3.2rem + 6px) */
 .stop-connector {
   position: absolute;
-  left: 0;
+  left: calc(-0.5rem + 8px);
   top: calc(3.2rem + 6px);
   height: 4px;
-  width: var(--connector-w, 6rem);
+  width: var(--connector-w, 2rem);
   background: rgba(168,127,212,0.45);
   border-radius: 0 2px 2px 0;
   z-index: 3;
@@ -225,9 +227,10 @@ body {
 }
 
 /* ── VERTICAL TICK | at end of connector ── */
+/* left matches connector left + connector width = calc(-0.5rem + 8px) + var(--connector-w) */
 .stop-connector-tick {
   position: absolute;
-  left: var(--connector-w, 6rem);
+  left: calc(-0.5rem + 8px + var(--connector-w, 2rem));
   top: calc(3.2rem + 6px - 8px);
   height: 20px;
   width: 4px;
@@ -240,11 +243,13 @@ body {
   background: rgba(168,127,212,0.7);
 }
 
-/* ── STOP LABEL — left-aligned to window, above it ── */
+/* ── STOP LABEL — aligned to window left edge ── */
+/* train-window is full-width of stop (or centered if narrower than max-width)
+   label uses same padding-left as window offset, set by JS via --label-indent */
 .stop-label {
   width: 100%;
   margin-bottom: 0.6rem;
-  padding-left: var(--label-indent, 2.5rem);
+  padding-left: var(--label-indent, 0px);
 }
 
 .stop-label-eyebrow {
@@ -406,12 +411,13 @@ body {
     );
 }
 
-/* VIEW // 01 label top-left */
+/* VIEW // 01 label — top-left of window-frame-outer (NOT inside pane, avoids overflow:hidden clip) */
 .window-label {
   position: absolute;
-  top: 10px;
-  left: 14px;
-  z-index: 3;
+  top: 14px;
+  left: 18px;
+  z-index: 5;
+  pointer-events: none;
 }
 
 .window-label-tag {
@@ -424,17 +430,18 @@ body {
 
 .train-window:hover .window-label-tag { color: var(--accent-bright); }
 
-/* OPEN hint bottom-right */
+/* OPEN hint bottom-right — on window-frame-outer */
 .window-enter {
   position: absolute;
-  bottom: 10px;
-  right: 14px;
-  z-index: 3;
+  bottom: 14px;
+  right: 18px;
+  z-index: 5;
   font-size: 0.48rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: rgba(168,127,212,0);
   transition: color 0.3s;
+  pointer-events: none;
 }
 
 .train-window:hover .window-enter { color: var(--accent-bright); }
@@ -747,6 +754,7 @@ body {
     margin-left: 3rem;
   }
 
+  /* mobile: line at 2rem, stop margin-left at 3rem → dot offset = -(1rem + 8px) */
   .stop-dot {
     left: calc(-1rem - 8px);
     width: 14px;

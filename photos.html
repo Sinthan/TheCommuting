@@ -100,34 +100,33 @@
         <!-- ═══════════════ SHINKANSEN BODY ═══════════════ -->
         <g id="shinkansen-train" filter="url(#glow)" opacity="0.35">
 
-          <!-- NOSE (head) — blunt shinkansen profile, wide rounded tip -->
-          <!-- Body width: x=282–338 (56px), centre x=310                -->
-          <!-- Tip: flat arc across ~30px at y≈40, tapers to full width  -->
-          <!-- Outer shell -->
-          <path d="M296 40 C296 38 302 34 310 33 C318 34 324 38 324 40 C330 55 336 80 338 120 L282 120 C284 80 290 55 296 40 Z"
+          <!-- NOSE (head) — blunt shinkansen profile                  -->
+          <!-- Body width: x=276–344 (68px), centre x=310             -->
+          <!-- Outer shell: full width at y=120, tapers to blunt tip  -->
+          <path d="M292 44 C292 41 299 35 310 34 C321 35 328 41 328 44 C334 60 340 88 344 120 L276 120 C280 88 286 60 292 44 Z"
                 stroke="rgba(168,127,212,1)" stroke-width="2" fill="none" stroke-dasharray="3 3"/>
-          <!-- Tip highlight — small flat oval at very front -->
-          <ellipse cx="310" cy="37" rx="7" ry="3.5"
+          <!-- Tip flat oval -->
+          <ellipse cx="310" cy="38" rx="9" ry="4"
                    stroke="rgba(168,127,212,0.8)" stroke-width="1.2" fill="none" stroke-dasharray="2 3"/>
-          <!-- Inner contour / windscreen line -->
-          <path d="M300 52 C300 50 304 47 310 46 C316 47 320 50 320 52 C323 68 326 92 327 120 L293 120 C294 92 297 68 300 52 Z"
+          <!-- Inner windscreen contour -->
+          <path d="M299 56 C299 53 304 48 310 47 C316 48 321 53 321 56 C324 72 327 94 328 120 L292 120 C293 94 296 72 299 56 Z"
                 stroke="rgba(168,127,212,0.6)" stroke-width="1" fill="none" stroke-dasharray="2 4"/>
           <!-- Centre ridge -->
-          <line x1="310" y1="34" x2="310" y2="120"
-                stroke="rgba(168,127,212,0.45)" stroke-width="0.9" stroke-dasharray="2 5"/>
+          <line x1="310" y1="35" x2="310" y2="120"
+                stroke="rgba(168,127,212,0.4)" stroke-width="0.9" stroke-dasharray="2 5"/>
           <!-- Nose highlight dots -->
-          <circle cx="310" cy="40"  r="1.8" fill="rgba(168,127,212,0.9)"/>
-          <circle cx="310" cy="54"  r="1.4" fill="rgba(168,127,212,0.65)"/>
-          <circle cx="310" cy="70"  r="1.1" fill="rgba(168,127,212,0.45)"/>
+          <circle cx="310" cy="42"  r="1.8" fill="rgba(168,127,212,0.9)"/>
+          <circle cx="310" cy="57"  r="1.4" fill="rgba(168,127,212,0.65)"/>
+          <circle cx="310" cy="74"  r="1.1" fill="rgba(168,127,212,0.45)"/>
 
           <!-- BODY WALLS — extended to y=9500 (JS trims viewBox) -->
-          <line x1="282" y1="120" x2="282" y2="9500"
+          <line x1="276" y1="120" x2="276" y2="9500"
                 stroke="rgba(168,127,212,1)" stroke-width="2.2" stroke-dasharray="4 4"/>
-          <line x1="338" y1="120" x2="338" y2="9500"
+          <line x1="344" y1="120" x2="344" y2="9500"
                 stroke="rgba(168,127,212,1)" stroke-width="2.2" stroke-dasharray="4 4"/>
-          <line x1="290" y1="125" x2="290" y2="9500"
+          <line x1="284" y1="125" x2="284" y2="9500"
                 stroke="rgba(168,127,212,0.6)" stroke-width="1.2" stroke-dasharray="3 5"/>
-          <line x1="330" y1="125" x2="330" y2="9500"
+          <line x1="336" y1="125" x2="336" y2="9500"
                 stroke="rgba(168,127,212,0.6)" stroke-width="1.2" stroke-dasharray="3 5"/>
           <line x1="310" y1="120" x2="310" y2="9500"
                 stroke="rgba(168,127,212,0.32)" stroke-width="0.9" stroke-dasharray="2 6"/>
@@ -138,37 +137,37 @@
 
         <!-- ROOF SEAMS as pattern (separate from glow group for perf) -->
         <defs>
-          <pattern id="seams" x="282" y="200" width="56" height="80" patternUnits="userSpaceOnUse">
-            <line x1="0" y1="0" x2="56" y2="0" stroke="rgba(168,127,212,0.45)" stroke-width="0.9" stroke-dasharray="2 3"/>
+          <pattern id="seams" x="276" y="200" width="68" height="80" patternUnits="userSpaceOnUse">
+            <line x1="0" y1="0" x2="68" y2="0" stroke="rgba(168,127,212,0.45)" stroke-width="0.9" stroke-dasharray="2 3"/>
           </pattern>
           <pattern id="panto" x="302" y="160" width="16" height="320" patternUnits="userSpaceOnUse">
             <rect x="0" y="0" width="16" height="8" rx="1" stroke="rgba(168,127,212,0.75)" stroke-width="1.1" stroke-dasharray="2 2" fill="none"/>
           </pattern>
-          <pattern id="winL" x="284" y="145" width="20" height="80" patternUnits="userSpaceOnUse">
+          <pattern id="winL" x="278" y="145" width="20" height="80" patternUnits="userSpaceOnUse">
             <rect x="0" y="0" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.55)" stroke-width="1" stroke-dasharray="2 2" fill="none"/>
           </pattern>
-          <pattern id="winR" x="316" y="145" width="20" height="80" patternUnits="userSpaceOnUse">
+          <pattern id="winR" x="322" y="145" width="20" height="80" patternUnits="userSpaceOnUse">
             <rect x="0" y="0" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.55)" stroke-width="1" stroke-dasharray="2 2" fill="none"/>
           </pattern>
         </defs>
         <!-- apply repeating patterns along body -->
-        <rect x="282" y="200"  width="56" height="9300" fill="url(#seams)"  opacity="0.9" pointer-events="none"/>
+        <rect x="276" y="200"  width="68" height="9300" fill="url(#seams)"  opacity="0.9" pointer-events="none"/>
         <rect x="302" y="160"  width="16" height="9340" fill="url(#panto)"  opacity="0.8" pointer-events="none"/>
-        <rect x="284" y="145"  width="20" height="9355" fill="url(#winL)"   opacity="0.9" pointer-events="none"/>
-        <rect x="316" y="145"  width="20" height="9355" fill="url(#winR)"   opacity="0.9" pointer-events="none"/>
+        <rect x="278" y="145"  width="20" height="9355" fill="url(#winL)"   opacity="0.9" pointer-events="none"/>
+        <rect x="322" y="145"  width="20" height="9355" fill="url(#winR)"   opacity="0.9" pointer-events="none"/>
 
         <!-- RAIL TRACKS -->
         <g opacity="0.16">
-          <line x1="268" y1="0" x2="268" y2="9600" stroke="rgba(168,127,212,1)" stroke-width="1.8" stroke-dasharray="5 8"/>
-          <line x1="352" y1="0" x2="352" y2="9600" stroke="rgba(168,127,212,1)" stroke-width="1.8" stroke-dasharray="5 8"/>
+          <line x1="260" y1="0" x2="260" y2="9600" stroke="rgba(168,127,212,1)" stroke-width="1.8" stroke-dasharray="5 8"/>
+          <line x1="360" y1="0" x2="360" y2="9600" stroke="rgba(168,127,212,1)" stroke-width="1.8" stroke-dasharray="5 8"/>
         </g>
         <!-- sleeper pattern -->
         <defs>
-          <pattern id="sleepers" x="262" y="60" width="96" height="60" patternUnits="userSpaceOnUse">
-            <line x1="0" y1="0" x2="96" y2="0" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
+          <pattern id="sleepers" x="254" y="60" width="106" height="60" patternUnits="userSpaceOnUse">
+            <line x1="0" y1="0" x2="106" y2="0" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
           </pattern>
         </defs>
-        <rect x="262" y="60" width="96" height="9540" fill="url(#sleepers)" opacity="0.10" pointer-events="none"/>
+        <rect x="254" y="60" width="106" height="9540" fill="url(#sleepers)" opacity="0.10" pointer-events="none"/>
 
         <!-- TAIL CARRIAGE — injected by JS at correct SVG Y position -->
         <g id="shinkansen-tail" opacity="0"></g>
@@ -546,35 +545,34 @@
            In SVG units that's exactly scroller.scrollHeight / scale */
         const totalSvgUnits = scroller.scrollHeight / scale;
 
-        /* Tail base at totalSvgUnits - 87 (nose shape is 87 units tall from y+0 to y+87) */
+        /* Tail: connects to body at T (full width), tapers to blunt tip at T+87 */
         const tailY = Math.max(300, totalSvgUnits - 87);
-        const T = tailY; /* shorthand */
+        const T = tailY;
 
         tailGroup.innerHTML = `
           <g filter="url(#glow)" opacity="0.35">
-            <!-- TAIL — mirror of head, tip points DOWN -->
-            <!-- Outer shell -->
-            <path d="M296 ${T} C284 ${T} 282 ${T+40} 282 ${T+67} L338 ${T+67} C338 ${T+40} 336 ${T} 324 ${T} C318 ${T-3} 310 ${T-4} 310 ${T-4} C310 ${T-4} 302 ${T-3} 296 ${T} Z"
+            <!-- TAIL — wide at top (body join), blunt tip points DOWN -->
+            <!-- Outer shell: from full body width at T, taper to blunt ~18px tip at T+87 -->
+            <path d="M276 ${T} C276 ${T+50} 292 ${T+78} 301 ${T+84} C304 ${T+86} 307 ${T+87} 310 ${T+87} C313 ${T+87} 316 ${T+86} 319 ${T+84} C328 ${T+78} 344 ${T+50} 344 ${T} Z"
                   stroke="rgba(168,127,212,1)" stroke-width="2" fill="none" stroke-dasharray="3 3"/>
-            <!-- Tip flat oval -->
-            <ellipse cx="310" cy="${T-1}" rx="7" ry="3.5"
+            <!-- Tip flat oval at bottom -->
+            <ellipse cx="310" cy="${T+87}" rx="9" ry="4"
                      stroke="rgba(168,127,212,0.8)" stroke-width="1.2" fill="none" stroke-dasharray="2 3"/>
-            <!-- Inner windscreen -->
-            <path d="M300 ${T+15} C297 ${T+8} 293 ${T+67} 293 ${T+67} L327 ${T+67} C327 ${T+67} 323 ${T+8} 320 ${T+15} C316 ${T+10} 310 ${T+7} 310 ${T+7} C304 ${T+7} 300 ${T+15} 300 ${T+15} Z"
+            <!-- Inner windscreen contour -->
+            <path d="M292 ${T} C292 ${T+45} 302 ${T+72} 307 ${T+77} C308 ${T+78} 310 ${T+79} 310 ${T+79} C310 ${T+79} 312 ${T+78} 313 ${T+77} C318 ${T+72} 328 ${T+45} 328 ${T} Z"
                   stroke="rgba(168,127,212,0.6)" stroke-width="1" fill="none" stroke-dasharray="2 4"/>
             <!-- Centre ridge -->
-            <line x1="310" y1="${T-3}" x2="310" y2="${T+67}"
-                  stroke="rgba(168,127,212,0.45)" stroke-width="0.9" stroke-dasharray="2 5"/>
-            <!-- Highlight dots -->
-            <circle cx="310" cy="${T+3}"  r="1.8" fill="rgba(168,127,212,0.9)"/>
-            <circle cx="310" cy="${T+17}" r="1.4" fill="rgba(168,127,212,0.65)"/>
-            <circle cx="310" cy="${T+33}" r="1.1" fill="rgba(168,127,212,0.45)"/>
+            <line x1="310" y1="${T}" x2="310" y2="${T+86}"
+                  stroke="rgba(168,127,212,0.4)" stroke-width="0.9" stroke-dasharray="2 5"/>
+            <!-- Highlight dots from top toward tip -->
+            <circle cx="310" cy="${T+20}" r="1.4" fill="rgba(168,127,212,0.65)"/>
+            <circle cx="310" cy="${T+45}" r="1.4" fill="rgba(168,127,212,0.65)"/>
+            <circle cx="310" cy="${T+68}" r="1.8" fill="rgba(168,127,212,0.9)"/>
           </g>
         `;
         tailGroup.setAttribute('opacity', '1');
 
-        /* viewBox height = tail bottom + small padding */
-        svgEl.setAttribute('viewBox', `0 0 400 ${Math.ceil(T + 80)}`);
+        svgEl.setAttribute('viewBox', `0 0 400 ${Math.ceil(T + 96)}`);
       }
 
       /* ── Parallax scroll ── */

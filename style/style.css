@@ -528,6 +528,14 @@ nav::after {
   .zh-2 { left: 25%; }
   .zh-5 { left: 55%; }
   .zh-8 { left: 80%; }
+
+  .sys-bar {
+    font-size: 0.48rem;
+    letter-spacing: 0.1em;
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
+  }
+  .sys-bar-left { gap: 0.9rem; }
 }
 
 /* ── LANGUAGE SWITCHER ── */

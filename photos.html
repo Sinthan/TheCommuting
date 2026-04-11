@@ -502,31 +502,43 @@
   <script>
     /* ── SHINKANSEN PARALLAX + TAIL INJECTION ──
        SVG is position:absolute inside .archive-page (overflow:hidden).
-       .archive-page starts right below .archive-header and ends above .status-bar
-       → SVG is automatically caged; no clipping needed in JS.
+       .archive-page contains: [archive-header] + [timeline-scroll].
+       So top:0 is at the TOP of archive-page, which is above the header.
 
-       Parallax: translate SVG up as .timeline-scroll scrolls.
-       Scale factor: rendered SVG width / 400 SVG units.
-       Tail: injected after timeline albums load, placed at correct SVG Y.
+       Fix: set SVG top = archive-header.offsetHeight so nose starts exactly
+       where the header ends (matching the vertical timeline line).
+
+       Tail Y in SVG units must cover: (headerH + scroller.scrollHeight) / scale.
+
+       Parallax: translate upward as scroller scrolls, ratio = svgTravel / maxScroll.
     */
     (function () {
       const svgEl    = document.getElementById('shinkansen-bg');
       const scroller = document.querySelector('.timeline-scroll');
+      const archiveHeader = document.querySelector('.archive-header');
       if (!svgEl || !scroller) return;
 
-      /* ── Inject tail after timeline is populated ── */
+      /* ── Position head: top = archive-header height ── */
+      function positionHead() {
+        const headerH = archiveHeader ? archiveHeader.offsetHeight : 0;
+        svgEl.style.top = headerH + 'px';
+      }
+
+      /* ── Inject tail at exact bottom of timeline-scroll ── */
       function injectTail() {
         const tailGroup = document.getElementById('shinkansen-tail');
         if (!tailGroup) return;
 
         const renderedW = svgEl.getBoundingClientRect().width;
-        const scale     = renderedW / 400; /* px per SVG unit */
+        if (renderedW === 0) return;
+        const scale = renderedW / 400; /* px per SVG unit */
 
-        /* Total SVG units needed = full scrollable timeline height / scale */
+        /* SVG covers from headerH to headerH + scroller.scrollHeight
+           In SVG units that's exactly scroller.scrollHeight / scale */
         const totalSvgUnits = scroller.scrollHeight / scale;
 
-        /* Tail nose starts 120 SVG units before end */
-        const tailY = Math.max(500, totalSvgUnits - 120);
+        /* Tail nose base at totalSvgUnits - 110 (nose shape is 110 units tall) */
+        const tailY = Math.max(300, totalSvgUnits - 110);
 
         tailGroup.innerHTML = `
           <g filter="url(#glow)" opacity="0.35">
@@ -543,38 +555,46 @@
         `;
         tailGroup.setAttribute('opacity', '1');
 
-        const newVbH = Math.ceil(tailY + 140);
-        svgEl.setAttribute('viewBox', `0 0 400 ${newVbH}`);
+        /* viewBox height = tail bottom + small padding */
+        svgEl.setAttribute('viewBox', `0 0 400 ${Math.ceil(tailY + 120)}`);
       }
 
       /* ── Parallax scroll ── */
       function onScroll() {
-        const svgH         = svgEl.getBoundingClientRect().height;
-        const containerH   = scroller.getBoundingClientRect().height;
-        const maxSvgTravel = Math.max(0, svgH - containerH);
-        const maxScroll    = scroller.scrollHeight - scroller.clientHeight;
+        const svgH       = svgEl.getBoundingClientRect().height;
+        const scrollerH  = scroller.getBoundingClientRect().height;
+        const maxTravel  = Math.max(0, svgH - scrollerH);
+        const maxScroll  = scroller.scrollHeight - scroller.clientHeight;
         if (maxScroll <= 0) return;
 
-        const ratio  = maxSvgTravel > 0 ? Math.min(maxSvgTravel / maxScroll, 1) : 0;
+        const ratio = maxTravel > 0 ? Math.min(maxTravel / maxScroll, 1) : 0;
         svgEl.style.transform = `translateY(${-(scroller.scrollTop * ratio)}px)`;
       }
 
-      scroller.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', () => { injectTail(); onScroll(); }, { passive: true });
+      function init() {
+        positionHead();
+        injectTail();
+        onScroll();
+      }
 
-      /* MutationObserver: fire once when timeline children are added */
+      scroller.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', () => { positionHead(); injectTail(); onScroll(); }, { passive: true });
+
+      /* Fire after albums are injected into timeline */
       const timelineEl = document.getElementById('timeline');
       if (timelineEl) {
         const mo = new MutationObserver(() => {
-          requestAnimationFrame(() => requestAnimationFrame(() => {
-            injectTail();
-            onScroll();
-          }));
+          requestAnimationFrame(() => requestAnimationFrame(init));
         });
         mo.observe(timelineEl, { childList: true });
       }
 
-      onScroll();
+      /* Also run on DOMContentLoaded in case albums already loaded */
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
     })();
   </script>
 

@@ -5,11 +5,11 @@
     "quote": "Work to live or live to work? I'm sure I'll figure it out on that bench over there.",
     "folder": "./assets/albums/Busy",
     "images": [
-      "Documenting.webp",
-      "Family Gathering.webp",
-      "Hop On and Glue.webp",
-      "Rumors.webp",
       "Rush.webp",
+      "Documenting.webp",
+      "Rumors.webp",
+      "Hop On and Glue.webp",
+      "Family Gathering.webp",
       "Small.webp",
       "Tired.webp"
     ]
@@ -20,19 +20,19 @@
     "quote": "Every view hides something, you cannot see the whole without missing details, you cannot look at the details and understand the whole.",
     "folder": "./assets/albums/Darning",
     "images": [
-      "But maybe....webp",
+      "Search.webp",
+      "Listening.webp",
+      "Silence.webp",
       "Directions.webp",
+      "What a.webp",
+      "View.webp",
+      "In this toghether.webp",
       "Escluse.webp",
       "Found, maybe.webp",
-      "In this toghether.webp",
-      "Leave it be.webp",
-      "Listening.webp",
       "Lost again in you.webp",
       "Search again with you.webp",
-      "Search.webp",
-      "Silence.webp",
-      "View.webp",
-      "What a.webp"
+      "But maybe....webp",  
+      "Leave it be.webp"    
     ]
   },
   {
@@ -41,17 +41,17 @@
     "quote": "Nothing is truly lost until you stop looking for it",
     "folder": "./assets/albums/Lost&Found",
     "images": [
-      "Catch.webp",
-      "Curiosity.webp",
-      "Flags.webp",
       "Getin.webp",
-      "Lady.webp",
-      "Memory Lost.webp",
+      "Catch.webp",
       "Noview.webp",
-      "Out.webp",
-      "Sharing.webp",
+      "Curiosity.webp",
       "Walk.webp",
-      "Window.webp"
+      "Lady.webp",
+      "Sharing.webp",
+      "Window.webp",
+      "Flags.webp",
+      "Out.webp",
+      "Memory Lost.webp"
     ]
   },
   {
@@ -72,14 +72,14 @@
     "quote": "True silence it's in a place that lives for itself and has no trace or voice for the likes of you… you are the outsider.",
     "folder": "./assets/albums/Spaces of Changing",
     "images": [
-      "AndEnjoy.webp",
-      "FindBeauty.webp",
-      "FuckOff.webp",
-      "GetBackToNothing.webp",
       "Grow.webp",
       "Play.webp",
+      "FindBeauty.webp",
       "Rest.webp",
-      "Study.webp"
+      "Study.webp",
+      "GetBackToNothing.webp",
+      "FuckOff.webp",
+      "AndEnjoy.webp"
     ]
   }
 ]

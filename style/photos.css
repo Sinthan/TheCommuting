@@ -6,18 +6,16 @@ body {
 }
 
 /* ── PARALLAX SHINKANSEN WALLPAPER ── */
-/* Fixed to viewport right side, very tall so scrolling reveals the train length */
 .shinkansen-bg {
   position: fixed;
-  top: 0;
+  top: var(--shinkansen-top, 0px); /* set by JS after measuring archive-header */
   right: 0;
-  width: 38vw;         /* covers right ~38% of screen — train sits in right portion of SVG */
-  max-width: 480px;
+  width: 51vw;         /* +35% from 38vw */
+  max-width: 680px;
   height: auto;
   pointer-events: none;
   z-index: 0;
   will-change: transform;
-  /* start at top, JS will translate upward as user scrolls */
   transform: translateY(0);
 }
 
@@ -248,11 +246,12 @@ body {
 
 /* ── STOP LABEL — aligned to window left edge ── */
 /* train-window is full-width of stop (or centered if narrower than max-width)
-   label uses same padding-left as window offset, set by JS via --label-indent */
+   label uses same padding-left as window offset, set by JS via --label-indent
+   +10% extra rightward nudge via --label-extra-indent */
 .stop-label {
   width: 100%;
   margin-bottom: 0.6rem;
-  padding-left: var(--label-indent, 0px);
+  padding-left: calc(var(--label-indent, 0px) * 1.10);
 }
 
 .stop-label-eyebrow {

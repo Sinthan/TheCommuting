@@ -82,294 +82,250 @@
     <div class="archive-page">
 
       <!-- PARALLAX SHINKANSEN WALLPAPER -->
-      <!-- viewBox: 400 wide × 2400 tall. Train on right (x 240-380), clouds on left (x 0-220) -->
-      <!-- Scrolled by JS: translateY from 0 → -(SVG_height - 100vh) as timeline is scrolled -->
-      <svg id="shinkansen-bg" class="shinkansen-bg" viewBox="0 0 400 2400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- viewBox: 400×9600. Train right (x 248-372). JS sets actual viewBox height + injects tail. -->
+      <svg id="shinkansen-bg" class="shinkansen-bg" viewBox="0 0 400 9600" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
-          <!-- dot-matrix filter: pixelate slightly -->
           <filter id="dots" x="0%" y="0%" width="100%" height="100%">
             <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" result="noise"/>
             <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.2" xChannelSelector="R" yChannelSelector="G"/>
           </filter>
-          <!-- subtle glow for train body -->
           <filter id="glow" x="-10%" y="-2%" width="120%" height="104%">
-            <feGaussianBlur stdDeviation="2" result="blur"/>
+            <feGaussianBlur stdDeviation="2.5" result="blur"/>
             <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
         </defs>
 
-        <!-- ═══════════════════════════════════════════════════════ -->
-        <!-- CLOUDS  (left side, x 0-230, sparse)                   -->
-        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- ═══════════════ CLOUDS (left side x 0-230) ═══════════════ -->
 
-        <!-- cloud group A — top area -->
-        <g opacity="0.13" filter="url(#dots)">
-          <ellipse cx="60"  cy="180"  rx="55" ry="18" stroke="rgba(168,127,212,1)" stroke-width="1.2" stroke-dasharray="3 4"/>
-          <ellipse cx="95"  cy="165"  rx="38" ry="12" stroke="rgba(168,127,212,1)" stroke-width="1"   stroke-dasharray="2 4"/>
-          <ellipse cx="40"  cy="195"  rx="30" ry="10" stroke="rgba(168,127,212,1)" stroke-width="0.8" stroke-dasharray="2 5"/>
-          <ellipse cx="148" cy="172"  rx="22" ry="8"  stroke="rgba(168,127,212,1)" stroke-width="0.7" stroke-dasharray="2 4"/>
+        <!-- A top -->
+        <g opacity="0.18" filter="url(#dots)">
+          <ellipse cx="60"  cy="180" rx="55" ry="18" stroke="rgba(168,127,212,1)" stroke-width="1.4" stroke-dasharray="3 4"/>
+          <ellipse cx="95"  cy="165" rx="38" ry="12" stroke="rgba(168,127,212,1)" stroke-width="1.1" stroke-dasharray="2 4"/>
+          <ellipse cx="40"  cy="195" rx="30" ry="10" stroke="rgba(168,127,212,1)" stroke-width="0.9" stroke-dasharray="2 5"/>
+          <ellipse cx="148" cy="172" rx="22" ry="8"  stroke="rgba(168,127,212,1)" stroke-width="0.8" stroke-dasharray="2 4"/>
+          <ellipse cx="20"  cy="172" rx="16" ry="6"  stroke="rgba(168,127,212,1)" stroke-width="0.7" stroke-dasharray="2 5"/>
         </g>
-        <!-- cloud dots scatter A -->
+        <g opacity="0.10">
+          <circle cx="32"  cy="178" r="2"   fill="rgba(168,127,212,1)"/>
+          <circle cx="48"  cy="185" r="1.5" fill="rgba(168,127,212,1)"/>
+          <circle cx="78"  cy="162" r="2"   fill="rgba(168,127,212,1)"/>
+          <circle cx="112" cy="170" r="1.5" fill="rgba(168,127,212,1)"/>
+          <circle cx="130" cy="180" r="1.8" fill="rgba(168,127,212,1)"/>
+          <circle cx="155" cy="168" r="1.2" fill="rgba(168,127,212,1)"/>
+          <circle cx="170" cy="188" r="1"   fill="rgba(168,127,212,1)"/>
+        </g>
+
+        <!-- A2 — small wisp between A and B -->
+        <g opacity="0.12" filter="url(#dots)">
+          <ellipse cx="110" cy="340" rx="40" ry="11" stroke="rgba(168,127,212,1)" stroke-width="1"   stroke-dasharray="2 5"/>
+          <ellipse cx="68"  cy="350" rx="22" ry="7"  stroke="rgba(168,127,212,1)" stroke-width="0.7" stroke-dasharray="2 5"/>
+        </g>
         <g opacity="0.07">
-          <circle cx="32"  cy="178" r="1.5" fill="rgba(168,127,212,1)"/>
-          <circle cx="48"  cy="185" r="1"   fill="rgba(168,127,212,1)"/>
-          <circle cx="78"  cy="162" r="1.5" fill="rgba(168,127,212,1)"/>
-          <circle cx="112" cy="170" r="1"   fill="rgba(168,127,212,1)"/>
-          <circle cx="130" cy="180" r="1.2" fill="rgba(168,127,212,1)"/>
-          <circle cx="155" cy="168" r="0.8" fill="rgba(168,127,212,1)"/>
+          <circle cx="82"  cy="345" r="1.2" fill="rgba(168,127,212,1)"/>
+          <circle cx="130" cy="338" r="1"   fill="rgba(168,127,212,1)"/>
         </g>
 
-        <!-- cloud group B — mid-upper -->
+        <!-- B mid-upper -->
+        <g opacity="0.16" filter="url(#dots)">
+          <ellipse cx="80"  cy="520" rx="65" ry="20" stroke="rgba(168,127,212,1)" stroke-width="1.4" stroke-dasharray="3 5"/>
+          <ellipse cx="45"  cy="508" rx="32" ry="11" stroke="rgba(168,127,212,1)" stroke-width="1"   stroke-dasharray="2 4"/>
+          <ellipse cx="130" cy="530" rx="28" ry="9"  stroke="rgba(168,127,212,1)" stroke-width="0.9" stroke-dasharray="2 5"/>
+          <ellipse cx="170" cy="515" rx="18" ry="7"  stroke="rgba(168,127,212,1)" stroke-width="0.7" stroke-dasharray="2 5"/>
+          <ellipse cx="22"  cy="525" rx="18" ry="6"  stroke="rgba(168,127,212,1)" stroke-width="0.7" stroke-dasharray="2 6"/>
+        </g>
+        <g opacity="0.09">
+          <circle cx="55"  cy="515" r="2"   fill="rgba(168,127,212,1)"/>
+          <circle cx="88"  cy="525" r="1.5" fill="rgba(168,127,212,1)"/>
+          <circle cx="140" cy="520" r="1.5" fill="rgba(168,127,212,1)"/>
+          <circle cx="108" cy="508" r="1.2" fill="rgba(168,127,212,1)"/>
+          <circle cx="162" cy="530" r="1"   fill="rgba(168,127,212,1)"/>
+        </g>
+
+        <!-- B2 wisp -->
         <g opacity="0.10" filter="url(#dots)">
-          <ellipse cx="80"  cy="520"  rx="65" ry="20" stroke="rgba(168,127,212,1)" stroke-width="1.2" stroke-dasharray="3 5"/>
-          <ellipse cx="45"  cy="508"  rx="32" ry="11" stroke="rgba(168,127,212,1)" stroke-width="0.9" stroke-dasharray="2 4"/>
-          <ellipse cx="130" cy="530"  rx="28" ry="9"  stroke="rgba(168,127,212,1)" stroke-width="0.8" stroke-dasharray="2 5"/>
-          <ellipse cx="170" cy="515"  rx="18" ry="7"  stroke="rgba(168,127,212,1)" stroke-width="0.6" stroke-dasharray="2 5"/>
-        </g>
-        <g opacity="0.06">
-          <circle cx="55"  cy="515" r="1.5" fill="rgba(168,127,212,1)"/>
-          <circle cx="88"  cy="525" r="1.2" fill="rgba(168,127,212,1)"/>
-          <circle cx="140" cy="520" r="1"   fill="rgba(168,127,212,1)"/>
-          <circle cx="108" cy="508" r="0.8" fill="rgba(168,127,212,1)"/>
+          <ellipse cx="55"  cy="700" rx="35" ry="10" stroke="rgba(168,127,212,1)" stroke-width="0.9" stroke-dasharray="2 5"/>
+          <ellipse cx="105" cy="708" rx="25" ry="7"  stroke="rgba(168,127,212,1)" stroke-width="0.7" stroke-dasharray="2 6"/>
         </g>
 
-        <!-- cloud group C — mid -->
+        <!-- C mid -->
+        <g opacity="0.15" filter="url(#dots)">
+          <ellipse cx="55"  cy="900" rx="50" ry="16" stroke="rgba(168,127,212,1)" stroke-width="1.3" stroke-dasharray="3 4"/>
+          <ellipse cx="100" cy="888" rx="35" ry="11" stroke="rgba(168,127,212,1)" stroke-width="1.1" stroke-dasharray="2 4"/>
+          <ellipse cx="155" cy="905" rx="22" ry="8"  stroke="rgba(168,127,212,1)" stroke-width="0.8" stroke-dasharray="2 5"/>
+          <ellipse cx="30"  cy="912" rx="25" ry="9"  stroke="rgba(168,127,212,1)" stroke-width="0.8" stroke-dasharray="3 5"/>
+          <ellipse cx="185" cy="895" rx="14" ry="5"  stroke="rgba(168,127,212,1)" stroke-width="0.6" stroke-dasharray="2 6"/>
+        </g>
+        <g opacity="0.08">
+          <circle cx="42"  cy="896" r="2"   fill="rgba(168,127,212,1)"/>
+          <circle cx="72"  cy="908" r="1.5" fill="rgba(168,127,212,1)"/>
+          <circle cx="118" cy="894" r="1.8" fill="rgba(168,127,212,1)"/>
+          <circle cx="145" cy="910" r="1.2" fill="rgba(168,127,212,1)"/>
+          <circle cx="170" cy="900" r="1"   fill="rgba(168,127,212,1)"/>
+        </g>
+
+        <!-- C2 wisp -->
         <g opacity="0.09" filter="url(#dots)">
-          <ellipse cx="55"  cy="900"  rx="50" ry="16" stroke="rgba(168,127,212,1)" stroke-width="1.1" stroke-dasharray="3 4"/>
-          <ellipse cx="100" cy="888"  rx="35" ry="11" stroke="rgba(168,127,212,1)" stroke-width="0.9" stroke-dasharray="2 4"/>
-          <ellipse cx="155" cy="905"  rx="22" ry="8"  stroke="rgba(168,127,212,1)" stroke-width="0.7" stroke-dasharray="2 5"/>
-          <ellipse cx="30"  cy="912"  rx="25" ry="9"  stroke="rgba(168,127,212,1)" stroke-width="0.7" stroke-dasharray="3 5"/>
-        </g>
-        <g opacity="0.05">
-          <circle cx="42"  cy="896" r="1.5" fill="rgba(168,127,212,1)"/>
-          <circle cx="72"  cy="908" r="1"   fill="rgba(168,127,212,1)"/>
-          <circle cx="118" cy="894" r="1.2" fill="rgba(168,127,212,1)"/>
-        </g>
-
-        <!-- cloud group D — mid-lower -->
-        <g opacity="0.11" filter="url(#dots)">
-          <ellipse cx="90"  cy="1300" rx="60" ry="19" stroke="rgba(168,127,212,1)" stroke-width="1.2" stroke-dasharray="3 5"/>
-          <ellipse cx="40"  cy="1288" rx="30" ry="10" stroke="rgba(168,127,212,1)" stroke-width="0.8" stroke-dasharray="2 4"/>
-          <ellipse cx="160" cy="1312" rx="25" ry="8"  stroke="rgba(168,127,212,1)" stroke-width="0.7" stroke-dasharray="2 5"/>
-          <ellipse cx="115" cy="1296" rx="40" ry="13" stroke="rgba(168,127,212,1)" stroke-width="1"   stroke-dasharray="3 4"/>
+          <ellipse cx="90"  cy="1080" rx="45" ry="12" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="2 5"/>
+          <ellipse cx="42"  cy="1090" rx="22" ry="7"  stroke="rgba(168,127,212,1)" stroke-width="0.7" stroke-dasharray="2 6"/>
+          <ellipse cx="148" cy="1075" rx="18" ry="6"  stroke="rgba(168,127,212,1)" stroke-width="0.6" stroke-dasharray="2 6"/>
         </g>
         <g opacity="0.06">
-          <circle cx="60"  cy="1295" r="1.5" fill="rgba(168,127,212,1)"/>
-          <circle cx="95"  cy="1308" r="1.2" fill="rgba(168,127,212,1)"/>
-          <circle cx="145" cy="1300" r="1"   fill="rgba(168,127,212,1)"/>
-          <circle cx="178" cy="1310" r="0.8" fill="rgba(168,127,212,1)"/>
+          <circle cx="65"  cy="1085" r="1.5" fill="rgba(168,127,212,1)"/>
+          <circle cx="110" cy="1078" r="1.2" fill="rgba(168,127,212,1)"/>
         </g>
 
-        <!-- cloud group E — lower -->
-        <g opacity="0.08" filter="url(#dots)">
-          <ellipse cx="70"  cy="1720" rx="55" ry="17" stroke="rgba(168,127,212,1)" stroke-width="1.1" stroke-dasharray="3 4"/>
-          <ellipse cx="130" cy="1708" rx="32" ry="10" stroke="rgba(168,127,212,1)" stroke-width="0.8" stroke-dasharray="2 5"/>
-          <ellipse cx="38"  cy="1732" rx="28" ry="9"  stroke="rgba(168,127,212,1)" stroke-width="0.7" stroke-dasharray="2 4"/>
+        <!-- D mid-lower -->
+        <g opacity="0.17" filter="url(#dots)">
+          <ellipse cx="90"  cy="1300" rx="60" ry="19" stroke="rgba(168,127,212,1)" stroke-width="1.4" stroke-dasharray="3 5"/>
+          <ellipse cx="40"  cy="1288" rx="30" ry="10" stroke="rgba(168,127,212,1)" stroke-width="0.9" stroke-dasharray="2 4"/>
+          <ellipse cx="160" cy="1312" rx="25" ry="8"  stroke="rgba(168,127,212,1)" stroke-width="0.8" stroke-dasharray="2 5"/>
+          <ellipse cx="115" cy="1296" rx="40" ry="13" stroke="rgba(168,127,212,1)" stroke-width="1.1" stroke-dasharray="3 4"/>
+          <ellipse cx="20"  cy="1305" rx="16" ry="5"  stroke="rgba(168,127,212,1)" stroke-width="0.6" stroke-dasharray="2 6"/>
+          <ellipse cx="192" cy="1292" rx="14" ry="5"  stroke="rgba(168,127,212,1)" stroke-width="0.6" stroke-dasharray="2 6"/>
         </g>
-        <g opacity="0.05">
-          <circle cx="50"  cy="1718" r="1.2" fill="rgba(168,127,212,1)"/>
-          <circle cx="85"  cy="1728" r="1.5" fill="rgba(168,127,212,1)"/>
-          <circle cx="110" cy="1715" r="1"   fill="rgba(168,127,212,1)"/>
+        <g opacity="0.09">
+          <circle cx="60"  cy="1295" r="2"   fill="rgba(168,127,212,1)"/>
+          <circle cx="95"  cy="1308" r="1.5" fill="rgba(168,127,212,1)"/>
+          <circle cx="145" cy="1300" r="1.5" fill="rgba(168,127,212,1)"/>
+          <circle cx="178" cy="1310" r="1.2" fill="rgba(168,127,212,1)"/>
+          <circle cx="130" cy="1285" r="1"   fill="rgba(168,127,212,1)"/>
         </g>
 
-        <!-- cloud group F — near bottom -->
+        <!-- D2 wisp -->
         <g opacity="0.10" filter="url(#dots)">
-          <ellipse cx="85"  cy="2100" rx="62" ry="20" stroke="rgba(168,127,212,1)" stroke-width="1.2" stroke-dasharray="3 5"/>
-          <ellipse cx="145" cy="2088" rx="35" ry="11" stroke="rgba(168,127,212,1)" stroke-width="0.9" stroke-dasharray="2 4"/>
-          <ellipse cx="35"  cy="2112" rx="28" ry="9"  stroke="rgba(168,127,212,1)" stroke-width="0.7" stroke-dasharray="2 5"/>
+          <ellipse cx="70"  cy="1500" rx="42" ry="12" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="2 5"/>
+          <ellipse cx="130" cy="1492" rx="26" ry="8"  stroke="rgba(168,127,212,1)" stroke-width="0.7" stroke-dasharray="2 6"/>
         </g>
 
-        <!-- ═══════════════════════════════════════════════════════ -->
-        <!-- SHINKANSEN BODY  (right side, x 248-372, y 0-2400)     -->
-        <!-- Bullet nose at top (y≈60), body runs full height        -->
-        <!-- ═══════════════════════════════════════════════════════ -->
-        <g filter="url(#glow)" opacity="0.22">
+        <!-- E lower -->
+        <g opacity="0.14" filter="url(#dots)">
+          <ellipse cx="70"  cy="1720" rx="55" ry="17" stroke="rgba(168,127,212,1)" stroke-width="1.3" stroke-dasharray="3 4"/>
+          <ellipse cx="130" cy="1708" rx="32" ry="10" stroke="rgba(168,127,212,1)" stroke-width="1"   stroke-dasharray="2 5"/>
+          <ellipse cx="38"  cy="1732" rx="28" ry="9"  stroke="rgba(168,127,212,1)" stroke-width="0.8" stroke-dasharray="2 4"/>
+          <ellipse cx="175" cy="1718" rx="18" ry="6"  stroke="rgba(168,127,212,1)" stroke-width="0.7" stroke-dasharray="2 5"/>
+        </g>
+        <g opacity="0.08">
+          <circle cx="50"  cy="1718" r="2"   fill="rgba(168,127,212,1)"/>
+          <circle cx="85"  cy="1728" r="1.5" fill="rgba(168,127,212,1)"/>
+          <circle cx="110" cy="1715" r="1.5" fill="rgba(168,127,212,1)"/>
+          <circle cx="152" cy="1724" r="1.2" fill="rgba(168,127,212,1)"/>
+        </g>
 
-          <!-- === NOSE (top, aerodynamic bullet) === -->
-          <!-- outer nose tip -->
+        <!-- E2 wisp -->
+        <g opacity="0.09" filter="url(#dots)">
+          <ellipse cx="95"  cy="1920" rx="48" ry="13" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="2 5"/>
+          <ellipse cx="45"  cy="1930" rx="24" ry="7"  stroke="rgba(168,127,212,1)" stroke-width="0.7" stroke-dasharray="2 6"/>
+          <ellipse cx="155" cy="1915" rx="20" ry="6"  stroke="rgba(168,127,212,1)" stroke-width="0.6" stroke-dasharray="2 6"/>
+        </g>
+
+        <!-- F near bottom -->
+        <g opacity="0.15" filter="url(#dots)">
+          <ellipse cx="85"  cy="2100" rx="62" ry="20" stroke="rgba(168,127,212,1)" stroke-width="1.4" stroke-dasharray="3 5"/>
+          <ellipse cx="145" cy="2088" rx="35" ry="11" stroke="rgba(168,127,212,1)" stroke-width="1"   stroke-dasharray="2 4"/>
+          <ellipse cx="35"  cy="2112" rx="28" ry="9"  stroke="rgba(168,127,212,1)" stroke-width="0.8" stroke-dasharray="2 5"/>
+          <ellipse cx="190" cy="2096" rx="16" ry="5"  stroke="rgba(168,127,212,1)" stroke-width="0.6" stroke-dasharray="2 6"/>
+        </g>
+        <g opacity="0.08">
+          <circle cx="55"  cy="2096" r="2"   fill="rgba(168,127,212,1)"/>
+          <circle cx="100" cy="2108" r="1.5" fill="rgba(168,127,212,1)"/>
+          <circle cx="160" cy="2100" r="1.2" fill="rgba(168,127,212,1)"/>
+        </g>
+
+        <!-- G repeat pattern — clouds every ~800px beyond 2400, reused via JS cloning not needed,
+             just paint a few more statically up to 4800 for long pages -->
+        <g opacity="0.13" filter="url(#dots)">
+          <ellipse cx="75"  cy="2700" rx="55" ry="17" stroke="rgba(168,127,212,1)" stroke-width="1.2" stroke-dasharray="3 4"/>
+          <ellipse cx="140" cy="2690" rx="32" ry="10" stroke="rgba(168,127,212,1)" stroke-width="0.9" stroke-dasharray="2 5"/>
+          <ellipse cx="30"  cy="2715" rx="24" ry="8"  stroke="rgba(168,127,212,1)" stroke-width="0.7" stroke-dasharray="2 5"/>
+        </g>
+        <g opacity="0.10" filter="url(#dots)">
+          <ellipse cx="90"  cy="3200" rx="60" ry="18" stroke="rgba(168,127,212,1)" stroke-width="1.2" stroke-dasharray="3 5"/>
+          <ellipse cx="42"  cy="3210" rx="30" ry="9"  stroke="rgba(168,127,212,1)" stroke-width="0.8" stroke-dasharray="2 4"/>
+          <ellipse cx="160" cy="3195" rx="22" ry="7"  stroke="rgba(168,127,212,1)" stroke-width="0.7" stroke-dasharray="2 5"/>
+        </g>
+        <g opacity="0.12" filter="url(#dots)">
+          <ellipse cx="65"  cy="3700" rx="52" ry="16" stroke="rgba(168,127,212,1)" stroke-width="1.1" stroke-dasharray="3 4"/>
+          <ellipse cx="128" cy="3690" rx="34" ry="10" stroke="rgba(168,127,212,1)" stroke-width="0.9" stroke-dasharray="2 5"/>
+          <ellipse cx="25"  cy="3710" rx="20" ry="6"  stroke="rgba(168,127,212,1)" stroke-width="0.7" stroke-dasharray="2 6"/>
+        </g>
+        <g opacity="0.11" filter="url(#dots)">
+          <ellipse cx="88"  cy="4200" rx="58" ry="17" stroke="rgba(168,127,212,1)" stroke-width="1.2" stroke-dasharray="3 5"/>
+          <ellipse cx="148" cy="4188" rx="30" ry="9"  stroke="rgba(168,127,212,1)" stroke-width="0.8" stroke-dasharray="2 4"/>
+          <ellipse cx="38"  cy="4215" rx="26" ry="8"  stroke="rgba(168,127,212,1)" stroke-width="0.7" stroke-dasharray="2 5"/>
+        </g>
+        <g opacity="0.13" filter="url(#dots)">
+          <ellipse cx="72"  cy="4700" rx="54" ry="16" stroke="rgba(168,127,212,1)" stroke-width="1.1" stroke-dasharray="3 4"/>
+          <ellipse cx="135" cy="4688" rx="32" ry="10" stroke="rgba(168,127,212,1)" stroke-width="0.9" stroke-dasharray="2 5"/>
+          <ellipse cx="28"  cy="4710" rx="22" ry="7"  stroke="rgba(168,127,212,1)" stroke-width="0.7" stroke-dasharray="2 6"/>
+        </g>
+
+        <!-- ═══════════════ SHINKANSEN BODY ═══════════════ -->
+        <g id="shinkansen-train" filter="url(#glow)" opacity="0.35">
+
+          <!-- NOSE (head) at top -->
           <path d="M310 30 C298 50 285 80 282 120 L338 120 C335 80 322 50 310 30 Z"
-                stroke="rgba(168,127,212,1)" stroke-width="1.8" fill="none" stroke-dasharray="3 3"/>
-          <!-- nose centre ridge -->
+                stroke="rgba(168,127,212,1)" stroke-width="2" fill="none" stroke-dasharray="3 3"/>
           <line x1="310" y1="32" x2="310" y2="120"
-                stroke="rgba(168,127,212,0.5)" stroke-width="1" stroke-dasharray="2 4"/>
-          <!-- nose inner contour -->
+                stroke="rgba(168,127,212,0.55)" stroke-width="1.2" stroke-dasharray="2 4"/>
           <path d="M310 55 C303 70 296 92 294 120 L326 120 C324 92 317 70 310 55 Z"
-                stroke="rgba(168,127,212,0.6)" stroke-width="1" fill="none" stroke-dasharray="2 4"/>
-          <!-- nose highlight dot-row -->
-          <circle cx="310" cy="38"  r="1.5" fill="rgba(168,127,212,0.9)"/>
-          <circle cx="310" cy="50"  r="1.2" fill="rgba(168,127,212,0.7)"/>
-          <circle cx="310" cy="65"  r="1"   fill="rgba(168,127,212,0.5)"/>
+                stroke="rgba(168,127,212,0.65)" stroke-width="1.2" fill="none" stroke-dasharray="2 4"/>
+          <circle cx="310" cy="38"  r="2"   fill="rgba(168,127,212,0.95)"/>
+          <circle cx="310" cy="52"  r="1.5" fill="rgba(168,127,212,0.75)"/>
+          <circle cx="310" cy="68"  r="1.2" fill="rgba(168,127,212,0.55)"/>
 
-          <!-- === MAIN BODY — two parallel outer walls === -->
-          <!-- left wall -->
-          <line x1="282" y1="120" x2="282" y2="2380"
-                stroke="rgba(168,127,212,1)" stroke-width="2" stroke-dasharray="4 4"/>
-          <!-- right wall -->
-          <line x1="338" y1="120" x2="338" y2="2380"
-                stroke="rgba(168,127,212,1)" stroke-width="2" stroke-dasharray="4 4"/>
-          <!-- inner left wall -->
-          <line x1="290" y1="125" x2="290" y2="2380"
-                stroke="rgba(168,127,212,0.55)" stroke-width="1" stroke-dasharray="3 5"/>
-          <!-- inner right wall -->
-          <line x1="330" y1="125" x2="330" y2="2380"
-                stroke="rgba(168,127,212,0.55)" stroke-width="1" stroke-dasharray="3 5"/>
-          <!-- centre spine -->
-          <line x1="310" y1="120" x2="310" y2="2380"
-                stroke="rgba(168,127,212,0.3)" stroke-width="0.8" stroke-dasharray="2 6"/>
+          <!-- BODY WALLS — extended to y=9500 (JS trims viewBox) -->
+          <line x1="282" y1="120" x2="282" y2="9500"
+                stroke="rgba(168,127,212,1)" stroke-width="2.2" stroke-dasharray="4 4"/>
+          <line x1="338" y1="120" x2="338" y2="9500"
+                stroke="rgba(168,127,212,1)" stroke-width="2.2" stroke-dasharray="4 4"/>
+          <line x1="290" y1="125" x2="290" y2="9500"
+                stroke="rgba(168,127,212,0.6)" stroke-width="1.2" stroke-dasharray="3 5"/>
+          <line x1="330" y1="125" x2="330" y2="9500"
+                stroke="rgba(168,127,212,0.6)" stroke-width="1.2" stroke-dasharray="3 5"/>
+          <line x1="310" y1="120" x2="310" y2="9500"
+                stroke="rgba(168,127,212,0.32)" stroke-width="0.9" stroke-dasharray="2 6"/>
 
-          <!-- === ROOF PANEL SEAMS — horizontal lines every ~80px === -->
-          <!-- Each seam: full width of roof (x 282-338) -->
-          <line x1="282" y1="200"  x2="338" y2="200"  stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="280"  x2="338" y2="280"  stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="360"  x2="338" y2="360"  stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="440"  x2="338" y2="440"  stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="520"  x2="338" y2="520"  stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="600"  x2="338" y2="600"  stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="680"  x2="338" y2="680"  stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="760"  x2="338" y2="760"  stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="840"  x2="338" y2="840"  stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="920"  x2="338" y2="920"  stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="1000" x2="338" y2="1000" stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="1080" x2="338" y2="1080" stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="1160" x2="338" y2="1160" stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="1240" x2="338" y2="1240" stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="1320" x2="338" y2="1320" stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="1400" x2="338" y2="1400" stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="1480" x2="338" y2="1480" stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="1560" x2="338" y2="1560" stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="1640" x2="338" y2="1640" stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="1720" x2="338" y2="1720" stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="1800" x2="338" y2="1800" stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="1880" x2="338" y2="1880" stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="1960" x2="338" y2="1960" stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="2040" x2="338" y2="2040" stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="2120" x2="338" y2="2120" stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="2200" x2="338" y2="2200" stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="2280" x2="338" y2="2280" stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-          <line x1="282" y1="2360" x2="338" y2="2360" stroke="rgba(168,127,212,0.4)" stroke-width="0.8" stroke-dasharray="2 3"/>
-
-          <!-- === PANTOGRAPH / ROOF DETAIL every ~320px from y=160 === -->
-          <!-- small raised box on roof centre -->
-          <rect x="302" y="158"  width="16" height="8"  rx="1" stroke="rgba(168,127,212,0.7)" stroke-width="1" stroke-dasharray="2 2"/>
-          <rect x="302" y="478"  width="16" height="8"  rx="1" stroke="rgba(168,127,212,0.7)" stroke-width="1" stroke-dasharray="2 2"/>
-          <rect x="302" y="798"  width="16" height="8"  rx="1" stroke="rgba(168,127,212,0.7)" stroke-width="1" stroke-dasharray="2 2"/>
-          <rect x="302" y="1118" width="16" height="8"  rx="1" stroke="rgba(168,127,212,0.7)" stroke-width="1" stroke-dasharray="2 2"/>
-          <rect x="302" y="1438" width="16" height="8"  rx="1" stroke="rgba(168,127,212,0.7)" stroke-width="1" stroke-dasharray="2 2"/>
-          <rect x="302" y="1758" width="16" height="8"  rx="1" stroke="rgba(168,127,212,0.7)" stroke-width="1" stroke-dasharray="2 2"/>
-          <rect x="302" y="2078" width="16" height="8"  rx="1" stroke="rgba(168,127,212,0.7)" stroke-width="1" stroke-dasharray="2 2"/>
-          <rect x="302" y="2358" width="16" height="8"  rx="1" stroke="rgba(168,127,212,0.7)" stroke-width="1" stroke-dasharray="2 2"/>
-
-          <!-- === WINDOW PAIRS — left and right of spine, every 80px from y=145 === -->
-          <!-- left window -->
-          <rect x="284" y="145" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="225" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="305" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="385" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="465" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="545" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="625" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="705" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="785" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="865" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="945" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="1025" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="1105" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="1185" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="1265" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="1345" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="1425" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="1505" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="1585" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="1665" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="1745" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="1825" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="1905" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="1985" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="2065" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="2145" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="2225" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="284" y="2305" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <!-- right windows -->
-          <rect x="316" y="145" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="225" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="305" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="385" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="465" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="545" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="625" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="705" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="785" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="865" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="945" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="1025" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="1105" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="1185" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="1265" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="1345" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="1425" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="1505" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="1585" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="1665" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="1745" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="1825" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="1905" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="1985" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="2065" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="2145" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="2225" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
-          <rect x="316" y="2305" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.5)" stroke-width="0.9" stroke-dasharray="2 2"/>
+          <!-- ROOF SEAMS every 80px from 200 to 9480 — generated as a pattern -->
+          <!-- Using a <pattern> for efficiency -->
         </g>
 
-        <!-- ═══════════════════════════════════════════════════════ -->
-        <!-- RAIL TRACKS — two thin lines flanking the train        -->
-        <!-- ═══════════════════════════════════════════════════════ -->
-        <g opacity="0.12">
-          <line x1="268" y1="0" x2="268" y2="2400" stroke="rgba(168,127,212,1)" stroke-width="1.5" stroke-dasharray="5 8"/>
-          <line x1="352" y1="0" x2="352" y2="2400" stroke="rgba(168,127,212,1)" stroke-width="1.5" stroke-dasharray="5 8"/>
+        <!-- ROOF SEAMS as pattern (separate from glow group for perf) -->
+        <defs>
+          <pattern id="seams" x="282" y="200" width="56" height="80" patternUnits="userSpaceOnUse">
+            <line x1="0" y1="0" x2="56" y2="0" stroke="rgba(168,127,212,0.45)" stroke-width="0.9" stroke-dasharray="2 3"/>
+          </pattern>
+          <pattern id="panto" x="302" y="160" width="16" height="320" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="16" height="8" rx="1" stroke="rgba(168,127,212,0.75)" stroke-width="1.1" stroke-dasharray="2 2" fill="none"/>
+          </pattern>
+          <pattern id="winL" x="284" y="145" width="20" height="80" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.55)" stroke-width="1" stroke-dasharray="2 2" fill="none"/>
+          </pattern>
+          <pattern id="winR" x="316" y="145" width="20" height="80" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="20" height="28" rx="2" stroke="rgba(168,127,212,0.55)" stroke-width="1" stroke-dasharray="2 2" fill="none"/>
+          </pattern>
+        </defs>
+        <!-- apply repeating patterns along body -->
+        <rect x="282" y="200"  width="56" height="9300" fill="url(#seams)"  opacity="0.9" pointer-events="none"/>
+        <rect x="302" y="160"  width="16" height="9340" fill="url(#panto)"  opacity="0.8" pointer-events="none"/>
+        <rect x="284" y="145"  width="20" height="9355" fill="url(#winL)"   opacity="0.9" pointer-events="none"/>
+        <rect x="316" y="145"  width="20" height="9355" fill="url(#winR)"   opacity="0.9" pointer-events="none"/>
+
+        <!-- RAIL TRACKS -->
+        <g opacity="0.16">
+          <line x1="268" y1="0" x2="268" y2="9600" stroke="rgba(168,127,212,1)" stroke-width="1.8" stroke-dasharray="5 8"/>
+          <line x1="352" y1="0" x2="352" y2="9600" stroke="rgba(168,127,212,1)" stroke-width="1.8" stroke-dasharray="5 8"/>
         </g>
-        <!-- rail sleepers (horizontal ticks every 60px) -->
-        <g opacity="0.07">
-          <line x1="262" y1="60"   x2="358" y2="60"   stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="120"  x2="358" y2="120"  stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="180"  x2="358" y2="180"  stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="240"  x2="358" y2="240"  stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="300"  x2="358" y2="300"  stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="360"  x2="358" y2="360"  stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="420"  x2="358" y2="420"  stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="480"  x2="358" y2="480"  stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="540"  x2="358" y2="540"  stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="600"  x2="358" y2="600"  stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="660"  x2="358" y2="660"  stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="720"  x2="358" y2="720"  stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="780"  x2="358" y2="780"  stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="840"  x2="358" y2="840"  stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="900"  x2="358" y2="900"  stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="960"  x2="358" y2="960"  stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="1020" x2="358" y2="1020" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="1080" x2="358" y2="1080" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="1140" x2="358" y2="1140" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="1200" x2="358" y2="1200" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="1260" x2="358" y2="1260" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="1320" x2="358" y2="1320" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="1380" x2="358" y2="1380" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="1440" x2="358" y2="1440" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="1500" x2="358" y2="1500" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="1560" x2="358" y2="1560" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="1620" x2="358" y2="1620" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="1680" x2="358" y2="1680" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="1740" x2="358" y2="1740" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="1800" x2="358" y2="1800" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="1860" x2="358" y2="1860" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="1920" x2="358" y2="1920" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="1980" x2="358" y2="1980" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="2040" x2="358" y2="2040" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="2100" x2="358" y2="2100" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="2160" x2="358" y2="2160" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="2220" x2="358" y2="2220" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="2280" x2="358" y2="2280" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="2340" x2="358" y2="2340" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="262" y1="2400" x2="358" y2="2400" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
-        </g>
+        <!-- sleeper pattern -->
+        <defs>
+          <pattern id="sleepers" x="262" y="60" width="96" height="60" patternUnits="userSpaceOnUse">
+            <line x1="0" y1="0" x2="96" y2="0" stroke="rgba(168,127,212,1)" stroke-width="1" stroke-dasharray="3 3"/>
+          </pattern>
+        </defs>
+        <rect x="262" y="60" width="96" height="9540" fill="url(#sleepers)" opacity="0.10" pointer-events="none"/>
+
+        <!-- TAIL CARRIAGE — injected by JS at correct SVG Y position -->
+        <g id="shinkansen-tail" opacity="0"></g>
+
       </svg>
       <!-- STICKY HEADER -->
       <div class="archive-header">
@@ -697,35 +653,111 @@
   <script src="./scripts/translations.js"></script>
 
   <script>
-    /* ── SHINKANSEN PARALLAX ──
-       The SVG viewBox is 400×2400. Rendered at 38vw, its natural pixel height =
-       38vw * (2400/400) = 38vw * 6 = 228vw.
-       We translate it upward as the timeline-scroll container scrolls,
-       so the nose is visible at top and the body slides up to reveal more train.
-       Parallax ratio: SVG scroll travel / timeline scroll travel
-         SVG travel = svgPixelHeight - viewportHeight
-         timeline travel = timeline.scrollHeight - viewportHeight
-       We cap at 0.6 so the effect is subtle, not 1:1.
+    /* ── SHINKANSEN PARALLAX + TAIL INJECTION ──
+       SVG viewBox is 400 × 9600 (SVG units).
+       Scale factor: rendered width / 400 → 1 SVG unit = (51vw / 400) px
+       We use this to convert page px → SVG units for tail placement.
+
+       Steps:
+       1. Measure archive-header bottom → set --shinkansen-top on both <html> and SVG element
+       2. After albums are built, measure timeline.scrollHeight → calculate tail Y in SVG units
+       3. Inject tail <g> content at that Y, set viewBox height = tailY + 200 (some padding)
+       4. Parallax: translate SVG up as scroller scrolls, clamped so nose stays at top
     */
     (function () {
-      const svgEl     = document.getElementById('shinkansen-bg');
-      const scroller  = document.querySelector('.timeline-scroll');
+      const svgEl    = document.getElementById('shinkansen-bg');
+      const scroller = document.querySelector('.timeline-scroll');
+      const header   = document.querySelector('.archive-header');
       if (!svgEl || !scroller) return;
 
-      function onScroll() {
-        const svgH        = svgEl.getBoundingClientRect().height;
-        const vpH         = window.innerHeight;
-        const maxSvgTravel = Math.max(0, svgH - vpH);
-        const maxScroll   = scroller.scrollHeight - scroller.clientHeight;
-        if (maxScroll <= 0 || maxSvgTravel <= 0) return;
+      /* ── 1. Set top = bottom of archive-header ── */
+      function setTop() {
+        if (!header) return;
+        const h = header.getBoundingClientRect();
+        /* header.offsetTop + header.offsetHeight gives position within site-wrapper */
+        const topPx = header.offsetTop + header.offsetHeight;
+        document.documentElement.style.setProperty('--shinkansen-top', topPx + 'px');
+        svgEl.style.top = topPx + 'px';
+      }
+      setTop();
+      window.addEventListener('resize', setTop, { passive: true });
 
-        const ratio    = Math.min(maxSvgTravel / maxScroll, 0.62);
-        const offset   = -(scroller.scrollTop * ratio);
+      /* ── 2 & 3. Inject tail after timeline is populated ── */
+      function injectTail() {
+        const tailGroup = document.getElementById('shinkansen-tail');
+        if (!tailGroup) return;
+
+        /* SVG scale: SVG width = 400 units, rendered at 51vw capped at 680px */
+        const renderedW = svgEl.getBoundingClientRect().width;
+        const scale = renderedW / 400; /* px per SVG unit */
+
+        /* Available scroll height (from top of SVG to bottom of scrollable timeline) */
+        const svgTop   = parseFloat(svgEl.style.top) || 0;
+        const timelineH = scroller.scrollHeight; /* full scrollable height in px */
+        /* Total SVG coverage needed: header offset + full timeline height */
+        const totalPxNeeded = svgTop + timelineH;
+        /* Convert to SVG units */
+        const totalSvgUnits = totalPxNeeded / scale;
+
+        /* Tail starts 120 SVG units before the end (tail shape height ≈ 110 units) */
+        const tailY = Math.max(500, totalSvgUnits - 120);
+
+        /* Build tail SVG — mirror of head: nose points DOWN (flipped) */
+        const ns = 'http://www.w3.org/2000/svg';
+        const tailSVG = `
+          <g filter="url(#glow)" opacity="0.35">
+            <!-- tail nose pointing down -->
+            <path d="M310 ${tailY+110} C298 ${tailY+90} 285 ${tailY+60} 282 ${tailY+20} L338 ${tailY+20} C335 ${tailY+60} 322 ${tailY+90} 310 ${tailY+110} Z"
+                  stroke="rgba(168,127,212,1)" stroke-width="2" fill="none" stroke-dasharray="3 3"/>
+            <line x1="310" y1="${tailY+108}" x2="310" y2="${tailY+20}"
+                  stroke="rgba(168,127,212,0.55)" stroke-width="1.2" stroke-dasharray="2 4"/>
+            <path d="M310 ${tailY+85} C303 ${tailY+70} 296 ${tailY+48} 294 ${tailY+20} L326 ${tailY+20} C324 ${tailY+48} 317 ${tailY+70} 310 ${tailY+85} Z"
+                  stroke="rgba(168,127,212,0.65)" stroke-width="1.2" fill="none" stroke-dasharray="2 4"/>
+            <circle cx="310" cy="${tailY+102}" r="2"   fill="rgba(168,127,212,0.95)"/>
+            <circle cx="310" cy="${tailY+88}"  r="1.5" fill="rgba(168,127,212,0.75)"/>
+            <circle cx="310" cy="${tailY+72}"  r="1.2" fill="rgba(168,127,212,0.55)"/>
+          </g>
+        `;
+        tailGroup.innerHTML = tailSVG;
+        tailGroup.setAttribute('opacity', '1');
+
+        /* Update viewBox height to contain the tail + small padding */
+        const newVbH = Math.ceil(tailY + 140);
+        svgEl.setAttribute('viewBox', `0 0 400 ${newVbH}`);
+      }
+
+      /* ── 4. Parallax scroll ── */
+      function onScroll() {
+        const svgH         = svgEl.getBoundingClientRect().height;
+        const availH       = window.innerHeight - parseFloat(svgEl.style.top || 0);
+        const maxSvgTravel = Math.max(0, svgH - availH);
+        const maxScroll    = scroller.scrollHeight - scroller.clientHeight;
+        if (maxScroll <= 0) return;
+
+        const ratio  = maxSvgTravel > 0 ? Math.min(maxSvgTravel / maxScroll, 1) : 0;
+        const offset = -(scroller.scrollTop * ratio);
         svgEl.style.transform = `translateY(${offset}px)`;
       }
 
       scroller.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll, { passive: true });
+      window.addEventListener('resize', () => { setTop(); injectTail(); onScroll(); }, { passive: true });
+
+      /* Wait for albums to be built then inject tail */
+      /* Use a MutationObserver watching for timeline children being added */
+      const timelineEl = document.getElementById('timeline');
+      if (timelineEl) {
+        const mo = new MutationObserver(() => {
+          /* Wait one more frame for layout to settle */
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              injectTail();
+              onScroll();
+            });
+          });
+        });
+        mo.observe(timelineEl, { childList: true });
+      }
+
       onScroll();
     })();
   </script>

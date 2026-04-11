@@ -5,17 +5,20 @@ body {
   background-color: var(--bg);
 }
 
-/* ── DOT MATRIX TRAIN (bird-eye SVG) ── */
-.train-bg {
+/* ── PARALLAX SHINKANSEN WALLPAPER ── */
+/* Fixed to viewport right side, very tall so scrolling reveals the train length */
+.shinkansen-bg {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80vw;
-  max-width: 600px;
-  opacity: 0.06;
+  top: 0;
+  right: 0;
+  width: 38vw;         /* covers right ~38% of screen — train sits in right portion of SVG */
+  max-width: 480px;
+  height: auto;
   pointer-events: none;
   z-index: 0;
+  will-change: transform;
+  /* start at top, JS will translate upward as user scrolls */
+  transform: translateY(0);
 }
 
 /* active nav link */
@@ -253,7 +256,7 @@ body {
 }
 
 .stop-label-eyebrow {
-  font-size: 0.59rem;    /* was 0.5rem, +18% */
+  font-size: 0.68rem;    /* was 0.5rem, now +33% total */
   letter-spacing: 0.26em;
   color: var(--text-muted);
   text-transform: uppercase;

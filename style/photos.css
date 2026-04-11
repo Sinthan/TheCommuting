@@ -11,8 +11,8 @@ body {
   position: absolute;
   top: 0;           /* archive-page starts right below archive-header */
   right: 0;
-  width: 51vw;
-  max-width: 680px;
+  width: 58.65vw;      /* +15% from 51vw */
+  max-width: 782px;
   height: auto;
   pointer-events: none;
   z-index: 0;

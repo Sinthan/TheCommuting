@@ -1,22 +1,19 @@
 /* ══════════════════════════════════════════════════════════════════
-   tech.css — A Working Life / Career Log
-   Paths relative to style/ folder → ../assets/
+   tech.css — A Working Life / Long Ticket
+   Paths relative to style/ → ../assets/
    ══════════════════════════════════════════════════════════════════ */
 
-/* ── No wallpaper on this page ── */
 body {
-  background-image:
-    radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
+  background-image: radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
   background-size: 18px 18px;
   background-attachment: fixed;
 }
 
-/* ── PAGE HEADER ─────────────────────────────────────────────────── */
+/* ── PAGE HEADER ── */
 .tech-header {
   padding: 1.8rem 3.5rem 1.4rem;
   border-bottom: 1px solid var(--glass-border);
 }
-
 .tech-eyebrow {
   font-size: 0.58rem;
   letter-spacing: 0.28em;
@@ -24,7 +21,6 @@ body {
   margin-bottom: 0.4rem;
   text-transform: uppercase;
 }
-
 .tech-title {
   font-family: 'Doto', monospace;
   font-size: clamp(1.6rem, 3.5vw, 3rem);
@@ -32,7 +28,6 @@ body {
   letter-spacing: 0.08em;
   color: var(--text-primary);
 }
-
 .tech-sub {
   font-size: 0.56rem;
   letter-spacing: 0.14em;
@@ -41,388 +36,485 @@ body {
   margin-top: 0.3rem;
 }
 
-/* ── PASSENGER STRIP ─────────────────────────────────────────────── */
-.passenger-strip {
+/* ── TICKET WRAP ── */
+.ticket-wrap {
+  padding: 2rem 3.5rem 2.5rem;
+}
+
+/* ── LONG TICKET ── */
+.long-ticket {
+  border: 1px solid rgba(123,94,167,0.45);
+  background: rgba(8,8,14,0.85);
+  position: relative;
+  /* subtle inner glow */
+  box-shadow: inset 0 0 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.03);
+}
+
+/* ── TICKET HEADER ── */
+.lt-header {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  border-bottom: 1px solid rgba(123,94,167,0.3);
+  background: rgba(255,255,255,0.025);
+}
+
+.lt-header-left {
+  padding: 1.2rem 1.4rem;
+  border-right: 1px solid rgba(255,255,255,0.07);
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 0;
-  margin: 1.8rem 3.5rem;
-  border: 1px solid rgba(123,94,167,0.4);
-  background: rgba(10,10,18,0.7);
-  position: relative;
 }
 
-/* dashed perforation line on right */
-.passenger-strip::after {
-  content: '';
-  position: absolute;
-  right: 140px;
-  top: 0; bottom: 0;
-  width: 1px;
-  border-right: 2px dashed rgba(123,94,167,0.3);
-}
-
-.passenger-field {
+.lt-barcode {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
-  padding: 0.9rem 1.4rem;
-  border-right: 1px solid rgba(255,255,255,0.07);
+  align-items: center;
+  gap: 0.3rem;
 }
 
-.passenger-label {
-  font-size: 0.46rem;
-  letter-spacing: 0.28em;
+.lt-barcode-bars {
+  display: flex;
+  gap: 2px;
+  align-items: flex-end;
+  height: 36px;
+}
+
+.lt-barcode-bars span {
+  display: block;
+  width: 3px;
+  background: rgba(123,94,167,0.55);
+}
+
+/* vary heights for barcode effect */
+.lt-barcode-bars span:nth-child(odd)  { height: 100%; }
+.lt-barcode-bars span:nth-child(3n)   { height: 60%; }
+.lt-barcode-bars span:nth-child(4n)   { height: 80%; }
+.lt-barcode-bars span:nth-child(5n)   { height: 45%; }
+
+.lt-barcode-num {
+  font-size: 0.42rem;
+  letter-spacing: 0.14em;
+  color: rgba(123,94,167,0.5);
+}
+
+.lt-header-center {
+  flex: 1;
+  padding: 1.2rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.lt-passenger-name {
+  font-family: 'Doto', monospace;
+  font-size: 1.1rem;
+  letter-spacing: 0.12em;
+  color: var(--text-primary);
+}
+
+.lt-passenger-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  font-size: 0.52rem;
+  letter-spacing: 0.14em;
   color: var(--text-muted);
   text-transform: uppercase;
 }
 
-.passenger-value {
-  font-family: 'Doto', monospace;
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  color: var(--text-primary);
+.lt-sep { color: rgba(123,94,167,0.4); }
+
+.lt-status { color: var(--green); text-shadow: 0 0 8px rgba(74,140,92,0.4); }
+
+.lt-header-right {
+  padding: 1.2rem 1.4rem;
+  border-left: 2px dashed rgba(123,94,167,0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.8rem;
+  min-width: 140px;
 }
 
-.passenger-value--active {
-  color: var(--green);
-  text-shadow: 0 0 10px rgba(74,140,92,0.35);
-}
-
-.passenger-dl {
-  margin-left: auto;
-  padding: 0 1.6rem;
-  font-size: 0.56rem;
+.lt-dl-btn {
+  font-size: 0.54rem;
   letter-spacing: 0.18em;
   color: var(--green);
   text-decoration: none;
-  border-left: 1px dashed rgba(123,94,167,0.3);
-  align-self: stretch;
-  display: flex;
-  align-items: center;
-  transition: color 0.2s, background 0.2s;
+  border: 1px solid rgba(74,140,92,0.35);
+  padding: 0.35rem 0.7rem;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
   white-space: nowrap;
 }
-
-.passenger-dl:hover {
+.lt-dl-btn:hover {
   color: var(--accent-bright);
+  border-color: rgba(168,127,212,0.5);
   background: rgba(123,94,167,0.08);
 }
 
-/* ── SECTION TABS ────────────────────────────────────────────────── */
-.cv-tabs {
-  display: flex;
-  gap: 0;
-  margin: 0 3.5rem;
-  border-bottom: 1px solid rgba(123,94,167,0.3);
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.cv-tabs::-webkit-scrollbar { display: none; }
-
-.cv-tab {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.58rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  color: var(--text-muted);
-  padding: 0.75rem 1.4rem;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: color 0.2s, border-color 0.2s;
-  margin-bottom: -1px;
-}
-
-.cv-tab:hover { color: var(--text-primary); }
-
-.cv-tab.active {
-  color: var(--green);
-  border-bottom-color: var(--green);
-}
-
-/* ── SECTIONS ────────────────────────────────────────────────────── */
-.cv-section {
-  display: none;
-  padding: 2rem 3.5rem 1rem;
-}
-
-.cv-section.active { display: block; }
-
-/* ── TICKET GRID ─────────────────────────────────────────────────── */
-.tickets-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.4rem;
-}
-
-.tickets-grid--three {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-/* ── TICKET ──────────────────────────────────────────────────────── */
-.ticket {
-  display: flex;
-  background: rgba(10,10,18,0.75);
-  border: 1px solid rgba(123,94,167,0.3);
-  position: relative;
-  overflow: hidden;
-  transition: border-color 0.2s, background 0.2s;
-}
-
-.ticket:hover {
-  border-color: rgba(123,94,167,0.65);
-  background: rgba(20,15,35,0.85);
-}
-
-/* top-edge color bar by type */
-.ticket::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 56px;
-  height: 2px;
-  background: linear-gradient(to right, rgba(123,94,167,0.7), transparent);
-}
-
-.ticket--edu::before  { background: linear-gradient(to right, rgba(74,140,92,0.7), transparent); }
-.ticket--proj::before { background: linear-gradient(to right, rgba(168,127,212,0.7), transparent); }
-.ticket--int::before  { background: linear-gradient(to right, rgba(123,94,167,0.4), transparent); }
-
-/* Perforation line between body and stub */
-.ticket-tear {
-  position: absolute;
-  right: 56px;
-  top: 0; bottom: 0;
-  width: 1px;
-  border-right: 2px dashed rgba(255,255,255,0.1);
-}
-
-/* ── TICKET BODY ── */
-.ticket-body {
-  flex: 1;
-  padding: 1.2rem 1.4rem;
+.lt-class {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  align-items: flex-end;
+  gap: 0.15rem;
+}
+.lt-class-label {
+  font-size: 0.42rem;
+  letter-spacing: 0.22em;
+  color: var(--text-muted);
+}
+.lt-class-val {
+  font-family: 'Doto', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--accent-bright);
+}
+
+/* ── PERFORATION ── */
+.lt-perf {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0 1.4rem;
+  height: 28px;
+  background: rgba(0,0,0,0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+/* scalloped edge top */
+.lt-perf::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    transparent 0px,
+    transparent 6px,
+    rgba(123,94,167,0.35) 6px,
+    rgba(123,94,167,0.35) 12px
+  );
+}
+.lt-perf::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    transparent 0px,
+    transparent 6px,
+    rgba(123,94,167,0.35) 6px,
+    rgba(123,94,167,0.35) 12px
+  );
+}
+
+.lt-perf-label {
+  font-size: 0.48rem;
+  letter-spacing: 0.26em;
+  color: var(--accent-bright);
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.lt-perf-line {
+  flex: 1;
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    rgba(123,94,167,0.3) 0px,
+    rgba(123,94,167,0.3) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+}
+
+.lt-perf-scissors {
+  font-size: 0.7rem;
+  color: rgba(123,94,167,0.4);
+  z-index: 1;
+}
+
+/* ── SECTION ── */
+.lt-section {
+  padding: 1.6rem 2rem;
+}
+
+/* ── ENTRY ── */
+.lt-entry {
+  display: flex;
+  gap: 1.8rem;
+  align-items: flex-start;
+}
+
+.lt-inner-divider {
+  height: 1px;
+  margin: 1.4rem 0;
+  background: repeating-linear-gradient(
+    to right,
+    rgba(255,255,255,0.06) 0px,
+    rgba(255,255,255,0.06) 4px,
+    transparent 4px,
+    transparent 10px
+  );
+}
+
+.lt-entry-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.6rem;
+  min-width: 82px;
+  flex-shrink: 0;
+  padding-top: 0.1rem;
+}
+
+.lt-entry-dates {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
+}
+
+.lt-date-from,
+.lt-date-to {
+  font-family: 'Doto', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  color: var(--green);
+}
+
+.lt-date-arrow {
+  font-size: 0.5rem;
+  color: rgba(123,94,167,0.4);
+  line-height: 1;
+}
+
+.lt-entry-num {
+  font-size: 0.42rem;
+  letter-spacing: 0.16em;
+  color: rgba(255,255,255,0.18);
+}
+
+.lt-entry-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
   min-width: 0;
 }
 
-.ticket-route {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.3rem;
-}
-
-.ticket-from,
-.ticket-to {
+.lt-entry-company {
   font-family: 'Doto', monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.14em;
-  color: var(--green);
-}
-
-.ticket-arrow {
-  font-size: 0.52rem;
-  color: rgba(123,94,167,0.5);
-  letter-spacing: -0.05em;
-}
-
-.ticket-company {
-  font-family: 'Doto', monospace;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   letter-spacing: 0.1em;
   color: var(--text-primary);
-  text-shadow: 0 0 8px rgba(255,255,255,0.07);
 }
 
-.ticket-role {
+.lt-entry-role {
   font-family: 'Playfair Display', serif;
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--accent-bright);
   line-height: 1.3;
 }
 
-.ticket-dept {
-  font-size: 0.58rem;
+.lt-entry-dept {
+  font-size: 0.57rem;
   letter-spacing: 0.1em;
   color: var(--text-muted);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.3rem;
 }
 
-.ticket-bullets {
+.lt-bullets {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.28rem;
   margin-top: 0.2rem;
 }
 
-.ticket-bullets li {
+.lt-bullets li {
   font-size: 0.65rem;
   line-height: 1.7;
   color: var(--text-muted);
-  padding-left: 1em;
+  padding-left: 1.1em;
   position: relative;
 }
 
-.ticket-bullets li::before {
+.lt-bullets li::before {
   content: '//';
   position: absolute;
   left: 0;
   color: var(--accent);
-  font-size: 0.52rem;
+  font-size: 0.5rem;
+  top: 0.1em;
 }
 
-.ticket-desc {
+.lt-desc {
   font-size: 0.65rem;
   line-height: 1.75;
   color: var(--text-muted);
-  margin-top: 0.3rem;
+  margin-top: 0.2rem;
 }
 
-/* ── TICKET STUB ── */
-.ticket-stub {
-  width: 56px;
-  flex-shrink: 0;
+/* ── SKILLS SECTION ── */
+.lt-section--skills {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.8rem 0.4rem;
-  background: rgba(255,255,255,0.02);
+  gap: 1.2rem;
 }
 
-.ticket-stub-text {
-  font-family: 'Doto', monospace;
-  font-size: 0.48rem;
-  letter-spacing: 0.18em;
-  color: rgba(123,94,167,0.6);
-  writing-mode: vertical-rl;
-  text-transform: uppercase;
-}
-
-.ticket-stub-num {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.46rem;
-  letter-spacing: 0.1em;
-  color: rgba(255,255,255,0.2);
-}
-
-/* ── SKILLS BOARD ────────────────────────────────────────────────── */
-.skills-board {
+.lt-skills-row {
   display: flex;
-  flex-direction: column;
+  align-items: flex-start;
   gap: 1.8rem;
-  border: 1px solid rgba(123,94,167,0.3);
-  background: rgba(10,10,18,0.7);
-  padding: 2rem 2.4rem;
 }
 
-.skills-group-label {
-  font-size: 0.52rem;
-  letter-spacing: 0.28em;
+.lt-skills-label {
+  font-size: 0.5rem;
+  letter-spacing: 0.24em;
   color: var(--accent-bright);
-  margin-bottom: 0.7rem;
-  text-transform: uppercase;
+  min-width: 82px;
+  flex-shrink: 0;
+  text-align: right;
+  padding-top: 0.3rem;
 }
 
-.skills-tags {
+.lt-skills-tags {
+  flex: 1;
   display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.lt-tag {
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 0.25rem 0.65rem;
+  background: rgba(255,255,255,0.02);
+  transition: border-color 0.18s, background 0.18s;
+}
+.lt-tag:hover { border-color: rgba(123,94,167,0.4); background: rgba(123,94,167,0.06); }
+
+.lt-tag--green  { border-color: rgba(74,140,92,0.3); color: var(--green); }
+.lt-tag--green:hover { border-color: var(--green); background: rgba(74,140,92,0.07); }
+
+.lt-tag--accent { border-color: rgba(168,127,212,0.3); color: var(--accent-bright); }
+.lt-tag--accent:hover { border-color: var(--accent-bright); background: rgba(168,127,212,0.07); }
+
+.lt-level {
+  font-size: 0.44rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  margin-left: 0.35em;
+  opacity: 0.8;
+}
+
+/* ── INTERESTS SECTION ── */
+.lt-section--interests { padding-bottom: 0; }
+
+.lt-int-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+
+.lt-int-item {
+  padding: 1rem 1.2rem;
+  border-right: 1px solid rgba(255,255,255,0.06);
+}
+.lt-int-item:last-child { border-right: none; }
+
+.lt-int-label {
+  font-family: 'Doto', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--accent-bright);
+  margin-bottom: 0.5rem;
+}
+
+.lt-int-desc {
+  font-size: 0.62rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+/* ── TICKET FOOTER ── */
+.lt-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.65rem 1.4rem;
+  border-top: 1px solid rgba(123,94,167,0.2);
+  background: rgba(255,255,255,0.015);
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
-.skill-tag {
-  font-size: 0.6rem;
-  letter-spacing: 0.1em;
-  color: var(--text-primary);
-  border: 1px solid rgba(255,255,255,0.12);
-  padding: 0.3rem 0.75rem;
-  background: rgba(255,255,255,0.03);
-  transition: border-color 0.2s, background 0.2s;
+.lt-footer-code {
+  font-size: 0.44rem;
+  letter-spacing: 0.18em;
+  color: rgba(123,94,167,0.35);
 }
 
-.skill-tag:hover {
-  border-color: rgba(123,94,167,0.5);
-  background: rgba(123,94,167,0.08);
+.lt-footer-note {
+  font-size: 0.44rem;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.12);
+  text-align: center;
+  flex: 1;
 }
 
-.skill-tag--green {
-  border-color: rgba(74,140,92,0.3);
-  color: var(--green);
-}
+/* ── NAV ACTIVE ── */
+.nav-active { color: var(--green) !important; }
+.nav-active::before { opacity: 1 !important; }
 
-.skill-tag--green:hover {
-  border-color: var(--green);
-  background: rgba(74,140,92,0.08);
-}
-
-.skill-tag--accent {
-  border-color: rgba(168,127,212,0.3);
-  color: var(--accent-bright);
-}
-
-.skill-tag--accent:hover {
-  border-color: var(--accent-bright);
-  background: rgba(168,127,212,0.08);
-}
-
-.skill-level {
-  font-size: 0.46rem;
-  letter-spacing: 0.16em;
-  color: var(--accent);
-  margin-left: 0.4em;
-  opacity: 0.8;
-}
-
-/* ── NAV ACTIVE ──────────────────────────────────────────────────── */
-.nav-active {
-  color: var(--green) !important;
-}
-
-.nav-active::before {
-  opacity: 1 !important;
-}
-
-/* ── RESPONSIVE ──────────────────────────────────────────────────── */
+/* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .tech-header { padding: 1.6rem 1.4rem 1rem; }
+  .ticket-wrap  { padding: 1.2rem 0 1.5rem; }
 
-  .passenger-strip {
-    margin: 1.2rem 0;
+  .long-ticket  { border-left: none; border-right: none; }
+
+  .lt-header { flex-direction: column; }
+  .lt-header-left { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .lt-header-right {
     border-left: none;
-    border-right: none;
-    flex-wrap: wrap;
+    border-top: 2px dashed rgba(123,94,167,0.25);
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-width: unset;
   }
 
-  .passenger-strip::after { display: none; }
+  .lt-section { padding: 1.2rem 1.2rem; }
 
-  .passenger-field {
-    padding: 0.7rem 1rem;
-    border-right: none;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    width: 50%;
-  }
+  .lt-entry { gap: 1rem; }
+  .lt-entry-side { min-width: 64px; }
 
-  .passenger-dl {
-    width: 100%;
-    border-left: none;
-    border-top: 1px solid rgba(123,94,167,0.3);
-    padding: 0.8rem 1rem;
-    justify-content: center;
-  }
+  .lt-skills-row { flex-direction: column; gap: 0.5rem; }
+  .lt-skills-label { text-align: left; min-width: unset; }
 
-  .cv-tabs { margin: 0; }
+  .lt-int-grid { grid-template-columns: repeat(2, 1fr); }
+  .lt-int-item:nth-child(2) { border-right: none; }
+  .lt-int-item { border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .lt-int-item:nth-last-child(-n+2) { border-bottom: none; }
 
-  .cv-section { padding: 1.4rem 1.4rem 1rem; }
+  .lt-footer { justify-content: center; }
+  .lt-footer-note { display: none; }
+}
 
-  .tickets-grid,
-  .tickets-grid--three {
-    grid-template-columns: 1fr;
-  }
+@media (max-width: 480px) {
+  .lt-passenger-meta { flex-direction: column; align-items: flex-start; gap: 0.2rem; }
+  .lt-sep { display: none; }
+  .lt-int-grid { grid-template-columns: 1fr; }
+  .lt-int-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .lt-int-item:last-child { border-bottom: none; }
 }

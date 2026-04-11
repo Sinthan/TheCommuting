@@ -14,13 +14,10 @@
   <link rel="stylesheet" href="./style/tech.css">
 </head>
 <body>
-
   <div class="scanlines"></div>
   <div class="window-frame"></div>
-
   <div class="site-wrapper">
 
-    <!-- SYSTEM BAR -->
     <div class="sys-bar">
       <div class="sys-bar-left">
         <span class="sys-tag">SYS:ONLINE</span>
@@ -30,7 +27,6 @@
       <span>通勤 &mdash; CAREER LOG</span>
     </div>
 
-    <!-- NAV -->
     <nav>
       <a href="./index.html" class="nav-logo">
         <span class="nav-logo-bracket">[</span>
@@ -65,7 +61,6 @@
       </button>
     </nav>
 
-    <!-- MOBILE DRAWER -->
     <div class="nav-drawer" id="nav-drawer">
       <a href="./photos.html" id="t-nav-photos-m">Photos</a>
       <a href="./stories.html" id="t-nav-stories-m">Stories</a>
@@ -81,327 +76,296 @@
       </div>
     </div>
 
-    <!-- PAGE HEADER -->
     <div class="tech-header">
       <div class="tech-eyebrow">03 // TECH</div>
       <h1 class="tech-title">A WORKING LIFE</h1>
       <div class="tech-sub" id="t-tech-sub">&gt;_ BOARDING PASS — CAREER IN TRANSIT</div>
     </div>
 
-    <!-- PASSENGER INFO STRIP -->
-    <div class="passenger-strip">
-      <div class="passenger-field">
-        <span class="passenger-label">PASSENGER</span>
-        <span class="passenger-value">CASSESE / AGOSTINO M.</span>
-      </div>
-      <div class="passenger-field">
-        <span class="passenger-label">ORIGIN</span>
-        <span class="passenger-value">SALERNO, IT</span>
-      </div>
-      <div class="passenger-field">
-        <span class="passenger-label">CURRENT STN.</span>
-        <span class="passenger-value">MILAN, IT</span>
-      </div>
-      <div class="passenger-field">
-        <span class="passenger-label">CLASS</span>
-        <span class="passenger-value">PROJECT COORD.</span>
-      </div>
-      <div class="passenger-field">
-        <span class="passenger-label">STATUS</span>
-        <span class="passenger-value passenger-value--active">&#9679; IN SERVICE</span>
-      </div>
-      <a href="./assets/Cassese_AgostinoMaria_Resume.pdf" download class="passenger-dl" id="t-tech-dl">
-        &#8595; RESUME.PDF
-      </a>
-    </div>
+    <div class="ticket-wrap">
+      <div class="long-ticket">
 
-    <!-- SECTION TABS -->
-    <div class="cv-tabs">
-      <button class="cv-tab active" data-section="experience" id="t-tab-exp">EXPERIENCE</button>
-      <button class="cv-tab" data-section="education" id="t-tab-edu">EDUCATION</button>
-      <button class="cv-tab" data-section="projects" id="t-tab-proj">PROJECTS</button>
-      <button class="cv-tab" data-section="skills" id="t-tab-skills">SKILLS</button>
-      <button class="cv-tab" data-section="interests" id="t-tab-int">INTERESTS</button>
-    </div>
-
-    <!-- ── EXPERIENCE ── -->
-    <div class="cv-section active" id="section-experience">
-      <div class="tickets-grid">
-
-        <div class="ticket">
-          <div class="ticket-tear"></div>
-          <div class="ticket-body">
-            <div class="ticket-route">
-              <span class="ticket-from">JUN 2024</span>
-              <span class="ticket-arrow">——▶</span>
-              <span class="ticket-to">PRESENT</span>
+        <!-- TICKET HEADER -->
+        <div class="lt-header">
+          <div class="lt-header-left">
+            <div class="lt-barcode">
+              <div class="lt-barcode-bars">
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+              </div>
+              <div class="lt-barcode-num">SIN-001-CV-2025</div>
             </div>
-            <div class="ticket-company">LUTECH S.P.A.</div>
-            <div class="ticket-role">Project Coordinator</div>
-            <div class="ticket-dept">Smart City &amp; Mobility Solutions · Milan, IT</div>
-            <ul class="ticket-bullets">
-              <li>Managed multiple R&amp;D teams with agile methodology</li>
-              <li>Led projects on AI prediction models &amp; GIS-like systems on HPC and Quantum</li>
-              <li>Created documentation, repos, demos and analysis for team operations</li>
-              <li>Coordinated meetings, events and stakeholder communications</li>
-            </ul>
           </div>
-          <div class="ticket-stub">
-            <span class="ticket-stub-text">LUTECH</span>
-            <span class="ticket-stub-num">EXP-01</span>
-          </div>
-        </div>
-
-        <div class="ticket">
-          <div class="ticket-tear"></div>
-          <div class="ticket-body">
-            <div class="ticket-route">
-              <span class="ticket-from">DEC 2021</span>
-              <span class="ticket-arrow">——▶</span>
-              <span class="ticket-to">JUN 2024</span>
+          <div class="lt-header-center">
+            <div class="lt-passenger-name">CASSESE / AGOSTINO M.</div>
+            <div class="lt-passenger-meta">
+              <span>ORIGIN: SALERNO IT</span>
+              <span class="lt-sep">·</span>
+              <span>DEST: NOWHERE IN PARTICULAR</span>
+              <span class="lt-sep">·</span>
+              <span class="lt-status">&#9679; IN SERVICE</span>
             </div>
-            <div class="ticket-company">ATOS ITALY</div>
-            <div class="ticket-role">Consultant</div>
-            <div class="ticket-dept">HPC, AI &amp; Quantum Computing · Milan, IT</div>
-            <ul class="ticket-bullets">
-              <li>Managed pre-sales technical operations as Quantum Computing evangelist</li>
-              <li>Key accounts: ENI, CINECA, CNMOST, PoliMI, BIREX</li>
-              <li>Delivered crash courses for University of Naples, CINECA and other entities</li>
-              <li>Presented Quantum portfolio: Optimization, Cybersecurity, Machine Learning</li>
-              <li>Deepened partnerships with PoliMI Osservatorio QC &amp; IBM Quantum</li>
-            </ul>
           </div>
-          <div class="ticket-stub">
-            <span class="ticket-stub-text">ATOS</span>
-            <span class="ticket-stub-num">EXP-02</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── EDUCATION ── -->
-    <div class="cv-section" id="section-education">
-      <div class="tickets-grid">
-
-        <div class="ticket ticket--edu">
-          <div class="ticket-tear"></div>
-          <div class="ticket-body">
-            <div class="ticket-route">
-              <span class="ticket-from">2023</span>
-              <span class="ticket-arrow">——▶</span>
-              <span class="ticket-to">JUL 2025</span>
+          <div class="lt-header-right">
+            <a href="./assets/Cassese_AgostinoMaria_Resume.pdf" download class="lt-dl-btn" id="t-tech-dl">&#8595; RESUME.PDF</a>
+            <div class="lt-class">
+              <span class="lt-class-label">CLASS</span>
+              <span class="lt-class-val">PROJECT COORD.</span>
             </div>
-            <div class="ticket-company">UNIBA</div>
-            <div class="ticket-role">Master of Quantum Science &amp; Technologies</div>
-            <div class="ticket-dept">University of Bari · Bari, IT</div>
-          </div>
-          <div class="ticket-stub">
-            <span class="ticket-stub-text">UNIBA</span>
-            <span class="ticket-stub-num">EDU-01</span>
           </div>
         </div>
 
-        <div class="ticket ticket--edu">
-          <div class="ticket-tear"></div>
-          <div class="ticket-body">
-            <div class="ticket-route">
-              <span class="ticket-from">2018</span>
-              <span class="ticket-arrow">——▶</span>
-              <span class="ticket-to">MAY 2021</span>
+        <!-- PERF: EXPERIENCE -->
+        <div class="lt-perf">
+          <span class="lt-perf-label">// EXPERIENCE</span>
+          <div class="lt-perf-line"></div>
+          <span class="lt-perf-scissors">✂</span>
+        </div>
+
+        <div class="lt-section">
+          <div class="lt-entry">
+            <div class="lt-entry-side">
+              <div class="lt-entry-dates">
+                <span class="lt-date-from">JUN 2024</span>
+                <span class="lt-date-arrow">↓</span>
+                <span class="lt-date-to">PRESENT</span>
+              </div>
+              <div class="lt-entry-num">EXP-01</div>
             </div>
-            <div class="ticket-company">UNISA</div>
-            <div class="ticket-role">Bachelor of Computer Science</div>
-            <div class="ticket-dept">University of Salerno · Salerno, IT</div>
-          </div>
-          <div class="ticket-stub">
-            <span class="ticket-stub-text">UNISA</span>
-            <span class="ticket-stub-num">EDU-02</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── PROJECTS ── -->
-    <div class="cv-section" id="section-projects">
-      <div class="tickets-grid tickets-grid--three">
-
-        <div class="ticket ticket--proj">
-          <div class="ticket-tear"></div>
-          <div class="ticket-body">
-            <div class="ticket-route">
-              <span class="ticket-from">LUTECH</span>
-              <span class="ticket-arrow">——▶</span>
-              <span class="ticket-to">AI / PM</span>
+            <div class="lt-entry-body">
+              <div class="lt-entry-company">LUTECH S.P.A.</div>
+              <div class="lt-entry-role">Project Coordinator</div>
+              <div class="lt-entry-dept">Smart City &amp; Mobility Solutions · Milan, IT</div>
+              <ul class="lt-bullets">
+                <li>Managed multiple R&amp;D teams with agile methodology</li>
+                <li>Led projects on AI prediction models &amp; GIS-like systems on HPC and Quantum</li>
+                <li>Created documentation, repos, demos and analysis for team operations</li>
+                <li>Coordinated meetings, events and stakeholder communications</li>
+              </ul>
             </div>
-            <div class="ticket-company">PREDICTIVE MAINTENANCE</div>
-            <div class="ticket-role">Product Owner &amp; Project Manager</div>
-            <div class="ticket-dept">National Center for Mobility</div>
-            <p class="ticket-desc">Managed 7 colleagues to develop an AI fault-prediction system for vehicles. Handled meetings, stakeholders and product direction.</p>
           </div>
-          <div class="ticket-stub">
-            <span class="ticket-stub-text">PROJ</span>
-            <span class="ticket-stub-num">P-01</span>
-          </div>
-        </div>
-
-        <div class="ticket ticket--proj">
-          <div class="ticket-tear"></div>
-          <div class="ticket-body">
-            <div class="ticket-route">
-              <span class="ticket-from">LUTECH</span>
-              <span class="ticket-arrow">——▶</span>
-              <span class="ticket-to">URBAN</span>
+          <div class="lt-inner-divider"></div>
+          <div class="lt-entry">
+            <div class="lt-entry-side">
+              <div class="lt-entry-dates">
+                <span class="lt-date-from">DEC 2021</span>
+                <span class="lt-date-arrow">↓</span>
+                <span class="lt-date-to">JUN 2024</span>
+              </div>
+              <div class="lt-entry-num">EXP-02</div>
             </div>
-            <div class="ticket-company">PILOT SNAP4CITY</div>
-            <div class="ticket-role">Team Lead &amp; Stakeholder PoC</div>
-            <div class="ticket-dept">Urban Mobility &amp; Digital Cities</div>
-            <p class="ticket-desc">Led 6-person team exploring data aggregation tools for urban mobility (Univ. of Florence). Liaison for both stakeholders and colleagues.</p>
-          </div>
-          <div class="ticket-stub">
-            <span class="ticket-stub-text">PROJ</span>
-            <span class="ticket-stub-num">P-02</span>
-          </div>
-        </div>
-
-        <div class="ticket ticket--proj">
-          <div class="ticket-tear"></div>
-          <div class="ticket-body">
-            <div class="ticket-route">
-              <span class="ticket-from">ATOS</span>
-              <span class="ticket-arrow">——▶</span>
-              <span class="ticket-to">EDU</span>
+            <div class="lt-entry-body">
+              <div class="lt-entry-company">ATOS ITALY</div>
+              <div class="lt-entry-role">Consultant — HPC, AI &amp; Quantum Computing</div>
+              <div class="lt-entry-dept">Milan, IT</div>
+              <ul class="lt-bullets">
+                <li>Managed pre-sales technical operations as Quantum Computing evangelist</li>
+                <li>Key accounts: ENI, CINECA, CNMOST, PoliMI, BIREX</li>
+                <li>Delivered crash courses for University of Naples, CINECA and other entities</li>
+                <li>Presented Quantum portfolio: Optimization, Cybersecurity, Machine Learning</li>
+                <li>Deepened partnerships with PoliMI Osservatorio QC &amp; IBM Quantum</li>
+              </ul>
             </div>
-            <div class="ticket-company">HPC &amp; QUANTUM COURSES</div>
-            <div class="ticket-role">Instructor &amp; Curriculum Lead</div>
-            <div class="ticket-dept">Universities &amp; Centers of Excellence</div>
-            <p class="ticket-desc">Designed and delivered high-tech courses for universities and research centers on HPC and Quantum Computing solutions.</p>
-          </div>
-          <div class="ticket-stub">
-            <span class="ticket-stub-text">PROJ</span>
-            <span class="ticket-stub-num">P-03</span>
           </div>
         </div>
 
-      </div>
-    </div>
+        <!-- PERF: EDUCATION -->
+        <div class="lt-perf">
+          <span class="lt-perf-label">// EDUCATION</span>
+          <div class="lt-perf-line"></div>
+          <span class="lt-perf-scissors">✂</span>
+        </div>
 
-    <!-- ── SKILLS ── -->
-    <div class="cv-section" id="section-skills">
-      <div class="skills-board">
-
-        <div class="skills-group">
-          <div class="skills-group-label">MANAGEMENT</div>
-          <div class="skills-tags">
-            <span class="skill-tag">Strategic Planning</span>
-            <span class="skill-tag">People Management</span>
-            <span class="skill-tag">Agile</span>
-            <span class="skill-tag">Documentation</span>
-            <span class="skill-tag">Prince2 Foundation</span>
+        <div class="lt-section">
+          <div class="lt-entry">
+            <div class="lt-entry-side">
+              <div class="lt-entry-dates">
+                <span class="lt-date-from">2023</span>
+                <span class="lt-date-arrow">↓</span>
+                <span class="lt-date-to">JUL 2025</span>
+              </div>
+              <div class="lt-entry-num">EDU-01</div>
+            </div>
+            <div class="lt-entry-body">
+              <div class="lt-entry-company">UNIBA</div>
+              <div class="lt-entry-role">Master of Quantum Science &amp; Technologies</div>
+              <div class="lt-entry-dept">University of Bari · Bari, IT</div>
+            </div>
+          </div>
+          <div class="lt-inner-divider"></div>
+          <div class="lt-entry">
+            <div class="lt-entry-side">
+              <div class="lt-entry-dates">
+                <span class="lt-date-from">2018</span>
+                <span class="lt-date-arrow">↓</span>
+                <span class="lt-date-to">MAY 2021</span>
+              </div>
+              <div class="lt-entry-num">EDU-02</div>
+            </div>
+            <div class="lt-entry-body">
+              <div class="lt-entry-company">UNISA</div>
+              <div class="lt-entry-role">Bachelor of Computer Science</div>
+              <div class="lt-entry-dept">University of Salerno · Salerno, IT</div>
+            </div>
           </div>
         </div>
 
-        <div class="skills-group">
-          <div class="skills-group-label">COMMUNICATION</div>
-          <div class="skills-tags">
-            <span class="skill-tag">Public Speaking</span>
-            <span class="skill-tag">Presentations</span>
-            <span class="skill-tag">Client Relations</span>
-            <span class="skill-tag">R&amp;D Collaboration</span>
+        <!-- PERF: PROJECTS -->
+        <div class="lt-perf">
+          <span class="lt-perf-label">// PROJECTS</span>
+          <div class="lt-perf-line"></div>
+          <span class="lt-perf-scissors">✂</span>
+        </div>
+
+        <div class="lt-section">
+          <div class="lt-entry">
+            <div class="lt-entry-side">
+              <div class="lt-entry-dates">
+                <span class="lt-date-from">LUTECH</span>
+                <span class="lt-date-arrow">↓</span>
+                <span class="lt-date-to">AI/PM</span>
+              </div>
+              <div class="lt-entry-num">P-01</div>
+            </div>
+            <div class="lt-entry-body">
+              <div class="lt-entry-company">PREDICTIVE MAINTENANCE</div>
+              <div class="lt-entry-role">Product Owner &amp; Project Manager</div>
+              <div class="lt-entry-dept">National Center for Mobility</div>
+              <p class="lt-desc">Managed 7 colleagues to develop an AI fault-prediction system for vehicles. Handled meetings, stakeholders and product direction.</p>
+            </div>
+          </div>
+          <div class="lt-inner-divider"></div>
+          <div class="lt-entry">
+            <div class="lt-entry-side">
+              <div class="lt-entry-dates">
+                <span class="lt-date-from">LUTECH</span>
+                <span class="lt-date-arrow">↓</span>
+                <span class="lt-date-to">URBAN</span>
+              </div>
+              <div class="lt-entry-num">P-02</div>
+            </div>
+            <div class="lt-entry-body">
+              <div class="lt-entry-company">PILOT SNAP4CITY</div>
+              <div class="lt-entry-role">Team Lead &amp; Stakeholder PoC</div>
+              <div class="lt-entry-dept">Urban Mobility &amp; Digital Cities</div>
+              <p class="lt-desc">Led 6-person team exploring data aggregation tools for urban mobility (Univ. of Florence). Liaison for both stakeholders and colleagues.</p>
+            </div>
+          </div>
+          <div class="lt-inner-divider"></div>
+          <div class="lt-entry">
+            <div class="lt-entry-side">
+              <div class="lt-entry-dates">
+                <span class="lt-date-from">ATOS</span>
+                <span class="lt-date-arrow">↓</span>
+                <span class="lt-date-to">EDU</span>
+              </div>
+              <div class="lt-entry-num">P-03</div>
+            </div>
+            <div class="lt-entry-body">
+              <div class="lt-entry-company">HPC &amp; QUANTUM COURSES</div>
+              <div class="lt-entry-role">Instructor &amp; Curriculum Lead</div>
+              <div class="lt-entry-dept">Universities &amp; Centers of Excellence</div>
+              <p class="lt-desc">Designed and delivered high-tech courses for universities and research centers on HPC and Quantum Computing solutions.</p>
+            </div>
           </div>
         </div>
 
-        <div class="skills-group">
-          <div class="skills-group-label">TECHNOLOGY</div>
-          <div class="skills-tags">
-            <span class="skill-tag skill-tag--green">Quantum Computing</span>
-            <span class="skill-tag skill-tag--green">HPC Systems</span>
-            <span class="skill-tag skill-tag--green">AI / ML</span>
-            <span class="skill-tag skill-tag--green">Kubernetes</span>
-            <span class="skill-tag skill-tag--green">Linux</span>
-            <span class="skill-tag skill-tag--green">GIS Systems</span>
+        <!-- PERF: SKILLS -->
+        <div class="lt-perf">
+          <span class="lt-perf-label">// SKILLS</span>
+          <div class="lt-perf-line"></div>
+          <span class="lt-perf-scissors">✂</span>
+        </div>
+
+        <div class="lt-section lt-section--skills">
+          <div class="lt-skills-row">
+            <div class="lt-skills-label">MANAGEMENT</div>
+            <div class="lt-skills-tags">
+              <span class="lt-tag">Strategic Planning</span>
+              <span class="lt-tag">People Management</span>
+              <span class="lt-tag">Agile</span>
+              <span class="lt-tag">Documentation</span>
+            </div>
+          </div>
+          <div class="lt-skills-row">
+            <div class="lt-skills-label">COMMUNICATION</div>
+            <div class="lt-skills-tags">
+              <span class="lt-tag">Public Speaking</span>
+              <span class="lt-tag">Presentations</span>
+              <span class="lt-tag">Client Relations</span>
+              <span class="lt-tag">R&amp;D Collaboration</span>
+            </div>
+          </div>
+          <div class="lt-skills-row">
+            <div class="lt-skills-label">TECHNOLOGY</div>
+            <div class="lt-skills-tags">
+              <span class="lt-tag lt-tag--green">Quantum Computing</span>
+              <span class="lt-tag lt-tag--green">HPC Systems</span>
+              <span class="lt-tag lt-tag--green">AI / ML</span>
+              <span class="lt-tag lt-tag--green">Kubernetes</span>
+              <span class="lt-tag lt-tag--green">Linux</span>
+              <span class="lt-tag lt-tag--green">GIS Systems</span>
+            </div>
+          </div>
+          <div class="lt-skills-row">
+            <div class="lt-skills-label">CERTIFICATIONS</div>
+            <div class="lt-skills-tags">
+              <span class="lt-tag lt-tag--accent">Prince2 Foundation</span>
+              <span class="lt-tag lt-tag--accent">Qiskit Summer School I</span>
+              <span class="lt-tag lt-tag--accent">Qiskit Summer School II</span>
+              <span class="lt-tag lt-tag--accent">Elements of AI — U. Helsinki</span>
+              <span class="lt-tag lt-tag--accent">Jarvice Expert — Lutech</span>
+            </div>
+          </div>
+          <div class="lt-skills-row">
+            <div class="lt-skills-label">LANGUAGES</div>
+            <div class="lt-skills-tags">
+              <span class="lt-tag">Italian <span class="lt-level">NATIVE</span></span>
+              <span class="lt-tag">English <span class="lt-level">C1</span></span>
+            </div>
           </div>
         </div>
 
-        <div class="skills-group">
-          <div class="skills-group-label">CERTIFICATIONS</div>
-          <div class="skills-tags">
-            <span class="skill-tag skill-tag--accent">Prince2 Foundation</span>
-            <span class="skill-tag skill-tag--accent">Qiskit Summer School I</span>
-            <span class="skill-tag skill-tag--accent">Qiskit Summer School II</span>
-            <span class="skill-tag skill-tag--accent">Elements of AI — U. Helsinki</span>
-            <span class="skill-tag skill-tag--accent">Jarvice Expert — Lutech</span>
+        <!-- PERF: INTERESTS -->
+        <div class="lt-perf">
+          <span class="lt-perf-label">// INTERESTS</span>
+          <div class="lt-perf-line"></div>
+          <span class="lt-perf-scissors">✂</span>
+        </div>
+
+        <div class="lt-section lt-section--interests">
+          <div class="lt-int-grid">
+            <div class="lt-int-item">
+              <div class="lt-int-label">LINUX &amp; FOSS</div>
+              <p class="lt-int-desc" id="t-int-linux">Passionate about open-source software and Linux ecosystems.</p>
+            </div>
+            <div class="lt-int-item">
+              <div class="lt-int-label">SCIFI &amp; HORROR</div>
+              <p class="lt-int-desc" id="t-int-scifi">Avid reader and writer. Writes books when the mind gets too loud.</p>
+            </div>
+            <div class="lt-int-item">
+              <div class="lt-int-label">DESIGN</div>
+              <p class="lt-int-desc" id="t-int-design">Interested in Architectural, Fashion and Communication Design.</p>
+            </div>
+            <div class="lt-int-item">
+              <div class="lt-int-label">GDR / TTRPG</div>
+              <p class="lt-int-desc" id="t-int-gdr">Into tabletop role-playing games and collaborative world-building.</p>
+            </div>
           </div>
         </div>
 
-        <div class="skills-group">
-          <div class="skills-group-label">LANGUAGES</div>
-          <div class="skills-tags">
-            <span class="skill-tag">Italian <span class="skill-level">NATIVE</span></span>
-            <span class="skill-tag">English <span class="skill-level">C1</span></span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ── INTERESTS ── -->
-    <div class="cv-section" id="section-interests">
-      <div class="tickets-grid tickets-grid--three">
-
-        <div class="ticket ticket--int">
-          <div class="ticket-tear"></div>
-          <div class="ticket-body">
-            <div class="ticket-company">LINUX &amp; FOSS</div>
-            <p class="ticket-desc" id="t-int-linux">Passionate about open-source software and Linux ecosystems.</p>
-          </div>
-          <div class="ticket-stub">
-            <span class="ticket-stub-text">INT</span>
-            <span class="ticket-stub-num">I-01</span>
-          </div>
-        </div>
-
-        <div class="ticket ticket--int">
-          <div class="ticket-tear"></div>
-          <div class="ticket-body">
-            <div class="ticket-company">SCIFI &amp; HORROR</div>
-            <p class="ticket-desc" id="t-int-scifi">Avid reader and writer. Writes books when the mind gets too loud.</p>
-          </div>
-          <div class="ticket-stub">
-            <span class="ticket-stub-text">INT</span>
-            <span class="ticket-stub-num">I-02</span>
-          </div>
-        </div>
-
-        <div class="ticket ticket--int">
-          <div class="ticket-tear"></div>
-          <div class="ticket-body">
-            <div class="ticket-company">DESIGN</div>
-            <p class="ticket-desc" id="t-int-design">Interested in Architectural, Fashion and Communication Design.</p>
-          </div>
-          <div class="ticket-stub">
-            <span class="ticket-stub-text">INT</span>
-            <span class="ticket-stub-num">I-03</span>
-          </div>
-        </div>
-
-        <div class="ticket ticket--int">
-          <div class="ticket-tear"></div>
-          <div class="ticket-body">
-            <div class="ticket-company">GDR / TTRPG</div>
-            <p class="ticket-desc" id="t-int-gdr">Into tabletop role-playing games and collaborative world-building.</p>
-          </div>
-          <div class="ticket-stub">
-            <span class="ticket-stub-text">INT</span>
-            <span class="ticket-stub-num">I-04</span>
-          </div>
+        <!-- TICKET FOOTER -->
+        <div class="lt-footer">
+          <span class="lt-footer-code">TC-SIN001 · 2025 · THE COMMUTING</span>
+          <span class="lt-footer-note">THIS TICKET IS NOT VALID FOR TRAVEL · 旅行には使えません</span>
+          <span class="lt-footer-code">END OF RECORD</span>
         </div>
 
       </div>
     </div>
 
-    <!-- STATUS BAR -->
     <div class="status-bar">
       <div class="status-left">
         <span><span class="status-dot"></span>Career log active</span>
@@ -415,24 +379,12 @@
 
   <script src="./scripts/translations.js"></script>
   <script>
-    // Hamburger
     const hamburger = document.getElementById('hamburger');
     const navDrawer = document.getElementById('nav-drawer');
     hamburger.addEventListener('click', () => {
       hamburger.classList.toggle('open');
       navDrawer.classList.toggle('open');
     });
-
-    // Tab switching
-    document.querySelectorAll('.cv-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.cv-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.cv-section').forEach(s => s.classList.remove('active'));
-        tab.classList.add('active');
-        document.getElementById('section-' + tab.dataset.section).classList.add('active');
-      });
-    });
   </script>
-
 </body>
 </html>

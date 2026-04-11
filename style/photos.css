@@ -786,6 +786,8 @@ body {
   .stop-label-name  { font-size: 1rem; }
   .stop-label-eyebrow { font-size: 0.52rem; }
   .stop-label-quote { font-size: 0.62rem; }
+  /* shift label 10% of stop width to the left on mobile */
+  .stop-label { padding-left: 0; margin-left: -10%; }
 
   .train-window { max-width: 100%; align-self: stretch; }
 

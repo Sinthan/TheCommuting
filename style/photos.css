@@ -255,9 +255,9 @@ body {
 }
 
 .stop-label-eyebrow {
-  font-size: 0.68rem;    /* was 0.5rem, now +33% total */
+  font-size: 0.78rem;    /* was 0.68rem, +15% */
   letter-spacing: 0.26em;
-  color: var(--text-muted);
+  color: var(--accent-bright);
   text-transform: uppercase;
   margin-bottom: 0.1rem;
   display: block;

@@ -158,6 +158,9 @@ body {
 /* beam no longer lives on the stop pseudo-element */
 .timeline-stop.active::before { display: none; }
 
+/* animation restart — briefly kill beam so it replays from 0 on stop change */
+.timeline.beam-reset::after { animation: none; }
+
 /* ── SINGLE STOP ── */
 .timeline-stop {
   position: relative;

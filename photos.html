@@ -488,13 +488,20 @@
         }
 
         function updatePulseStop(activeStop) {
-          const timelineRect = timeline.getBoundingClientRect();
           const dotEl = activeStop.querySelector('.stop-dot');
           if (!dotEl) return;
-          const dotRect = dotEl.getBoundingClientRect();
-          /* dot centre relative to timeline top — beam travels this far */
-          const dotCentreFromTop = dotRect.top - timelineRect.top + dotRect.height / 2;
-          timeline.style.setProperty('--beam-end', `${Math.round(dotCentreFromTop)}px`);
+          /* walk offsetTop chain up to .timeline — scroll-independent */
+          let offset = 0;
+          let el = dotEl;
+          while (el && el !== timeline) {
+            offset += el.offsetTop;
+            el = el.offsetParent;
+          }
+          const dotCentre = offset + dotEl.offsetHeight / 2;
+          /* kill ::after animation, update --beam-end, restart next frame */
+          timeline.classList.add('beam-reset');
+          timeline.style.setProperty('--beam-end', `${Math.round(dotCentre)}px`);
+          requestAnimationFrame(() => timeline.classList.remove('beam-reset'));
         }
 
         const observer = new IntersectionObserver(entries => {

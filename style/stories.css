@@ -86,18 +86,18 @@ body {
   align-items: center;
   gap: 0.6rem;
   font-family: 'Doto', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.18em;
-  color: rgba(74,140,92,0.7);
+  font-size: 0.85rem;
+  letter-spacing: 0.22em;
+  color: var(--green);
   text-transform: uppercase;
 }
 
 .board-time {
   font-family: 'Doto', monospace;
-  font-size: 1rem;
+  font-size: 0.85rem;
   color: var(--green);
   text-shadow: 0 0 12px rgba(74,140,92,0.4);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.22em;
 }
 
 /* ── COLUMN HEADERS ──────────────────────────────────────────────── */

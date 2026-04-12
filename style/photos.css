@@ -109,49 +109,7 @@ body {
   border-radius: 2px;
 }
 
-/* ── TRAVELING VERTICAL BEAM ── */
-/*
-  Pure white beam, 3px wide, travels the line from top to active dot.
-  Absorbs into dot on arrival, dot flashes white, connector fires.
-  5s cycle — beam / dot / connector locked to same duration.
-  --beam-end (px) set by JS = dot centre from timeline top.
-*/
-.timeline::after {
-  content: '';
-  position: absolute;
-  left: calc(4.5rem - 1px);   /* centred on 4px line */
-  top: 0;
-  width: 3px;
-  height: 60px;
-  background: linear-gradient(to bottom,
-    transparent        0%,
-    rgba(255,255,255,0.15) 20%,
-    rgba(255,255,255,0.85) 70%,
-    rgba(255,255,255,1.00) 100%
-  );
-  border-radius: 2px;
-  z-index: 5;
-  pointer-events: none;
-  will-change: transform, opacity;
-  animation: beamDescend 5s linear infinite;
-  --beam-end: 300px;
-  box-shadow: 0 0 6px 1px rgba(255,255,255,0.4);
-}
-
-@keyframes beamDescend {
-  0%    { transform: translateY(0px);                           opacity: 0; height: 60px; }
-  5%    { transform: translateY(0px);                           opacity: 1; height: 60px; }
-  57%   { transform: translateY(calc(var(--beam-end) - 60px));  opacity: 1; height: 60px; }
-  62%   { transform: translateY(var(--beam-end));                opacity: 0; height: 4px;  }
-  62.1% { transform: translateY(0px);                           opacity: 0; height: 60px; }
-  100%  { transform: translateY(0px);                           opacity: 0; height: 60px; }
-}
-
-/* beam no longer lives on the stop pseudo-element */
-.timeline-stop.active::before { display: none; }
-
-/* animation restart — briefly kill beam so it replays from 0 on stop change */
-.timeline.beam-reset::after { animation: none; }
+/* vertical beam removed */
 
 /* ── SINGLE STOP ── */
 .timeline-stop {
@@ -181,8 +139,8 @@ body {
 }
 
 .timeline-stop.active .stop-dot {
-  animation: stationArrival 5s linear infinite;
 }
+
 
 /*
   stationArrival — 5s, locked to beamDescend:
@@ -191,13 +149,7 @@ body {
   72%: connector fires, dot holds
   78%: dim back to rest
 */
-@keyframes stationArrival {
-  0%,61%  { background: rgba(60,40,100,0.9);   border-color: rgba(168,127,212,0.5); box-shadow: none;                                            transform: scale(1);   }
-  62%     { background: #fff;                  border-color: #fff;                  box-shadow: 0 0 0 3px rgba(255,255,255,0.25), 0 0 12px #fff;  transform: scale(1.2); }
-  66%     { background: rgba(220,200,255,0.9); border-color: #e0c8ff;               box-shadow: 0 0 8px rgba(255,255,255,0.3);                   transform: scale(1.1); }
-  78%     { background: rgba(60,40,100,0.9);   border-color: rgba(168,127,212,0.5); box-shadow: none;                                            transform: scale(1);   }
-  100%    { background: rgba(60,40,100,0.9);   border-color: rgba(168,127,212,0.5); box-shadow: none;                                            transform: scale(1);   }
-}
+
 
 .stop-dot::after { display: none; }
 
@@ -235,18 +187,18 @@ body {
 }
 
 .timeline-stop.active .stop-connector::after {
-  animation: connectorFire 5s linear infinite;
+  animation: connectorFire 1.5s linear infinite;
 }
 
 /*
   connectorFire — 5s, fires at 65% (dot is lit), sweeps right, fades by 78%
 */
 @keyframes connectorFire {
-  0%,64%  { left: -80px; opacity: 0; }
-  65%     { left: -80px; opacity: 1; }
-  76%     { left: 100%;  opacity: 0.85; }
-  78%     { left: 100%;  opacity: 0; }
-  100%    { left: 100%;  opacity: 0; }
+  0%   { left: -80px; opacity: 0; }
+  5%   { left: -80px; opacity: 1; }
+  70%  { left: 100%;  opacity: 1; }
+  85%  { left: 100%;  opacity: 0; }
+  100% { left: 100%;  opacity: 0; }
 }
 
 /* ── VERTICAL TICK | at end of connector ── */

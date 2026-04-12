@@ -511,3 +511,80 @@ body {
   .lt-header-portrait { display: none; }
   .lt-duomo-bars { height: 40px; }
 }
+
+/* ── DUOMO BOX ── */
+.lt-duomo-label {
+  font-size: 0.42rem;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+  text-align: center;
+}
+
+.lt-duomo-box {
+  border: 1px solid rgba(123,94,167,0.4);
+  padding: 0.5rem 0.6rem;
+  background: rgba(0,0,0,0.2);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin-bottom: 0.35rem;
+}
+
+.lt-duomo-bars { height: 44px; }
+.lt-duomo-bars span { width: 3px; }
+
+/* ── CANVAS PORTRAIT ── */
+.lt-dm-canvas {
+  display: block;
+  /* Scale 192×192 logical px down to display size */
+  width: 108px;
+  height: 108px;
+  image-rendering: pixelated;
+}
+
+/* ── FOLDED TICKET CREASE ── */
+/* Each perforation already acts as a section break.
+   Add a subtle shadow/crease effect to sections */
+.lt-section {
+  position: relative;
+}
+
+/* Top crease shadow under each perf */
+.lt-perf + .lt-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 12px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.18), transparent);
+  pointer-events: none;
+}
+
+/* Bottom crease shadow before each perf */
+.lt-section:has(+ .lt-perf)::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 12px;
+  background: linear-gradient(to top, rgba(0,0,0,0.15), transparent);
+  pointer-events: none;
+}
+
+/* Alternating fold tints */
+.lt-section:nth-of-type(odd) {
+  background: rgba(255,255,255,0.012);
+}
+
+.lt-section:nth-of-type(even) {
+  background: rgba(0,0,0,0.06);
+}
+
+/* Section spacing - more breathing room */
+.lt-section { padding: 2rem 2.2rem 1.8rem; }
+
+@media (max-width: 768px) {
+  .lt-dm-canvas { width: 80px; height: 80px; }
+  .lt-duomo-box { padding: 0.4rem 0.5rem; }
+  .lt-duomo-bars { height: 32px; }
+}

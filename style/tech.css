@@ -335,14 +335,14 @@ body {
   padding: 0.5rem 2rem;
   background: rgba(123,94,167,0.1);
   border-top: 1px solid rgba(123,94,167,0.3);
-  font-size: 0.44rem;
+  font-size: 0.49rem;
   letter-spacing: 0.16em;
-  color: rgba(123,94,167,0.4);
+  color: #eeeae0;
   text-transform: uppercase;
   flex-wrap: wrap;
   gap: 0.4rem;
 }
-.ticket-bottom-mid { color: rgba(255,255,255,0.12); }
+.ticket-bottom-mid { color: #eeeae0; }
 
 /* ── CV DRAWER ── */
 .cv-backdrop {
@@ -412,7 +412,7 @@ body {
 .cv-entry-dates { display: flex; flex-direction: column; align-items: flex-end; gap: 0.12rem; }
 .cv-date-from, .cv-date-to { font-family: 'Doto', monospace; font-size: 0.62rem; letter-spacing: 0.1em; color: var(--green); }
 .cv-date-arrow { font-size: 0.5rem; color: rgba(123,94,167,0.4); }
-.cv-entry-num { font-size: 0.44rem; letter-spacing: 0.16em; color: rgba(255,255,255,0.2); }
+.cv-entry-num { font-size: 0.49rem; letter-spacing: 0.16em; color: rgba(255,255,255,0.2); }
 .cv-entry-body { flex: 1; display: flex; flex-direction: column; gap: 0.28rem; }
 .cv-entry-company { font-family: 'Doto', monospace; font-size: 0.95rem; letter-spacing: 0.1em; color: var(--text-primary); }
 .cv-entry-role { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--accent-bright); line-height: 1.35; }
@@ -431,7 +431,7 @@ body {
 .cv-tag--green:hover { border-color: var(--green); background: rgba(74,140,92,0.08); }
 .cv-tag--accent { border-color: rgba(168,127,212,0.3); color: var(--accent-bright); }
 .cv-tag--accent:hover { border-color: var(--accent-bright); background: rgba(168,127,212,0.08); }
-.cv-level { font-size: 0.44rem; letter-spacing: 0.14em; color: var(--accent); margin-left: 0.35em; opacity: 0.8; }
+.cv-level { font-size: 0.49rem; letter-spacing: 0.14em; color: var(--accent); margin-left: 0.35em; opacity: 0.8; }
 .cv-int-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
 .cv-int-item { padding: 1.2rem 1.4rem; border-right: 1px solid rgba(255,255,255,0.07); }
 .cv-int-item:last-child { border-right: none; }

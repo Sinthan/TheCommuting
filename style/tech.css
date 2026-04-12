@@ -432,11 +432,11 @@ body {
 .cv-tag--accent { border-color: rgba(168,127,212,0.3); color: var(--accent-bright); }
 .cv-tag--accent:hover { border-color: var(--accent-bright); background: rgba(168,127,212,0.08); }
 .cv-level { font-size: 0.49rem; letter-spacing: 0.14em; color: var(--accent); margin-left: 0.35em; opacity: 0.8; }
-.cv-int-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
-.cv-int-item { padding: 1.2rem 1.4rem; border-right: 1px solid rgba(255,255,255,0.07); }
-.cv-int-item:last-child { border-right: none; }
-.cv-int-label { font-family: 'Doto', monospace; font-size: 0.66rem; letter-spacing: 0.1em; color: var(--accent-bright); margin-bottom: 0.5rem; }
-.cv-int-desc { font-size: 0.66rem; line-height: 1.8; color: #c0ccc8; }
+.cv-int-grid { display: flex; flex-direction: column; gap: 0; }
+.cv-int-item { padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.07); display: flex; align-items: baseline; gap: 1.4rem; }
+.cv-int-item:last-child { border-bottom: none; }
+.cv-int-label { font-family: 'Doto', monospace; font-size: 0.66rem; letter-spacing: 0.1em; color: var(--accent-bright); flex-shrink: 0; min-width: 130px; }
+.cv-int-desc { font-size: 0.72rem; line-height: 1.8; color: #c0ccc8; }
 
 /* ── NAV ACTIVE ── */
 .nav-active { color: var(--green) !important; }
@@ -474,15 +474,11 @@ body {
   .cv-entry-side { min-width: 68px; }
   .cv-skills-row { flex-direction: column; gap: 0.5rem; }
   .cv-skills-label { text-align: left; min-width: unset; }
-  .cv-int-grid { grid-template-columns: repeat(2, 1fr); }
-  .cv-int-item:nth-child(2) { border-right: none; }
-  .cv-int-item { border-bottom: 1px solid rgba(255,255,255,0.06); }
-  .cv-int-item:nth-last-child(-n+2) { border-bottom: none; }
+
 }
 
 @media (max-width: 480px) {
-  .cv-int-grid { grid-template-columns: 1fr; }
-  .cv-int-item { border-right: none; }
+
   .ticket-passenger-fields { flex-direction: column; gap: 0.7rem; }
   .tsr-meta { display: none; }
 }

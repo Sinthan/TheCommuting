@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════════════
-   tech.css — A Working Life
+   tech.css — A Working Life / Train Ticket
    Paths relative to style/ → ../assets/
    ══════════════════════════════════════════════════════════════════ */
 
@@ -10,276 +10,344 @@ body {
 }
 
 /* ── PAGE HEADER ── */
-.tech-header {
-  padding: 1.8rem 3.5rem 1.4rem;
-  border-bottom: 1px solid var(--glass-border);
+.tech-header { padding: 1.8rem 3.5rem 1.2rem; border-bottom: 1px solid var(--glass-border); }
+.tech-eyebrow { font-size: 0.62rem; letter-spacing: 0.28em; color: var(--accent); margin-bottom: 0.4rem; text-transform: uppercase; }
+.tech-title { font-family: 'Doto', monospace; font-size: clamp(1.6rem, 3.5vw, 3rem); font-weight: 700; letter-spacing: 0.08em; color: var(--text-primary); }
+.tech-sub { font-size: 0.6rem; letter-spacing: 0.14em; color: var(--accent); opacity: 0.65; margin-top: 0.3rem; }
+
+/* ── TICKET WRAP ── */
+.ticket-wrap { padding: 2rem 3.5rem 2.5rem; }
+
+.ticket {
+  border: 1px solid rgba(123,94,167,0.5);
+  background: rgba(10,10,18,0.92);
+  box-shadow:
+    inset 0 0 80px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(255,255,255,0.03),
+    0 4px 40px rgba(0,0,0,0.5);
+  position: relative;
+  /* Punched-hole notches on left and right — pure CSS */
 }
-.tech-eyebrow {
-  font-size: 0.62rem;
-  letter-spacing: 0.28em;
-  color: var(--accent);
-  margin-bottom: 0.4rem;
+
+/* Left notch */
+.ticket::before {
+  content: '';
+  position: absolute;
+  left: -1px; top: 50%;
+  transform: translateY(-50%);
+  width: 14px; height: 28px;
+  background: var(--bg);
+  border-right: 1px solid rgba(123,94,167,0.5);
+  border-radius: 0 14px 14px 0;
+  z-index: 2;
+}
+/* Right notch */
+.ticket::after {
+  content: '';
+  position: absolute;
+  right: -1px; top: 50%;
+  transform: translateY(-50%);
+  width: 14px; height: 28px;
+  background: var(--bg);
+  border-left: 1px solid rgba(123,94,167,0.5);
+  border-radius: 14px 0 0 14px;
+  z-index: 2;
+}
+
+/* ── TOP BAND ── */
+.ticket-top-band {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.55rem 2rem;
+  background: rgba(123,94,167,0.18);
+  border-bottom: 1px solid rgba(123,94,167,0.35);
+  font-size: 0.52rem;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
+  color: var(--text-muted);
 }
-.tech-title {
-  font-family: 'Doto', monospace;
-  font-size: clamp(1.6rem, 3.5vw, 3rem);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--text-primary);
-}
-.tech-sub {
-  font-size: 0.6rem;
-  letter-spacing: 0.14em;
-  color: var(--accent);
-  opacity: 0.65;
-  margin-top: 0.3rem;
-}
+.ticket-issuer { color: var(--accent-bright); }
+.ticket-type { color: var(--text-muted); }
+.ticket-serial { color: rgba(123,94,167,0.55); }
 
-/* ── TICKET WRAP (header only) ── */
-.ticket-wrap {
-  padding: 1.6rem 3.5rem 0;
-}
-
-.long-ticket {
-  border: 1px solid rgba(123,94,167,0.45);
-  background: rgba(10,10,18,0.88);
-  box-shadow: inset 0 0 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.03);
-}
-
-/* ── TICKET HEADER ── */
-.lt-header {
+/* ── TICKET BODY ── */
+.ticket-body {
   display: flex;
   align-items: stretch;
-  border-bottom: 1px solid rgba(123,94,167,0.3);
-  background: rgba(255,255,255,0.025);
 }
 
-/* ── DUOMO ── */
-.lt-header-left {
-  padding: 1.2rem 1.2rem;
-  border-right: 1px solid rgba(255,255,255,0.07);
-  display: flex;
-  align-items: center;
-}
-.lt-duomo {
+/* ── LEFT COLUMN ── */
+.ticket-left {
+  width: 180px;
+  flex-shrink: 0;
+  border-right: 2px dashed rgba(123,94,167,0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.38rem;
-}
-.lt-duomo-label {
-  font-size: 0.42rem;
-  letter-spacing: 0.2em;
-  color: var(--text-muted);
-  text-transform: uppercase;
-}
-.lt-duomo-box {
-  border: 1px solid rgba(123,94,167,0.4);
-  padding: 0.5rem 0.6rem;
-  background: rgba(0,0,0,0.2);
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-}
-.lt-duomo-bars {
-  display: flex;
-  gap: 2px;
-  align-items: flex-end;
-  height: 44px;
-}
-.lt-duomo-bars span {
-  display: block;
-  width: 3px;
-  height: var(--h, 50%);
-  background: linear-gradient(to top, rgba(123,94,167,0.8), rgba(168,127,212,0.4));
-}
-.lt-duomo-bars span.lt-duomo-spire {
-  background: linear-gradient(to top, rgba(168,127,212,0.9), rgba(200,170,240,1));
-  box-shadow: 0 0 4px rgba(168,127,212,0.6);
-}
-.lt-barcode-num {
-  font-size: 0.42rem;
-  letter-spacing: 0.12em;
-  color: rgba(123,94,167,0.55);
+  padding: 1.4rem 1rem 1rem;
+  gap: 1.2rem;
+  background: rgba(0,0,0,0.12);
 }
 
-/* ── PORTRAIT ── */
-.lt-header-portrait {
-  padding: 0.9rem 0.8rem;
-  border-right: 1px solid rgba(255,255,255,0.07);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.lt-portrait-wrap {
+/* Portrait */
+.ticket-portrait-wrap {
   position: relative;
-  width: 108px;
-  height: 108px;
-  flex-shrink: 0;
+  width: 120px;
+  height: 120px;
   overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid rgba(123,94,167,0.4);
 }
-.lt-portrait-img {
+.ticket-portrait-img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(100%) sepia(90%) hue-rotate(220deg) saturate(200%) brightness(0.72);
+  /* purple tint — still shows the face */
+  filter: grayscale(80%) sepia(60%) hue-rotate(220deg) saturate(160%) brightness(0.78);
 }
-/* dot matrix overlay */
-.lt-portrait-dots {
+/* dot matrix overlay — TRANSPARENT, pointer-events none */
+.ticket-portrait-dots {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle, rgba(168,127,212,0.22) 1px, transparent 1px);
+  background: radial-gradient(circle, rgba(168,127,212,0.18) 1px, transparent 1px);
   background-size: 5px 5px;
   pointer-events: none;
   z-index: 1;
+  /* mix-blend-mode keeps dots visible without hiding the image */
+  mix-blend-mode: screen;
 }
-/* vignette */
-.lt-portrait-wrap::after {
-  content: '';
+.ticket-portrait-vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center, transparent 50%, rgba(8,8,20,0.6) 100%);
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(8,8,20,0.5) 100%);
   pointer-events: none;
   z-index: 2;
 }
 
-/* ── NAME / META ── */
-.lt-header-center {
-  flex: 1;
-  padding: 1.2rem 1.6rem;
+/* Duomo barcode */
+.ticket-duomo {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 0.35rem;
+  width: 100%;
 }
-.lt-passenger-name {
-  font-family: 'Doto', monospace;
-  font-size: 1.08rem;
+.ticket-duomo-label {
+  font-size: 0.4rem;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+.ticket-duomo-bars {
+  display: flex;
+  gap: 2px;
+  align-items: flex-end;
+  height: 40px;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid rgba(123,94,167,0.35);
+  background: rgba(0,0,0,0.15);
+}
+.ticket-duomo-bars span {
+  display: block;
+  width: 3px;
+  height: var(--h, 50%);
+  background: linear-gradient(to top, rgba(123,94,167,0.85), rgba(168,127,212,0.45));
+}
+.ticket-duomo-bars span.spire {
+  background: linear-gradient(to top, rgba(168,127,212,1), rgba(210,180,255,1));
+  box-shadow: 0 0 4px rgba(168,127,212,0.7);
+}
+.ticket-duomo-station {
+  font-size: 0.38rem;
   letter-spacing: 0.12em;
-  color: var(--text-primary);
+  color: rgba(123,94,167,0.6);
+  text-align: center;
+  text-transform: uppercase;
 }
-.lt-passenger-meta {
+
+/* ── RIGHT COLUMN ── */
+.ticket-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Passenger block */
+.ticket-passenger {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.8rem;
+  padding: 1.4rem 1.8rem 1.2rem;
+  border-bottom: 1px solid rgba(123,94,167,0.2);
+  flex-wrap: wrap;
+}
+.ticket-passenger-name {
+  font-family: 'Doto', monospace;
+  font-size: 1.15rem;
+  letter-spacing: 0.1em;
+  color: var(--text-primary);
+  width: 100%;
+  margin-bottom: 0.2rem;
+}
+.ticket-passenger-fields {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  flex: 1;
+}
+.tp-field { display: flex; flex-direction: column; gap: 0.15rem; }
+.tp-label { font-size: 0.42rem; letter-spacing: 0.22em; color: var(--text-muted); text-transform: uppercase; }
+.tp-value { font-size: 0.7rem; letter-spacing: 0.08em; color: var(--text-primary); }
+.tp-value--accent { color: var(--accent-bright); }
+.tp-value--green { color: var(--green); text-shadow: 0 0 8px rgba(74,140,92,0.35); }
+
+.ticket-dl-btn {
+  font-size: 0.54rem;
+  letter-spacing: 0.16em;
+  color: var(--green);
+  text-decoration: none;
+  border: 1px solid rgba(74,140,92,0.38);
+  padding: 0.38rem 0.75rem;
+  align-self: center;
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.ticket-dl-btn:hover { color: var(--accent-bright); border-color: rgba(168,127,212,0.5); background: rgba(123,94,167,0.08); }
+
+/* ── PERFORATION between passenger and sections ── */
+.ticket-perf {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  flex-wrap: wrap;
-  font-size: 0.55rem;
-  letter-spacing: 0.14em;
-  color: #c0ccc8;
-  text-transform: uppercase;
-}
-.lt-sep { color: rgba(123,94,167,0.4); }
-.lt-status { color: var(--green); text-shadow: 0 0 8px rgba(74,140,92,0.4); }
-
-/* ── DOWNLOAD / CLASS ── */
-.lt-header-right {
-  padding: 1.2rem 1.4rem;
-  border-left: 2px dashed rgba(123,94,167,0.25);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 0.8rem;
-  min-width: 150px;
-}
-.lt-dl-btn {
-  font-size: 0.56rem;
-  letter-spacing: 0.18em;
-  color: var(--green);
-  text-decoration: none;
-  border: 1px solid rgba(74,140,92,0.35);
-  padding: 0.38rem 0.72rem;
-  transition: color 0.2s, border-color 0.2s, background 0.2s;
-  white-space: nowrap;
-}
-.lt-dl-btn:hover { color: var(--accent-bright); border-color: rgba(168,127,212,0.5); background: rgba(123,94,167,0.08); }
-.lt-class { display: flex; flex-direction: column; align-items: flex-end; gap: 0.18rem; }
-.lt-class-label { font-size: 0.42rem; letter-spacing: 0.22em; color: var(--text-muted); }
-.lt-class-val { font-family: 'Doto', monospace; font-size: 0.62rem; letter-spacing: 0.1em; color: var(--accent-bright); }
-
-/* ── CV BOARD (section cards) ── */
-.cv-board {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  margin: 0 3.5rem;
-  border: 1px solid rgba(123,94,167,0.3);
-  border-top: none;
-  background: rgba(8,8,14,0.6);
-}
-
-.cv-card {
-  padding: 1.6rem 1.4rem 1.4rem;
-  border-right: 1px solid rgba(123,94,167,0.2);
-  cursor: pointer;
+  padding: 0 1.8rem;
+  height: 24px;
   position: relative;
-  overflow: hidden;
-  transition: background 0.22s;
+  background: rgba(0,0,0,0.18);
 }
-.cv-card:last-child { border-right: none; }
-.cv-card:hover { background: rgba(123,94,167,0.08); }
-.cv-card:hover .cv-card-arrow { opacity: 1; transform: translateX(0); }
-
-/* corner dot pattern */
-.cv-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 48px; height: 48px;
-  background: radial-gradient(circle, rgba(123,94,167,0.3) 1px, transparent 1px);
-  background-size: 6px 6px;
-}
-
-/* top accent line per card */
-.cv-card::after {
+/* dashed top and bottom */
+.ticket-perf::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(to right, rgba(123,94,167,0.5), transparent);
-  opacity: 0;
-  transition: opacity 0.22s;
+  height: 1px;
+  background: repeating-linear-gradient(to right, transparent 0px, transparent 5px, rgba(123,94,167,0.35) 5px, rgba(123,94,167,0.35) 10px);
 }
-.cv-card:hover::after { opacity: 1; }
-
-.cv-card-num {
-  font-family: 'Doto', monospace;
-  font-size: 0.54rem;
-  letter-spacing: 0.2em;
-  color: var(--accent-bright);
-  margin-bottom: 0.6rem;
-}
-.cv-card-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem;
-  color: var(--text-primary);
-  margin-bottom: 0.5rem;
-  line-height: 1.25;
-}
-.cv-card-desc {
-  font-size: 0.62rem;
-  line-height: 1.75;
-  color: var(--text-muted);
-}
-.cv-card-arrow {
+.ticket-perf::after {
+  content: '';
   position: absolute;
-  bottom: 1rem; right: 1.1rem;
-  font-size: 0.54rem;
-  color: var(--accent-bright);
-  opacity: 0;
-  transform: translateX(-5px);
-  transition: opacity 0.22s, transform 0.22s;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: repeating-linear-gradient(to right, transparent 0px, transparent 5px, rgba(123,94,167,0.35) 5px, rgba(123,94,167,0.35) 10px);
 }
+.ticket-perf-line {
+  flex: 1;
+  height: 1px;
+  background: repeating-linear-gradient(to right, rgba(123,94,167,0.25) 0px, rgba(123,94,167,0.25) 3px, transparent 3px, transparent 7px);
+}
+.ticket-perf-scissors { font-size: 0.7rem; color: rgba(123,94,167,0.45); }
+
+/* ── SECTION ROWS ── */
+.ticket-sections { flex: 1; }
+
+.ticket-section-row {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 0.9rem 1.8rem;
+  border-bottom: 1px solid rgba(123,94,167,0.12);
+  cursor: pointer;
+  transition: background 0.2s;
+  position: relative;
+}
+.ticket-section-row:last-child { border-bottom: none; }
+.ticket-section-row:hover { background: rgba(123,94,167,0.07); }
+.ticket-section-row:hover .tsr-arrow { opacity: 1; transform: translateX(0); color: var(--accent-bright); }
+
+/* left accent on hover */
+.ticket-section-row::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform 0.2s;
+}
+.ticket-section-row:hover::before { transform: scaleY(1); }
+
+.tsr-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 68px;
+  flex-shrink: 0;
+}
+.tsr-code {
+  font-family: 'Doto', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  color: var(--accent-bright);
+}
+.tsr-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.tsr-mid {
+  flex: 1;
+  font-size: 0.65rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  border-left: 1px solid rgba(255,255,255,0.06);
+  padding-left: 1.2rem;
+}
+
+.tsr-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+.tsr-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 0.1rem; }
+.tsr-meta-label { font-size: 0.4rem; letter-spacing: 0.2em; color: var(--text-muted); text-transform: uppercase; }
+.tsr-meta-val { font-family: 'Doto', monospace; font-size: 0.88rem; color: var(--green); }
+.tsr-arrow {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  opacity: 0.4;
+  transform: translateX(-4px);
+  transition: opacity 0.2s, transform 0.2s, color 0.2s;
+}
+
+/* ── BOTTOM BAND ── */
+.ticket-bottom-band {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+  background: rgba(123,94,167,0.1);
+  border-top: 1px solid rgba(123,94,167,0.3);
+  font-size: 0.44rem;
+  letter-spacing: 0.16em;
+  color: rgba(123,94,167,0.4);
+  text-transform: uppercase;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.ticket-bottom-mid { color: rgba(255,255,255,0.12); }
 
 /* ── CV DRAWER ── */
 .cv-backdrop {
-  position: fixed;
-  inset: 0;
+  position: fixed; inset: 0;
   background: rgba(0,0,0,0.6);
   z-index: 190;
-  opacity: 0;
-  pointer-events: none;
+  opacity: 0; pointer-events: none;
   transition: opacity 0.3s;
 }
 .cv-backdrop.open { opacity: 1; pointer-events: all; }
@@ -298,14 +366,7 @@ body {
   box-shadow: 0 -20px 60px rgba(0,0,0,0.8);
 }
 .cv-drawer.open { transform: translateY(0); }
-
-.cv-drawer-inner {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow: hidden;
-}
-
+.cv-drawer-inner { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
 .cv-drawer-header {
   display: flex;
   justify-content: space-between;
@@ -315,22 +376,13 @@ body {
   flex-shrink: 0;
   background: rgba(255,255,255,0.02);
 }
-.cv-drawer-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  font-size: 0.6rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
+.cv-drawer-meta { display: flex; align-items: center; gap: 0.8rem; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; }
 .cv-drawer-section-id { font-family: 'Doto', monospace; color: var(--green); font-size: 0.72rem; }
 .cv-drawer-sep { color: rgba(123,94,167,0.4); }
 .cv-drawer-section-title { color: var(--accent-bright); }
-
 .cv-drawer-close {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
+  font-size: 0.62rem; letter-spacing: 0.1em;
   background: none;
   border: 1px solid rgba(74,140,92,0.4);
   color: var(--green);
@@ -339,10 +391,8 @@ body {
   transition: background 0.2s, border-color 0.2s;
 }
 .cv-drawer-close:hover { background: rgba(74,140,92,0.1); border-color: var(--green); }
-
 .cv-drawer-body {
-  flex: 1;
-  overflow-y: auto;
+  flex: 1; overflow-y: auto;
   padding: 2rem 2.5rem;
   scrollbar-width: thin;
   scrollbar-color: rgba(123,94,167,0.3) transparent;
@@ -350,81 +400,36 @@ body {
 .cv-drawer-body::-webkit-scrollbar { width: 4px; }
 .cv-drawer-body::-webkit-scrollbar-thumb { background: rgba(123,94,167,0.35); }
 
-/* ── DRAWER ENTRY STYLES ── */
-.cv-entry {
-  display: flex;
-  gap: 2rem;
-  align-items: flex-start;
-}
+/* ── DRAWER CONTENT STYLES ── */
+.cv-entry { display: flex; gap: 2rem; align-items: flex-start; }
 .cv-inner-divider {
-  height: 1px;
-  margin: 1.6rem 0;
+  height: 1px; margin: 1.6rem 0;
   background: repeating-linear-gradient(to right, rgba(255,255,255,0.07) 0px, rgba(255,255,255,0.07) 4px, transparent 4px, transparent 10px);
 }
-.cv-entry-side {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.5rem;
-  min-width: 90px;
-  flex-shrink: 0;
-}
+.cv-entry-side { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; min-width: 90px; flex-shrink: 0; }
 .cv-entry-dates { display: flex; flex-direction: column; align-items: flex-end; gap: 0.12rem; }
-.cv-date-from, .cv-date-to {
-  font-family: 'Doto', monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  color: var(--green);
-}
+.cv-date-from, .cv-date-to { font-family: 'Doto', monospace; font-size: 0.62rem; letter-spacing: 0.1em; color: var(--green); }
 .cv-date-arrow { font-size: 0.5rem; color: rgba(123,94,167,0.4); }
 .cv-entry-num { font-size: 0.44rem; letter-spacing: 0.16em; color: rgba(255,255,255,0.2); }
-
 .cv-entry-body { flex: 1; display: flex; flex-direction: column; gap: 0.28rem; }
-.cv-entry-company {
-  font-family: 'Doto', monospace;
-  font-size: 0.95rem;
-  letter-spacing: 0.1em;
-  color: var(--text-primary);
-}
-.cv-entry-role {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.05rem;
-  color: var(--accent-bright);
-  line-height: 1.35;
-}
+.cv-entry-company { font-family: 'Doto', monospace; font-size: 0.95rem; letter-spacing: 0.1em; color: var(--text-primary); }
+.cv-entry-role { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--accent-bright); line-height: 1.35; }
 .cv-entry-dept { font-size: 0.6rem; letter-spacing: 0.1em; color: #8ea8a0; margin-bottom: 0.35rem; }
-
 .cv-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; margin-top: 0.2rem; }
-.cv-bullets li {
-  font-size: 0.7rem;
-  line-height: 1.8;
-  color: #c0ccc8;
-  padding-left: 1.4em;
-  position: relative;
-}
+.cv-bullets li { font-size: 0.7rem; line-height: 1.8; color: #c0ccc8; padding-left: 1.4em; position: relative; }
 .cv-bullets li::before { content: '//'; position: absolute; left: 0; color: var(--accent); font-size: 0.52rem; top: 0.15em; }
 .cv-desc { font-size: 0.7rem; line-height: 1.8; color: #c0ccc8; margin-top: 0.2rem; }
-
-/* Skills in drawer */
 .cv-skills-board { display: flex; flex-direction: column; gap: 1.3rem; }
 .cv-skills-row { display: flex; align-items: flex-start; gap: 2rem; }
 .cv-skills-label { font-size: 0.52rem; letter-spacing: 0.24em; color: var(--accent-bright); min-width: 90px; flex-shrink: 0; text-align: right; padding-top: 0.3rem; }
 .cv-skills-tags { flex: 1; display: flex; flex-wrap: wrap; gap: 0.45rem; }
-.cv-tag {
-  font-size: 0.62rem; letter-spacing: 0.08em; color: var(--text-primary);
-  border: 1px solid rgba(255,255,255,0.12);
-  padding: 0.28rem 0.65rem;
-  background: rgba(255,255,255,0.025);
-  transition: border-color 0.18s, background 0.18s;
-}
+.cv-tag { font-size: 0.62rem; letter-spacing: 0.08em; color: var(--text-primary); border: 1px solid rgba(255,255,255,0.12); padding: 0.28rem 0.65rem; background: rgba(255,255,255,0.025); transition: border-color 0.18s, background 0.18s; }
 .cv-tag:hover { border-color: rgba(123,94,167,0.45); background: rgba(123,94,167,0.07); }
 .cv-tag--green { border-color: rgba(74,140,92,0.3); color: var(--green); }
 .cv-tag--green:hover { border-color: var(--green); background: rgba(74,140,92,0.08); }
 .cv-tag--accent { border-color: rgba(168,127,212,0.3); color: var(--accent-bright); }
 .cv-tag--accent:hover { border-color: var(--accent-bright); background: rgba(168,127,212,0.08); }
 .cv-level { font-size: 0.44rem; letter-spacing: 0.14em; color: var(--accent); margin-left: 0.35em; opacity: 0.8; }
-
-/* Interests in drawer */
 .cv-int-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
 .cv-int-item { padding: 1.2rem 1.4rem; border-right: 1px solid rgba(255,255,255,0.07); }
 .cv-int-item:last-child { border-right: none; }
@@ -438,28 +443,35 @@ body {
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .tech-header { padding: 1.6rem 1.4rem 1rem; }
-  .ticket-wrap { padding: 1rem 0 0; }
-  .long-ticket { border-left: none; border-right: none; }
+  .ticket-wrap { padding: 1rem 0 1.5rem; }
+  .ticket { border-left: none; border-right: none; }
+  .ticket::before, .ticket::after { display: none; }
+  .ticket-top-band { padding: 0.5rem 1.2rem; flex-wrap: wrap; gap: 0.3rem; }
 
-  .lt-header { flex-wrap: wrap; }
-  .lt-header-left { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); width: 100%; justify-content: center; }
-  .lt-header-portrait { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); padding: 0.8rem; }
-  .lt-portrait-wrap { width: 80px; height: 80px; }
-  .lt-header-center { padding: 1rem; }
-  .lt-header-right { border-left: none; border-top: 2px dashed rgba(123,94,167,0.25); flex-direction: row; justify-content: space-between; align-items: center; min-width: unset; width: 100%; }
+  .ticket-body { flex-direction: column; }
+  .ticket-left {
+    width: 100%;
+    flex-direction: row;
+    border-right: none;
+    border-bottom: 2px dashed rgba(123,94,167,0.3);
+    padding: 1rem 1.2rem;
+    justify-content: flex-start;
+    gap: 1.4rem;
+  }
+  .ticket-portrait-wrap { width: 90px; height: 90px; }
 
-  .cv-board { margin: 0; border-left: none; border-right: none; grid-template-columns: 1fr 1fr; }
-  .cv-card:nth-child(2n) { border-right: none; }
-  .cv-card { border-bottom: 1px solid rgba(123,94,167,0.2); }
+  .ticket-passenger { padding: 1rem 1.2rem; gap: 1rem; }
+  .ticket-passenger-fields { gap: 1rem; }
+
+  .ticket-section-row { padding: 0.85rem 1.2rem; gap: 0.8rem; }
+  .tsr-mid { padding-left: 0.8rem; font-size: 0.6rem; }
 
   .cv-drawer { height: 80vh; }
   .cv-drawer-body { padding: 1.4rem 1.2rem; }
   .cv-entry { gap: 1rem; }
   .cv-entry-side { min-width: 68px; }
-
   .cv-skills-row { flex-direction: column; gap: 0.5rem; }
   .cv-skills-label { text-align: left; min-width: unset; }
-
   .cv-int-grid { grid-template-columns: repeat(2, 1fr); }
   .cv-int-item:nth-child(2) { border-right: none; }
   .cv-int-item { border-bottom: 1px solid rgba(255,255,255,0.06); }
@@ -467,11 +479,8 @@ body {
 }
 
 @media (max-width: 480px) {
-  .cv-board { grid-template-columns: 1fr; }
-  .cv-card { border-right: none; }
   .cv-int-grid { grid-template-columns: 1fr; }
-  .cv-int-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
-  .cv-int-item:last-child { border-bottom: none; }
-  .lt-passenger-meta { flex-direction: column; gap: 0.2rem; }
-  .lt-sep { display: none; }
+  .cv-int-item { border-right: none; }
+  .ticket-passenger-fields { flex-direction: column; gap: 0.7rem; }
+  .tsr-meta { display: none; }
 }

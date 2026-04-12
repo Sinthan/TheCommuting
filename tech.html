@@ -83,113 +83,180 @@
       <div class="tech-sub" id="t-tech-sub">&gt;_ BOARDING PASS — CAREER IN TRANSIT</div>
     </div>
 
-    <!-- ── TICKET HEADER ── -->
+    <!-- ═══════════════════════════════════
+         THE TICKET
+         ═══════════════════════════════════ -->
     <div class="ticket-wrap">
-      <div class="long-ticket">
-        <div class="lt-header">
+      <div class="ticket">
 
-          <!-- DUOMO -->
-          <div class="lt-header-left">
-            <div class="lt-duomo">
-              <div class="lt-duomo-label">Departing from</div>
-              <div class="lt-duomo-box">
-                <div class="lt-duomo-bars">
-                  <span style="--h:28%"></span><span style="--h:32%"></span>
-                  <span style="--h:36%"></span><span style="--h:40%"></span>
-                  <span style="--h:44%"></span><span style="--h:48%"></span>
-                  <span style="--h:52%"></span><span style="--h:58%"></span>
-                  <span style="--h:66%"></span><span style="--h:78%"></span>
-                  <span style="--h:88%"></span>
-                  <span style="--h:100%" class="lt-duomo-spire"></span>
-                  <span style="--h:90%"></span><span style="--h:80%"></span>
-                  <span style="--h:68%"></span><span style="--h:60%"></span>
-                  <span style="--h:64%"></span><span style="--h:58%"></span>
-                  <span style="--h:52%"></span><span style="--h:48%"></span>
-                  <span style="--h:56%" class="lt-duomo-spire"></span>
-                  <span style="--h:62%"></span><span style="--h:50%"></span>
-                  <span style="--h:44%"></span><span style="--h:40%"></span>
-                  <span style="--h:36%"></span><span style="--h:32%"></span>
-                  <span style="--h:28%"></span>
+        <!-- ── TOP BAND: issuer label ── -->
+        <div class="ticket-top-band">
+          <span class="ticket-issuer">THE COMMUTING RAILWAY CO.</span>
+          <span class="ticket-type">BOARDING PASS · 搭乘證</span>
+          <span class="ticket-serial">TC-SIN001-2025</span>
+        </div>
+
+        <!-- ── MAIN BODY ── -->
+        <div class="ticket-body">
+
+          <!-- LEFT: portrait + duomo -->
+          <div class="ticket-left">
+
+            <!-- Portrait -->
+            <div class="ticket-portrait-wrap">
+              <img src="./assets/propic.webp" alt="Agostino M. Cassese" class="ticket-portrait-img" />
+              <div class="ticket-portrait-dots"></div>
+              <div class="ticket-portrait-vignette"></div>
+            </div>
+
+            <!-- Duomo barcode under portrait -->
+            <div class="ticket-duomo">
+              <div class="ticket-duomo-label">Departing from</div>
+              <div class="ticket-duomo-bars">
+                <span style="--h:28%"></span><span style="--h:32%"></span>
+                <span style="--h:38%"></span><span style="--h:44%"></span>
+                <span style="--h:50%"></span><span style="--h:56%"></span>
+                <span style="--h:63%"></span><span style="--h:72%"></span>
+                <span style="--h:83%"></span><span style="--h:95%"></span>
+                <span style="--h:100%" class="spire"></span>
+                <span style="--h:94%"></span><span style="--h:82%"></span>
+                <span style="--h:70%"></span><span style="--h:62%"></span>
+                <span style="--h:66%"></span><span style="--h:58%"></span>
+                <span style="--h:52%"></span><span style="--h:47%"></span>
+                <span style="--h:54%" class="spire"></span>
+                <span style="--h:60%"></span><span style="--h:48%"></span>
+                <span style="--h:42%"></span><span style="--h:37%"></span>
+                <span style="--h:32%"></span><span style="--h:28%"></span>
+              </div>
+              <div class="ticket-duomo-station">MILAN CENTRAL STATION</div>
+            </div>
+
+          </div><!-- /.ticket-left -->
+
+          <!-- RIGHT: passenger info + section rows -->
+          <div class="ticket-right">
+
+            <!-- Passenger block -->
+            <div class="ticket-passenger">
+              <div class="ticket-passenger-name">CASSESE / AGOSTINO M.</div>
+              <div class="ticket-passenger-fields">
+                <div class="tp-field">
+                  <span class="tp-label">FROM</span>
+                  <span class="tp-value">NOLA (NA)</span>
+                </div>
+                <div class="tp-field">
+                  <span class="tp-label">DESTINATION</span>
+                  <span class="tp-value">NOWHERE IN PARTICULAR</span>
+                </div>
+                <div class="tp-field">
+                  <span class="tp-label">CLASS</span>
+                  <span class="tp-value tp-value--accent">PROJECT COORDINATOR</span>
+                </div>
+                <div class="tp-field">
+                  <span class="tp-label">STATUS</span>
+                  <span class="tp-value tp-value--green">&#9679; IN SERVICE</span>
                 </div>
               </div>
-              <div class="lt-barcode-num">MILAN CENTRAL STATION</div>
+              <a href="./assets/Cassese_AgostinoMaria_Resume.pdf" download class="ticket-dl-btn" id="t-tech-dl">&#8595; RESUME.PDF</a>
             </div>
-          </div>
 
-          <!-- PORTRAIT -->
-          <div class="lt-header-portrait">
-            <div class="lt-portrait-wrap">
-              <img src="./assets/propic.webp" alt="Agostino M. Cassese" class="lt-portrait-img" />
-              <div class="lt-portrait-dots"></div>
-            </div>
-          </div>
+            <!-- Perforation -->
+            <div class="ticket-perf"><div class="ticket-perf-line"></div><span class="ticket-perf-scissors">✂</span></div>
 
-          <!-- NAME + META -->
-          <div class="lt-header-center">
-            <div class="lt-passenger-name">CASSESE / AGOSTINO M.</div>
-            <div class="lt-passenger-meta">
-              <span>ORIGIN: NOLA (NA) IT</span>
-              <span class="lt-sep">·</span>
-              <span>DEST: NOWHERE IN PARTICULAR</span>
-              <span class="lt-sep">·</span>
-              <span class="lt-status">&#9679; IN SERVICE</span>
-            </div>
-          </div>
+            <!-- CV SECTION ROWS — each is a "ticket row" with label + short desc + click -->
+            <div class="ticket-sections">
 
-          <!-- DOWNLOAD + CLASS -->
-          <div class="lt-header-right">
-            <a href="./assets/Cassese_AgostinoMaria_Resume.pdf" download class="lt-dl-btn" id="t-tech-dl">&#8595; RESUME.PDF</a>
-            <div class="lt-class">
-              <span class="lt-class-label">CLASS</span>
-              <span class="lt-class-val">PROJECT COORDINATOR</span>
-            </div>
-          </div>
+              <div class="ticket-section-row" data-section="experience">
+                <div class="tsr-left">
+                  <div class="tsr-code">EXP</div>
+                  <div class="tsr-title">Experience</div>
+                </div>
+                <div class="tsr-mid">Two stops on the career line — Quantum evangelist → Smart City coordinator.</div>
+                <div class="tsr-right">
+                  <div class="tsr-meta">
+                    <span class="tsr-meta-label">STOPS</span>
+                    <span class="tsr-meta-val">2</span>
+                  </div>
+                  <span class="tsr-arrow">→</span>
+                </div>
+              </div>
 
-        </div><!-- /.lt-header -->
-      </div><!-- /.long-ticket -->
+              <div class="ticket-section-row" data-section="education">
+                <div class="tsr-left">
+                  <div class="tsr-code">EDU</div>
+                  <div class="tsr-title">Education</div>
+                </div>
+                <div class="tsr-mid">Computer Science BSc → Quantum Science MSc. From Salerno to Bari.</div>
+                <div class="tsr-right">
+                  <div class="tsr-meta">
+                    <span class="tsr-meta-label">DEGREES</span>
+                    <span class="tsr-meta-val">2</span>
+                  </div>
+                  <span class="tsr-arrow">→</span>
+                </div>
+              </div>
+
+              <div class="ticket-section-row" data-section="projects">
+                <div class="tsr-left">
+                  <div class="tsr-code">PROJ</div>
+                  <div class="tsr-title">Projects</div>
+                </div>
+                <div class="tsr-mid">AI fault prediction, urban data, quantum &amp; HPC education.</div>
+                <div class="tsr-right">
+                  <div class="tsr-meta">
+                    <span class="tsr-meta-label">PROJECTS</span>
+                    <span class="tsr-meta-val">3</span>
+                  </div>
+                  <span class="tsr-arrow">→</span>
+                </div>
+              </div>
+
+              <div class="ticket-section-row" data-section="skills">
+                <div class="tsr-left">
+                  <div class="tsr-code">SKL</div>
+                  <div class="tsr-title">Skills</div>
+                </div>
+                <div class="tsr-mid">Agile to Quantum, Linux to public speaking — management and technical range.</div>
+                <div class="tsr-right">
+                  <div class="tsr-meta">
+                    <span class="tsr-meta-label">CERTS</span>
+                    <span class="tsr-meta-val">5</span>
+                  </div>
+                  <span class="tsr-arrow">→</span>
+                </div>
+              </div>
+
+              <div class="ticket-section-row" data-section="interests">
+                <div class="tsr-left">
+                  <div class="tsr-code">INT</div>
+                  <div class="tsr-title">Interests</div>
+                </div>
+                <div class="tsr-mid">Linux, SCIFI, design, tabletop worlds — and writing when the fog rolls in.</div>
+                <div class="tsr-right">
+                  <div class="tsr-meta">
+                    <span class="tsr-meta-label">PASSIONS</span>
+                    <span class="tsr-meta-val">4</span>
+                  </div>
+                  <span class="tsr-arrow">→</span>
+                </div>
+              </div>
+
+            </div><!-- /.ticket-sections -->
+
+          </div><!-- /.ticket-right -->
+
+        </div><!-- /.ticket-body -->
+
+        <!-- ── BOTTOM BAND ── -->
+        <div class="ticket-bottom-band">
+          <span>TC-SIN001 · 2025 · THE COMMUTING</span>
+          <span class="ticket-bottom-mid">THIS TICKET IS NOT VALID FOR ACTUAL TRAVEL · 旅行には使えません</span>
+          <span>END OF RECORD ✂</span>
+        </div>
+
+      </div><!-- /.ticket -->
     </div><!-- /.ticket-wrap -->
 
-    <!-- ── CV SECTION CARDS ── -->
-    <div class="cv-board">
-
-      <div class="cv-card" data-section="experience">
-        <div class="cv-card-num">EXP</div>
-        <div class="cv-card-title">Experience</div>
-        <p class="cv-card-desc">Two stops on the career line — from Quantum evangelist to Smart City coordinator.</p>
-        <span class="cv-card-arrow">→ OPEN</span>
-      </div>
-
-      <div class="cv-card" data-section="education">
-        <div class="cv-card-num">EDU</div>
-        <div class="cv-card-title">Education</div>
-        <p class="cv-card-desc">Computer Science bachelor, Quantum Science master — from Salerno to Bari.</p>
-        <span class="cv-card-arrow">→ OPEN</span>
-      </div>
-
-      <div class="cv-card" data-section="projects">
-        <div class="cv-card-num">PROJ</div>
-        <div class="cv-card-title">Projects</div>
-        <p class="cv-card-desc">AI fault prediction, urban data aggregation, quantum &amp; HPC education.</p>
-        <span class="cv-card-arrow">→ OPEN</span>
-      </div>
-
-      <div class="cv-card" data-section="skills">
-        <div class="cv-card-num">SKL</div>
-        <div class="cv-card-title">Skills</div>
-        <p class="cv-card-desc">Management and technical range — from Agile to Quantum, Linux to public speaking.</p>
-        <span class="cv-card-arrow">→ OPEN</span>
-      </div>
-
-      <div class="cv-card" data-section="interests">
-        <div class="cv-card-num">INT</div>
-        <div class="cv-card-title">Interests</div>
-        <p class="cv-card-desc">Linux, SCIFI, design thinking, tabletop worlds, and writing when the fog rolls in.</p>
-        <span class="cv-card-arrow">→ OPEN</span>
-      </div>
-
-    </div><!-- /.cv-board -->
-
-    <!-- STATUS BAR -->
     <div class="status-bar">
       <div class="status-left">
         <span><span class="status-dot"></span>Career log active</span>
@@ -205,7 +272,6 @@
   <div class="cv-backdrop" id="cv-backdrop"></div>
   <div class="cv-drawer" id="cv-drawer">
     <div class="cv-drawer-inner">
-
       <div class="cv-drawer-header">
         <div class="cv-drawer-meta">
           <span class="cv-drawer-section-id" id="drawer-id">--</span>
@@ -214,27 +280,20 @@
         </div>
         <button class="cv-drawer-close" id="cv-drawer-close" aria-label="Close">✕</button>
       </div>
-
-      <div class="cv-drawer-body" id="cv-drawer-body">
-        <!-- injected by JS -->
-      </div>
-
+      <div class="cv-drawer-body" id="cv-drawer-body"></div>
     </div>
   </div>
 
   <script src="./scripts/translations.js"></script>
   <script>
-    // ── Nav hamburger ──
     document.getElementById('hamburger').addEventListener('click', () => {
       document.getElementById('hamburger').classList.toggle('open');
       document.getElementById('nav-drawer').classList.toggle('open');
     });
 
-    // ── CV section content ──
     const CV_SECTIONS = {
       experience: {
-        id: 'EXP',
-        title: 'Experience',
+        id: 'EXP', title: 'Experience',
         html: `
           <div class="cv-entry">
             <div class="cv-entry-side">
@@ -274,8 +333,7 @@
           </div>`
       },
       education: {
-        id: 'EDU',
-        title: 'Education',
+        id: 'EDU', title: 'Education',
         html: `
           <div class="cv-entry">
             <div class="cv-entry-side">
@@ -302,8 +360,7 @@
           </div>`
       },
       projects: {
-        id: 'PROJ',
-        title: 'Projects',
+        id: 'PROJ', title: 'Projects',
         html: `
           <div class="cv-entry">
             <div class="cv-entry-side">
@@ -327,7 +384,7 @@
               <div class="cv-entry-company">PILOT SNAP4CITY</div>
               <div class="cv-entry-role">Team Lead &amp; Stakeholder PoC</div>
               <div class="cv-entry-dept">Urban Mobility &amp; Digital Cities</div>
-              <p class="cv-desc">Led 6-person team exploring data aggregation tools for urban mobility (Univ. of Florence). Liaison for both stakeholders and colleagues.</p>
+              <p class="cv-desc">Led 6-person team exploring data aggregation for urban mobility (Univ. Florence). Liaison for stakeholders and colleagues.</p>
             </div>
           </div>
           <div class="cv-inner-divider"></div>
@@ -345,8 +402,7 @@
           </div>`
       },
       skills: {
-        id: 'SKL',
-        title: 'Skills',
+        id: 'SKL', title: 'Skills',
         html: `
           <div class="cv-skills-board">
             <div class="cv-skills-row"><div class="cv-skills-label">MANAGEMENT</div><div class="cv-skills-tags"><span class="cv-tag">Strategic Planning</span><span class="cv-tag">People Management</span><span class="cv-tag">Agile</span><span class="cv-tag">Documentation</span></div></div>
@@ -357,8 +413,7 @@
           </div>`
       },
       interests: {
-        id: 'INT',
-        title: 'Interests',
+        id: 'INT', title: 'Interests',
         html: `
           <div class="cv-int-grid">
             <div class="cv-int-item"><div class="cv-int-label">LINUX &amp; FOSS</div><p class="cv-int-desc" id="t-int-linux">Passionate about open-source software and Linux ecosystems.</p></div>
@@ -369,13 +424,11 @@
       }
     };
 
-    // ── Drawer logic ──
-    const drawer  = document.getElementById('cv-drawer');
+    const drawer   = document.getElementById('cv-drawer');
     const backdrop = document.getElementById('cv-backdrop');
 
-    function openDrawer(sectionKey) {
-      const s = CV_SECTIONS[sectionKey];
-      if (!s) return;
+    function openDrawer(key) {
+      const s = CV_SECTIONS[key]; if (!s) return;
       document.getElementById('drawer-id').textContent    = s.id;
       document.getElementById('drawer-title').textContent = s.title;
       document.getElementById('cv-drawer-body').innerHTML = s.html;
@@ -383,17 +436,15 @@
       backdrop.classList.add('open');
       document.body.style.overflow = 'hidden';
     }
-
     function closeDrawer() {
       drawer.classList.remove('open');
       backdrop.classList.remove('open');
       document.body.style.overflow = '';
     }
 
-    document.querySelectorAll('.cv-card').forEach(card => {
-      card.addEventListener('click', () => openDrawer(card.dataset.section));
+    document.querySelectorAll('.ticket-section-row').forEach(row => {
+      row.addEventListener('click', () => openDrawer(row.dataset.section));
     });
-
     document.getElementById('cv-drawer-close').addEventListener('click', closeDrawer);
     backdrop.addEventListener('click', closeDrawer);
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });

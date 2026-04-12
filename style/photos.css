@@ -139,16 +139,18 @@ body {
 }
 
 .timeline-stop.active .stop-dot {
+  animation: stationPulse 2s linear infinite;
 }
 
-
-/*
-  stationArrival — 5s, locked to beamDescend:
-  62%: beam arrives → dot flashes white
-  65%: settle to bright
-  72%: connector fires, dot holds
-  78%: dim back to rest
-*/
+/* dot blinks: dim → white flash → bright purple → dim
+   connector fires immediately after the flash peak */
+@keyframes stationPulse {
+  0%   { background: rgba(60,40,100,0.9);  border-color: rgba(168,127,212,0.5); box-shadow: none;                                            transform: scale(1);   }
+  20%  { background: #fff;                 border-color: #fff;                  box-shadow: 0 0 0 4px rgba(255,255,255,0.2), 0 0 14px #fff;  transform: scale(1.25); }
+  30%  { background: var(--accent-bright); border-color: #e0c8ff;               box-shadow: 0 0 10px var(--accent-bright), 0 0 4px #fff;     transform: scale(1.1); }
+  55%  { background: rgba(60,40,100,0.9);  border-color: rgba(168,127,212,0.5); box-shadow: none;                                            transform: scale(1);   }
+  100% { background: rgba(60,40,100,0.9);  border-color: rgba(168,127,212,0.5); box-shadow: none;                                            transform: scale(1);   }
+}
 
 
 .stop-dot::after { display: none; }
@@ -187,18 +189,16 @@ body {
 }
 
 .timeline-stop.active .stop-connector::after {
-  animation: connectorFire 1.5s linear infinite;
+  animation: connectorFire 2s linear infinite;
 }
 
-/*
-  connectorFire — 5s, fires at 65% (dot is lit), sweeps right, fades by 78%
-*/
+/* fires at 25% (dot peaking), sweeps across by 60%, fades by 70% */
 @keyframes connectorFire {
-  0%   { left: -80px; opacity: 0; }
-  5%   { left: -80px; opacity: 1; }
-  70%  { left: 100%;  opacity: 1; }
-  85%  { left: 100%;  opacity: 0; }
-  100% { left: 100%;  opacity: 0; }
+  0%,24% { left: -80px; opacity: 0; }
+  25%    { left: -80px; opacity: 1; }
+  60%    { left: 100%;  opacity: 1; }
+  70%    { left: 100%;  opacity: 0; }
+  100%   { left: 100%;  opacity: 0; }
 }
 
 /* ── VERTICAL TICK | at end of connector ── */

@@ -486,3 +486,47 @@ body {
   .ticket-passenger-fields { flex-direction: column; gap: 0.7rem; }
   .tsr-meta { display: none; }
 }
+
+/* ── PROJECT LINKS ── */
+.cv-links {
+  margin-top: 0.8rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid rgba(123,94,167,0.2);
+}
+.cv-links-label {
+  font-size: 0.52rem;
+  letter-spacing: 0.22em;
+  color: var(--accent-bright);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.cv-link-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.cv-link-list li {
+  font-size: 0.65rem;
+  line-height: 1.6;
+  padding-left: 1.2em;
+  position: relative;
+}
+.cv-link-list li::before {
+  content: '//';
+  position: absolute;
+  left: 0;
+  color: var(--green);
+  font-size: 0.5rem;
+  top: 0.15em;
+}
+.cv-link-list a {
+  color: #c0ccc8;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(123,94,167,0.3);
+  transition: color 0.2s, border-color 0.2s;
+}
+.cv-link-list a:hover {
+  color: var(--accent-bright);
+  border-bottom-color: var(--accent-bright);
+}

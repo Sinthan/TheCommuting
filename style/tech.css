@@ -530,3 +530,58 @@ body {
   color: var(--accent-bright);
   border-bottom-color: var(--accent-bright);
 }
+
+/* ── NARRATIVE SKILLS ── */
+.cv-narrative {
+  max-width: 680px;
+}
+.cv-narrative-para {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.82rem;
+  line-height: 2.0;
+  color: #c8d4d0;
+  margin-bottom: 1.4rem;
+}
+.cv-hl-accent {
+  color: var(--accent-bright);
+  font-style: normal;
+}
+.cv-hl-green {
+  color: var(--green);
+}
+.cv-hl-muted {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+}
+.cv-narrative-divider {
+  height: 1px;
+  margin: 1.6rem 0;
+  background: repeating-linear-gradient(
+    to right,
+    rgba(123,94,167,0.3) 0px,
+    rgba(123,94,167,0.3) 4px,
+    transparent 4px,
+    transparent 10px
+  );
+}
+.cv-narrative-inline-group {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+  flex-wrap: wrap;
+}
+.cv-narrative-inline-label {
+  font-size: 0.52rem;
+  letter-spacing: 0.22em;
+  color: var(--accent-bright);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.cv-narrative-inline-text {
+  font-size: 0.72rem;
+  color: #c0ccc8;
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+}

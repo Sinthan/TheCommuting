@@ -285,7 +285,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
-  min-width: 68px;
+  width: 130px;
   flex-shrink: 0;
 }
 .tsr-code {

@@ -446,7 +446,7 @@ body {
 @media (max-width: 768px) {
   .tech-header { padding: 1.6rem 1.4rem 1rem; }
   .ticket-wrap { padding: 1rem 0 1.5rem; }
-  .ticket { border-left: none; border-right: none; }
+  .ticket { border-top: none; border-bottom: none; }
   .ticket::before, .ticket::after { display: none; }
   .ticket-top-band { padding: 0.5rem 1.2rem; flex-wrap: wrap; gap: 0.3rem; }
 

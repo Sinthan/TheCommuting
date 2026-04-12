@@ -64,35 +64,7 @@ body {
   align-items: center;
 }
 
-.lt-barcode {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.3rem;
-}
 
-.lt-barcode-bars {
-  display: flex;
-  gap: 2px;
-  align-items: flex-end;
-  height: 40px;
-}
-
-.lt-barcode-bars span {
-  display: block;
-  width: 3px;
-  background: rgba(123,94,167,0.55);
-}
-.lt-barcode-bars span:nth-child(odd)  { height: 100%; }
-.lt-barcode-bars span:nth-child(3n)   { height: 60%; }
-.lt-barcode-bars span:nth-child(4n)   { height: 80%; }
-.lt-barcode-bars span:nth-child(5n)   { height: 45%; }
-
-.lt-barcode-num {
-  font-size: 0.46rem;
-  letter-spacing: 0.14em;
-  color: rgba(123,94,167,0.5);
-}
 
 .lt-header-center {
   flex: 1;
@@ -482,4 +454,60 @@ body {
   .lt-int-grid { grid-template-columns: 1fr; }
   .lt-int-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
   .lt-int-item:last-child { border-bottom: none; }
+}
+
+/* ── DUOMO BARCODE ── */
+.lt-duomo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+.lt-duomo-bars {
+  display: flex;
+  gap: 2px;
+  align-items: flex-end;
+  height: 56px;
+}
+.lt-duomo-bars span {
+  display: block;
+  width: 4px;
+  height: var(--h, 50%);
+  background: linear-gradient(to top, rgba(123,94,167,0.8), rgba(168,127,212,0.4));
+}
+.lt-duomo-bars span.lt-duomo-spire {
+  background: linear-gradient(to top, rgba(168,127,212,0.9), rgba(200,170,240,1));
+  box-shadow: 0 0 4px rgba(168,127,212,0.6);
+}
+
+/* ── DOT MATRIX PORTRAIT ── */
+.lt-header-portrait {
+  padding: 1rem 0.8rem;
+  border-right: 1px solid rgba(255,255,255,0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lt-dm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5px;
+  line-height: 0;
+}
+.dm-row {
+  display: flex;
+  gap: 1.5px;
+}
+.dm-row span {
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(168,127,212, calc(0.08 + var(--o) * 0.92));
+  box-shadow: 0 0 calc(var(--o) * 3px) rgba(168,127,212, calc(var(--o) * 0.5));
+}
+
+@media (max-width: 768px) {
+  .lt-header-portrait { display: none; }
+  .lt-duomo-bars { height: 40px; }
 }

@@ -62,10 +62,10 @@ body {
   padding: 0.55rem 2rem;
   background: rgba(123,94,167,0.18);
   border-bottom: 1px solid rgba(123,94,167,0.35);
-  font-size: 0.52rem;
-  letter-spacing: 0.22em;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: #c0ccc8;
 }
 .ticket-issuer { color: var(--accent-bright); }
 .ticket-type { color: var(--text-muted); }
@@ -135,9 +135,9 @@ body {
   width: 100%;
 }
 .ticket-duomo-label {
-  font-size: 0.4rem;
+  font-size: 0.52rem;
   letter-spacing: 0.2em;
-  color: var(--text-muted);
+  color: #c0ccc8;
   text-transform: uppercase;
 }
 .ticket-duomo-bars {
@@ -160,11 +160,13 @@ body {
   box-shadow: 0 0 4px rgba(168,127,212,0.7);
 }
 .ticket-duomo-station {
-  font-size: 0.38rem;
-  letter-spacing: 0.12em;
-  color: rgba(123,94,167,0.6);
+  font-family: 'Doto', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: #eeeae0;
   text-align: center;
   text-transform: uppercase;
+  text-shadow: 0 0 8px rgba(255,255,255,0.2);
 }
 
 /* ── RIGHT COLUMN ── */
@@ -186,11 +188,11 @@ body {
 }
 .ticket-passenger-name {
   font-family: 'Doto', monospace;
-  font-size: 1.15rem;
+  font-size: 1.3rem;
   letter-spacing: 0.1em;
   color: var(--text-primary);
   width: 100%;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.4rem;
 }
 .ticket-passenger-fields {
   display: flex;
@@ -199,14 +201,14 @@ body {
   flex: 1;
 }
 .tp-field { display: flex; flex-direction: column; gap: 0.15rem; }
-.tp-label { font-size: 0.42rem; letter-spacing: 0.22em; color: var(--text-muted); text-transform: uppercase; }
-.tp-value { font-size: 0.7rem; letter-spacing: 0.08em; color: var(--text-primary); }
+.tp-label { font-size: 0.52rem; letter-spacing: 0.18em; color: #8ea8a0; text-transform: uppercase; }
+.tp-value { font-size: 0.82rem; letter-spacing: 0.06em; color: var(--text-primary); }
 .tp-value--accent { color: var(--accent-bright); }
 .tp-value--green { color: var(--green); text-shadow: 0 0 8px rgba(74,140,92,0.35); }
 
 .ticket-dl-btn {
-  font-size: 0.54rem;
-  letter-spacing: 0.16em;
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
   color: var(--green);
   text-decoration: none;
   border: 1px solid rgba(74,140,92,0.38);
@@ -256,8 +258,8 @@ body {
   display: flex;
   align-items: center;
   gap: 1.2rem;
-  padding: 0.9rem 1.8rem;
-  border-bottom: 1px solid rgba(123,94,167,0.12);
+  padding: 1.1rem 1.8rem;
+  border-bottom: 1px solid rgba(123,94,167,0.18);
   cursor: pointer;
   transition: background 0.2s;
   position: relative;
@@ -288,23 +290,23 @@ body {
 }
 .tsr-code {
   font-family: 'Doto', monospace;
-  font-size: 0.58rem;
-  letter-spacing: 0.18em;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
   color: var(--accent-bright);
 }
 .tsr-title {
   font-family: 'Playfair Display', serif;
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   color: var(--text-primary);
   line-height: 1.2;
 }
 
 .tsr-mid {
   flex: 1;
-  font-size: 0.65rem;
-  line-height: 1.7;
-  color: var(--text-muted);
-  border-left: 1px solid rgba(255,255,255,0.06);
+  font-size: 0.74rem;
+  line-height: 1.75;
+  color: #c0ccc8;
+  border-left: 1px solid rgba(255,255,255,0.1);
   padding-left: 1.2rem;
 }
 
@@ -315,8 +317,8 @@ body {
   flex-shrink: 0;
 }
 .tsr-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 0.1rem; }
-.tsr-meta-label { font-size: 0.4rem; letter-spacing: 0.2em; color: var(--text-muted); text-transform: uppercase; }
-.tsr-meta-val { font-family: 'Doto', monospace; font-size: 0.88rem; color: var(--green); }
+.tsr-meta-label { font-size: 0.5rem; letter-spacing: 0.18em; color: #8ea8a0; text-transform: uppercase; }
+.tsr-meta-val { font-family: 'Doto', monospace; font-size: 1rem; color: var(--green); }
 .tsr-arrow {
   font-size: 0.7rem;
   color: var(--text-muted);

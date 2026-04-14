@@ -21,7 +21,7 @@ const TRANSLATIONS = {
     card3Desc:    'Professional carreer, passions and dedication in the previous stops of my life.',
 
     // archive sub-label + loaded status only
-    archiveSub:    '>_ SCROLL TO BROWSE STOPS',
+    archiveSub:    '>_ Windows to nowhere — Scroll and click to take a look',
     archiveLoaded: 'Archive loaded',
 
     // stories sub-label only (eyebrow + title stay fixed)
@@ -31,7 +31,7 @@ const TRANSLATIONS = {
     nextStop: 'Next stop:',
 
     // tech page
-    techSub:    '>_ BOARDING PASS — CLICK ON A CATEGORY TO SPY ON MY WORKING LIFE',
+    techSub:    '>_ Boarding pass — Click on a category to spy on my working life',
     techDl:     '↓ RESUME.PDF',
     tabExp:     'EXPERIENCE',
     tabEdu:     'EDUCATION',

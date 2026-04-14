@@ -31,7 +31,7 @@ const TRANSLATIONS = {
     nextStop: 'Next stop:',
 
     // tech page
-    techSub:    '>_ BOARDING PASS — CAREER IN TRANSIT',
+    techSub:    '>_ BOARDING PASS — CLICK ON A CATEGORY TO SPY ON MY WORKING LIFE',
     techDl:     '↓ RESUME.PDF',
     tabExp:     'EXPERIENCE',
     tabEdu:     'EDUCATION',
@@ -97,7 +97,7 @@ const TRANSLATIONS = {
 
     nextStop: '下一站：',
 
-    techSub:    '>_ 登機證 — 職業生涯進行中',
+    techSub:    '>_ 登機證 — 點擊類別，窺探我的職業生涯',
     techDl:     '↓ 履歷.PDF',
     tabExp:     '工作經歷',
     tabEdu:     '學歷',

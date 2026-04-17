@@ -13,12 +13,12 @@ const TRANSLATIONS = {
 
     // hero — code line + subtitle only
     heroCode:    '>_ NEXT STOP... SIN-001 // MEMORY_LOST',
-    heroSubtitle: "In this imaginary train trip you just embarked, there's no clear destination, maybe just a clear start:<br>Sinthan a.k.a. Agostino Maria Cassese, will be your driver to a land of weird photos, stories from different lands and his own little wisdom from his personal carreer. Please don't put your feet on the seats unless 真有趣",
+    heroSubtitle: "In this imaginary train trip you just embarked, there's no clear destination, maybe just a clear start:<br>Sinthan a.k.a. Agostino Maria Cassese, will be your driver to a land of weird photos, stories from different lands and his own little wisdom from his personal career. Please don't put your feet on the seats unless 真有趣",
 
     // cards — descriptions only
-    card1Desc:    'I like to imagine myself in an alien train, taking photos of weird landscapes... take a peak!',
+    card1Desc:    'I like to imagine myself in an alien train, taking photos of weird landscapes... take a peek!',
     card2Desc:    'I write and I write too much, you can find some of that, here.',
-    card3Desc:    'Professional carreer, passions and dedication in the previous stops of my life.',
+    card3Desc:    'Professional career, passions and dedication in the previous stops of my life.',
 
     // archive sub-label + loaded status only
     archiveSub:    '>_ Windows to nowhere — Scroll and click to take a look',
@@ -123,11 +123,20 @@ const TRANSLATIONS = {
     return (TRANSLATIONS[currentLang] || TRANSLATIONS.en).nextStop || 'Next stop:';
   };
 
+  // Exposed so dynamically-injected content (e.g. tech.js CV drawer) can
+  // re-apply translations to newly added elements with t-* IDs.
+  window.applyCurrentTranslations = function () {
+    applyTranslations(currentLang);
+  };
+
   function applyTranslations(lang) {
     const t = TRANSLATIONS[lang];
     if (!t) return;
     currentLang = lang;
     localStorage.setItem(STORAGE_KEY, lang);
+
+    /* update <html lang> so screen readers/search engines see the right language */
+    document.documentElement.setAttribute('lang', lang === 'zh' ? 'zh-Hant' : lang);
 
     function setText(id, html) {
       const el = document.getElementById(id);

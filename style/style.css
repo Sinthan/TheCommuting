@@ -415,12 +415,12 @@ nav::after {
 
 /* ── STATUS BAR ── */
 .status-bar {
-  padding: 0.7rem 3.5rem;
+  padding: 0.45rem 3.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 0.65rem;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.18em;
   color: var(--text-muted);
   border-top: 1px solid rgba(123,94,167,0.2);
   flex-wrap: wrap;
@@ -536,6 +536,14 @@ nav::after {
     padding-bottom: 0.35rem;
   }
   .sys-bar-left { gap: 0.9rem; }
+
+  .status-bar {
+    font-size: 0.48rem;
+    letter-spacing: 0.1em;
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
+  }
+  .status-left { gap: 0.9rem; }
 }
 
 /* ── LANGUAGE SWITCHER ── */

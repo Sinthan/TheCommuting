@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════════════
-   tech.css — A Working Life / Train Ticket
+   work.css — A Business Trip / Train Ticket
    Paths relative to style/ → ../assets/
    ══════════════════════════════════════════════════════════════════ */
 
@@ -10,10 +10,10 @@ body {
 }
 
 /* ── PAGE HEADER ── */
-.tech-header { padding: 1.8rem 3.5rem 1.2rem; border-bottom: 1px solid var(--glass-border); }
-.tech-eyebrow { font-size: 0.62rem; letter-spacing: 0.28em; color: var(--accent); margin-bottom: 0.4rem; text-transform: uppercase; }
-.tech-title { font-family: 'Doto', monospace; font-size: clamp(1.6rem, 3.5vw, 3rem); font-weight: 700; letter-spacing: 0.08em; color: var(--text-primary); }
-.tech-sub { font-size: 0.6rem; letter-spacing: 0.14em; color: var(--accent); opacity: 0.65; margin-top: 0.3rem; }
+.work-header { padding: 1.8rem 3.5rem 1.2rem; border-bottom: 1px solid var(--glass-border); }
+.work-eyebrow { font-size: 0.62rem; letter-spacing: 0.28em; color: var(--accent); margin-bottom: 0.4rem; text-transform: uppercase; }
+.work-title { font-family: 'Doto', monospace; font-size: clamp(1.6rem, 3.5vw, 3rem); font-weight: 700; letter-spacing: 0.08em; color: var(--text-primary); }
+.work-sub { font-size: 0.6rem; letter-spacing: 0.14em; color: var(--accent); opacity: 0.65; margin-top: 0.3rem; }
 
 /* ── TICKET WRAP ── */
 .ticket-wrap { padding: 2rem 3.5rem 2.5rem; }
@@ -444,7 +444,7 @@ body {
 
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
-  .tech-header { padding: 1.6rem 1.4rem 1rem; }
+  .work-header { padding: 1.6rem 1.4rem 1rem; }
   .ticket-wrap { padding: 1rem 0 1.5rem; }
   .ticket { border-top: none; border-bottom: none; }
   .ticket::before, .ticket::after { display: none; }

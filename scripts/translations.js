@@ -8,7 +8,7 @@ const TRANSLATIONS = {
     // nav links
     navPhotos:   'Photos',
     navStories:  'Stories',
-    navTech:     'Tech',
+    navWork:     'Work',
     navAbout:    'About',
 
     // hero — code line + subtitle only
@@ -31,8 +31,8 @@ const TRANSLATIONS = {
     nextStop: 'Next stop:',
 
     // tech page
-    techSub:    '>_ Boarding pass — Click on a category to spy on my working life',
-    techDl:     '↓ RESUME.PDF',
+    workSub:    '>_ Boarding pass — Click on a category to spy on my working life',
+    workDl:     '↓ RESUME.PDF',
     tabExp:     'EXPERIENCE',
     tabEdu:     'EDUCATION',
     tabProj:    'PROJECTS',
@@ -47,7 +47,7 @@ const TRANSLATIONS = {
   it: {
     navPhotos:   'Foto',
     navStories:  'Storie',
-    navTech:     'Lavoro',
+    navWork:     'Lavoro',
     navAbout:    'Chi sono',
 
     heroCode:    '>_ PROSSIMA FERMATA... SIN-001 // MEMORIA_PERSA',
@@ -64,8 +64,8 @@ const TRANSLATIONS = {
 
     nextStop: 'Prossima fermata:',
 
-    techSub:    '>_ CARTA D\'IMBARCO — CARRIERA IN TRANSITO',
-    techDl:     '↓ CURRICULUM.PDF',
+    workSub:    '>_ CARTA D\'IMBARCO — CARRIERA IN TRANSITO',
+    workDl:     '↓ CURRICULUM.PDF',
     tabExp:     'ESPERIENZA',
     tabEdu:     'FORMAZIONE',
     tabProj:    'PROGETTI',
@@ -80,7 +80,7 @@ const TRANSLATIONS = {
   zh: {
     navPhotos:   '相片',
     navStories:  '故事',
-    navTech:     '工作',
+    navWork:     '工作',
     navAbout:    '關於',
 
     heroCode:    '>_ 下一站... SIN-001 // 記憶遺失',
@@ -97,8 +97,8 @@ const TRANSLATIONS = {
 
     nextStop: '下一站：',
 
-    techSub:    '>_ 登機證 — 點擊類別，窺探我的職業生涯',
-    techDl:     '↓ 履歷.PDF',
+    workSub:    '>_ 登機證 — 點擊類別，窺探我的職業生涯',
+    workDl:     '↓ 履歷.PDF',
     tabExp:     '工作經歷',
     tabEdu:     '學歷',
     tabProj:    '專案',
@@ -123,7 +123,7 @@ const TRANSLATIONS = {
     return (TRANSLATIONS[currentLang] || TRANSLATIONS.en).nextStop || 'Next stop:';
   };
 
-  // Exposed so dynamically-injected content (e.g. tech.js CV drawer) can
+  // Exposed so dynamically-injected content (e.g. work.js CV drawer) can
   // re-apply translations to newly added elements with t-* IDs.
   window.applyCurrentTranslations = function () {
     applyTranslations(currentLang);
@@ -148,12 +148,12 @@ const TRANSLATIONS = {
     // nav links
     setText('t-nav-photos',    t.navPhotos);
     setText('t-nav-stories',   t.navStories);
-    setText('t-nav-tech',      t.navTech);
+    setText('t-nav-work',      t.navWork);
     setText('t-nav-about',     t.navAbout);
     // mobile drawer nav links
     setText('t-nav-photos-m',  t.navPhotos);
     setText('t-nav-stories-m', t.navStories);
-    setText('t-nav-tech-m',    t.navTech);
+    setText('t-nav-work-m',    t.navWork);
     setText('t-nav-about-m',   t.navAbout);
 
     // hero — code + subtitle only (eyebrow + title stay fixed)
@@ -177,8 +177,8 @@ const TRANSLATIONS = {
     setText('t-stories-sub', t.storiesSub);
 
     // tech page
-    setText('t-tech-sub',    t.techSub);
-    setText('t-tech-dl',     t.techDl);
+    setText('t-work-sub',    t.workSub);
+    setText('t-work-dl',     t.workDl);
     setText('t-tab-exp',     t.tabExp);
     setText('t-tab-edu',     t.tabEdu);
     setText('t-tab-proj',    t.tabProj);

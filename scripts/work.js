@@ -1,6 +1,6 @@
 /* ══════════════════════════════════════════════════════════════════
-   tech.js — A Working Life / Ticket + CV drawer logic
-   Extracted from tech.html for maintainability.
+   work.js — A Business Trip / Ticket + CV drawer logic
+   Extracted from work.html for maintainability.
    ══════════════════════════════════════════════════════════════════ */
 
 (function () {

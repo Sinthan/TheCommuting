@@ -366,7 +366,8 @@ const TRANSLATIONS = {
 
   function flipText(el, newText, animate) {
     if (!el) return;
-    const isHTML = newText && newText.includes('<');
+    // Detect any HTML: tags OR entities (&rsquo;, &nbsp;, etc.)
+    const isHTML = newText && (newText.includes('<') || /&[a-z#0-9]+;/i.test(newText));
     if (isHTML) { el.innerHTML = newText; return; }
     const text = newText || '';
 

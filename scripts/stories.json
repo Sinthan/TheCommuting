@@ -48,7 +48,7 @@
       "zh": "恐怖｜我夢見一座馬戲團的到來——但願此夢不再。"
     },
     "file": {
-      "en": "./assets/stories/Bloody Parade.txt",
+      "en": "./assets/stories/Bloody Parade.en.txt",
       "it": "./assets/stories/Bloody Parade.txt",
       "zh": "./assets/stories/Bloody Parade.zh.txt"
     }
@@ -66,7 +66,7 @@
       "zh": "恐怖｜潔淨無瑕者唯有神，而我，能行奇蹟。"
     },
     "file": {
-      "en": "./assets/stories/Dirt.txt",
+      "en": "./assets/stories/Dirt.en.txt",
       "it": "./assets/stories/Dirt.txt",
       "zh": "./assets/stories/Dirt.zh.txt"
     }
@@ -84,7 +84,7 @@
       "zh": "恐怖｜寧願撕去雙耳，也不願再聽聞那一聲嗥叫。"
     },
     "file": {
-      "en": "./assets/stories/Wind from Dunchersnatch.txt",
+      "en": "./assets/stories/Wind from Dunchersnatch.en.txt",
       "it": "./assets/stories/Wind from Dunchersnatch.txt",
       "zh": "./assets/stories/Wind from Dunchersnatch.zh.txt"
     }

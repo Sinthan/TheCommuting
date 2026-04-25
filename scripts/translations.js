@@ -114,7 +114,29 @@ const TRANSLATIONS = {
 // ── LANG SWITCHER LOGIC ──
 (function () {
   const STORAGE_KEY = 'tc-lang';
-  let currentLang = localStorage.getItem(STORAGE_KEY) || 'en';
+
+  // Detect preferred language from browser/region. Priority:
+  // 1. Saved preference (user already chose)
+  // 2. Browser navigator.languages[] / navigator.language
+  // 3. Fallback to 'en'
+  function detectLang() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved && TRANSLATIONS[saved]) return saved;
+
+    const candidates = (navigator.languages && navigator.languages.length)
+      ? navigator.languages
+      : [navigator.language || 'en'];
+
+    for (const raw of candidates) {
+      const lc = (raw || '').toLowerCase();
+      if (lc.startsWith('zh')) return 'zh';
+      if (lc.startsWith('it')) return 'it';
+      if (lc.startsWith('en')) return 'en';
+    }
+    return 'en';
+  }
+
+  let currentLang = detectLang();
 
   const LANG_LABELS = { en: 'EN', it: 'IT', zh: '中文' };
 
@@ -129,11 +151,17 @@ const TRANSLATIONS = {
     applyTranslations(currentLang);
   };
 
-  function flipText(el, newText) {
+  function flipText(el, newText, animate) {
     if (!el) return;
     const isHTML = newText && newText.includes('<');
     if (isHTML) { el.innerHTML = newText; return; }
     const text = newText || '';
+
+    // Fast path: no animation on first load — set text directly
+    if (!animate) {
+      el.textContent = text;
+      return;
+    }
 
     // First pass: if element doesn't yet have flip spans (i.e. raw text from HTML),
     // clear it cleanly before building spans. This prevents text doubling.
@@ -178,7 +206,7 @@ const TRANSLATIONS = {
     document.head.appendChild(s);
   }
 
-  function applyTranslations(lang) {
+  function applyTranslations(lang, animate) {
     const t = TRANSLATIONS[lang];
     if (!t) return;
     currentLang = lang;
@@ -189,7 +217,7 @@ const TRANSLATIONS = {
     function setText(id, html) {
       const el = document.getElementById(id);
       if (!el) return;
-      flipText(el, html || '');
+      flipText(el, html || '', animate);
     }
 
     // nav links
@@ -267,7 +295,7 @@ const TRANSLATIONS = {
     document.querySelectorAll('.lang-option').forEach(opt => {
       opt.addEventListener('click', (e) => {
         e.stopPropagation();
-        applyTranslations(opt.dataset.lang);
+        applyTranslations(opt.dataset.lang, true);
         if (dropdown) dropdown.classList.remove('open');
         if (btn)      btn.classList.remove('open');
       });
@@ -281,6 +309,6 @@ const TRANSLATIONS = {
 
   document.addEventListener('DOMContentLoaded', () => {
     initSwitcher();
-    applyTranslations(currentLang);
+    applyTranslations(currentLang, false);
   });
 })();

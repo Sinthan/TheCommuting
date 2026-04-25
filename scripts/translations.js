@@ -129,20 +129,55 @@ const TRANSLATIONS = {
     applyTranslations(currentLang);
   };
 
+  function flipText(el, newText) {
+    if (!el) return;
+    const isHTML = newText && newText.includes('<');
+    if (isHTML) { el.innerHTML = newText; return; }
+    const chars = [...(newText || '')];
+    // build/trim spans
+    while (el.querySelectorAll('.tc-fc').length < chars.length) {
+      const o = document.createElement('span'); o.className = 'tc-fc';
+      o.style.cssText = 'display:inline-block;perspective:200px;vertical-align:bottom;';
+      const i = document.createElement('span'); i.className = 'tc-fi';
+      i.style.cssText = 'display:inline-block;transform-origin:center bottom;backface-visibility:hidden;';
+      o.appendChild(i); el.appendChild(o);
+    }
+    const all = el.querySelectorAll('.tc-fc');
+    for (let i = chars.length; i < all.length; i++) all[i].remove();
+    const spans = el.querySelectorAll('.tc-fi');
+    const indices = [...chars.keys()].sort(() => Math.random() - 0.5);
+    indices.forEach((i, rank) => {
+      const span = spans[i];
+      const ch = chars[i] === ' ' ? '\u00A0' : chars[i];
+      setTimeout(() => {
+        span.style.animation = 'none';
+        void span.offsetWidth;
+        span.textContent = ch;
+        span.style.animation = 'tc-flip 0.18s ease-in-out forwards';
+      }, rank * 12 + Math.random() * 20);
+    });
+  }
+
+  // inject keyframe once
+  if (!document.getElementById('tc-flip-style')) {
+    const s = document.createElement('style');
+    s.id = 'tc-flip-style';
+    s.textContent = '@keyframes tc-flip{0%{transform:rotateX(0)}49%{transform:rotateX(90deg);opacity:.3}50%{transform:rotateX(-90deg);opacity:.3}100%{transform:rotateX(0);opacity:1}}';
+    document.head.appendChild(s);
+  }
+
   function applyTranslations(lang) {
     const t = TRANSLATIONS[lang];
     if (!t) return;
     currentLang = lang;
     localStorage.setItem(STORAGE_KEY, lang);
 
-    /* update <html lang> so screen readers/search engines see the right language */
     document.documentElement.setAttribute('lang', lang === 'zh' ? 'zh-Hant' : lang);
 
     function setText(id, html) {
       const el = document.getElementById(id);
       if (!el) return;
-      if (html && html.includes('<')) el.innerHTML = html;
-      else el.textContent = html || '';
+      flipText(el, html || '');
     }
 
     // nav links

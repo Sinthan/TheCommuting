@@ -71,34 +71,37 @@
   setInterval(updateClock, 20000);
 
   /* ── BUILD BOARD ───────────────────────────────────────────── */
+  let _stories = [];
+  let _rowState = []; // holds randomised values per row so they don't change on lang switch
+
+  function pickLang(field) {
+    const lang = (typeof window.getCurrentLang === 'function') ? window.getCurrentLang() : 'en';
+    if (field && typeof field === 'object') {
+      return field[lang] || field.en || field.it || Object.values(field)[0] || '';
+    }
+    return field || '';
+  }
+
   async function buildBoard() {
-    let stories = [];
     try {
       const res = await fetch('./scripts/stories.json');
-      stories = await res.json();
+      _stories = await res.json();
     } catch (e) {
-      document.getElementById('board-rows').innerHTML =
-        '<div class="board-error">// SIGNAL LOST — could not load manifest</div>';
+      const el = document.getElementById('board-rows');
+      if (el) el.innerHTML = `<div class="board-error">${(window.tc_t && window.tc_t('signalLost')) || '// SIGNAL LOST'}</div>`;
       return;
     }
 
     const now = new Date();
-    const times = generateTimes(stories.length, now.getHours(), now.getMinutes());
-    const bigDelayIdx = rand(0, stories.length - 1);
-
-    const container = document.getElementById('board-rows');
-    container.innerHTML = '';
+    const times = generateTimes(_stories.length, now.getHours(), now.getMinutes());
+    const bigDelayIdx = rand(0, _stories.length - 1);
     const usedTrainCodes = new Set();
 
-    stories.forEach((story, i) => {
+    _rowState = _stories.map((story, i) => {
       const train = trainCode(usedTrainCodes);
-
-      /* 30% weird platform (comment now matches code) */
       const isWeird = Math.random() < 0.30;
       const platform = platformNum(isWeird);
-
-      let delayMins = 0;
-      let delayLabel = '';
+      let delayMins = 0, delayLabel = '';
       if (i === bigDelayIdx) {
         delayMins = rand(60, 120);
         delayLabel = `${delayMins}'`;
@@ -106,14 +109,29 @@
         delayMins = rand(5, 10);
         delayLabel = `${delayMins}'`;
       }
+      return { story, train, platform, time: times[i], delayMins, delayLabel, bigDelay: i === bigDelayIdx };
+    });
+
+    renderBoard();
+  }
+
+  function renderBoard() {
+    const container = document.getElementById('board-rows');
+    if (!container) return;
+    container.innerHTML = '';
+
+    _rowState.forEach(state => {
+      const { story, train, platform, time, delayMins, delayLabel, bigDelay } = state;
+      const title = pickLang(story.title);
+      const info  = pickLang(story.info);
 
       const row = document.createElement('div');
       row.className = 'board-row' + (delayMins > 0 ? ' board-row--delayed' : '');
-      if (i === bigDelayIdx) row.classList.add('board-row--big-delay');
+      if (bigDelay) row.classList.add('board-row--big-delay');
       row.dataset.story    = JSON.stringify(story);
       row.dataset.train    = train;
       row.dataset.platform = platform;
-      row.dataset.time     = times[i];
+      row.dataset.time     = time;
       row.dataset.delay    = delayLabel;
 
       const delayCell = delayLabel || EM_DASH;
@@ -121,16 +139,16 @@
       row.innerHTML = `
         <span class="col-train bd-val">${train}</span>
         <span class="col-platform bd-val">${platform}</span>
-        <span class="col-dest bd-val dest-name">${story.title}</span>
-        <span class="col-time bd-val">${times[i]}</span>
+        <span class="col-dest bd-val dest-name">${title}</span>
+        <span class="col-time bd-val">${time}</span>
         <span class="col-delay bd-val delay-val">${delayCell}</span>
-        <span class="col-info bd-val info-val">${story.info}</span>
+        <span class="col-info bd-val info-val">${info}</span>
         <div class="row-mobile">
-          <div class="row-mobile-dest">${story.title}</div>
+          <div class="row-mobile-dest">${title}</div>
           <div class="row-mobile-meta">
             <span class="row-mobile-plat">${platform}</span>
             <span class="row-mobile-sep">//</span>
-            <span class="row-mobile-time">${times[i]}</span>
+            <span class="row-mobile-time">${time}</span>
             <span class="row-mobile-sep">//</span>
             <span class="row-mobile-delay ${delayMins > 0 ? 'blink-delay' : ''}">${delayCell}</span>
           </div>
@@ -141,8 +159,17 @@
       container.appendChild(row);
     });
 
-    document.getElementById('status-train-count').textContent = `${stories.length} trains to read`;
+    const countEl = document.getElementById('status-train-count');
+    if (countEl) {
+      const label = (window.tc_t && window.tc_t('trainsToRead')) || 'trains to read';
+      countEl.textContent = `${_stories.length} ${label}`;
+    }
   }
+
+  // Re-render when language changes (preserves train codes, times, delays)
+  window.addEventListener('tc-lang-changed', () => {
+    if (_rowState.length) renderBoard();
+  });
 
   /* ── DRAWER ────────────────────────────────────────────────── */
   const drawer   = document.getElementById('story-drawer');
@@ -154,36 +181,54 @@
     const story = JSON.parse(row.dataset.story);
     const delay = row.dataset.delay;
 
+    const title = pickLang(story.title);
+    const info  = pickLang(story.info);
+
     document.getElementById('drawer-train').textContent    = row.dataset.train;
     document.getElementById('drawer-platform').textContent = row.dataset.platform;
     document.getElementById('drawer-time').textContent     = row.dataset.time;
-    document.getElementById('drawer-dest').textContent     = story.title;
-    document.getElementById('drawer-quote').textContent    = `>_ ${story.info}`;
+    document.getElementById('drawer-dest').textContent     = title;
+    document.getElementById('drawer-quote').textContent    = `>_ ${info}`;
 
     const badge = document.getElementById('drawer-delay-badge');
-    /* delay is empty string when none — not an em-dash */
     if (delay) {
-      badge.textContent = `DELAYED ${delay}`;
+      const lbl = (window.tc_t && window.tc_t('delayedLabel')) || 'DELAYED';
+      badge.textContent = `${lbl} ${delay}`;
       badge.style.display = 'inline-block';
     } else {
       badge.style.display = 'none';
     }
 
     const bodyEl = document.getElementById('story-body-text');
-    bodyEl.innerHTML = '<div class="story-loading">LOADING...</div>';
+    const loadingTxt = (window.tc_t && window.tc_t('storyLoading')) || 'LOADING...';
+    bodyEl.innerHTML = `<div class="story-loading">${loadingTxt}</div>`;
 
     drawer.classList.add('open');
     backdrop.classList.add('open');
     document.body.style.overflow = 'hidden';
 
+    // Pick the file for the current language; fall back to IT (original) if missing.
+    const lang = (typeof window.getCurrentLang === 'function') ? window.getCurrentLang() : 'en';
+    let fileUrl;
+    if (story.file && typeof story.file === 'object') {
+      fileUrl = story.file[lang] || story.file.it || story.file.en || Object.values(story.file)[0];
+    } else {
+      fileUrl = story.file;
+    }
+
     try {
-      const res  = await fetch(story.file);
+      let res = await fetch(fileUrl);
+      // Fallback to Italian original if translated file is missing
+      if (!res.ok && story.file && typeof story.file === 'object' && story.file.it && fileUrl !== story.file.it) {
+        res = await fetch(story.file.it);
+      }
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const text = await res.text();
       const paras = text.split(/\n\n+/).filter(p => p.trim());
       bodyEl.innerHTML = paras.map(p => `<p>${p.replace(/\n/g,'<br>')}</p>`).join('');
     } catch (e) {
-      bodyEl.innerHTML = '<p class="story-load-err">// Could not load text file. Run on a local server.</p>';
+      const errTxt = (window.tc_t && window.tc_t('storyLoadErr')) || '// Could not load text file. Run on a local server.';
+      bodyEl.innerHTML = `<p class="story-load-err">${errTxt}</p>`;
     }
   }
 

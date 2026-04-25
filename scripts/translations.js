@@ -1,113 +1,332 @@
 const TRANSLATIONS = {
   en: {
-    // sys bar — NOT translated (fixed UI chrome)
-    // card numbers + titles — NOT translated
-    // status bar — NOT translated
-    // page header eyebrow + title — NOT translated
-
-    // nav links
+    // ── NAV ──
     navPhotos:   'Photos',
     navStories:  'Stories',
     navWork:     'Work',
     navAbout:    'About',
 
-    // hero — code line + subtitle only
+    // ── HERO (index) ──
     heroCode:    '>_ NEXT STOP... SIN-001 // MEMORY_LOST',
-    heroSubtitle: "In this imaginary train trip you just embarked, there's no clear destination, maybe just a clear start:<br>Sinthan a.k.a. Agostino Maria Cassese, will be your driver to a land of weird photos, stories from different lands and his own little wisdom from his personal career. Please don't put your feet on the seats unless 真有趣",
+    heroSubtitle: "On this imaginary train ride you've just boarded, there is no clear destination — perhaps only a clear beginning:<br>Sinthan, also known as Agostino Maria Cassese, will be your driver through a land of strange photographs, stories from distant places, and small fragments of wisdom from his own working life. Please don't put your feet on the seats, unless 真有趣",
 
-    // cards — descriptions only
-    card1Desc:    'I like to imagine myself in an alien train, taking photos of weird landscapes... take a peek!',
-    card2Desc:    'I write and I write too much, you can find some of that, here.',
-    card3Desc:    'Professional career, passions and dedication in the previous stops of my life.',
+    // ── CARDS (index) ──
+    card1Desc:    'I like to imagine myself on an alien train, photographing strange landscapes — take a look.',
+    card2Desc:    'I write, and I write too much. You can find some of it here.',
+    card3Desc:    'A working life: career, passions and dedication from earlier stops along the way.',
 
-    // archive sub-label + loaded status only
-    archiveSub:    '>_ Windows to nowhere — Scroll and click to take a look',
+    // ── PHOTOS PAGE ──
+    archiveSub:    '>_ Windows onto nowhere — scroll and click to take a look',
     archiveLoaded: 'Archive loaded',
+    nextStop:      'Next stop:',
 
-    // stories sub-label only (eyebrow + title stay fixed)
-    storiesSub: '>_ Dispatches from the window seat — click on a train to read',
+    // ── STORIES PAGE ──
+    storiesSub:    '>_ Dispatches from the window seat — click on a train to read',
+    trainsToRead:  'trains to read',
+    storyLoading:  'LOADING...',
+    storyLoadErr:  '// Could not load text file. Run on a local server.',
+    delayedLabel:  'DELAYED',
+    signalLost:    '// SIGNAL LOST — could not load manifest',
 
-    // gallery next-stop eyebrow (translated)
-    nextStop: 'Next stop:',
-
-    // tech page
-    workSub:    '>_ Boarding pass — Click on a category to spy on my working life',
+    // ── WORK PAGE ──
+    workSub:    '>_ Boarding pass — click on a category to spy on my working life',
     workDl:     '↓ RESUME.PDF',
     tabExp:     'EXPERIENCE',
     tabEdu:     'EDUCATION',
     tabProj:    'PROJECTS',
     tabSkills:  'SKILLS',
     tabInt:     'INTERESTS',
-    intLinux:   'Passionate about open-source software and Linux ecosystems.',
-    intScifi:   'Avid reader and writer. Writes books when the mind gets too loud.',
-    intDesign:  'Interested in Architectural, Fashion and Communication Design.',
-    intGdr:     'Into tabletop role-playing games and collaborative world-building.',
+
+    // CV section labels
+    cvSecExp:    'Experience',
+    cvSecEdu:    'Education',
+    cvSecProj:   'Projects',
+    cvSecSkl:    'Skills',
+    cvSecInt:    'Interests',
+
+    // CV — Experience
+    cvExp1Role:  'Tech Consultant',
+    cvExp1Dept:  'Cyber Security & Digital Protection · Milan, IT',
+    cvExp1B1:    'Post-Quantum Cryptography advisor, delivering readiness assessments and adoption roadmaps',
+    cvExp1B2:    'Infrastructure Project Manager for FST, overseeing delivery governance and stakeholder coordination',
+    cvExp1B3:    'Data Protection consultant, providing strategic advisory on EU and Italian regulatory frameworks including GDPR and national compliance requirements',
+    cvExp2Role:  'Project Coordinator',
+    cvExp2Dept:  'Smart City & Mobility Solutions · Milan, IT',
+    cvExp2B1:    'Managed multiple R&D teams using agile methodologies',
+    cvExp2B2:    'Led projects on AI prediction models and GIS-like systems on HPC and Quantum',
+    cvExp2B3:    'Authored documentation, repositories, demos and analyses for team operations',
+    cvExp2B4:    'Coordinated meetings, events and stakeholder communications',
+    cvExp3Role:  'Consultant — HPC, AI & Quantum Computing',
+    cvExp3Dept:  'Milan, IT',
+    cvExp3B1:    'Managed pre-sales technical operations as Quantum Computing evangelist',
+    cvExp3B2:    'Key accounts: ENI, CINECA, CNMOST, PoliMI, BIREX',
+    cvExp3B3:    'Delivered crash courses for the University of Naples, CINECA and other institutions',
+    cvExp3B4:    'Presented Quantum portfolio: Optimisation, Cybersecurity, Machine Learning',
+    cvExp3B5:    'Deepened partnerships with PoliMI Osservatorio QC and IBM Quantum',
+    cvPresent:   'PRESENT',
+
+    // CV — Education
+    cvEdu1Role:  'Master of Quantum Science & Technologies',
+    cvEdu1Dept:  'University of Bari Aldo Moro · Bari, IT',
+    cvEdu1Desc:  "A one-year industry-oriented programme bridging quantum theory and practice, run by the Department of Physics — ranked third in Italy and the only Department of Excellence south of Rome. The curriculum covers Quantum Computing, Quantum Algorithms, Quantum Communication, Quantum Machine Learning and Quantum Engineering, with eight months of coursework and a four-month industry internship. The programme actively collaborates with companies and research institutions, including a formal partnership with Xanadu Quantum Technologies.",
+    cvEdu2Role:  'Bachelor of Computer Science',
+    cvEdu2Dept:  'University of Salerno · Salerno, IT',
+    cvEdu2Desc:  "A three-year programme at one of Italy's oldest Computer Science departments — established in 1971 and recognised as a Department of Excellence by the Ministry of University and Research. The curriculum spans algorithms, software engineering, computer networks, operating systems and distributed computing, with a strong emphasis on both theoretical foundations and practical application through laboratory work and industry traineeships.",
+
+    // CV — Projects
+    cvProj1Title: 'QUANTUM COMPUTING AND HPC DISSEMINATION',
+    cvProj1Role:  'Instructor & Curriculum Lead',
+    cvProj1Dept:  'Universities & Centres of Excellence',
+    cvProj1Desc:  'Designed and delivered advanced courses for universities and research centres on HPC and Quantum Computing solutions.',
+    cvProj1L1:    'CINECA — Practical Quantum Computing School on combinatorial optimisation and QAOA',
+    cvProj1L2:    'UNINA — Introduction to HPC systems for CNMOST and University students',
+    cvProj1L3:    'INFN — Talk on Quantum communities for the workshop on Computation',
+    cvProj1L4:    'Luigi Einaudi — Quantum Computing introduction for high-school students',
+    cvProj2Title: 'PREDICTIVE MAINTENANCE',
+    cvProj2Role:  'Product Owner & Project Manager',
+    cvProj2Dept:  'National Centre for Mobility',
+    cvProj2Desc:  'Led seven colleagues in developing an AI fault-prediction system for vehicles. Handled meetings, stakeholders and product direction.',
+    cvProj3Title: 'PILOT SNAP4CITY',
+    cvProj3Role:  'Team Lead & Stakeholder PoC',
+    cvProj3Dept:  'Urban Mobility & Digital Cities',
+    cvProj3Desc:  'Led a six-person team exploring data aggregation for urban mobility (University of Florence). Liaison for stakeholders and colleagues.',
+    cvLinksLabel: 'LINKS //',
+
+    // CV — Skills (narrative)
+    cvSklP1:      'Over the years I have developed a way of working that sits between <span class="cv-hl-accent">people and systems</span> — managing teams through agile processes, writing documentation that actually gets read, and coordinating projects where the moving parts never quite stop moving. Strategic planning, stakeholder management and building trust with clients have become second nature across very different contexts.',
+    cvSklP2:      'On the technical side, my background runs through <span class="cv-hl-green">Quantum Computing</span>, <span class="cv-hl-green">HPC systems</span> and <span class="cv-hl-green">AI and machine learning</span> — with hands-on experience in dissemination, pre-sales and project delivery. I am comfortable in Linux environments, have worked with Kubernetes and containerised infrastructure, and have touched GIS-like platforms for urban mobility contexts.',
+    cvSklP3:      'Communication has always been part of the job: public speaking, delivering crash courses to universities and research centres, presenting to clients and building lasting relationships. I find that translating complex technical ideas into something a room of non-specialists can engage with is one of the more satisfying parts of the work.',
+    cvSklCertLbl: 'CERTIFICATIONS //',
+    cvSklCert:    'Prince2 Foundation &nbsp;·&nbsp; Qiskit Global Summer School I & II &nbsp;·&nbsp; Elements of AI — University of Helsinki &nbsp;·&nbsp; Jarvice Expert — Lutech S.p.A.',
+    cvSklLangLbl: 'LANGUAGES //',
+    cvSklLangNative: 'native',
+    cvSklLangC1:     'C1',
+    cvSklLangWip:    'WIP — be patient',
+    cvSklLangIt:     'Italian',
+    cvSklLangEn:     'English',
+    cvSklLangZh:     'Traditional Chinese',
+
+    // CV — Interests
+    intLinuxLbl:  'LINUX & FOSS',
+    intScifiLbl:  'SCIFI & HORROR',
+    intDesignLbl: 'DESIGN',
+    intGdrLbl:    'GDR / TTRPG',
+    intLinux:     'Passionate about open-source software and Linux ecosystems.',
+    intScifi:     'Avid reader and writer. Writes books when the mind grows too loud.',
+    intDesign:    'Drawn to architectural, fashion and communication design.',
+    intGdr:       'Tabletop role-playing games and collaborative world-building.',
   },
 
   it: {
     navPhotos:   'Foto',
-    navStories:  'Storie',
+    navStories:  'Racconti',
     navWork:     'Lavoro',
     navAbout:    'Chi sono',
 
-    heroCode:    '>_ PROSSIMA FERMATA... SIN-001 // MEMORIA_PERSA',
-    heroSubtitle: "In questo viaggio in treno immaginario che hai appena intrapreso, non c'è una destinazione chiara, forse solo un inizio chiaro:<br>Sinthan, alias Agostino Maria Cassese, sarà il tuo conducente verso un mondo di foto strane, storie da terre diverse e la sua piccola saggezza dalla sua carriera personale. Per favore non mettere i piedi sui sedili a meno che 真有趣",
+    heroCode:    '>_ PROSSIMA FERMATA... SIN-001 // MEMORIA_PERDUTA',
+    heroSubtitle: "Su questo treno immaginario in cui sei appena salito, non vi è una destinazione precisa — forse soltanto un inizio chiaro:<br>Sinthan, ovvero Agostino Maria Cassese, sarà il tuo conducente attraverso una terra di fotografie singolari, racconti da luoghi lontani e piccoli frammenti di saggezza tratti dal suo cammino professionale. Si prega di non poggiare i piedi sui sedili, a meno che 真有趣",
 
-    card1Desc:    "Mi piace immaginarmi su un treno alieno, fotografando paesaggi strani... dai un'occhiata!",
-    card2Desc:    "Scrivo e scrivo troppo, puoi trovarne un po' qui.",
-    card3Desc:    'Carriera professionale, passioni e dedizione nelle tappe precedenti della mia vita.',
+    card1Desc:    'Mi piace immaginarmi su un treno alieno, intento a fotografare paesaggi singolari — dai pure un&rsquo;occhiata.',
+    card2Desc:    'Scrivo, e scrivo fin troppo. Qui ne troverai una parte.',
+    card3Desc:    'Una vita di lavoro: carriera, passioni e dedizione delle fermate precedenti.',
 
-    archiveSub:    '>_ SCORRI PER SFOGLIARE LE FERMATE',
+    archiveSub:    '>_ Finestre sul nulla — scorri e clicca per dare uno sguardo',
     archiveLoaded: 'Archivio caricato',
+    nextStop:      'Prossima fermata:',
 
-    storiesSub: '>_ Dispacci dal finestrino — clicca su un treno per leggere',
+    storiesSub:    '>_ Dispacci dal finestrino — clicca su un treno per leggere',
+    trainsToRead:  'treni da leggere',
+    storyLoading:  'CARICAMENTO...',
+    storyLoadErr:  '// Impossibile caricare il file di testo. Avvia un server locale.',
+    delayedLabel:  'IN RITARDO',
+    signalLost:    '// SEGNALE PERSO — impossibile caricare il manifesto',
 
-    nextStop: 'Prossima fermata:',
-
-    workSub:    '>_ CARTA D\'IMBARCO — CARRIERA IN TRANSITO',
+    workSub:    '>_ Carta d&rsquo;imbarco — clicca su una categoria per scoprire il mio percorso',
     workDl:     '↓ CURRICULUM.PDF',
     tabExp:     'ESPERIENZA',
     tabEdu:     'FORMAZIONE',
     tabProj:    'PROGETTI',
     tabSkills:  'COMPETENZE',
     tabInt:     'INTERESSI',
-    intLinux:   'Appassionato di software open-source e sistemi Linux.',
-    intScifi:   'Lettore e scrittore. Scrive libri quando la mente è troppo affollata.',
-    intDesign:  'Interessato al Design Architettonico, della Moda e della Comunicazione.',
-    intGdr:     'Appassionato di giochi di ruolo da tavolo e world-building collaborativo.',
+
+    cvSecExp:    'Esperienza',
+    cvSecEdu:    'Formazione',
+    cvSecProj:   'Progetti',
+    cvSecSkl:    'Competenze',
+    cvSecInt:    'Interessi',
+
+    cvExp1Role:  'Tech Consultant',
+    cvExp1Dept:  'Cyber Security & Digital Protection · Milano, IT',
+    cvExp1B1:    'Consulente di Crittografia Post-Quantistica, con redazione di valutazioni di prontezza e roadmap di adozione',
+    cvExp1B2:    'Project Manager infrastrutturale per FST, con supervisione della governance di delivery e del coordinamento degli stakeholder',
+    cvExp1B3:    'Consulente in materia di Protezione dei Dati, offrendo consulenza strategica sui quadri normativi europei e italiani, tra cui il GDPR e i requisiti di conformità nazionale',
+    cvExp2Role:  'Project Coordinator',
+    cvExp2Dept:  'Smart City & Mobility Solutions · Milano, IT',
+    cvExp2B1:    'Gestione di più team di R&S secondo metodologie agile',
+    cvExp2B2:    'Conduzione di progetti su modelli predittivi di IA e sistemi di tipo GIS, su HPC e Quantum',
+    cvExp2B3:    'Redazione di documentazione, repository, demo e analisi a supporto delle attività dei team',
+    cvExp2B4:    'Coordinamento di riunioni, eventi e comunicazioni con gli stakeholder',
+    cvExp3Role:  'Consulente — HPC, IA & Quantum Computing',
+    cvExp3Dept:  'Milano, IT',
+    cvExp3B1:    'Gestione delle attività tecniche di pre-vendita in qualità di evangelist del Quantum Computing',
+    cvExp3B2:    'Account principali: ENI, CINECA, CNMOST, PoliMI, BIREX',
+    cvExp3B3:    'Erogazione di corsi intensivi presso l&rsquo;Università di Napoli, CINECA e altri enti',
+    cvExp3B4:    'Presentazione del portfolio Quantum: Ottimizzazione, Cybersecurity, Machine Learning',
+    cvExp3B5:    'Approfondimento delle partnership con PoliMI Osservatorio QC e IBM Quantum',
+    cvPresent:   'OGGI',
+
+    cvEdu1Role:  'Master in Quantum Science & Technologies',
+    cvEdu1Dept:  'Università degli Studi di Bari Aldo Moro · Bari, IT',
+    cvEdu1Desc:  "Programma annuale a vocazione industriale, volto a coniugare teoria e pratica del quantum, organizzato dal Dipartimento di Fisica — terzo in Italia e unico Dipartimento di Eccellenza a sud di Roma. Il piano di studi comprende Quantum Computing, Algoritmi Quantistici, Comunicazione Quantistica, Quantum Machine Learning e Quantum Engineering, con otto mesi di didattica e quattro mesi di tirocinio in azienda. Il programma collabora attivamente con imprese e istituti di ricerca, tra cui una partnership formale con Xanadu Quantum Technologies.",
+    cvEdu2Role:  'Laurea Triennale in Informatica',
+    cvEdu2Dept:  'Università degli Studi di Salerno · Salerno, IT',
+    cvEdu2Desc:  "Corso triennale presso uno dei più antichi dipartimenti di Informatica d&rsquo;Italia — fondato nel 1971 e riconosciuto come Dipartimento di Eccellenza dal Ministero dell&rsquo;Università e della Ricerca. Il piano di studi spazia da algoritmi, ingegneria del software, reti e sistemi operativi al calcolo distribuito, con particolare attenzione sia ai fondamenti teorici sia all&rsquo;applicazione pratica attraverso attività di laboratorio e tirocini.",
+
+    cvProj1Title: 'DIVULGAZIONE DI QUANTUM COMPUTING E HPC',
+    cvProj1Role:  'Docente & Responsabile dei Programmi',
+    cvProj1Dept:  'Università e Centri di Eccellenza',
+    cvProj1Desc:  'Progettazione e realizzazione di corsi avanzati per università e centri di ricerca su soluzioni di HPC e Quantum Computing.',
+    cvProj1L1:    'CINECA — Practical Quantum Computing School su ottimizzazione combinatoria e QAOA',
+    cvProj1L2:    'UNINA — Introduzione ai sistemi HPC per studenti CNMOST e universitari',
+    cvProj1L3:    'INFN — Intervento sulle community Quantum per il workshop di Calcolo',
+    cvProj1L4:    'Luigi Einaudi — Introduzione al Quantum Computing per studenti delle scuole superiori',
+    cvProj2Title: 'MANUTENZIONE PREDITTIVA',
+    cvProj2Role:  'Product Owner & Project Manager',
+    cvProj2Dept:  'Centro Nazionale per la Mobilità',
+    cvProj2Desc:  'Coordinamento di sette colleghi nello sviluppo di un sistema di IA per la previsione di guasti veicolari. Gestione di riunioni, stakeholder e direzione di prodotto.',
+    cvProj3Title: 'PILOT SNAP4CITY',
+    cvProj3Role:  'Team Lead & Punto di Contatto Stakeholder',
+    cvProj3Dept:  'Mobilità Urbana & Città Digitali',
+    cvProj3Desc:  'Conduzione di un team di sei persone dedicato all&rsquo;aggregazione di dati per la mobilità urbana (Università di Firenze). Punto di contatto per stakeholder e colleghi.',
+    cvLinksLabel: 'COLLEGAMENTI //',
+
+    cvSklP1:      'Nel corso degli anni ho maturato un modo di lavorare che si colloca tra <span class="cv-hl-accent">le persone e i sistemi</span> — gestire team con processi agile, redigere documentazione che venga effettivamente letta, e coordinare progetti i cui ingranaggi non smettono mai del tutto di muoversi. Pianificazione strategica, gestione degli stakeholder e costruzione di rapporti di fiducia con i clienti sono divenuti parte naturale del mestiere, in contesti molto diversi tra loro.',
+    cvSklP2:      'Sul piano tecnico, il mio percorso attraversa il <span class="cv-hl-green">Quantum Computing</span>, i <span class="cv-hl-green">sistemi HPC</span> e <span class="cv-hl-green">l&rsquo;intelligenza artificiale e il machine learning</span> — con esperienza diretta in divulgazione, pre-vendita e delivery di progetto. Mi muovo agevolmente in ambienti Linux, ho lavorato con Kubernetes e infrastrutture containerizzate, e ho avuto modo di operare con piattaforme di tipo GIS in contesti di mobilità urbana.',
+    cvSklP3:      'La comunicazione è sempre stata parte integrante del lavoro: public speaking, corsi intensivi presso università e centri di ricerca, presentazioni a clienti e costruzione di rapporti duraturi. Tradurre concetti tecnici complessi in qualcosa che una sala di non addetti possa cogliere è, a mio avviso, una delle parti più appaganti di questo mestiere.',
+    cvSklCertLbl: 'CERTIFICAZIONI //',
+    cvSklCert:    'Prince2 Foundation &nbsp;·&nbsp; Qiskit Global Summer School I & II &nbsp;·&nbsp; Elements of AI — Università di Helsinki &nbsp;·&nbsp; Jarvice Expert — Lutech S.p.A.',
+    cvSklLangLbl: 'LINGUE //',
+    cvSklLangNative: 'madrelingua',
+    cvSklLangC1:     'C1',
+    cvSklLangWip:    'in corso — pazienta',
+    cvSklLangIt:     'Italiano',
+    cvSklLangEn:     'Inglese',
+    cvSklLangZh:     'Cinese tradizionale',
+
+    intLinuxLbl:  'LINUX & FOSS',
+    intScifiLbl:  'FANTASCIENZA & HORROR',
+    intDesignLbl: 'DESIGN',
+    intGdrLbl:    'GDR / TTRPG',
+    intLinux:     'Appassionato di software open-source e di ecosistemi Linux.',
+    intScifi:     'Lettore e scrittore appassionato. Scrive libri quando la mente si fa troppo affollata.',
+    intDesign:    'Sensibile al design architettonico, della moda e della comunicazione.',
+    intGdr:       'Giochi di ruolo da tavolo e world-building collaborativo.',
   },
 
   zh: {
-    navPhotos:   '相片',
+    navPhotos:   '影像',
     navStories:  '故事',
     navWork:     '工作',
     navAbout:    '關於',
 
     heroCode:    '>_ 下一站... SIN-001 // 記憶遺失',
-    heroSubtitle: "在這趟你剛踏上的想像火車旅程中，沒有明確的目的地，也許只有一個清晰的起點：<br>Sinthan，又名 Agostino Maria Cassese，將帶領你進入一個充滿奇異照片、來自不同土地的故事，以及他個人職業生涯中的小小智慧。請勿將腳放在座椅上，除非 真有趣",
+    heroSubtitle: "在這趟你剛踏上的想像列車上，並無明確的目的地——也許僅有一個清晰的起點：<br>Sinthan，又名 Agostino Maria Cassese，將為你駕駛，穿越一片奇異照片、遠方故事，以及來自他職業生涯點滴智慧的土地。請勿將腳放上座椅，除非 真有趣",
 
-    card1Desc:    '我喜歡想像自己在一列外星火車上，拍攝奇異的風景……來看看吧！',
-    card2Desc:    '我寫個不停，你可以在這裡找到其中一部分。',
-    card3Desc:    '我職業生涯中前幾站的專業歷程、熱情與奉獻。',
+    card1Desc:    '我喜歡想像自己身處一列外星列車，捕捉奇異的風景——歡迎一覽。',
+    card2Desc:    '我寫作，且寫得太多。你可以在此覓得其中一些。',
+    card3Desc:    '一段工作的人生：職業、熱忱與奉獻，皆為旅途中先前的停靠站。',
 
-    archiveSub:    '>_ 滾動瀏覽各站',
+    archiveSub:    '>_ 通往虛無之窗——滑動並點擊以一窺',
     archiveLoaded: '檔案已載入',
+    nextStop:      '下一站：',
 
-    storiesSub: '>_ 來自窗邊座位的筆記 — 點擊列車閱讀',
+    storiesSub:    '>_ 來自窗邊的書信——點擊列車以閱讀',
+    trainsToRead:  '列待讀的列車',
+    storyLoading:  '載入中...',
+    storyLoadErr:  '// 無法載入文字檔。請於本機伺服器執行。',
+    delayedLabel:  '誤點',
+    signalLost:    '// 訊號中斷——無法載入清單',
 
-    nextStop: '下一站：',
-
-    workSub:    '>_ 登機證 — 點擊類別，窺探我的職業生涯',
+    workSub:    '>_ 登車券——點擊一個類別，窺探我的職業旅途',
     workDl:     '↓ 履歷.PDF',
-    tabExp:     '工作經歷',
+    tabExp:     '經歷',
     tabEdu:     '學歷',
     tabProj:    '專案',
     tabSkills:  '技能',
     tabInt:     '興趣',
-    intLinux:   '熱衷於開源軟體與 Linux 系統。',
-    intScifi:   '愛閱讀、愛寫作。思緒紛亂時提筆寫書。',
-    intDesign:  '對建築、時尚與傳播設計充滿興趣。',
-    intGdr:     '喜愛桌上角色扮演遊戲與共同世界構建。',
+
+    cvSecExp:    '經歷',
+    cvSecEdu:    '學歷',
+    cvSecProj:   '專案',
+    cvSecSkl:    '技能',
+    cvSecInt:    '興趣',
+
+    cvExp1Role:  '技術顧問',
+    cvExp1Dept:  '網路安全與數位防護 · 米蘭，義大利',
+    cvExp1B1:    '後量子密碼學顧問，負責就緒度評估與導入路線圖',
+    cvExp1B2:    'FST 基礎建設專案經理，督導交付治理與利害關係人協調',
+    cvExp1B3:    '資料保護顧問，就歐盟與義大利法規架構（含 GDPR 及國家合規要求）提供策略性建議',
+    cvExp2Role:  '專案協調員',
+    cvExp2Dept:  '智慧城市與行動方案 · 米蘭，義大利',
+    cvExp2B1:    '以敏捷方法管理多個研發團隊',
+    cvExp2B2:    '主導 AI 預測模型與類 GIS 系統於 HPC 與量子環境之專案',
+    cvExp2B3:    '撰寫文件、儲存庫、示例與分析，支援團隊運作',
+    cvExp2B4:    '協調會議、活動與利害關係人之溝通',
+    cvExp3Role:  '顧問 — HPC、AI 與量子運算',
+    cvExp3Dept:  '米蘭，義大利',
+    cvExp3B1:    '擔任量子運算佈道者，主理售前技術業務',
+    cvExp3B2:    '主要客戶：ENI、CINECA、CNMOST、PoliMI、BIREX',
+    cvExp3B3:    '為拿坡里大學、CINECA 等機構開設密集課程',
+    cvExp3B4:    '介紹量子產品線：最佳化、網路安全、機器學習',
+    cvExp3B5:    '深化與 PoliMI 量子觀測站及 IBM Quantum 之合作',
+    cvPresent:   '至今',
+
+    cvEdu1Role:  '量子科學與技術碩士',
+    cvEdu1Dept:  '巴里大學 Aldo Moro · 巴里，義大利',
+    cvEdu1Desc:  "為期一年、面向產業的學程，貫通量子理論與實務，由物理系主辦——該系於義大利排名第三，亦為羅馬以南唯一的卓越系所。課程涵蓋量子運算、量子演算法、量子通訊、量子機器學習與量子工程，含八個月的學程與四個月的業界實習。學程與企業及研究機構積極合作，並與 Xanadu Quantum Technologies 建立正式合作。",
+    cvEdu2Role:  '電腦科學學士',
+    cvEdu2Dept:  '薩萊諾大學 · 薩萊諾，義大利',
+    cvEdu2Desc:  "於義大利歷史最悠久的電腦科學系之一就讀的三年制學程——該系創立於 1971 年，獲義大利大學暨研究部認定為卓越系所。課程涵蓋演算法、軟體工程、電腦網路、作業系統與分散式運算，於理論基礎與透過實驗及業界實習所進行的實務應用，皆有深厚著墨。",
+
+    cvProj1Title: '量子運算與 HPC 推廣',
+    cvProj1Role:  '講師與課程負責人',
+    cvProj1Dept:  '大學與卓越中心',
+    cvProj1Desc:  '為大學與研究中心設計並執行 HPC 與量子運算解決方案之進階課程。',
+    cvProj1L1:    'CINECA — 組合最佳化與 QAOA 之實務量子運算學校',
+    cvProj1L2:    'UNINA — 為 CNMOST 與大學學生介紹 HPC 系統',
+    cvProj1L3:    'INFN — 計算工作坊中關於量子社群之演講',
+    cvProj1L4:    'Luigi Einaudi — 為高中生介紹量子運算',
+    cvProj2Title: '預測性維運',
+    cvProj2Role:  '產品負責人與專案經理',
+    cvProj2Dept:  '國家行動中心',
+    cvProj2Desc:  '帶領七位同事，開發車輛之 AI 故障預測系統。負責會議、利害關係人與產品方向。',
+    cvProj3Title: 'PILOT SNAP4CITY',
+    cvProj3Role:  '團隊負責人與利害關係人聯絡窗口',
+    cvProj3Dept:  '都市行動與數位城市',
+    cvProj3Desc:  '帶領六人團隊，探討都市行動之資料整合（佛羅倫斯大學）。同事與利害關係人之聯絡窗口。',
+    cvLinksLabel: '相關連結 //',
+
+    cvSklP1:      '多年來，我逐漸塑造了一種介於<span class="cv-hl-accent">人與系統</span>之間的工作方式——以敏捷流程帶領團隊、撰寫真正會被閱讀的文件，並協調那些零件從不停止運轉的專案。策略規劃、利害關係人管理，以及與客戶建立信任，已在迥異的情境之中成為自然而然之事。',
+    cvSklP2:      '在技術一面，我的背景貫穿<span class="cv-hl-green">量子運算</span>、<span class="cv-hl-green">HPC 系統</span>及<span class="cv-hl-green">人工智慧與機器學習</span>——並具備推廣、售前與專案交付的實務經驗。我熟悉 Linux 環境，亦與 Kubernetes 及容器化基礎建設共事，並曾於都市行動情境中接觸類 GIS 平台。',
+    cvSklP3:      '溝通向來是工作不可或缺的部分：公開演說、為大學與研究中心開設密集課程、向客戶簡報並建立持久的關係。將複雜的技術概念，轉譯為一群非專業人士能理解的語言，是我認為這份工作中最令人滿足的時刻之一。',
+    cvSklCertLbl: '認證 //',
+    cvSklCert:    'Prince2 Foundation &nbsp;·&nbsp; Qiskit Global Summer School I & II &nbsp;·&nbsp; Elements of AI — 赫爾辛基大學 &nbsp;·&nbsp; Jarvice Expert — Lutech S.p.A.',
+    cvSklLangLbl: '語言 //',
+    cvSklLangNative: '母語',
+    cvSklLangC1:     'C1',
+    cvSklLangWip:    '進行中——請耐心相待',
+    cvSklLangIt:     '義大利文',
+    cvSklLangEn:     '英文',
+    cvSklLangZh:     '繁體中文',
+
+    intLinuxLbl:  'LINUX 與 FOSS',
+    intScifiLbl:  '科幻與恐怖',
+    intDesignLbl: '設計',
+    intGdrLbl:    'GDR / TTRPG',
+    intLinux:     '熱衷於開源軟體與 Linux 生態系。',
+    intScifi:     '愛閱讀也愛寫作。當思緒過於喧囂時，便提筆寫書。',
+    intDesign:    '對建築、時尚與傳播設計皆懷有興趣。',
+    intGdr:       '桌上角色扮演遊戲與共同世界構築。',
   }
 };
 
@@ -115,18 +334,11 @@ const TRANSLATIONS = {
 (function () {
   const STORAGE_KEY = 'tc-lang';
 
-  // Detect preferred language from browser/region. Priority:
-  // 1. Saved preference (user already chose)
-  // 2. Browser navigator.languages[] / navigator.language
-  // 3. Fallback to 'en'
   function detectLang() {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved && TRANSLATIONS[saved]) return saved;
-
     const candidates = (navigator.languages && navigator.languages.length)
-      ? navigator.languages
-      : [navigator.language || 'en'];
-
+      ? navigator.languages : [navigator.language || 'en'];
     for (const raw of candidates) {
       const lc = (raw || '').toLowerCase();
       if (lc.startsWith('zh')) return 'zh';
@@ -137,18 +349,19 @@ const TRANSLATIONS = {
   }
 
   let currentLang = detectLang();
-
   const LANG_LABELS = { en: 'EN', it: 'IT', zh: '中文' };
 
-  // Exposed globally so photos.html gallery builder can read current nextStop label
+  // Public helpers exposed to other scripts
+  window.getCurrentLang = function () { return currentLang; };
   window.getCurrentNextStop = function () {
     return (TRANSLATIONS[currentLang] || TRANSLATIONS.en).nextStop || 'Next stop:';
   };
-
-  // Exposed so dynamically-injected content (e.g. work.js CV drawer) can
-  // re-apply translations to newly added elements with t-* IDs.
+  window.tc_t = function (key) {
+    const t = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+    return (key in t) ? t[key] : (TRANSLATIONS.en[key] || '');
+  };
   window.applyCurrentTranslations = function () {
-    applyTranslations(currentLang);
+    applyTranslations(currentLang, false);
   };
 
   function flipText(el, newText, animate) {
@@ -157,21 +370,12 @@ const TRANSLATIONS = {
     if (isHTML) { el.innerHTML = newText; return; }
     const text = newText || '';
 
-    // Fast path: no animation on first load — set text directly
-    if (!animate) {
-      el.textContent = text;
-      return;
-    }
+    if (!animate) { el.textContent = text; return; }
 
-    // First pass: if element doesn't yet have flip spans (i.e. raw text from HTML),
-    // clear it cleanly before building spans. This prevents text doubling.
     const hasSpans = el.querySelector('.tc-fc');
-    if (!hasSpans) {
-      el.textContent = '';
-    }
+    if (!hasSpans) { el.textContent = ''; }
 
     const chars = [...text];
-    // build new spans if needed
     while (el.querySelectorAll('.tc-fc').length < chars.length) {
       const o = document.createElement('span'); o.className = 'tc-fc';
       o.style.cssText = 'display:inline-block;perspective:200px;vertical-align:bottom;';
@@ -179,7 +383,6 @@ const TRANSLATIONS = {
       i.style.cssText = 'display:inline-block;transform-origin:center bottom;backface-visibility:hidden;';
       o.appendChild(i); el.appendChild(o);
     }
-    // trim excess spans
     const all = el.querySelectorAll('.tc-fc');
     for (let i = chars.length; i < all.length; i++) all[i].remove();
 
@@ -198,7 +401,6 @@ const TRANSLATIONS = {
     });
   }
 
-  // inject keyframe once
   if (!document.getElementById('tc-flip-style')) {
     const s = document.createElement('style');
     s.id = 'tc-flip-style';
@@ -211,7 +413,6 @@ const TRANSLATIONS = {
     if (!t) return;
     currentLang = lang;
     localStorage.setItem(STORAGE_KEY, lang);
-
     document.documentElement.setAttribute('lang', lang === 'zh' ? 'zh-Hant' : lang);
 
     function setText(id, html) {
@@ -220,38 +421,34 @@ const TRANSLATIONS = {
       flipText(el, html || '', animate);
     }
 
-    // nav links
+    // Generic: any element with [data-t="key"] gets translated.
+    document.querySelectorAll('[data-t]').forEach(el => {
+      const key = el.getAttribute('data-t');
+      if (key in t) flipText(el, t[key], animate);
+    });
+
+    // Legacy ID-based mappings (kept for backwards compatibility)
     setText('t-nav-photos',    t.navPhotos);
     setText('t-nav-stories',   t.navStories);
     setText('t-nav-work',      t.navWork);
     setText('t-nav-about',     t.navAbout);
-    // mobile drawer nav links
     setText('t-nav-photos-m',  t.navPhotos);
     setText('t-nav-stories-m', t.navStories);
     setText('t-nav-work-m',    t.navWork);
     setText('t-nav-about-m',   t.navAbout);
 
-    // hero — code + subtitle only (eyebrow + title stay fixed)
     setText('t-hero-code',     t.heroCode);
     setText('t-hero-subtitle', t.heroSubtitle);
 
-    // warn strip — intentionally NOT translated
-
-    // cards — descriptions only (numbers + titles stay fixed)
     setText('t-card1-desc', t.card1Desc);
     setText('t-card2-desc', t.card2Desc);
     setText('t-card3-desc', t.card3Desc);
 
-    // status bar — intentionally NOT translated
-
-    // archive — sub-label + loaded status only (eyebrow + title stay fixed)
     setText('t-archive-sub',    t.archiveSub);
     setText('t-archive-loaded', t.archiveLoaded);
 
-    // stories — sub-label only (eyebrow + title stay fixed)
     setText('t-stories-sub', t.storiesSub);
 
-    // tech page
     setText('t-work-sub',    t.workSub);
     setText('t-work-dl',     t.workDl);
     setText('t-tab-exp',     t.tabExp);
@@ -264,19 +461,19 @@ const TRANSLATIONS = {
     setText('t-int-design',  t.intDesign);
     setText('t-int-gdr',     t.intGdr);
 
-    // gallery: update all rendered next-stop eyebrow labels live
     document.querySelectorAll('.stop-label-eyebrow').forEach(el => {
       el.textContent = t.nextStop || 'Next stop:';
     });
 
-    // update lang button label
     const btn = document.getElementById('lang-btn-label');
     if (btn) btn.textContent = LANG_LABELS[lang];
 
-    // mark active option in all dropdowns + drawers
     document.querySelectorAll('.lang-option').forEach(el => {
       el.classList.toggle('lang-option-active', el.dataset.lang === lang);
     });
+
+    // Notify page-specific scripts so they can refresh dynamic content
+    window.dispatchEvent(new CustomEvent('tc-lang-changed', { detail: { lang, animate } }));
   }
 
   function initSwitcher() {
@@ -291,7 +488,6 @@ const TRANSLATIONS = {
       });
     }
 
-    // bind all .lang-option buttons (desktop dropdown + mobile drawer)
     document.querySelectorAll('.lang-option').forEach(opt => {
       opt.addEventListener('click', (e) => {
         e.stopPropagation();

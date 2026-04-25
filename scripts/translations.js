@@ -133,8 +133,17 @@ const TRANSLATIONS = {
     if (!el) return;
     const isHTML = newText && newText.includes('<');
     if (isHTML) { el.innerHTML = newText; return; }
-    const chars = [...(newText || '')];
-    // build/trim spans
+    const text = newText || '';
+
+    // First pass: if element doesn't yet have flip spans (i.e. raw text from HTML),
+    // clear it cleanly before building spans. This prevents text doubling.
+    const hasSpans = el.querySelector('.tc-fc');
+    if (!hasSpans) {
+      el.textContent = '';
+    }
+
+    const chars = [...text];
+    // build new spans if needed
     while (el.querySelectorAll('.tc-fc').length < chars.length) {
       const o = document.createElement('span'); o.className = 'tc-fc';
       o.style.cssText = 'display:inline-block;perspective:200px;vertical-align:bottom;';
@@ -142,12 +151,15 @@ const TRANSLATIONS = {
       i.style.cssText = 'display:inline-block;transform-origin:center bottom;backface-visibility:hidden;';
       o.appendChild(i); el.appendChild(o);
     }
+    // trim excess spans
     const all = el.querySelectorAll('.tc-fc');
     for (let i = chars.length; i < all.length; i++) all[i].remove();
+
     const spans = el.querySelectorAll('.tc-fi');
     const indices = [...chars.keys()].sort(() => Math.random() - 0.5);
     indices.forEach((i, rank) => {
       const span = spans[i];
+      if (!span) return;
       const ch = chars[i] === ' ' ? '\u00A0' : chars[i];
       setTimeout(() => {
         span.style.animation = 'none';

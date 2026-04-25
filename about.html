@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Commuting — File: SIN-001</title>
+  <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="./assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Doto:ROND,wght@1,700&family=Share+Tech+Mono&family=Special+Elite&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style/style.css">
+  <link rel="stylesheet" href="./style/about.css">
+</head>
+<body>
+
+  <div class="scanlines"></div>
+  <div class="window-frame"></div>
+
+  <div class="site-wrapper">
+
+    <!-- SYSTEM BAR -->
+    <div class="sys-bar">
+      <div class="sys-bar-left">
+        <span class="sys-tag">SYS:ONLINE</span>
+        <span>UNIT // SIN-001</span>
+        <span>LOC // ARCHIVE / DOSSIER</span>
+      </div>
+      <span>通勤 &mdash; CLASSIFIED</span>
+    </div>
+
+    <!-- NAV -->
+    <nav>
+      <a href="./index.html" class="nav-logo">
+        <span class="nav-logo-bracket">[</span>
+        The <span class="nav-logo-title">Commuting</span>
+        <span class="nav-logo-bracket">]</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="./photos.html" id="t-nav-photos">Photos</a></li>
+        <li><a href="./stories.html" id="t-nav-stories">Stories</a></li>
+        <li><a href="./work.html" id="t-nav-work">Tech</a></li>
+        <li><a href="./about.html" class="nav-active" id="t-nav-about">About</a></li>
+        <li class="nav-lang-item">
+          <div class="lang-switcher lang-switcher-inline">
+            <button class="lang-btn" id="lang-btn" aria-label="Change language">
+              <span id="lang-btn-label">EN</span>
+              <span class="lang-btn-arrow">&#9662;</span>
+            </button>
+            <div class="lang-dropdown" id="lang-dropdown">
+              <button class="lang-option" data-lang="en">EN &mdash; English</button>
+              <button class="lang-option" data-lang="it">IT &mdash; Italiano</button>
+              <button class="lang-option" data-lang="zh">中文 &mdash; 繁體</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <div class="hamburger-bars">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </div>
+      </button>
+    </nav>
+
+    <!-- MOBILE DRAWER -->
+    <div class="nav-drawer" id="nav-drawer">
+      <a href="./photos.html" id="t-nav-photos-m">Photos</a>
+      <a href="./stories.html" id="t-nav-stories-m">Stories</a>
+      <a href="./work.html" id="t-nav-work-m">Tech</a>
+      <a href="./about.html" id="t-nav-about-m">About</a>
+      <div class="drawer-lang">
+        <span class="drawer-lang-label">// LANGUAGE</span>
+        <div class="drawer-lang-options">
+          <button class="lang-option" data-lang="en">EN &mdash; English</button>
+          <button class="lang-option" data-lang="it">IT &mdash; Italiano</button>
+          <button class="lang-option" data-lang="zh">中文 &mdash; 繁體</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE HEADER -->
+    <div class="about-header">
+      <p class="about-eyebrow">04 // ABOUT</p>
+      <h1 class="about-title">DOSSIER</h1>
+      <p class="about-sub" data-t="aboutSub">&gt;_ Recovered file &mdash; classification logged for archival purposes</p>
+    </div>
+
+    <!-- DOSSIER -->
+    <main class="dossier-wrap">
+      <article class="dossier" aria-labelledby="dossier-title">
+
+        <!-- DOSSIER HEADER -->
+        <header class="dossier-head">
+          <div class="dossier-head-left">
+            <div class="dossier-id" id="dossier-title">
+              <span class="dossier-id-label">FILE //</span>
+              <span class="dossier-id-val">SIN-001</span>
+              <span class="dossier-id-sep">&mdash;</span>
+              <span class="dossier-id-tag" data-t="aboutFileTag">ALTERED STAFF MEMBER</span>
+            </div>
+            <div class="dossier-clearance" data-t="aboutClearance">CLEARANCE: TIER 2 // OBSERVATION</div>
+          </div>
+          <div class="dossier-stamp">
+            <span class="stamp-marks">&#9608;</span>
+            <span class="stamp-text" data-t="aboutStampClassified">CLASSIFIED</span>
+            <span class="stamp-marks">&#9608;</span>
+          </div>
+        </header>
+
+        <!-- DOSSIER GRID — portrait + meta -->
+        <section class="dossier-grid">
+
+          <div class="dossier-portrait">
+            <div class="portrait-frame">
+              <img src="./assets/propic.webp" alt="Subject photograph — SIN-001" class="portrait-img" />
+              <div class="portrait-scan"></div>
+            </div>
+            <div class="portrait-caption">
+              <span data-t="aboutPortraitCap">PHOTO ON FILE</span>
+              <span class="portrait-redact">&#9608;&#9608;.&#9608;&#9608;.19&#9608;&#9608;</span>
+            </div>
+          </div>
+
+          <div class="dossier-meta">
+            <div class="meta-row">
+              <span class="meta-label" data-t="aboutMetaDesignation">DESIGNATION</span>
+              <span class="meta-val">Sinthan</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label" data-t="aboutMetaAlias">ALIAS</span>
+              <span class="meta-val">Agostino Maria Cassese</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label" data-t="aboutMetaStatus">STATUS</span>
+              <span class="meta-val meta-val--accent" data-t="aboutMetaStatusVal">IN TRANSIT</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label" data-t="aboutMetaDisruption">DISRUPTION CLASS</span>
+              <span class="meta-val meta-val--warn">EKHI &mdash; V</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label" data-t="aboutMetaLocation">LOCATION</span>
+              <span class="meta-val" data-t="aboutMetaLocationVal">UNRESOLVED</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label" data-t="aboutMetaContact">FIRST CONTACT</span>
+              <span class="meta-val">&#9608;&#9608;.&#9608;&#9608;.19&#9608;&#9608;</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label" data-t="aboutMetaCustody">CUSTODY</span>
+              <span class="meta-val" data-t="aboutMetaCustodyVal">SELF-CONTAINED</span>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- OBSERVATION LOG -->
+        <section class="dossier-section">
+          <h2 class="section-label" data-t="aboutObsLabel">// OBSERVATION LOG</h2>
+          <div class="obs-log" data-t="aboutObsBody">
+            Subject exhibits chronic <em>commuting behaviour</em> across multiple disciplines &mdash; quantum computing, HPC, AI/ML, project coordination and cybersecurity consulting. Has been documented carrying a <span class="redacted">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span> across the wasteland, from one stop to the next, photographing strange landscapes through bus windows. Compulsively writes in idle hours; output ranges from horror to soft sci-fi. Fluent in Italian (native), English (C1), Traditional Chinese (work in progress). Considered <em class="obs-green">non-hostile</em> but unpredictable.
+          </div>
+        </section>
+
+        <!-- CONTAINMENT NOTE -->
+        <section class="dossier-section">
+          <h2 class="section-label" data-t="aboutContainmentLabel">// CONTAINMENT PROTOCOL</h2>
+          <div class="containment-note">
+            <p data-t="aboutContainmentP1">No physical containment is feasible. Subject is, by its own description, in transit. Contact is permitted through approved channels only. Do not attempt direct interception.</p>
+            <p data-t="aboutContainmentP2">If addressed in good faith, subject may respond with photographs, stories, technical advice, or quiet observation from a window seat.</p>
+          </div>
+        </section>
+
+        <!-- APPROVED CHANNELS -->
+        <section class="dossier-section">
+          <h2 class="section-label" data-t="aboutChannelsLabel">// APPROVED CHANNELS</h2>
+          <div class="channels">
+            <a class="channel" href="https://www.instagram.com/_sinthan/" target="_blank" rel="noopener">
+              <span class="channel-id">CH-01</span>
+              <span class="channel-sep">//</span>
+              <span class="channel-net" data-t="aboutChInstagramLbl">INSTAGRAM</span>
+              <span class="channel-handle">@_sinthan</span>
+              <span class="channel-arrow">&rarr;</span>
+            </a>
+            <a class="channel" href="https://www.linkedin.com/in/agostino-maria-cassese-4b3085217/" target="_blank" rel="noopener">
+              <span class="channel-id">CH-02</span>
+              <span class="channel-sep">//</span>
+              <span class="channel-net" data-t="aboutChLinkedinLbl">LINKEDIN</span>
+              <span class="channel-handle">agostino-maria-cassese</span>
+              <span class="channel-arrow">&rarr;</span>
+            </a>
+            <a class="channel" href="mailto:agostino_m@hotmail.com">
+              <span class="channel-id">CH-03</span>
+              <span class="channel-sep">//</span>
+              <span class="channel-net" data-t="aboutChEmailLbl">SECURE LINE</span>
+              <span class="channel-handle">agostino_m@hotmail.com</span>
+              <span class="channel-arrow">&rarr;</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- FOOTER STRIP -->
+        <footer class="dossier-foot">
+          <span data-t="aboutFootLeft">FBC-INT // EYES ONLY</span>
+          <span class="dossier-foot-sep">&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</span>
+          <span data-t="aboutFootRight">END OF FILE</span>
+        </footer>
+
+      </article>
+    </main>
+
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+      <div class="status-left">
+        <span><span class="status-dot"></span><span data-t="aboutStatusDossier">Dossier online</span></span>
+        <span data-t="aboutStatusFile">FILE // SIN-001</span>
+        <span>CONN // UNSTABLE</span>
+      </div>
+      <span class="status-right">&copy; The Commuting &mdash; All rights reserved</span>
+    </div>
+
+  </div>
+
+  <script src="./scripts/translations.js"></script>
+  <script src="./scripts/nav.js"></script>
+
+</body>
+</html>

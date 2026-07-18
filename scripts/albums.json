@@ -1,6 +1,24 @@
 [
   {
     "id": "album-01",
+    "name": "City of Shadows",
+    "quote": "They say that the one who looks inside wakes up, maybe they never watched out.",
+    "folder": "./assets/albums/CITYSHADOWS",
+    "images": [
+      "Lunge.webp",
+      "Direction.webp",
+      "Still.webp",
+      "Changeling.webp",
+      "Grater.webp",
+      "Watcher.webp",
+      "Pan.webp",
+      "Idyllic.webp",
+      "Enclose.webp",
+      "Wings.webp"
+    ]
+  },
+  {
+    "id": "album-02",
     "name": "Busy",
     "quote": "Work to live or live to work? I'm sure I'll figure it out on that bench over there.",
     "folder": "./assets/albums/Busy",
@@ -15,7 +33,7 @@
     ]
   },
   {
-    "id": "album-02",
+    "id": "album-03",
     "name": "Darning",
     "quote": "Every view hides something, you cannot see the whole without missing details, you cannot look at the details and understand the whole.",
     "folder": "./assets/albums/Darning",
@@ -36,7 +54,7 @@
     ]
   },
   {
-    "id": "album-03",
+    "id": "album-04",
     "name": "Lost&Found",
     "quote": "Nothing is truly lost until you stop looking for it",
     "folder": "./assets/albums/Lost&Found",
@@ -55,7 +73,7 @@
     ]
   },
   {
-    "id": "album-04",
+    "id": "album-05",
     "name": "Neon Beings",
     "quote": "There's beauty in light, there's beauty in shadow. People are just a reflection of everyday events, I'm just trying to express the radiance behind the greyness.",
     "folder": "./assets/albums/Neon Beings",
@@ -67,7 +85,7 @@
     ]
   },
   {
-    "id": "album-05",
+    "id": "album-06",
     "name": "Spaces of Changing",
     "quote": "True silence it's in a place that lives for itself and has no trace or voice for the likes of you… you are the outsider.",
     "folder": "./assets/albums/Spaces of Changing",

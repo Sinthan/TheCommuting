@@ -2,7 +2,7 @@
   {
     "id": "album-01",
     "name": "City of Shadows",
-    "quote": "They say that the one who looks inside wakes up, maybe they never watched out.",
+    "quote": "They say \"the one who looks inside wakes up\", maybe they never watched out.",
     "folder": "./assets/albums/CITYSHADOWS",
     "images": [
       "Lunge.webp",

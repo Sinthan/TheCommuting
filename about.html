@@ -72,10 +72,18 @@
 
         <div class="sep"></div>
 
-        <button class="cell util" id="langBtn" aria-label="Change language">
-          <span id="lang-btn-label">EN</span>
-          <span class="lab"><span id="t-nav-lang">LANGUAGE</span> <small>EN / IT / 繁體</small></span>
-        </button>
+        <div class="lang-wrap" id="langWrap">
+          <button class="cell util" id="langBtn"
+                  aria-haspopup="true" aria-expanded="false" aria-label="Change language">
+            <span id="lang-btn-label">EN</span>
+          </button>
+          <div class="lang-pane" id="langPane" role="menu" aria-label="Language">
+            <div class="lang-pane-cap" id="t-nav-lang">LANGUAGE</div>
+            <button class="lang-opt" role="menuitem" data-lang="en">EN <small>English</small></button>
+            <button class="lang-opt" role="menuitem" data-lang="it">IT <small>Italiano</small></button>
+            <button class="lang-opt" role="menuitem" data-lang="zh">中文 <small>繁體</small></button>
+          </div>
+        </div>
       </div>
     </nav>
 

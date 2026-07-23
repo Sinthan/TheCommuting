@@ -689,3 +689,135 @@ nav::after {
   .corner .cell,
   .corner .cell .lab { transition: none; }
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   LANGUAGE PANE — slides out like a cell label, but holds three
+   real options. Opens on hover or click and stays put until a
+   language is chosen (or Escape / click-outside).
+   ══════════════════════════════════════════════════════════════════ */
+.corner .lang-wrap {
+  position: relative;
+  display: block;
+}
+
+/* trigger sits at the base of the panel — it is no longer :last-child
+   (the pane is), so the shared rule would leave a stray border */
+.corner .lang-wrap > .cell { border-bottom: none; }
+
+.corner .lang-pane {
+  position: absolute;
+  right: calc(100% + 1px);
+  bottom: -1px;                 /* grows upward — it's the last cell */
+  min-width: 132px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-right: none;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateX(6px);
+  pointer-events: none;
+  transition: opacity 0.18s, transform 0.18s;
+  z-index: 2;
+}
+
+/* Visibility is owned solely by .open, which JS adds on mouseenter, click
+   and keyboard focus. Deliberately NOT :hover or :focus-within — both kept
+   the pane visible after Escape or after choosing a language, because the
+   cursor/focus still sat inside the wrapper. */
+.corner .lang-wrap.open .lang-pane {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.corner .lang-pane-cap {
+  font-size: 7.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--txt-dim);
+  padding: 6px 12px 5px;
+  border-bottom: 1px solid var(--line);
+}
+
+.corner .lang-opt {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  padding: 9px 12px;
+  font-family: inherit;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: left;
+  color: var(--strong);
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+
+.corner .lang-opt:last-child { border-bottom: none; }
+
+.corner .lang-opt small {
+  color: var(--txt-dim);
+  letter-spacing: 0.1em;
+  font-size: 8.5px;
+  text-transform: none;
+}
+
+.corner .lang-opt:hover,
+.corner .lang-opt:focus-visible {
+  background: var(--bg-lift);
+  color: var(--accent-c);
+  outline: none;
+}
+
+/* currently selected language */
+.corner .lang-opt.is-active {
+  color: var(--accent-c);
+}
+.corner .lang-opt.is-active::after {
+  content: '\2022';
+  margin-left: auto;
+  color: var(--accent-c);
+}
+
+/* trigger reflects open state */
+.corner .lang-wrap.open > .cell,
+.corner .lang-wrap:hover > .cell {
+  background: var(--bg-lift);
+  color: var(--accent-c);
+}
+
+/* ── MOBILE: render the pane inline inside the expanded panel ── */
+@media (max-width: 700px) {
+  .corner .lang-pane {
+    position: static;
+    min-width: 0;
+    border: none;
+    border-top: 1px solid var(--line);
+    transform: none;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .corner .lang-wrap.open .lang-pane {
+    opacity: 1;
+    height: auto;
+    overflow: visible;
+    pointer-events: auto;
+  }
+
+  .corner .lang-pane-cap { padding-left: 14px; }
+  .corner .lang-opt { padding-left: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .corner .lang-pane { transition: none; }
+}

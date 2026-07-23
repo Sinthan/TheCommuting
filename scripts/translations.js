@@ -550,15 +550,9 @@ const TRANSLATIONS = {
 
     setText('t-work-sub',    t.workSub);
     setText('t-work-dl',     t.workDl);
-    setText('t-tab-exp',     t.tabExp);
-    setText('t-tab-edu',     t.tabEdu);
-    setText('t-tab-proj',    t.tabProj);
-    setText('t-tab-skills',  t.tabSkills);
-    setText('t-tab-int',     t.tabInt);
-    setText('t-int-linux',   t.intLinux);
-    setText('t-int-scifi',   t.intScifi);
-    setText('t-int-design',  t.intDesign);
-    setText('t-int-gdr',     t.intGdr);
+    /* t-tab-* / t-int-* targets no longer exist in any page — work.js builds
+       that content itself from the translation keys via t(). The int* keys are
+       still consumed there; only these dead DOM lookups are removed. */
 
     document.querySelectorAll('.stop-label-eyebrow').forEach(el => {
       el.textContent = t.nextStop || 'Next stop:';

@@ -33,25 +33,6 @@
         The <span class="nav-logo-title">Commuting</span>
         <span class="nav-logo-bracket">]</span>
       </a>
-      <ul class="nav-links">
-        <li><a href="./photos.html" id="t-nav-photos">Photos</a></li>
-        <li><a href="./stories.html" id="t-nav-stories">Stories</a></li>
-        <li><a href="./work.html" class="nav-active" id="t-nav-work">Tech</a></li>
-        <li><a href="./about.html" id="t-nav-about">About</a></li>
-        <li class="nav-lang-item">
-          <div class="lang-switcher lang-switcher-inline">
-            <button class="lang-btn" id="lang-btn" aria-label="Change language">
-              <span id="lang-btn-label">EN</span>
-              <span class="lang-btn-arrow">▾</span>
-            </button>
-            <div class="lang-dropdown" id="lang-dropdown">
-              <button class="lang-option" data-lang="en">EN — English</button>
-              <button class="lang-option" data-lang="it">IT — Italiano</button>
-              <button class="lang-option" data-lang="zh">中文 — 繁體</button>
-            </div>
-          </div>
-        </li>
-      </ul>
       <button class="hamburger" id="hamburger" aria-label="Menu">
         <div class="hamburger-bars">
           <span class="hamburger-bar"></span>
@@ -61,11 +42,45 @@
       </button>
     </nav>
 
+    <!-- FLOATING VERTICAL NAV -->
+    <div class="nav-float" id="nav-float">
+      <a href="./photos.html" class="nav-float-item">
+        <span class="nav-float-icon">[⊙]</span>
+        <span class="nav-float-label" id="t-nav-photos">Photos</span>
+      </a>
+      <a href="./stories.html" class="nav-float-item">
+        <span class="nav-float-icon">[≡]</span>
+        <span class="nav-float-label" id="t-nav-stories">Stories</span>
+      </a>
+      <a href="./work.html" class="nav-float-item nav-active">
+        <span class="nav-float-icon">[⊞]</span>
+        <span class="nav-float-label" id="t-nav-work">Tech</span>
+      </a>
+      <a href="./about.html" class="nav-float-item">
+        <span class="nav-float-icon">[?]</span>
+        <span class="nav-float-label" id="t-nav-about">About</span>
+      </a>
+      <div class="nav-float-divider"></div>
+      <div class="nav-float-lang">
+        <div class="lang-switcher">
+          <button class="lang-btn" id="lang-btn" aria-label="Change language">
+            <span id="lang-btn-label">EN</span>
+            <span class="lang-btn-arrow">▾</span>
+          </button>
+          <div class="lang-dropdown" id="lang-dropdown">
+            <button class="lang-option" data-lang="en">EN — English</button>
+            <button class="lang-option" data-lang="it">IT — Italiano</button>
+            <button class="lang-option" data-lang="zh">中文 — 繁體</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="nav-drawer" id="nav-drawer">
-      <a href="./photos.html" id="t-nav-photos-m">Photos</a>
-      <a href="./stories.html" id="t-nav-stories-m">Stories</a>
-      <a href="./work.html" class="nav-active" id="t-nav-work-m">Tech</a>
-      <a href="./about.html" id="t-nav-about-m">About</a>
+      <a href="./photos.html" class="nav-i-photos" id="t-nav-photos-m">Photos</a>
+      <a href="./stories.html" class="nav-i-stories" id="t-nav-stories-m">Stories</a>
+      <a href="./work.html" class="nav-active nav-i-work" id="t-nav-work-m">Tech</a>
+      <a href="./about.html" class="nav-i-about" id="t-nav-about-m">About</a>
       <div class="drawer-lang">
         <span class="drawer-lang-label">// LANGUAGE</span>
         <div class="drawer-lang-options">

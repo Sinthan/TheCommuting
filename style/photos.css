@@ -20,10 +20,6 @@ body {
   transform: translateY(0);
 }
 
-/* active nav link */
-.nav-active { color: var(--accent-bright) !important; }
-.nav-active::before { opacity: 1 !important; }
-
 /* ── LAYOUT ── */
 .site-wrapper {
   height: 100vh;
@@ -533,7 +529,7 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: border-color 0.2s, background 0.2s;
   flex-shrink: 0;
   letter-spacing: 0;
 }

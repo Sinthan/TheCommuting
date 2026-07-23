@@ -14,6 +14,7 @@ const TRANSLATIONS = {
     card1Desc:    'I like to imagine myself on an alien train, snapping photos of strange landscapes — have a look.',
     card2Desc:    'I write, and I write too much. Some of it ended up here.',
     card3Desc:    'A working life: career, passions and dedication from the stops that came before.',
+    card4Desc:    'Who is holding the wheel? A classified file, partially declassified.',
 
     // ── PHOTOS PAGE ──
     archiveSub:    '>_ Windows onto nowhere — scroll and click to take a look',
@@ -159,6 +160,7 @@ const TRANSLATIONS = {
     card1Desc:    'Mi piace immaginarmi su un treno alieno, a fotografare paesaggi strani — dai pure un&rsquo;occhiata.',
     card2Desc:    'Scrivo, e scrivo fin troppo. Una parte è finita qui.',
     card3Desc:    'Una vita di lavoro: carriera, passioni e dedizione dalle fermate che sono venute prima.',
+    card4Desc:    'Chi è che tiene il volante? Un fascicolo riservato, in parte declassificato.',
 
     archiveSub:    '>_ Finestre sul nulla — scorri e clicca per dare un&rsquo;occhiata',
     archiveLoaded: 'Archivio caricato',
@@ -295,6 +297,7 @@ const TRANSLATIONS = {
     card1Desc:    '我喜歡想像自己坐在一班外星列車上，拍下奇怪的風景——來看看吧。',
     card2Desc:    '我寫作，而且寫得太多了。其中一部分，就收在這裡。',
     card3Desc:    '一段工作人生：職涯、熱情與投入，都是旅途上先前停靠過的站。',
+    card4Desc:    '方向盤到底在誰手上？一份機密檔案，已部分解密。',
 
     archiveSub:    '>_ 望向虛無的窗——滑動、點擊，看一眼吧',
     archiveLoaded: '檔案已載入',
@@ -534,6 +537,7 @@ const TRANSLATIONS = {
     setText('t-card1-desc', t.card1Desc);
     setText('t-card2-desc', t.card2Desc);
     setText('t-card3-desc', t.card3Desc);
+    setText('t-card4-desc', t.card4Desc);
 
     setText('t-archive-sub',    t.archiveSub);
     setText('t-archive-loaded', t.archiveLoaded);

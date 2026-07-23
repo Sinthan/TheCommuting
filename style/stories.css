@@ -394,15 +394,6 @@ body {
   pointer-events: all;
 }
 
-/* ── NAV ACTIVE STATE ────────────────────────────────────────────── */
-.nav-active {
-  color: var(--green) !important;
-}
-
-.nav-active::before {
-  opacity: 1 !important;
-}
-
 /* ── MOBILE ROW CARD (hidden always — unused) ────────────────────── */
 .row-mobile { display: none; }
 

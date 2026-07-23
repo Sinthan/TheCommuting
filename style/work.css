@@ -438,10 +438,6 @@ body {
 .cv-int-label { font-family: 'Doto', monospace; font-size: 0.66rem; letter-spacing: 0.1em; color: var(--accent-bright); flex-shrink: 0; min-width: 130px; }
 .cv-int-desc { font-size: 0.72rem; line-height: 1.8; color: #c0ccc8; }
 
-/* ── NAV ACTIVE ── */
-.nav-active { color: var(--green) !important; }
-.nav-active::before { opacity: 1 !important; }
-
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .work-header { padding: 1.6rem 1.4rem 1rem; }

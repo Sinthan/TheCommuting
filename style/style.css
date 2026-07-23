@@ -455,65 +455,6 @@ nav::after {
   50%       { opacity: 0.2; }
 }
 
-/* ── HAMBURGER ── */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  background: none;
-  border: 1px solid rgba(74,140,92,0.4);
-  padding: 0.45rem 0.65rem;
-  cursor: pointer;
-  z-index: 100;
-}
-
-.hamburger-bars { display: flex; flex-direction: column; gap: 4px; }
-
-.hamburger-bar {
-  width: 20px; height: 2px;
-  background: var(--green);
-  transition: transform 0.25s, opacity 0.25s;
-  display: block;
-}
-
-.hamburger.open .hamburger-bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-.hamburger.open .hamburger-bar:nth-child(2) { opacity: 0; }
-.hamburger.open .hamburger-bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-
-/* ── NAV DRAWER (mobile only) ── */
-.nav-drawer {
-  display: none;
-  position: fixed;
-  top: 0; right: 0;
-  width: 220px; height: 100vh;
-  background: rgba(8,8,8,0.97);
-  border-left: 1px solid rgba(74,140,92,0.25);
-  z-index: 99;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: 3rem 2rem;
-  gap: 0.5rem;
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
-}
-
-.nav-drawer.open { transform: translateX(0); }
-
-.nav-drawer a {
-  font-size: 0.7rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  text-decoration: none;
-  padding: 0.65rem 0;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  transition: color 0.2s;
-}
-
-.nav-drawer a::before { content: '//'; margin-right: 0.4em; color: var(--accent); }
-.nav-drawer a:hover { color: var(--green); }
-
 /* ── RESPONSIVE ── */
 /* 4 cards get cramped before mobile kicks in — drop to 2×2 first */
 @media (max-width: 1100px) and (min-width: 769px) {
@@ -525,8 +466,6 @@ nav::after {
 @media (max-width: 768px) {
   .sys-bar, nav, .hero, .status-bar { padding-left: 1.4rem; padding-right: 1.4rem; }
   nav::after { left: 1.4rem; right: 1.4rem; }
-  .hamburger { display: flex; }
-  .nav-drawer { display: flex; }
   .cards { grid-template-columns: 1fr; }
   .card { border-right: none; border-bottom: 1px solid var(--glass-border); }
   .hero-jp { display: none; }
@@ -555,269 +494,198 @@ nav::after {
 }
 
 /* ── LANGUAGE SWITCHER ── */
-.lang-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  background: transparent;
-  border: 1px solid rgba(123,94,167,0.4);
-  color: var(--text-muted);
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.63rem;
-  letter-spacing: 0.16em;
-  padding: 0.3rem 0.6rem;
-  cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
-}
 
-.lang-btn:hover,
-.lang-btn.open {
-  border-color: var(--accent-bright);
-  color: var(--accent-bright);
-}
 
-.lang-btn-arrow {
-  font-size: 0.45rem;
-  transition: transform 0.2s;
-}
 
-.lang-btn.open .lang-btn-arrow { transform: rotate(180deg); }
 
-.lang-dropdown {
-  position: absolute;
-  top: calc(100% + 6px);
-  right: 0;
-  background: rgba(8,8,8,0.97);
-  border: 1px solid rgba(123,94,167,0.3);
-  display: flex;
-  flex-direction: column;
-  min-width: 140px;
-  z-index: 200;
-  transform: translateY(-4px);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s, transform 0.2s;
-}
+/* ══════════════════════════════════════════════════════════════════
+   CORNER PANEL — fixed vertical nav, top-right
+   Token-driven per spec §5. The six component tokens are aliased to the
+   site's current palette here rather than in :root, so the panel needs
+   no theme-specific rules and can be repointed when the theme switch
+   ("the house shifts") lands.
+   ══════════════════════════════════════════════════════════════════ */
+.corner {
+  --panel:   rgba(12,12,14,0.94);
+  --bg-lift: rgba(123,94,167,0.14);
+  --line:    rgba(123,94,167,0.28);
+  --txt-dim: var(--text-muted);
+  --strong:  var(--text-primary);
+  --accent-c: var(--accent-bright);
 
-.lang-dropdown.open {
-  opacity: 1;
-  pointer-events: all;
-  transform: translateY(0);
-}
-
-.lang-option {
-  background: none;
-  border: none;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  color: var(--text-muted);
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.14em;
-  text-align: left;
-  padding: 0.6rem 0.9rem;
-  cursor: pointer;
-  transition: color 0.2s, background 0.2s;
-}
-
-.lang-option:last-child { border-bottom: none; }
-.lang-option:hover { color: var(--accent-bright); background: rgba(123,94,167,0.08); }
-.lang-option-active { color: var(--green); }
-
-/* ── MOBILE DRAWER LANGUAGE SELECTOR ── */
-.drawer-lang {
-  margin-top: auto;
-  padding-top: 1.4rem;
-  border-top: 1px solid rgba(123,94,167,0.18);
-}
-
-.drawer-lang-label {
-  font-size: 0.52rem;
-  letter-spacing: 0.22em;
-  color: var(--accent);
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: 0.6rem;
-}
-
-.drawer-lang-options {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.drawer-lang-options .lang-option {
-  text-align: left;
-  padding: 0.6rem 0;
-  border: none;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  font-size: 0.68rem;
-  letter-spacing: 0.16em;
-}
-
-.drawer-lang-options .lang-option::before {
-  content: '//';
-  margin-right: 0.4em;
-  color: var(--accent);
-}
-
-/* ══════════════════════════════════════════════════════════
-   FLOATING VERTICAL NAV — "mystery square", top right
-   Collapsed: icon column only. Hover: expands to reveal labels.
-   Hidden on mobile — hamburger + drawer take over.
-   ══════════════════════════════════════════════════════════ */
-.nav-float {
   position: fixed;
-  top: 6.2rem;
-  right: 3.5rem;
-  z-index: 50;
+  top: 16px;
+  right: 16px;
+  z-index: 60;
+  width: 54px;
+  border: 1px solid var(--line);
+  background: var(--panel);
   display: flex;
   flex-direction: column;
-  width: 3.4rem;
-  padding: 0.55rem;
-  gap: 0.15rem;
-  background: rgba(8,8,8,0.82);
-  border: 1px solid rgba(123,94,167,0.3);
+  font-family: 'Share Tech Mono', monospace;
   backdrop-filter: blur(6px);
-  transition: width 0.28s cubic-bezier(0.4,0,0.2,1),
-              border-color 0.28s;
+
+  /* reset the global `nav` element rule, which otherwise leaks
+     padding / align-items / justify-content into this panel */
+  padding: 0;
+  align-items: stretch;
+  justify-content: flex-start;
 }
 
-.nav-float:hover {
-  width: 11.5rem;
-  border-color: rgba(168,127,212,0.55);
+/* the global nav underline must not render on the panel */
+.corner::after { display: none; }
+
+.corner .cap {
+  font-size: 7.5px;
+  letter-spacing: 0.16em;
+  text-align: center;
+  color: var(--txt-dim);
+  padding: 5px 0 4px;
+  border-bottom: 1px solid var(--line);
+  text-transform: uppercase;
 }
 
-/* dot matrix corner accent — same language as .card::before */
-.nav-float::before {
-  content: '';
-  position: absolute;
-  top: 0; right: 0;
-  width: 34px; height: 34px;
-  background: radial-gradient(circle, rgba(123,94,167,0.3) 1px, transparent 1px);
-  background-size: 5px 5px;
-  pointer-events: none;
-}
-
-/* ── ITEM ── */
-.nav-float-item {
+/* ── CELL ── */
+.corner .cell {
   position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  height: 46px;
   display: flex;
   align-items: center;
-  gap: 0.7rem;
-  padding: 0.5rem 0.35rem;
+  justify-content: center;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: none;
+  color: var(--txt-dim);
+  font-family: inherit;
+  font-size: 15px;
   text-decoration: none;
-  color: var(--text-muted);
-  border-radius: 2px;
-  white-space: nowrap;
-  transition: color 0.2s, background 0.2s;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
 }
 
-.nav-float-item:hover {
-  color: var(--green);
-  background: rgba(74,140,92,0.08);
+.corner .cell:last-child { border-bottom: none; }
+.corner .cell .br { opacity: 0.45; font-size: 13px; }
+.corner .cell .g  { color: inherit; margin: 0 1px; }
+
+.corner .cell:hover,
+.corner .cell:focus-visible {
+  background: var(--bg-lift);
+  color: var(--accent-c);
+  outline: none;
 }
 
-/* ── ICON ── */
-.nav-float-icon,
-.card-icon {
-  font-family: system-ui, sans-serif;
-  font-size: 0.85rem;
-  line-height: 1;
-  color: var(--accent-bright);
-  flex-shrink: 0;
-  width: 1.5rem;
-  text-align: center;
-  transition: color 0.2s;
+/* keyboard users get a visible treatment in place of the default outline */
+.corner .cell:focus-visible {
+  box-shadow: inset 0 0 0 1px var(--accent-c);
 }
 
-.nav-float-item:hover .nav-float-icon { color: var(--green); }
-
-/* ── LABEL — revealed on box hover ── */
-.nav-float-label {
-  font-size: 0.68rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateX(-4px);
-  transition: opacity 0.22s 0.04s, transform 0.22s 0.04s;
-}
-
-.nav-float:hover .nav-float-label {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateX(0);
-}
-
-/* ── ACTIVE PAGE ── */
-.nav-float-item.nav-active            { color: var(--accent-bright); }
-.nav-float-item.nav-active .nav-float-icon { color: var(--accent-bright); }
-.nav-float-item.nav-active::after {
+/* ── ACTIVE ── */
+.corner .cell.active { color: var(--accent-c); }
+.corner .cell.active::before {
   content: '';
   position: absolute;
-  left: 0;
+  left: 0; top: 0; bottom: 0;
   width: 2px;
-  height: 1.1rem;
-  background: var(--accent-bright);
+  background: var(--accent-c);
   box-shadow: 0 0 6px var(--accent);
 }
 
-/* ── DIVIDER + LANG ── */
-.nav-float-divider {
-  height: 1px;
-  margin: 0.4rem 0.35rem;
-  background: linear-gradient(to right, transparent, rgba(123,94,167,0.4), transparent);
-}
-
-.nav-float-lang {
+/* ── SLIDE-OUT LABEL ── */
+.corner .cell .lab {
+  position: absolute;
+  right: calc(100% + 1px);
+  top: 0;
+  height: 100%;
   display: flex;
-  justify-content: center;
-  padding: 0.1rem 0.35rem 0.15rem;
+  align-items: center;
+  white-space: nowrap;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-right: none;
+  padding: 0 12px;
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--strong);
+  opacity: 0;
+  transform: translateX(6px);
+  pointer-events: none;
+  transition: opacity 0.18s, transform 0.18s;
 }
 
-.nav-float-lang .lang-switcher { position: relative; }
+.corner .cell:hover .lab,
+.corner .cell:focus-visible .lab {
+  opacity: 1;
+  transform: translateX(0);
+}
 
-.nav-float-lang .lang-btn {
-  padding: 0.25rem 0.4rem;
-  font-size: 0.58rem;
+.corner .cell .lab small {
+  color: var(--txt-dim);
+  margin-left: 8px;
+  letter-spacing: 0.14em;
+}
+
+/* ── SEPARATOR + UTILITY CELLS ── */
+.corner .sep { height: 1px; background: var(--line); }
+
+.corner .cell.util {
+  height: 38px;
+  font-size: 11px;
   letter-spacing: 0.1em;
 }
 
-.nav-float-lang .lang-dropdown {
-  right: 0;
-  left: auto;
+/* ── MOBILE TOGGLE (hidden on desktop) ── */
+.corner .toggle { display: none; }
+
+/* ══════════════════════════════════════════════════════════════════
+   MOBILE
+   Spec §10.1 flags that labels are unreachable on touch (no hover).
+   Fix applied: when open, the panel widens and labels render inline
+   instead of as slide-outs.
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 700px) {
+  .corner { width: 46px; transition: width 0.22s ease; }
+  .corner .cap { display: none; }
+  .corner .toggle { display: flex; height: 44px; }
+  .corner .stack { display: none; flex-direction: column; }
+  .corner.open .stack { display: flex; }
+  .corner .cell { height: 42px; }
+
+  /* open state: widen and inline the labels */
+  .corner.open { width: 176px; }
+  .corner.open .toggle { justify-content: flex-end; padding-right: 14px; }
+
+  .corner.open .cell {
+    justify-content: flex-start;
+    padding-left: 14px;
+  }
+
+  .corner.open .cell .lab {
+    position: static;
+    height: auto;
+    opacity: 1;
+    transform: none;
+    background: none;
+    border: none;
+    padding: 0 0 0 12px;
+    pointer-events: auto;
+  }
 }
 
-/* ── RESPONSIVE — hide floating nav on mobile ── */
-@media (max-width: 768px) {
-  .nav-float { display: none; }
+/* ══════════════════════════════════════════════════════════════════
+   TOP BAR CLEARANCE — the panel is fixed over the page, so the
+   right-hand status text must not run underneath it (spec §2).
+   ══════════════════════════════════════════════════════════════════ */
+.sys-bar { padding-right: 72px; }
+
+@media (max-width: 700px) {
+  .sys-bar { padding-right: 56px; }
 }
 
-/* ══════════════════════════════════════════════════════════
-   ACTIVE NAV LINK — consolidated (was duplicated across
-   photos.css / stories.css / work.css with differing colours)
-   ══════════════════════════════════════════════════════════ */
-.nav-drawer a.nav-active {
-  color: var(--accent-bright);
+@media (prefers-reduced-motion: reduce) {
+  .corner,
+  .corner .cell,
+  .corner .cell .lab { transition: none; }
 }
-
-/* ── DRAWER SECTION ICONS ──
-   Delivered via ::before so translations (which rewrite textContent)
-   can never wipe them. Overrides the generic '//' prefix. */
-.nav-drawer a.nav-i-photos::before,
-.nav-drawer a.nav-i-stories::before,
-.nav-drawer a.nav-i-work::before,
-.nav-drawer a.nav-i-about::before {
-  font-family: system-ui, sans-serif;
-  color: var(--accent-bright);
-  margin-right: 0.55em;
-  display: inline-block;
-  width: 1.5em;
-}
-
-.nav-drawer a.nav-i-photos::before  { content: '[\2299]'; }
-.nav-drawer a.nav-i-stories::before { content: '[\2261]'; }
-.nav-drawer a.nav-i-work::before    { content: '[\229E]'; }
-.nav-drawer a.nav-i-about::before   { content: '[?]'; }
-
-.nav-drawer a:hover::before { color: var(--green); }

@@ -12,8 +12,6 @@
   const sideCount  = document.getElementById('sidebar-count');
   const sideClose  = document.getElementById('sidebar-close');
   const albumCount = document.getElementById('album-count');
-  const hamburger  = document.getElementById('hamburger');
-  const drawer     = document.getElementById('nav-drawer');
   const lightbox   = document.getElementById('lightbox');
   const lbImg      = document.getElementById('lightbox-img');
   const lbName     = document.getElementById('lightbox-name');
@@ -25,23 +23,6 @@
   let currentAlbum = null;
   let currentIndex = 0;
   let lastTriggerEl = null; /* for focus restore */
-
-  /* ── HAMBURGER (with a11y + auto-close on link click) ── */
-  function setDrawerState(open) {
-    hamburger.classList.toggle('open', open);
-    drawer.classList.toggle('open', open);
-    hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Menu');
-    hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
-  }
-  setDrawerState(false);
-  hamburger.addEventListener('click', () => {
-    setDrawerState(!drawer.classList.contains('open'));
-  });
-  /* close drawer when a link inside it is clicked */
-  drawer.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => setDrawerState(false));
-  });
 
   /* ── LIGHTBOX ── */
   function openLightbox(album, index) {

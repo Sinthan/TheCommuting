@@ -247,25 +247,6 @@
     if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
   });
 
-  /* ── HAMBURGER (a11y + close on link click) ────────────────── */
-  const hamburger = document.getElementById('hamburger');
-  const navDrawer = document.getElementById('nav-drawer');
-
-  function setNavState(open) {
-    hamburger.classList.toggle('open', open);
-    navDrawer.classList.toggle('open', open);
-    hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Menu');
-    hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    navDrawer.setAttribute('aria-hidden', open ? 'false' : 'true');
-  }
-  setNavState(false);
-  hamburger.addEventListener('click', () => {
-    setNavState(!navDrawer.classList.contains('open'));
-  });
-  navDrawer.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => setNavState(false));
-  });
-
   /* ── INIT ──────────────────────────────────────────────────── */
   buildBoard();
 })();

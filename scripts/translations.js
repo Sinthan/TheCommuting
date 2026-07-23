@@ -3,6 +3,8 @@ const TRANSLATIONS = {
     // ── NAV ──
     navPhotos:   'Photos',
     navStories:  'Stories',
+    navHome:     'Home',
+    navLang:     'Language',
     navWork:     'Work',
     navAbout:    'About',
 
@@ -151,6 +153,8 @@ const TRANSLATIONS = {
   it: {
     navPhotos:   'Foto',
     navStories:  'Racconti',
+    navHome:     'Home',
+    navLang:     'Lingua',
     navWork:     'Lavoro',
     navAbout:    'Chi sono',
 
@@ -288,6 +292,8 @@ const TRANSLATIONS = {
   zh: {
     navPhotos:   '影像',
     navStories:  '故事',
+    navHome:     '首頁',
+    navLang:     '語言',
     navWork:     '工作',
     navAbout:    '關於',
 
@@ -522,14 +528,12 @@ const TRANSLATIONS = {
     });
 
     // Legacy ID-based mappings (kept for backwards compatibility)
+    setText('t-nav-home',      t.navHome);
+    setText('t-nav-lang',      t.navLang);
     setText('t-nav-photos',    t.navPhotos);
     setText('t-nav-stories',   t.navStories);
     setText('t-nav-work',      t.navWork);
     setText('t-nav-about',     t.navAbout);
-    setText('t-nav-photos-m',  t.navPhotos);
-    setText('t-nav-stories-m', t.navStories);
-    setText('t-nav-work-m',    t.navWork);
-    setText('t-nav-about-m',   t.navAbout);
 
     setText('t-hero-code',     t.heroCode);
     setText('t-hero-subtitle', t.heroSubtitle);
@@ -597,6 +601,13 @@ const TRANSLATIONS = {
       if (btn)      btn.classList.remove('open');
     });
   }
+
+  /* Public hook — lets the corner panel's language cycle drive real
+     content switching instead of only rotating a label. */
+  window.tcSetLang = function (lang) {
+    if (!TRANSLATIONS[lang]) return;
+    applyTranslations(lang, true);
+  };
 
   document.addEventListener('DOMContentLoaded', () => {
     initSwitcher();

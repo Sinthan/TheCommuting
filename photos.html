@@ -37,64 +37,47 @@
         The <span class="nav-logo-title">Commuting</span>
         <span class="nav-logo-bracket">]</span>
       </a>
-      <button class="hamburger" id="hamburger" aria-label="Menu">
-        <div class="hamburger-bars">
-          <span class="hamburger-bar"></span>
-          <span class="hamburger-bar"></span>
-          <span class="hamburger-bar"></span>
-        </div>
-      </button>
     </nav>
 
-    <!-- FLOATING VERTICAL NAV -->
-    <div class="nav-float" id="nav-float">
-      <a href="./photos.html" class="nav-float-item nav-active">
-        <span class="nav-float-icon">[⊙]</span>
-        <span class="nav-float-label" id="t-nav-photos">Photos</span>
-      </a>
-      <a href="./stories.html" class="nav-float-item">
-        <span class="nav-float-icon">[≡]</span>
-        <span class="nav-float-label" id="t-nav-stories">Stories</span>
-      </a>
-      <a href="./work.html" class="nav-float-item">
-        <span class="nav-float-icon">[⊞]</span>
-        <span class="nav-float-label" id="t-nav-work">Tech</span>
-      </a>
-      <a href="./about.html" class="nav-float-item">
-        <span class="nav-float-icon">[?]</span>
-        <span class="nav-float-label" id="t-nav-about">About</span>
-      </a>
-      <div class="nav-float-divider"></div>
-      <div class="nav-float-lang">
-        <div class="lang-switcher">
-          <button class="lang-btn" id="lang-btn" aria-label="Change language">
-            <span id="lang-btn-label">EN</span>
-            <span class="lang-btn-arrow">▾</span>
-          </button>
-          <div class="lang-dropdown" id="lang-dropdown">
-            <button class="lang-option" data-lang="en">EN — English</button>
-            <button class="lang-option" data-lang="it">IT — Italiano</button>
-            <button class="lang-option" data-lang="zh">中文 — 繁體</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- CORNER PANEL -->
+    <nav class="corner" id="corner" aria-label="Sections">
+      <div class="cap">NAV</div>
 
-    <!-- MOBILE DRAWER -->
-    <div class="nav-drawer" id="nav-drawer">
-      <a href="./photos.html" class="nav-i-photos" id="t-nav-photos-m">Photos</a>
-      <a href="./stories.html" class="nav-i-stories" id="t-nav-stories-m">Stories</a>
-      <a href="./work.html" class="nav-i-work" id="t-nav-work-m">Tech</a>
-      <a href="./about.html" class="nav-i-about" id="t-nav-about-m">About</a>
-      <div class="drawer-lang">
-        <span class="drawer-lang-label">// LANGUAGE</span>
-        <div class="drawer-lang-options">
-          <button class="lang-option" data-lang="en">EN — English</button>
-          <button class="lang-option" data-lang="it">IT — Italiano</button>
-          <button class="lang-option" data-lang="zh">中文 — 繁體</button>
-        </div>
+      <button class="cell toggle" id="cornerToggle"
+              aria-label="Open navigation" aria-expanded="false">
+        <span class="br">[</span><span class="g">≡</span><span class="br">]</span>
+      </button>
+
+      <div class="stack">
+        <a class="cell" href="./index.html" aria-label="HOME">
+          <span class="br">[</span><span class="g">^</span><span class="br">]</span>
+          <span class="lab"><span id="t-nav-home">HOME</span> <small>00</small></span>
+        </a>
+        <a class="cell active" href="./photos.html" aria-current="page" aria-label="PHOTOS">
+          <span class="br">[</span><span class="g">o</span><span class="br">]</span>
+          <span class="lab"><span id="t-nav-photos">PHOTOS</span> <small>01</small></span>
+        </a>
+        <a class="cell" href="./stories.html" aria-label="STORIES">
+          <span class="br">[</span><span class="g">=</span><span class="br">]</span>
+          <span class="lab"><span id="t-nav-stories">STORIES</span> <small>02</small></span>
+        </a>
+        <a class="cell" href="./work.html" aria-label="TECH">
+          <span class="br">[</span><span class="g">&gt;</span><span class="br">]</span>
+          <span class="lab"><span id="t-nav-work">TECH</span> <small>03</small></span>
+        </a>
+        <a class="cell" href="./about.html" aria-label="ABOUT">
+          <span class="br">[</span><span class="g">?</span><span class="br">]</span>
+          <span class="lab"><span id="t-nav-about">ABOUT</span> <small>04</small></span>
+        </a>
+
+        <div class="sep"></div>
+
+        <button class="cell util" id="langBtn" aria-label="Change language">
+          <span id="lang-btn-label">EN</span>
+          <span class="lab"><span id="t-nav-lang">LANGUAGE</span> <small>EN / IT / 繁體</small></span>
+        </button>
       </div>
-    </div>
+    </nav>
 
     <!-- ARCHIVE PAGE -->
     <div class="archive-page">
@@ -250,6 +233,7 @@
   </div>
 
   <script src="./scripts/translations.js"></script>
+  <script src="./scripts/nav.js"></script>
   <script src="./scripts/photos.js"></script>
 
 </body>

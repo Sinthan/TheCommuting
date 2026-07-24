@@ -879,8 +879,8 @@ nav::after {
    THEME CELL — "the house shifts"
 
    The glyph is a pyramid, not an icon: tip up while the dark theme is
-   live, tip down once the house has shifted. Hover shows the state the
-   click would produce, so the control previews its own result.
+   live, tip down once the house has shifted. It moves on theme change
+   and on nothing else — hover leaves it where it is.
    ══════════════════════════════════════════════════════════════════ */
 .corner #themeBtn .pyramid {
   width: 0;
@@ -891,10 +891,6 @@ nav::after {
   transform: rotate(0deg);
   transition: transform 0.4s linear;
 }
-
-/* hover previews the shift */
-.corner #themeBtn:hover .pyramid,
-.corner #themeBtn:focus-visible .pyramid { transform: rotate(180deg); }
 
 /* ══════════════════════════════════════════════════════════════════
    BUREAU STAMP — ASCII seal. Off by default; theme.css turns it on.

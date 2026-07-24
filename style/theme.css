@@ -128,12 +128,12 @@ html[data-theme="light"] .bureau-stamp {
   z-index: 1;
   margin: 0;
   font-family: var(--font-mono);
-  font-size: clamp(5px, 0.72vw, 9px);
-  line-height: 1.05;
-  letter-spacing: 0.02em;
+  font-size: clamp(3.6px, 0.44vw, 6px);
+  line-height: 1.02;
+  letter-spacing: 0;
   white-space: pre;
   color: var(--accent-bright);
-  opacity: 0.42;
+  opacity: 0.40;
   transform: rotate(-9deg);
   transform-origin: 100% 0;
   pointer-events: none;
@@ -145,10 +145,8 @@ html[data-theme="light"] .bureau-stamp {
 }
 
 /* ── PYRAMID: shifted once the house has ──────────────────────────
-   Dark = tip up. Light = tip down. Hover inverts whichever is live. */
+   Dark = tip up. Light = tip down. Theme change is the only trigger. */
 html[data-theme="light"] .corner #themeBtn .pyramid { transform: rotate(180deg); }
-html[data-theme="light"] .corner #themeBtn:hover .pyramid,
-html[data-theme="light"] .corner #themeBtn:focus-visible .pyramid { transform: rotate(0deg); }
 
 /* the CJK texture reads as noise in red against the stamp — drop it to
    the recessive accent so the seal stays the only loud thing on paper */

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,8 +9,23 @@
   <link rel="apple-touch-icon" href="./assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Doto:ROND,wght@1,700&family=Share+Tech+Mono&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Doto:ROND,wght@1,700&family=Share+Tech+Mono&family=Playfair+Display:wght@400;700&family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&family=Special+Elite&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style/style.css">
+  <link rel="stylesheet" href="./style/theme.css">
+
+  <!-- resolve the theme before first paint, otherwise light-mode visitors
+       get a black flash. Duplicates theme.js on purpose: it must run
+       synchronously in <head>, before any stylesheet paints. -->
+  <script>
+    (function () {
+      var p = null;
+      try { p = localStorage.getItem('tc-theme'); } catch (e) {}
+      if (p !== 'light' && p !== 'dark') {
+        p = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      document.documentElement.setAttribute('data-theme', p);
+    })();
+  </script>
 </head>
 <body>
 
@@ -34,7 +49,7 @@
     <!-- SYSTEM BAR -->
     <div class="sys-bar">
       <div class="sys-bar-left">
-        <span class="sys-tag">SYS:ONLINE</span>
+        <span class="sys-tag" data-flavour="sysTag">SYS:ONLINE</span>
         <span id="t-sys-unit">UNIT // SIN-001</span>
         <span id="t-sys-loc">LOC // UNRESOLVED</span>
       </div>
@@ -83,6 +98,19 @@
 
         <div class="sep"></div>
 
+        <div class="lang-wrap" id="themeWrap">
+          <button class="cell util" id="themeBtn"
+                  aria-haspopup="true" aria-expanded="false" aria-label="Change theme">
+            <span class="g">⟳</span>
+          </button>
+          <div class="lang-pane" id="themePane" role="menu" aria-label="Theme">
+            <div class="lang-pane-cap">THE HOUSE SHIFTS</div>
+            <button class="lang-opt" role="menuitem" data-theme-pref="auto">AUTO <small>system</small></button>
+            <button class="lang-opt" role="menuitem" data-theme-pref="dark">DARK <small>in transit</small></button>
+            <button class="lang-opt" role="menuitem" data-theme-pref="light">LIGHT <small>the bureau</small></button>
+          </div>
+        </div>
+
         <div class="lang-wrap" id="langWrap">
           <button class="cell util" id="langBtn"
                   aria-haspopup="true" aria-expanded="false" aria-label="Change language">
@@ -100,9 +128,9 @@
 
     <!-- HERO -->
     <section class="hero">
-      <div class="hero-jp">通勤 — 窗邊座位 — 移動中</div>
+      <div class="hero-jp" data-flavour="heroJp">通勤 — 窗邊座位 — 移動中</div>
       <p class="hero-eyebrow" id="t-hero-eyebrow">Window seat // somewhere, in transit</p>
-      <h1 class="hero-title">WELCOME <em>ABOARD</em>,<br>FEEL FREE TO EXPLORE</h1>
+      <h1 class="hero-title">WELCOME <em>ABOARD</em><span class="alt-word">INSIDE</span>,<br>FEEL FREE TO EXPLORE</h1>
       <p class="hero-code" id="t-hero-code">&gt;_ NEXT STOP... SIN-001 // MEMORY_LOST</p>
       <p class="hero-subtitle" id="t-hero-subtitle">
         In this imaginary train trip you just embarked, there's no clear destination, maybe just a clear start:<br>
@@ -114,7 +142,7 @@
 
     <!-- WARNING MARQUEE -->
     <div class="warn-strip">
-      <div class="warn-strip-inner">
+      <div class="warn-strip-inner" id="marquee">
         <span>&#9888; SYSTEM ACTIVE</span>
         <span>ARCHIVE INITIALISED</span>
         <span>ROUTE UNRESOLVED</span>
@@ -146,7 +174,7 @@
     <div class="cards">
       <div class="card" onclick="location.href='./photos.html'">
         <div class="card-head">
-          <span class="card-icon">[⊙]</span>
+          <span class="card-icon" data-flavour="icon1">[⊙]</span>
           <span class="card-kaomoji">( > ᴗ• )</span>
         </div>
         <div class="card-number" id="t-card1-number">01 // PHOTOS</div>
@@ -156,7 +184,7 @@
       </div>
       <div class="card" onclick="location.href='./stories.html'">
         <div class="card-head">
-          <span class="card-icon">[≡]</span>
+          <span class="card-icon" data-flavour="icon2">[≡]</span>
           <span class="card-kaomoji">( ;´ - `;)</span>
         </div>
         <div class="card-number" id="t-card2-number">02 // STORIES</div>
@@ -166,7 +194,7 @@
       </div>
       <div class="card" onclick="location.href='./work.html'">
         <div class="card-head">
-          <span class="card-icon">[⊞]</span>
+          <span class="card-icon" data-flavour="icon3">[⊞]</span>
           <span class="card-kaomoji">(ㆆ_ㆆ)</span>
         </div>
         <div class="card-number" id="t-card3-number">03 // WORK</div>
@@ -176,7 +204,7 @@
       </div>
       <div class="card" onclick="location.href='./about.html'">
         <div class="card-head">
-          <span class="card-icon">[?]</span>
+          <span class="card-icon" data-flavour="icon4">[?]</span>
           <span class="card-kaomoji">( ･_･)?</span>
         </div>
         <div class="card-number" id="t-card4-number">04 // ABOUT</div>
@@ -198,6 +226,7 @@
 
   </div>
 
+  <script src="./scripts/theme.js"></script>
   <script src="./scripts/nav.js"></script>
   <script src="./scripts/translations.js"></script>
 

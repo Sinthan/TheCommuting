@@ -1,0 +1,108 @@
+/* ══════════════════════════════════════════════════════════════════
+   theme.css — THE BUREAU (light)
+
+   A theme is only a redefinition of tokens. Nothing here adds layout,
+   changes spacing, or introduces a selector that style.css does not
+   already own — except the two Bureau signatures at the bottom, which
+   are opt-in decoration on elements that already exist.
+
+   Loaded AFTER style.css, and only by pages that have been tokenised.
+   Currently: index.html. Pages that do not load this file stay dark
+   regardless of the OS setting.
+
+   Palette derives from the FBC design board:
+     paper   #e4d9bf   tungsten #7a5c24   stamp  #b3261e
+     ink     #16140f   polaris  #1f6f68   orange #9c4a0f
+   All foreground values clear 4.2:1 against the paper ground — the
+   chrome runs at 0.48–0.65rem, so this is the binding constraint.
+   ══════════════════════════════════════════════════════════════════ */
+
+html[data-theme="light"] {
+  --bg:            #e4d9bf;
+  --bg-rgb:        228,217,191;
+  --chrome:        #dccfae;
+
+  --glass-bg:      rgba(22,20,15,0.030);
+  --glass-border:  rgba(22,20,15,0.18);
+
+  --text-primary:  #16140f;
+  --text-muted:    #5a5346;
+  --text-card-desc:#3c382f;
+
+  /* recessive / structural — draws the furniture */
+  --accent:            #7a5c24;
+  --accent-rgb:        122,92,36;
+  /* live / energised — hover, active, lit */
+  --accent-bright:     #b3261e;
+  --accent-bright-rgb: 179,38,30;
+  --accent-dim:        rgba(179,38,30,0.12);
+  /* category marker — framing, dismissal (never emphasis) */
+  --green:             #1f6f68;
+  --green-rgb:         31,111,104;
+  /* alarm — marquee, errors. Kept distinct from both accents. */
+  --alarm:             #9c4a0f;
+  --alarm-rgb:         156,74,15;
+
+  --dot-color: rgba(22,20,15,0.11);
+  --dot-size:  4px;
+
+  /* paper, not a screen: the wash lifts the wallpaper instead of sinking it */
+  --wash:         rgba(228,217,191,0.86);
+  --frame:        #cdbf9d;
+  --frame-shadow: inset 0 0 60px rgba(59,56,51,0.20),
+                  inset 0 0 0 1px rgba(22,20,15,0.30);
+  --vignette:     radial-gradient(ellipse 80% 60% at 50% 50%,
+                    transparent 45%, rgba(59,56,51,0.20) 100%);
+
+  /* scanlines become print grain */
+  --grain:       radial-gradient(rgba(22,20,15,0.16) 1px, transparent 1px);
+  --grain-size:  4px 4px;
+  --grain-blend: multiply;
+
+  /* brutalist signage + bureau memo */
+  --font-display:    'Archivo', sans-serif;
+  --font-mono:       'IBM Plex Mono', monospace;
+  --font-human:      'Special Elite', monospace;
+  --display-weight:  900;
+  --display-stretch: 72%;
+  --display-track:   -0.01em;
+  --display-lh:      0.95;
+  --display-size:    clamp(1.7rem, 5.4vw, 4.2rem);
+  --display-case:    uppercase;
+
+  --chrome-panel: rgba(220,207,174,0.96);
+  --chrome-lift:  rgba(179,38,30,0.10);
+  --chrome-line:  rgba(22,20,15,0.26);
+
+  --status-fade: 0.55;
+  --alt-word:    inline;
+}
+
+/* ── SIGNATURE: dual-word strike ──────────────────────────────────
+   The Board's split speech. <em> holds the struck word, .alt-word the
+   spoken one — .alt-word is display:none in every other theme. */
+.alt-word {
+  display: var(--alt-word, none);
+  color: var(--accent-bright);
+  margin-left: 0.28em;
+}
+
+html[data-theme="light"] .hero-title em {
+  color: inherit;
+  opacity: 0.42;
+  text-decoration: line-through;
+  text-decoration-thickness: 0.075em;
+}
+
+/* ── The paper ground needs firmer rules than the dark theme's hairlines ── */
+html[data-theme="light"] .sys-bar   { border-bottom-color: rgba(var(--accent-rgb),0.45); }
+html[data-theme="light"] .status-bar{ border-top-color:    rgba(var(--accent-rgb),0.45); }
+html[data-theme="light"] .warn-strip{
+  border-top-color:    rgba(var(--alarm-rgb),0.45);
+  border-bottom-color: rgba(var(--alarm-rgb),0.45);
+  color:               rgba(var(--alarm-rgb),0.95);
+}
+
+/* glow reads as smudge on paper */
+html[data-theme="light"] .status-dot { box-shadow: none; }
+html[data-theme="light"] .corner .cell.active::before { box-shadow: none; }

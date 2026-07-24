@@ -721,6 +721,19 @@ nav::after {
   z-index: 2;
 }
 
+/* Invisible bridge across the 1px seam between the trigger and the pane.
+   The pane is offset by 1px to stay aligned with the nav labels, which
+   would otherwise leave a gap the pointer can fall through on its way
+   across, reading as a mouseleave. */
+.corner .lang-pane::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 100%;
+  width: 3px;
+}
+
 /* Visibility is owned solely by .open, which JS adds on mouseenter, click
    and keyboard focus. Deliberately NOT :hover or :focus-within — both kept
    the pane visible after Escape or after choosing a language, because the

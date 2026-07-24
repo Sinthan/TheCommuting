@@ -42,9 +42,12 @@
   }
 
   /* ── LANGUAGE PANE ────────────────────────────────────────────
-     Opens on hover or click and then stays put — it is only dismissed
-     by choosing a language, pressing Escape, or clicking away. Options
-     are wired to the real translation engine through window.tcSetLang
+     Desktop: hover governs entirely. The pane is open while the cursor
+     is inside the wrapper and closes the moment it leaves — including
+     when moving onto another nav cell.
+     Touch: tap to open, and it closes on scroll or on a tap elsewhere.
+
+     Options are wired to the real translation engine via window.tcSetLang
      (exposed by translations.js).                                     */
   const langWrap = document.getElementById('langWrap');
   const langBtn  = document.getElementById('langBtn');
@@ -62,22 +65,48 @@
       }
     }
 
-    /* Hovering opens it, and the 'open' class keeps it there once the
-       cursor leaves — matching "stays open until I pick a language".
-       Gated behind (hover: hover): on touch, a tap emits mouseenter
-       immediately followed by click, so the pane opened then toggled
-       straight back shut. */
+    /* Touch taps emit mouseenter immediately before click, so the two
+       input models are kept strictly separate. */
     const canHover = window.matchMedia('(hover: hover)').matches;
+
     if (canHover) {
-      langWrap.addEventListener('mouseenter', () => setLangOpen(true));
-      langBtn.addEventListener('focus', () => setLangOpen(true));
+      /* ── POINTER: open while hovered, close on leave ── */
+      let closeTimer;
+
+      langWrap.addEventListener('mouseenter', () => {
+        clearTimeout(closeTimer);
+        setLangOpen(true);
+      });
+
+      langWrap.addEventListener('mouseleave', () => {
+        /* Brief grace period: the pane is positioned outside the wrapper's
+           own box, so crossing the seam between them can otherwise register
+           as a leave and flicker the pane shut. */
+        closeTimer = setTimeout(() => setLangOpen(false), 90);
+      });
+
+      /* keyboard parity — tab in opens, tab out closes */
+      langBtn.addEventListener('focus', () => {
+        clearTimeout(closeTimer);
+        setLangOpen(true);
+      });
+      langWrap.addEventListener('focusout', (e) => {
+        if (!langWrap.contains(e.relatedTarget)) setLangOpen(false);
+      });
+
+    } else {
+      /* ── TOUCH: tap to toggle, scroll or tap-away to close ── */
+      langBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setLangOpen(!langWrap.classList.contains('open'));
+      });
+
+      /* capture phase, so scrolls inside nested containers (the photos
+         timeline, the work/stories drawers) are caught too */
+      document.addEventListener('scroll', () => setLangOpen(false), true);
     }
 
-    langBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      setLangOpen(!langWrap.classList.contains('open'));
-    });
-
+    /* choosing a language applies it and dismisses the pane */
     langPane.querySelectorAll('.lang-opt').forEach(opt => {
       opt.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -88,7 +117,7 @@
       });
     });
 
-    /* escape hatches, so the pane can never get stuck open */
+    /* shared dismissals */
     document.addEventListener('click', (e) => {
       if (!langWrap.contains(e.target)) setLangOpen(false);
     });

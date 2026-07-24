@@ -1,0 +1,215 @@
+/* ══════════════════════════════════════════════════════════════════
+   theme-photos.css — THE PANOPTICON (light)
+
+   Loaded only by photos.html, after photos.css. Every rule is scoped
+   to html[data-theme="light"], so the dark archive is untouched.
+
+   The premise: paper is not the prison. Paper is what the Bureau
+   produces *about* the prison. You are not looking into cells — you
+   are reading the observation file, and the prints are mounted in it.
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── ELEMENTS THAT ONLY EXIST IN ONE THEME ──────────────────────── */
+.panopticon-plan { display: none; }
+.window-label-item,
+.window-examine,
+.specimen-meta { display: none; }
+
+html[data-theme="light"] .shinkansen-bg { display: none; }
+html[data-theme="light"] .window-label-tag,
+html[data-theme="light"] .window-enter { display: none; }
+
+/* ── FLOOR PLAN ───────────────────────────────────────────────────
+   The ring, the spokes, the tower at the centre. Fixed behind the
+   file, low contrast: a plan pinned to the desk under the papers. */
+html[data-theme="light"] .panopticon-plan {
+  display: block;
+  position: fixed;
+  top: 50%;
+  right: 3%;
+  transform: translateY(-50%);
+  z-index: 0;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(3.4px, 0.42vw, 6px);
+  line-height: 1.02;
+  white-space: pre;
+  color: var(--accent);
+  opacity: 0.30;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (max-width: 1100px) {
+  html[data-theme="light"] .panopticon-plan { display: none; }
+}
+
+/* ── HEADER ───────────────────────────────────────────────────────
+   Sits above the plan, so it needs a ground of its own. */
+html[data-theme="light"] .archive-header {
+  background: var(--bg);
+  border-bottom: 2px solid rgba(var(--accent-rgb), 0.55);
+}
+html[data-theme="light"] .archive-title { color: var(--text-primary); }
+html[data-theme="light"] .archive-eyebrow { color: var(--accent-bright); }
+
+/* ── THE SIGHT LINE ───────────────────────────────────────────────
+   Same mechanism as the dark timeline: a rule with a pulse running
+   down it. Reread as the tower's sweep rather than a train arriving. */
+html[data-theme="light"] .timeline::before { background: rgba(var(--accent-rgb), 0.40); }
+html[data-theme="light"] .stop-dot {
+  border-radius: 0;                     /* a cell is a square on a plan */
+  background: var(--bg);
+  border: 1px solid var(--accent);
+}
+html[data-theme="light"] .timeline-stop.active .stop-dot {
+  background: var(--accent-bright);
+  border-color: var(--accent-bright);
+  box-shadow: none;
+}
+html[data-theme="light"] .stop-connector,
+html[data-theme="light"] .stop-connector-tick { background: rgba(var(--accent-rgb), 0.45); }
+
+/* ── SPECIMEN LABEL ───────────────────────────────────────────────── */
+html[data-theme="light"] .stop-label-name { color: var(--text-primary); }
+html[data-theme="light"] .stop-label-eyebrow { color: var(--accent-bright); }
+
+html[data-theme="light"] .specimen-meta {
+  display: block;
+  margin-top: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+html[data-theme="light"] .spm-id     { color: var(--accent-bright); }
+html[data-theme="light"] .spm-sep    { opacity: 0.4; margin: 0 0.5em; }
+html[data-theme="light"] .spm-threat { color: var(--accent); }
+
+/* status flips while the specimen is under the eye */
+html[data-theme="light"] .timeline-stop:hover .spm-status,
+html[data-theme="light"] .timeline-stop:focus-within .spm-status {
+  color: var(--accent-bright);
+}
+html[data-theme="light"] .timeline-stop:hover .spm-status::after,
+html[data-theme="light"] .timeline-stop:focus-within .spm-status::after {
+  content: ' → OBSERVING';
+}
+
+/* ── REDACTION ────────────────────────────────────────────────────
+   The one borrowing from the case-file direction. Only the clerk's
+   quote is withheld — never the photograph. Content stays in the DOM
+   and reveals on hover, tap or keyboard focus. */
+html[data-theme="light"] .stop-label-quote { color: var(--text-card-desc); }
+html[data-theme="light"] .redacted {
+  background: var(--text-primary);
+  color: transparent;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0 0.25em;
+  cursor: help;
+  transition: background 0.2s linear, color 0.2s linear;
+}
+html[data-theme="light"] .redacted:hover,
+html[data-theme="light"] .redacted:focus {
+  background: transparent;
+  color: var(--text-card-desc);
+  outline: 1px dashed rgba(var(--accent-bright-rgb), 0.7);
+}
+
+/* ── THE MOUNT ────────────────────────────────────────────────────
+   Corner tabs, no frame: the print is held to the page by four paper
+   photo corners and nothing else. The tabs sit on ::after so no extra
+   markup is needed. */
+html[data-theme="light"] .window-frame-outer {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  filter: drop-shadow(2px 4px 6px rgba(59, 56, 51, 0.30));
+  transition: transform 0.25s linear, filter 0.25s linear;
+}
+html[data-theme="light"] .train-window:hover .window-frame-outer,
+html[data-theme="light"] .train-window:focus-visible .window-frame-outer {
+  transform: translateY(-2px);
+  filter: drop-shadow(3px 7px 10px rgba(59, 56, 51, 0.34));
+}
+
+html[data-theme="light"] .window-frame-outer::after {
+  content: '';
+  position: absolute;
+  inset: -7px;
+  pointer-events: none;
+  z-index: 2;
+  --tab: rgba(22, 20, 15, 0.62);
+  background-image:
+    linear-gradient(to bottom right, var(--tab) 0 49%, transparent 50%),
+    linear-gradient(to bottom left,  var(--tab) 0 49%, transparent 50%),
+    linear-gradient(to top right,    var(--tab) 0 49%, transparent 50%),
+    linear-gradient(to top left,     var(--tab) 0 49%, transparent 50%);
+  background-size: 26px 26px;
+  background-repeat: no-repeat;
+  background-position: left top, right top, left bottom, right bottom;
+}
+
+html[data-theme="light"] .window-pane {
+  inset: 0;
+  border-radius: 0;
+  background: var(--bg);
+}
+html[data-theme="light"] .window-reflection { display: none; }
+html[data-theme="light"] .window-preview-img { opacity: 1; }
+html[data-theme="light"] .window-preview::after { display: none; }
+
+/* cell number + call to action, in the file's voice */
+html[data-theme="light"] .window-label-item {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.22em;
+  color: var(--accent-bright);
+}
+html[data-theme="light"] .window-examine {
+  display: inline-block;
+  color: var(--accent-bright);
+}
+
+/* ── END OF FILE ──────────────────────────────────────────────────── */
+html[data-theme="light"] .timeline-end-dot { border-color: var(--accent); }
+html[data-theme="light"] .timeline-end-label { color: var(--text-muted); }
+
+/* ── EXAMINATION BAY (drawer) ─────────────────────────────────────── */
+html[data-theme="light"] .album-sidebar {
+  background: var(--chrome);
+  border-top: 2px solid rgba(var(--accent-rgb), 0.55);
+  box-shadow: 0 -12px 40px rgba(59, 56, 51, 0.25);
+}
+html[data-theme="light"] .sidebar-header { border-bottom-color: rgba(var(--accent-rgb), 0.35); }
+html[data-theme="light"] .sidebar-title { color: var(--text-primary); }
+html[data-theme="light"] .sidebar-tag { color: var(--accent-bright); }
+html[data-theme="light"] .sidebar-quote { color: var(--text-card-desc); }
+html[data-theme="light"] .sidebar-backdrop { background: rgba(59, 56, 51, 0.45); }
+html[data-theme="light"] .strip-item img {
+  border: none;
+  filter: drop-shadow(2px 3px 5px rgba(59, 56, 51, 0.30));
+}
+
+/* ── EXAMINATION TABLE (lightbox) ─────────────────────────────────── */
+html[data-theme="light"] .lightbox { background: rgba(228, 217, 191, 0.97); }
+html[data-theme="light"] .lightbox-img {
+  border: none;
+  filter: drop-shadow(4px 8px 18px rgba(59, 56, 51, 0.35));
+}
+html[data-theme="light"] .lightbox-name { color: var(--text-primary); }
+html[data-theme="light"] .lightbox-counter { color: var(--text-muted); }
+
+/* ── SCROLLBARS ───────────────────────────────────────────────────── */
+html[data-theme="light"] .timeline-scroll::-webkit-scrollbar-thumb,
+html[data-theme="light"] .sidebar-strip::-webkit-scrollbar-thumb {
+  background: rgba(var(--accent-rgb), 0.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="light"] .window-frame-outer,
+  html[data-theme="light"] .redacted { transition: none; }
+}

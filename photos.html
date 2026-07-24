@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,9 +9,23 @@
   <link rel="apple-touch-icon" href="./assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Doto:ROND,wght@1,700&family=Share+Tech+Mono&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Doto:ROND,wght@1,700&family=Share+Tech+Mono&family=Playfair+Display:wght@400;700&family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&family=Special+Elite&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style/style.css">
   <link rel="stylesheet" href="./style/photos.css">
+  <link rel="stylesheet" href="./style/theme.css">
+  <link rel="stylesheet" href="./style/theme-photos.css">
+
+  <!-- resolve the theme before first paint -->
+  <script>
+    (function () {
+      var p = null;
+      try { p = localStorage.getItem('tc-theme'); } catch (e) {}
+      if (p !== 'light' && p !== 'dark') {
+        p = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      document.documentElement.setAttribute('data-theme', p);
+    })();
+  </script>
 </head>
 <body>
 
@@ -23,7 +37,7 @@
     <!-- SYSTEM BAR -->
     <div class="sys-bar">
       <div class="sys-bar-left">
-        <span class="sys-tag">SYS:ONLINE</span>
+        <span class="sys-tag" data-flavour="sysTagPhotos">SYS:ONLINE</span>
         <span>UNIT // SIN-001</span>
         <span>LOC // ARCHIVE</span>
       </div>
@@ -72,6 +86,19 @@
 
         <div class="sep"></div>
 
+        <div class="lang-wrap" id="themeWrap">
+          <button class="cell util" id="themeBtn"
+                  aria-haspopup="true" aria-expanded="false" aria-label="Change theme">
+            <span class="g pyramid"></span>
+          </button>
+          <div class="lang-pane" id="themePane" role="menu" aria-label="Theme">
+            <div class="lang-pane-cap">THE HOUSE SHIFTS</div>
+            <button class="lang-opt" role="menuitem" data-theme-pref="auto">AUTO <small>system</small></button>
+            <button class="lang-opt" role="menuitem" data-theme-pref="dark">DARK <small>in transit</small></button>
+            <button class="lang-opt" role="menuitem" data-theme-pref="light">LIGHT <small>the bureau</small></button>
+          </div>
+        </div>
+
         <div class="lang-wrap" id="langWrap">
           <button class="cell util" id="langBtn"
                   aria-haspopup="true" aria-expanded="false" aria-label="Change language">
@@ -88,6 +115,54 @@
     </nav>
 
     <!-- ARCHIVE PAGE -->
+    <!-- PANOPTICON FLOOR PLAN — light theme only (see theme-photos.css) -->
+    <pre class="panopticon-plan" aria-hidden="true">                                         ######
+                               ##########################
+                          ######           |            ######
+                      ##### |              |               | #####
+                   ####      06            |              07     ####
+                ####         ||    ::::::::::::::::::    ||         ####
+              ###             ::::::       |        ::::::             ###
+            ###\          :::::||          |           ||:::::          /###
+          ###   \\     ::::     ||         |          ||     ::::     //   ###
+         ###      \\ :::         ||        |         ||         ::: //      ###
+        ##         :::            |       ....       |            :::         ##
+      ###        :::  \\          ....................          //  :::        ###
+     ###        ::      \\     ....                  ....     //      ::        ###
+    ###       :::         \\....                        ....//         :::       ###
+    ##\\\05  :::          ...                              ...          :::  /08//##
+   ##     \\:::          ...                                ...          ::://     ##
+  ###       :: \\\\\    ..                 oo                 ..    ///// ::       ###
+  ##       ::      \\\\..             oooooooooooo             ..////      ::       ##
+ ###       ::         ..           oooo          oooo           ..         ::       ###
+ ##       ::         ...          ooo   +-----+    ooo          ...         ::       ##
+ ##       ::         ..          ooo    |  ^  |     ooo          ..         ::       ##
+ ##       ::         ..          oo     | /_\ |      oo          ..         ::       ##
+ ##-------::---------..          oo     |     |      oo          ..---------::-------##
+ ##       ::         ..          ooo    +-----+     ooo          ..         ::       ##
+ ##       ::         ...          ooo              ooo          ...         ::       ##
+ ###       ::         ..           oooo          oooo           ..         ::       ###
+  ##       ::      ////..             oooooooooooo             ..\\\\      ::       ##
+  ###       :: /////    ..                 oo                 ..    \\\\\ ::       ###
+   ##     //:::          ...                                ...          :::\\     ##
+    ##///04  :::          ...                              ...          :::  \01\\##
+    ###       :::         //....                        ....\\         :::       ###
+     ###        ::      //     ....                  ....     \\      ::        ###
+      ###        :::  //          ....................          \\  :::        ###
+        ##         :::            |       ....       |            :::         ##
+         ###      // :::         ||         |        ||         ::: \\      ###
+          ###   //     ::::     ||          |         ||     ::::     \\   ###
+            ###/          :::::||           |          ||:::::          \###
+              ###             ::::::        |       ::::::             ###
+                ####         ||    ::::::::::::::::::    ||         ####
+                   ####      03             |             02     ####
+                      ##### |               |              | #####
+                          ######            |           ######
+                               ##########################
+
+                            PANOPTICON // CONTAINMENT SECTOR
+                         PLAN 02-C // OBSERVATION IS CONTINUOUS</pre>
+
     <div class="archive-page">
 
       <!-- PARALLAX SHINKANSEN WALLPAPER -->
@@ -240,6 +315,7 @@
     <div class="lightbox-counter" id="lightbox-counter">— / —</div>
   </div>
 
+  <script src="./scripts/theme.js"></script>
   <script src="./scripts/translations.js"></script>
   <script src="./scripts/nav.js"></script>
   <script src="./scripts/photos.js"></script>

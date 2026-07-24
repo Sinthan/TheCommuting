@@ -144,10 +144,24 @@
           return q.slice(0, pos) + '<br>' + q.slice(pos).trimStart();
         }
 
+        /* Containment metadata. Rendered on every theme but only surfaced
+           by the light one — the Bureau keeps a file whether or not the
+           passenger is reading it. */
+        const itemId  = 'AI-' + String(i + 1).padStart(2, '0');
+        const threats = ['NONE', 'MILD', '真有趣'];
+        const threat  = threats[i % threats.length];
+
         label.innerHTML = `
           <span class="stop-label-eyebrow">${nextStopText}</span>
           <span class="stop-label-name">${album.name}</span>
-          ${album.quote ? `<span class="stop-label-quote">${wrapQuote(album.quote)}</span>` : ''}
+          ${album.quote ? `<span class="stop-label-quote"><span class="redacted" tabindex="0">${wrapQuote(album.quote)}</span></span>` : ''}
+          <span class="specimen-meta" aria-hidden="true">
+            <span class="spm-id">${itemId}</span>
+            <span class="spm-sep">//</span>
+            <span class="spm-status">CONTAINED</span>
+            <span class="spm-sep">//</span>
+            <span class="spm-threat">THREAT: ${threat}</span>
+          </span>
         `;
 
         const connector = document.createElement('div');
@@ -173,6 +187,7 @@
           <div class="window-frame-outer">
             <div class="window-label">
               <span class="window-label-tag">VIEW // ${String(i + 1).padStart(2, '0')}</span>
+              <span class="window-label-item">${itemId} // CELL ${String(i + 1).padStart(2, '0')}</span>
             </div>
             <div class="window-pane">
               ${album.images.length > 0
@@ -181,6 +196,7 @@
               }
               <div class="window-reflection"></div>
               <span class="window-enter">→ OPEN</span>
+              <span class="window-examine">→ EXAMINE</span>
             </div>
           </div>
         `;

@@ -232,5 +232,5 @@ html[data-theme="light"] .story-body-scroll::after {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html[data-theme="light"] .folder-tab { transition: none; }
+  html[data-theme="light"] .board-row { transition: none; }
 }

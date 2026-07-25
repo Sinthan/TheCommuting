@@ -17,6 +17,7 @@
 .cover-sheet,
 .bureau-head,
 .crt-readout,
+.lbl-bureau,
 .redaction-wash { display: none; }
 
 /* ── COVER SHEET WATERMARK ────────────────────────────────────────
@@ -241,4 +242,78 @@ html[data-theme="light"] .story-body-scroll::after {
 html[data-theme="light"] body {
   background-image: none;
   background-color: var(--bg);
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   TERMINAL FILLS THE FRAME
+   The screen is the whole panel, not a strip at the top of it.
+   ══════════════════════════════════════════════════════════════════ */
+html[data-theme="light"] .departures-wrap {
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  border-color: rgba(var(--accent-rgb), 0.45);
+}
+html[data-theme="light"] .departures-wrap::before { display: none; }
+html[data-theme="light"] .board-table-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border-radius: 0;
+  border: none;
+  box-shadow: inset 0 0 70px rgba(53, 224, 106, 0.10);
+}
+html[data-theme="light"] .board-rows { flex: 1; overflow-y: auto; }
+
+/* ══════════════════════════════════════════════════════════════════
+   DRAWER — document vocabulary
+   The transit labels stay in the markup for the dark board; the light
+   theme swaps in the Bureau's. Neither set is translated, so the
+   language system never sees this.
+   ══════════════════════════════════════════════════════════════════ */
+html[data-theme="light"] .lbl-transit { display: none; }
+html[data-theme="light"] .lbl-bureau {
+  display: inline;
+  color: var(--text-muted);
+  letter-spacing: 0.2em;
+  margin-right: 0.35em;
+}
+
+/* the badge keeps its translated value in data-val and is relabelled here */
+html[data-theme="light"] .story-drawer-delay {
+  font-size: 0;
+  background: rgba(var(--alarm-rgb), 0.12);
+  border-color: rgba(var(--alarm-rgb), 0.45);
+  color: var(--alarm);
+}
+html[data-theme="light"] .story-drawer-delay::before {
+  content: 'CLASS. LVL ' attr(data-val);
+  font-size: 0.55rem;
+  letter-spacing: 0.16em;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   STORY BODY — readable ink on paper
+   stories.css sets .story-body-text p to the board's pale grey, which
+   is correct on a dark board and invisible on paper.
+   ══════════════════════════════════════════════════════════════════ */
+html[data-theme="light"] .story-body-text p {
+  font-family: var(--font-human);
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: var(--text-primary);
+}
+html[data-theme="light"] .story-load-err { color: var(--alarm); }
+html[data-theme="light"] .story-loading { color: var(--text-muted); }
+
+/* ══════════════════════════════════════════════════════════════════
+   STATUS COUNT — files, not trains
+   ══════════════════════════════════════════════════════════════════ */
+html[data-theme="light"] #status-train-count { font-size: 0; }
+html[data-theme="light"] #status-train-count::before {
+  content: attr(data-count) ' FILES TO READ';
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
 }

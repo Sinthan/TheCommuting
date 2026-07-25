@@ -163,6 +163,7 @@
     if (countEl) {
       const label = (window.tc_t && window.tc_t('trainsToRead')) || 'trains to read';
       countEl.textContent = `${_stories.length} ${label}`;
+      countEl.dataset.count = _stories.length;
     }
   }
 
@@ -194,6 +195,9 @@
     if (delay) {
       const lbl = (window.tc_t && window.tc_t('delayedLabel')) || 'DELAYED';
       badge.textContent = `${lbl} ${delay}`;
+      /* value kept separately so a theme can relabel it without touching
+         the translated string */
+      badge.dataset.val = delay;
       badge.style.display = 'inline-block';
     } else {
       badge.style.display = 'none';

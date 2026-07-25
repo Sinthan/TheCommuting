@@ -3,6 +3,15 @@
    Paths relative to style/ folder
    ══════════════════════════════════════════════════════════════════ */
 
+/* Board-local colours. These belong to the departures board, not to the
+   site accent set — a delay is red on a station board whatever the theme.
+   The light theme repoints them; the dark board keeps its original values. */
+:root {
+  --board-delay:     #e74c3c;
+  --board-delay-rgb: 231,76,60;
+  --board-body:      rgba(200,210,205,0.9);
+}
+
 /* ── OVERRIDE: no wallpaper on this page, keep bg dark ── */
 body {
   background-image:
@@ -189,8 +198,8 @@ body {
 }
 
 .board-row--big-delay .delay-val {
-  color: var(--alarm);
-  text-shadow: 0 0 12px rgba(var(--alarm-rgb),0.7);
+  color: var(--board-delay);
+  text-shadow: 0 0 12px rgba(var(--board-delay-rgb),0.7);
 }
 
 @keyframes blink-delay {
@@ -282,7 +291,7 @@ body {
   display: none;
   background: rgba(var(--alarm-rgb),0.15);
   border: 1px solid rgba(var(--alarm-rgb),0.4);
-  color: rgba(var(--alarm-rgb),0.9);
+  color: rgba(var(--board-delay-rgb),0.9);
   padding: 0.1rem 0.5rem;
   font-size: 0.52rem;
   letter-spacing: 0.14em;
@@ -353,7 +362,7 @@ body {
   font-family: var(--font-mono);
   font-size: 0.84rem;
   line-height: 2.1;
-  color: var(--text-muted);
+  color: var(--board-body);
   margin-bottom: 1.4em;
   text-align: justify;
 }

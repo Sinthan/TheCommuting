@@ -120,7 +120,7 @@
     if (!container) return;
     container.innerHTML = '';
 
-    _rowState.forEach((state, idx) => {
+    _rowState.forEach(state => {
       const { story, train, platform, time, delayMins, delayLabel, bigDelay } = state;
       const title = pickLang(story.title);
       const info  = pickLang(story.info);
@@ -136,12 +136,7 @@
 
       const delayCell = delayLabel || EM_DASH;
 
-      /* Case number for the Research Sector file tab. Originals are
-         Italian, hence the -IT suffix; the tab only surfaces in light. */
-      const caseNo = 'CASE ' + String(idx + 1).padStart(3, '0') + '-IT';
-
       row.innerHTML = `
-        <span class="folder-tab" aria-hidden="true">${caseNo}</span>
         <span class="col-train bd-val">${train}</span>
         <span class="col-platform bd-val">${platform}</span>
         <span class="col-dest bd-val dest-name">${title}</span>

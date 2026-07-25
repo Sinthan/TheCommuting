@@ -234,3 +234,11 @@ html[data-theme="light"] .story-body-scroll::after {
 @media (prefers-reduced-motion: reduce) {
   html[data-theme="light"] .board-row { transition: none; }
 }
+
+/* ── NO DOT GRAIN HERE ────────────────────────────────────────────
+   theme.css grains the homepage. On this page the ASCII layer is the
+   wallpaper, so the ground stays flat paper. */
+html[data-theme="light"] body {
+  background-image: none;
+  background-color: var(--bg);
+}

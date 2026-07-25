@@ -106,6 +106,13 @@ html[data-theme="light"] .warn-strip{
   color:               rgba(var(--alarm-rgb),0.95);
 }
 
+/* ── NO WINDOW FRAME ──────────────────────────────────────────────
+   The frame is the train window: a 32px bezel plus a vignette, drawn
+   under the content, so it shows through wherever a page leaves its
+   ground unpainted. On paper it reads as an empty inset panel rather
+   than a window, and the Bureau has no window. Removed outright. */
+html[data-theme="light"] .window-frame { display: none; }
+
 /* glow reads as smudge on paper */
 html[data-theme="light"] .status-dot { box-shadow: none; }
 html[data-theme="light"] .corner .cell.active::before { box-shadow: none; }

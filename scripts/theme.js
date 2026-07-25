@@ -42,8 +42,8 @@
     },
     light: {
       sysTag: 'SECTOR 00 // LOBBY',
-      sysTagPhotos: 'SECTOR 02 // PANOPTICON',
-      sysTagStories: 'SECTOR 03 // RESEARCH',
+      sysTagPhotos: 'SECTOR 01 // PANOPTICON',
+      sysTagStories: 'SECTOR 02 // RESEARCH',
       stationName: 'FBC TERMINAL — STATION 001',
       heroJp: '本處決定 — 通勤局 — 臨時通行',
       icon1: '[◉]', icon2: '[▦]', icon3: '[⬓]', icon4: '[▼]',

@@ -213,11 +213,3 @@ html[data-theme="light"] .sidebar-strip::-webkit-scrollbar-thumb {
   html[data-theme="light"] .window-frame-outer,
   html[data-theme="light"] .redacted { transition: none; }
 }
-
-/* ── NO DOT GRAIN HERE ────────────────────────────────────────────
-   theme.css grains the homepage. On this page the ASCII layer is the
-   wallpaper, so the ground stays flat paper. */
-html[data-theme="light"] body {
-  background-image: none;
-  background-color: var(--bg);
-}

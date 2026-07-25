@@ -55,10 +55,12 @@ html[data-theme="light"] {
   --vignette:     radial-gradient(ellipse 80% 60% at 50% 50%,
                     transparent 45%, rgba(59,56,51,0.20) 100%);
 
-  /* scanlines become print grain */
-  --grain:       radial-gradient(rgba(22,20,15,0.16) 1px, transparent 1px);
-  --grain-size:  4px 4px;
-  --grain-blend: multiply;
+  /* no grain on paper: the ASCII layers are the only texture the light
+     theme gets. .scanlines is driven entirely by these three tokens, so
+     blanking them removes the overlay on every page at once. */
+  --grain:       none;
+  --grain-size:  auto;
+  --grain-blend: normal;
 
   /* brutalist signage + bureau memo */
   --font-display:    'Archivo', sans-serif;
@@ -109,12 +111,11 @@ html[data-theme="light"] .status-dot { box-shadow: none; }
 html[data-theme="light"] .corner .cell.active::before { box-shadow: none; }
 
 /* ── NO WALLPAPER ─────────────────────────────────────────────────
-   The Bureau runs on paper, not on a photograph. The dot grain stays;
-   the image goes. Homepage only — theme.css is not loaded elsewhere. */
+   The Bureau runs on paper, not on a photograph, and paper is flat.
+   No image, no dot grid — the ASCII seal and plans carry the texture. */
 html[data-theme="light"] body {
-  background-image: radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
-  background-size: var(--dot-size) var(--dot-size);
-  background-attachment: fixed;
+  background-image: none;
+  background-color: var(--bg);
 }
 
 /* ── BUREAU STAMP ─────────────────────────────────────────────────

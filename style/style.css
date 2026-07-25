@@ -20,6 +20,8 @@
   --green-rgb:         74,140,92;
   --alarm:             #c0392b;
   --alarm-rgb:         192,57,43;
+  /* surface lift: what a highlight is made of. White on a screen, ink on paper. */
+  --lift-rgb:          255,255,255;
 
   /* ── surface tokens ── */
   --chrome:       var(--bg);                 /* solid strips behind chrome */

@@ -29,6 +29,7 @@
     dark: {
       sysTag: 'SYS:ONLINE',
       sysTagPhotos: 'SYS:ONLINE',
+      sysTagStories: 'SYS:ONLINE',
       heroJp: '通勤 — 窗邊座位 — 移動中',
       icon1: '[⊙]', icon2: '[≡]', icon3: '[⊞]', icon4: '[?]',
       marquee: [
@@ -41,6 +42,7 @@
     light: {
       sysTag: 'SECTOR 00 // LOBBY',
       sysTagPhotos: 'SECTOR 02 // PANOPTICON',
+      sysTagStories: 'SECTOR 03 // RESEARCH',
       heroJp: '本處決定 — 通勤局 — 臨時通行',
       icon1: '[◉]', icon2: '[▦]', icon3: '[⬓]', icon4: '[▼]',
       marquee: [

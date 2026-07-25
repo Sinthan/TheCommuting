@@ -1,0 +1,172 @@
+/* ══════════════════════════════════════════════════════════════════
+   theme-stories.css — CASE FILES (light)
+
+   Board directive, File 03: "every story is a declassified case file …
+   Bureau paper, typewriter, rubber stamps."
+
+   The one directive we cannot honour literally is the premise — File 03
+   made Stories light *because everything else was dark*. The theme
+   toggle now carries that rhythm, so this file delivers the treatment
+   and lets the switch decide when it appears.
+
+   Redaction here is wallpaper, not censorship: a withheld document
+   showing through from underneath. No word of a story is ever covered.
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── ELEMENTS THAT ONLY EXIST IN ONE THEME ──────────────────────── */
+.cover-sheet,
+.bureau-head,
+.folder-tab,
+.redaction-wash { display: none; }
+
+/* ── COVER SHEET WATERMARK ────────────────────────────────────────
+   The form the file would arrive in, printed under everything. */
+html[data-theme="light"] .cover-sheet {
+  display: block;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-1.5deg);
+  z-index: 0;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(6px, 0.72vw, 11px);
+  line-height: 1.5;
+  white-space: pre;
+  color: var(--accent);
+  opacity: 0.20;
+  pointer-events: none;
+  user-select: none;
+}
+@media (max-width: 900px) {
+  html[data-theme="light"] .cover-sheet { display: none; }
+}
+
+/* ── THE BOARD BECOMES A REGISTER ─────────────────────────────────── */
+html[data-theme="light"] .board-header {
+  background: var(--chrome);
+  border-bottom: 2px solid rgba(var(--accent-rgb), 0.55);
+}
+html[data-theme="light"] .board-station { color: var(--text-primary); }
+html[data-theme="light"] .board-time { color: var(--accent-bright); }
+
+/* Bureau vocabulary replaces the transit vocabulary, column for column. */
+html[data-theme="light"] .board-col-headers > span:not(.bureau-head) { display: none; }
+html[data-theme="light"] .bureau-head {
+  display: block;
+  color: var(--accent-bright);
+  letter-spacing: 0.2em;
+}
+
+/* ── FOLDER TAB ───────────────────────────────────────────────────
+   One tab per row, sitting proud of the row's top-left corner the way
+   a manila tab sits proud of the folder behind it. */
+html[data-theme="light"] .board-row { position: relative; overflow: visible; }
+html[data-theme="light"] .folder-tab {
+  display: inline-block;
+  position: absolute;
+  top: -0.62rem;
+  left: 1.1rem;
+  z-index: 2;
+  padding: 0.1rem 0.7rem 0.05rem;
+  font-family: var(--font-mono);
+  font-size: 0.48rem;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  background: var(--chrome);
+  border: 1px solid rgba(var(--accent-rgb), 0.45);
+  border-bottom: none;
+  border-radius: 3px 3px 0 0;
+  transition: color 0.2s linear, border-color 0.2s linear;
+}
+html[data-theme="light"] .board-row:hover .folder-tab,
+html[data-theme="light"] .board-row:focus-within .folder-tab {
+  color: var(--accent-bright);
+  border-color: var(--accent-bright);
+}
+html[data-theme="light"] .board-rows { padding-top: 0.7rem; }
+html[data-theme="light"] .board-row + .board-row { margin-top: 0.55rem; }
+
+html[data-theme="light"] .bd-val { color: var(--text-card-desc); }
+html[data-theme="light"] .dest-name { color: var(--text-primary); }
+html[data-theme="light"] .info-val { color: var(--accent); }
+html[data-theme="light"] .delay-val { color: var(--alarm); }
+
+/* ── THE FILE ITSELF ──────────────────────────────────────────────── */
+html[data-theme="light"] .story-drawer {
+  background: var(--chrome);
+  border-top: 2px solid rgba(var(--accent-rgb), 0.55);
+  box-shadow: 0 -12px 44px rgba(59, 56, 51, 0.28);
+}
+html[data-theme="light"] .story-backdrop { background: rgba(59, 56, 51, 0.45); }
+html[data-theme="light"] .story-drawer-header { border-bottom-color: rgba(var(--accent-rgb), 0.35); }
+html[data-theme="light"] .story-drawer-train { color: var(--accent-bright); }
+html[data-theme="light"] .story-drawer-quote { color: var(--text-card-desc); }
+
+/* stamped heading: double rule in stamp red, the board's "rubber stamp" */
+html[data-theme="light"] .story-drawer-dest {
+  color: var(--text-primary);
+  border-top: 3px double var(--accent-bright);
+  border-bottom: 3px double var(--accent-bright);
+  padding: 0.5rem 0;
+}
+
+/* struck across the header, as a clerk would */
+html[data-theme="light"] .story-drawer-title-wrap { position: relative; }
+html[data-theme="light"] .story-drawer-title-wrap::after {
+  content: 'DECLASSIFIED';
+  position: absolute;
+  top: -0.4rem;
+  right: 0.5rem;
+  transform: rotate(-11deg);
+  font-family: var(--font-human);
+  font-size: clamp(0.8rem, 2vw, 1.5rem);
+  letter-spacing: 0.16em;
+  color: rgba(var(--accent-bright-rgb), 0.55);
+  border: 2px solid rgba(var(--accent-bright-rgb), 0.45);
+  padding: 0.15em 0.5em;
+  pointer-events: none;
+}
+
+/* ── BODY: typewriter on paper ────────────────────────────────────── */
+html[data-theme="light"] .story-body-text {
+  position: relative;
+  font-family: var(--font-human);
+  font-size: 0.92rem;
+  line-height: 1.85;
+  max-width: 62ch;
+  color: var(--text-primary);
+}
+html[data-theme="light"] .story-body-text > p { position: relative; z-index: 1; }
+
+/* ── REDACTION WASH ───────────────────────────────────────────────
+   A tiled sheet of withheld lines behind the type. Decorative only:
+   aria-hidden, pointer-events none, never overlapping a glyph's legibility. */
+html[data-theme="light"] .redaction-wash {
+  display: block;
+  position: absolute;
+  inset: -1rem -2rem;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.055;
+  background-image: url("data:image/svg+xml,<svg%20xmlns="http://www.w3.org/2000/svg"%20width="760"%20height="420"><g%20fill="%23000000"><rect%20x="14"%20y="6"%20width="257"%20height="15"%20rx="1"/><rect%20x="28"%20y="34"%20width="513"%20height="15"%20rx="1"/><rect%20x="0"%20y="62"%20width="217"%20height="15"%20rx="1"/><rect%20x="42"%20y="90"%20width="228"%20height="15"%20rx="1"/><rect%20x="14"%20y="118"%20width="478"%20height="15"%20rx="1"/><rect%20x="0"%20y="146"%20width="439"%20height="15"%20rx="1"/><rect%20x="0"%20y="174"%20width="199"%20height="15"%20rx="1"/><rect%20x="0"%20y="202"%20width="402"%20height="15"%20rx="1"/><rect%20x="28"%20y="230"%20width="215"%20height="15"%20rx="1"/><rect%20x="0"%20y="258"%20width="226"%20height="15"%20rx="1"/><rect%20x="42"%20y="286"%20width="397"%20height="15"%20rx="1"/><rect%20x="0"%20y="314"%20width="603"%20height="15"%20rx="1"/><rect%20x="42"%20y="342"%20width="243"%20height="15"%20rx="1"/><rect%20x="0"%20y="370"%20width="502"%20height="15"%20rx="1"/><rect%20x="42"%20y="398"%20width="211"%20height="15"%20rx="1"/></g></svg>");
+  background-repeat: repeat;
+  background-size: 760px 420px;
+}
+
+/* ── FOOTER, per the directive, verbatim ──────────────────────────── */
+html[data-theme="light"] .story-body-scroll::after {
+  content: 'FILED BY SIN-001 // STATION UNKNOWN // APPROVED FOR RELEASE';
+  display: block;
+  margin: 2.5rem 0 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(var(--accent-rgb), 0.35);
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="light"] .folder-tab { transition: none; }
+}

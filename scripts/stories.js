@@ -120,7 +120,7 @@
     if (!container) return;
     container.innerHTML = '';
 
-    _rowState.forEach(state => {
+    _rowState.forEach((state, idx) => {
       const { story, train, platform, time, delayMins, delayLabel, bigDelay } = state;
       const title = pickLang(story.title);
       const info  = pickLang(story.info);
@@ -136,7 +136,12 @@
 
       const delayCell = delayLabel || EM_DASH;
 
+      /* Case number for the Research Sector file tab. Originals are
+         Italian, hence the -IT suffix; the tab only surfaces in light. */
+      const caseNo = 'CASE ' + String(idx + 1).padStart(3, '0') + '-IT';
+
       row.innerHTML = `
+        <span class="folder-tab" aria-hidden="true">${caseNo}</span>
         <span class="col-train bd-val">${train}</span>
         <span class="col-platform bd-val">${platform}</span>
         <span class="col-dest bd-val dest-name">${title}</span>
@@ -225,7 +230,12 @@
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const text = await res.text();
       const paras = text.split(/\n\n+/).filter(p => p.trim());
-      bodyEl.innerHTML = paras.map(p => `<p>${p.replace(/\n/g,'<br>')}</p>`).join('');
+      /* The redaction wash is decoration, not censorship: it sits behind
+         the type as a layer of an underlying, withheld document. No word
+         of the story is ever covered. */
+      bodyEl.innerHTML =
+        '<div class="redaction-wash" aria-hidden="true"></div>' +
+        paras.map(p => `<p>${p.replace(/\n/g,'<br>')}</p>`).join('');
     } catch (e) {
       const errTxt = (window.tc_t && window.tc_t('storyLoadErr')) || '// Could not load text file. Run on a local server.';
       bodyEl.innerHTML = `<p class="story-load-err">${errTxt}</p>`;

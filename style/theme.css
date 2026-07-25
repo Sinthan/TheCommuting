@@ -42,6 +42,7 @@ html[data-theme="light"] {
   /* alarm — marquee, errors. Kept distinct from both accents. */
   --alarm:             #9c4a0f;
   --alarm-rgb:         156,74,15;
+  --lift-rgb:          22,20,15;
 
   --dot-color: rgba(22,20,15,0.11);
   --dot-size:  4px;

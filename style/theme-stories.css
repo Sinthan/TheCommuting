@@ -16,7 +16,7 @@
 /* ── ELEMENTS THAT ONLY EXIST IN ONE THEME ──────────────────────── */
 .cover-sheet,
 .bureau-head,
-.folder-tab,
+.crt-readout,
 .redaction-wash { display: none; }
 
 /* ── COVER SHEET WATERMARK ────────────────────────────────────────
@@ -42,55 +42,119 @@ html[data-theme="light"] .cover-sheet {
   html[data-theme="light"] .cover-sheet { display: none; }
 }
 
-/* ── THE BOARD BECOMES A REGISTER ─────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════════
+   THE ARCHIVE TERMINAL
+
+   The index is not paper. It is the green-phosphor terminal the clerk
+   reads it on — a CRT sitting on the Bureau's desk. The page around it
+   stays paper; only the panel is a screen. Browsing happens on glass,
+   the file itself is still printed.
+   ══════════════════════════════════════════════════════════════════ */
+
+html[data-theme="light"] .board-table-wrap {
+  --crt-bg:   #060f08;
+  --crt-dim:  #1f7a3a;
+  --crt:      #35e06a;
+  --crt-hot:  #b6ffd0;
+
+  position: relative;
+  background: var(--crt-bg);
+  border: 1px solid rgba(53, 224, 106, 0.35);
+  border-radius: 6px;
+  padding: 0.5rem 0 0.2rem;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 6px #14170f,                    /* bezel */
+    0 10px 30px rgba(59, 56, 51, 0.35),
+    inset 0 0 70px rgba(53, 224, 106, 0.10);
+}
+
+/* phosphor scanlines + curvature falloff, inside the panel only */
+html[data-theme="light"] .board-table-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(to bottom,
+      rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px,
+      rgba(0,0,0,0.28) 2px, rgba(0,0,0,0.28) 3px),
+    radial-gradient(ellipse 92% 88% at 50% 50%,
+      transparent 55%, rgba(0,0,0,0.55) 100%);
+}
+
+html[data-theme="light"] .board-table-wrap * {
+  font-family: var(--font-mono);
+  color: var(--crt);
+  text-shadow: 0 0 4px rgba(53, 224, 106, 0.55);
+}
+
+/* ── READOUT ──────────────────────────────────────────────────────
+   The system spill above the listing, as on any terminal that has been
+   left running. Decorative and untranslated. */
+html[data-theme="light"] .crt-readout {
+  display: block;
+  padding: 0.35rem 1.6rem 0.6rem;
+  font-size: 0.56rem;
+  line-height: 1.75;
+  letter-spacing: 0.04em;
+  color: var(--crt-dim);
+  border-bottom: 1px solid rgba(53, 224, 106, 0.22);
+}
+html[data-theme="light"] .crt-readout span { display: block; color: var(--crt-dim); }
+
+/* ── COLUMN HEADS ─────────────────────────────────────────────────
+   Bureau vocabulary replaces the transit vocabulary, column for column.
+   Both sets live in the markup; the theme chooses. */
+html[data-theme="light"] .board-col-headers > span:not(.bureau-head) { display: none; }
+html[data-theme="light"] .bureau-head {
+  display: block;
+  color: var(--crt-hot);
+  font-size: 0.54rem;
+  letter-spacing: 0.14em;
+}
+html[data-theme="light"] .board-col-headers {
+  background: rgba(53, 224, 106, 0.07);
+  border-bottom: 1px solid rgba(53, 224, 106, 0.30);
+}
+
+/* CLASSIFICATION LVL needs more room than DELAY did */
+html[data-theme="light"] .board-table-wrap {
+  --board-cols: 74px 58px 1fr 76px 132px 1fr;
+}
+
+/* ── ROWS ─────────────────────────────────────────────────────────
+   Selection on a CRT is an inverted block, not a tint. */
+html[data-theme="light"] .board-row {
+  border-bottom: 1px solid rgba(53, 224, 106, 0.12);
+  padding-top: 0.42rem;
+  padding-bottom: 0.42rem;
+}
+html[data-theme="light"] .board-row:hover,
+html[data-theme="light"] .board-row:focus-within {
+  background: var(--crt);
+}
+html[data-theme="light"] .board-row:hover *,
+html[data-theme="light"] .board-row:focus-within * {
+  color: var(--crt-bg);
+  text-shadow: none;
+}
+html[data-theme="light"] .dest-name { color: var(--crt-hot); }
+html[data-theme="light"] .info-val,
+html[data-theme="light"] .bd-val { color: var(--crt); }
+html[data-theme="light"] .delay-val { color: var(--crt-hot); }
+
+html[data-theme="light"] .board-row--delayed,
+html[data-theme="light"] .board-row--big-delay { background: none; }
+
+/* ── PANEL HEADER ─────────────────────────────────────────────────── */
 html[data-theme="light"] .board-header {
   background: var(--chrome);
   border-bottom: 2px solid rgba(var(--accent-rgb), 0.55);
 }
 html[data-theme="light"] .board-station { color: var(--text-primary); }
 html[data-theme="light"] .board-time { color: var(--accent-bright); }
-
-/* Bureau vocabulary replaces the transit vocabulary, column for column. */
-html[data-theme="light"] .board-col-headers > span:not(.bureau-head) { display: none; }
-html[data-theme="light"] .bureau-head {
-  display: block;
-  color: var(--accent-bright);
-  letter-spacing: 0.2em;
-}
-
-/* ── FOLDER TAB ───────────────────────────────────────────────────
-   One tab per row, sitting proud of the row's top-left corner the way
-   a manila tab sits proud of the folder behind it. */
-html[data-theme="light"] .board-row { position: relative; overflow: visible; }
-html[data-theme="light"] .folder-tab {
-  display: inline-block;
-  position: absolute;
-  top: -0.62rem;
-  left: 1.1rem;
-  z-index: 2;
-  padding: 0.1rem 0.7rem 0.05rem;
-  font-family: var(--font-mono);
-  font-size: 0.48rem;
-  letter-spacing: 0.2em;
-  color: var(--text-muted);
-  background: var(--chrome);
-  border: 1px solid rgba(var(--accent-rgb), 0.45);
-  border-bottom: none;
-  border-radius: 3px 3px 0 0;
-  transition: color 0.2s linear, border-color 0.2s linear;
-}
-html[data-theme="light"] .board-row:hover .folder-tab,
-html[data-theme="light"] .board-row:focus-within .folder-tab {
-  color: var(--accent-bright);
-  border-color: var(--accent-bright);
-}
-html[data-theme="light"] .board-rows { padding-top: 0.7rem; }
-html[data-theme="light"] .board-row + .board-row { margin-top: 0.55rem; }
-
-html[data-theme="light"] .bd-val { color: var(--text-card-desc); }
-html[data-theme="light"] .dest-name { color: var(--text-primary); }
-html[data-theme="light"] .info-val { color: var(--accent); }
-html[data-theme="light"] .delay-val { color: var(--alarm); }
 
 /* ── THE FILE ITSELF ──────────────────────────────────────────────── */
 html[data-theme="light"] .story-drawer {

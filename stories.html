@@ -162,6 +162,13 @@ RESEARCH SECTOR // ARCHIVE OF DECLASSIFIED MATTER
 
       <!-- BOARD TABLE -->
       <div class="board-table-wrap">
+
+        <!-- TERMINAL READOUT — light theme only, decorative, untranslated -->
+        <div class="crt-readout" aria-hidden="true">
+          <span>Sectors: 06 total, 1 shifting, 4 sealed, 12 thresholds</span>
+          <span>Load Avg: 1.75, 1.53, 1.49   Clearance: 25.06% user, 5.66% hiss, 69.28% idle</span>
+          <span>Records: 129509/3409M read, 418661/7924M written.  Threshold: STABLE</span>
+        </div>
         <div class="board-col-headers">
           <span class="col-train">TRAIN</span>
           <span class="col-platform">PLATFORM</span>
@@ -172,12 +179,12 @@ RESEARCH SECTOR // ARCHIVE OF DECLASSIFIED MATTER
 
           <!-- Bureau vocabulary for the same six columns. Untranslated by
                design, so translations.js and the theme never collide. -->
-          <span class="col-train  bureau-head">CASE NO.</span>
-          <span class="col-platform bureau-head">BRACKET</span>
-          <span class="col-dest   bureau-head">TITLE</span>
-          <span class="col-time   bureau-head">FILED</span>
-          <span class="col-delay  bureau-head">EXPOSURE</span>
-          <span class="col-info   bureau-head">STATUS</span>
+          <span class="col-train  bureau-head">BLOCK</span>
+          <span class="col-platform bureau-head">LOC</span>
+          <span class="col-dest   bureau-head">FILENAME</span>
+          <span class="col-time   bureau-head">OPENED</span>
+          <span class="col-delay  bureau-head">CLASSIFICATION LVL</span>
+          <span class="col-info   bureau-head">SUMMARY</span>
         </div>
         <div class="board-rows" id="board-rows">
           <!-- injected by JS -->

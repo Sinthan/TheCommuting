@@ -237,6 +237,9 @@ html[data-theme="light"] .story-body-scroll::after {
 }
 
 
+/* the title band is the one sheet lying on top of the page */
+html[data-theme="light"] .stories-header { background: var(--bg); }
+
 /* ══════════════════════════════════════════════════════════════════
    TERMINAL FILLS THE FRAME
    The screen is the whole panel, not a strip at the top of it.

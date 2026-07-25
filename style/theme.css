@@ -119,10 +119,14 @@ html[data-theme="light"] .corner .cell.active::before { box-shadow: none; }
 
 /* ── NO WALLPAPER ─────────────────────────────────────────────────
    The Bureau runs on paper, not on a photograph, and paper is flat.
-   No image, no dot grid — the ASCII seal and plans carry the texture. */
+   No image, no dot grid — the ASCII seal and plans carry the texture.
+
+   The ground is --chrome, the same stock as the nav and the status
+   strips: one continuous document page. --bg is reserved for the page
+   title band, which is the only sheet that sits on top of it. */
 html[data-theme="light"] body {
   background-image: none;
-  background-color: var(--bg);
+  background-color: var(--chrome);
 }
 
 /* ── BUREAU STAMP ─────────────────────────────────────────────────

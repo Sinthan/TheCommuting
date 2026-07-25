@@ -57,6 +57,10 @@
   --chrome-line:  rgba(123,94,167,0.28);
 
   --alt-word: none;   /* dual-word strike, light theme only */
+
+  /* ── top band geometry ── */
+  --sysbar-h: 30px;
+  --nav-h:    66px;
 }
 
 html { scroll-behavior: smooth; }
@@ -505,6 +509,7 @@ nav::after {
 }
 
 @media (max-width: 768px) {
+  :root { --sysbar-h: 24px; --nav-h: 54px; }
   .sys-bar, nav, .hero, .status-bar { padding-left: 1.4rem; padding-right: 1.4rem; }
   nav::after { left: 1.4rem; right: 1.4rem; }
   .cards { grid-template-columns: 1fr; }
@@ -539,12 +544,46 @@ nav::after {
 
 
 
+
 /* ══════════════════════════════════════════════════════════════════
-   CORNER PANEL — fixed vertical nav, top-right
-   Token-driven per spec §5. The six component tokens are aliased to the
-   site's current palette here rather than in :root, so the panel needs
-   no theme-specific rules and can be repointed when the theme switch
-   ("the house shifts") lands.
+   TOP BAND — sys-bar + nav, pinned
+
+   Both strips stick to the top of the viewport so the band stays put
+   while the page scrolls. They already carry a solid --chrome ground,
+   so nothing shows through them.
+
+   Heights are fixed rather than derived from padding: the nav panel is
+   positioned against them, and a band whose height depends on its own
+   line-box would drift the panel out of alignment.
+   ══════════════════════════════════════════════════════════════════ */
+.sys-bar {
+  position: sticky;
+  top: 0;
+  z-index: 61;
+  height: var(--sysbar-h);
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+nav {
+  position: sticky;
+  top: var(--sysbar-h);
+  z-index: 60;
+  height: var(--nav-h);
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   NAV PANEL — horizontal, seated in the nav row
+
+   Sits at the right-hand end of the nav band, on the same baseline as
+   the [ The Commuting ] logo. Fixed rather than in flow because the
+   band above it is sticky; the effect is that it rides with the band
+   and never overlaps page content.
+
+   The six component tokens are aliased to the site palette here rather
+   than in :root, so the panel needs no theme-specific rules.
    ══════════════════════════════════════════════════════════════════ */
 .corner {
   --panel:   var(--chrome-panel);
@@ -555,48 +594,57 @@ nav::after {
   --accent-c: var(--accent-bright);
 
   position: fixed;
-  top: 16px;
-  right: 16px;
-  z-index: 60;
-  width: 54px;
-  border: 1px solid var(--line);
-  background: var(--panel);
-  display: flex;
-  flex-direction: column;
-  font-family: var(--font-mono);
-  backdrop-filter: blur(6px);
+  top: var(--sysbar-h);
+  right: 0;
+  z-index: 62;
+  height: var(--nav-h);
+  width: auto;
 
-  /* reset the global `nav` element rule, which otherwise leaks
-     padding / align-items / justify-content into this panel */
-  padding: 0;
+  display: flex;
+  flex-direction: row;
   align-items: stretch;
   justify-content: flex-start;
+  padding: 0;
+
+  border: none;
+  border-left: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+  font-family: var(--font-mono);
+  backdrop-filter: blur(6px);
 }
 
 /* the global nav underline must not render on the panel */
 .corner::after { display: none; }
 
+.corner .stack {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
 .corner .cap {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
   font-size: 7.5px;
   letter-spacing: 0.16em;
-  text-align: center;
   color: var(--txt-dim);
-  padding: 5px 0 4px;
-  border-bottom: 1px solid var(--line);
+  border-right: 1px solid var(--line);
   text-transform: uppercase;
 }
 
 /* ── CELL ── */
 .corner .cell {
   position: relative;
-  width: 100%;
+  width: 46px;
+  height: 100%;
   box-sizing: border-box;
-  height: 46px;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 0;
-  border-bottom: 1px solid var(--line);
+  border-right: 1px solid var(--line);
   background: none;
   color: var(--txt-dim);
   font-family: inherit;
@@ -606,7 +654,7 @@ nav::after {
   transition: background 0.2s, color 0.2s;
 }
 
-.corner .cell:last-child { border-bottom: none; }
+.corner .stack > .cell:last-child { border-right: none; }
 .corner .cell .br { opacity: 0.45; font-size: 13px; }
 .corner .cell .g  { color: inherit; margin: 0 1px; }
 
@@ -617,41 +665,47 @@ nav::after {
   outline: none;
 }
 
-/* keyboard users get a visible treatment in place of the default outline */
 .corner .cell:focus-visible {
   box-shadow: inset 0 0 0 1px var(--accent-c);
 }
 
-/* ── ACTIVE ── */
+/* ── ACTIVE ──
+   The marker follows the panel's axis: a rule under the cell now that
+   the run is horizontal, where it used to be a bar down its left edge. */
 .corner .cell.active { color: var(--accent-c); }
 .corner .cell.active::before {
   content: '';
   position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 2px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: auto;
+  height: 2px;
+  width: auto;
   background: var(--accent-c);
   box-shadow: 0 0 6px var(--accent);
 }
 
-/* ── SLIDE-OUT LABEL ── */
+/* ── DROP-DOWN LABEL ──
+   Falls from the cell it belongs to, centred on it. */
 .corner .cell .lab {
   position: absolute;
-  right: calc(100% + 1px);
-  top: 0;
-  height: 100%;
+  top: calc(100% + 1px);
+  left: 50%;
+  height: auto;
   display: flex;
   align-items: center;
   white-space: nowrap;
   background: var(--panel);
   border: 1px solid var(--line);
-  border-right: none;
-  padding: 0 12px;
+  border-top: none;
+  padding: 7px 12px;
   font-size: 9.5px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--strong);
   opacity: 0;
-  transform: translateX(6px);
+  transform: translate(-50%, -6px);
   pointer-events: none;
   transition: opacity 0.18s, transform 0.18s;
 }
@@ -659,7 +713,7 @@ nav::after {
 .corner .cell:hover .lab,
 .corner .cell:focus-visible .lab {
   opacity: 1;
-  transform: translateX(0);
+  transform: translate(-50%, 0);
 }
 
 .corner .cell .lab small {
@@ -669,119 +723,68 @@ nav::after {
 }
 
 /* ── SEPARATOR + UTILITY CELLS ── */
-.corner .sep { height: 1px; background: var(--line); }
+.corner .sep { width: 1px; height: 100%; background: var(--line); }
 
 .corner .cell.util {
-  height: 38px;
+  width: 40px;
+  height: 100%;
   font-size: 11px;
   letter-spacing: 0.1em;
 }
 
-/* ── MOBILE TOGGLE (hidden on desktop) ── */
+/* the panel is horizontal at every width now — no collapse, no toggle */
 .corner .toggle { display: none; }
 
 /* ══════════════════════════════════════════════════════════════════
-   MOBILE
-   Spec §10.1 flags that labels are unreachable on touch (no hover).
-   Fix applied: when open, the panel widens and labels render inline
-   instead of as slide-outs.
-   ══════════════════════════════════════════════════════════════════ */
-@media (max-width: 700px) {
-  .corner { width: 46px; transition: width 0.22s ease; }
-  .corner .cap { display: none; }
-  .corner .toggle { display: flex; height: 44px; }
-  .corner .stack { display: none; flex-direction: column; }
-  .corner.open .stack { display: flex; }
-  .corner .cell { height: 42px; }
-
-  /* open state: widen and inline the labels */
-  .corner.open { width: 176px; }
-  .corner.open .toggle { justify-content: flex-end; padding-right: 14px; }
-
-  .corner.open .cell {
-    justify-content: flex-start;
-    padding-left: 14px;
-  }
-
-  .corner.open .cell .lab {
-    position: static;
-    height: auto;
-    opacity: 1;
-    transform: none;
-    background: none;
-    border: none;
-    padding: 0 0 0 12px;
-    pointer-events: auto;
-  }
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   TOP BAR CLEARANCE — the panel is fixed over the page, so the
-   right-hand status text must not run underneath it (spec §2).
-   ══════════════════════════════════════════════════════════════════ */
-.sys-bar { padding-right: 72px; }
-
-@media (max-width: 700px) {
-  .sys-bar { padding-right: 56px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .corner,
-  .corner .cell,
-  .corner .cell .lab { transition: none; }
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   LANGUAGE PANE — slides out like a cell label, but holds three
-   real options. Opens on hover or click and stays put until a
-   language is chosen (or Escape / click-outside).
+   PANES — language and theme. Drop from their trigger, right-aligned
+   so they can never run past the edge of the viewport.
    ══════════════════════════════════════════════════════════════════ */
 .corner .lang-wrap {
   position: relative;
-  display: block;
+  display: flex;
 }
 
-/* trigger sits at the base of the panel — it is no longer :last-child
-   (the pane is), so the shared rule would leave a stray border */
-.corner .lang-wrap:last-child > .cell { border-bottom: none; }
+.corner .lang-wrap > .cell { border-right: 1px solid var(--line); }
+.corner .lang-wrap:last-child > .cell { border-right: none; }
 
 .corner .lang-pane {
   position: absolute;
-  right: calc(100% + 1px);
-  bottom: -1px;                 /* grows upward — it's the last cell */
-  min-width: 132px;
+  top: calc(100% + 1px);
+  right: 0;
+  left: auto;
+  bottom: auto;
+  min-width: 150px;
   background: var(--panel);
   border: 1px solid var(--line);
-  border-right: none;
+  border-top: none;
   display: flex;
   flex-direction: column;
   opacity: 0;
-  transform: translateX(6px);
+  transform: translateY(-6px);
   pointer-events: none;
   transition: opacity 0.18s, transform 0.18s;
   z-index: 2;
 }
 
-/* Invisible bridge across the 1px seam between the trigger and the pane.
-   The pane is offset by 1px to stay aligned with the nav labels, which
-   would otherwise leave a gap the pointer can fall through on its way
-   across, reading as a mouseleave. */
+/* Invisible bridge across the 1px seam between trigger and pane, so a
+   pointer travelling down does not register a mouseleave in the gap. */
 .corner .lang-pane::before {
   content: '';
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 100%;
-  width: 3px;
+  left: 0;
+  right: 0;
+  top: -4px;
+  bottom: auto;
+  width: auto;
+  height: 4px;
 }
 
 /* Visibility is owned solely by .open, which JS adds on mouseenter, click
    and keyboard focus. Deliberately NOT :hover or :focus-within — both kept
-   the pane visible after Escape or after choosing a language, because the
-   cursor/focus still sat inside the wrapper. */
+   the pane visible after Escape or after choosing a language. */
 .corner .lang-wrap.open .lang-pane {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateY(0);
   pointer-events: auto;
 }
 
@@ -830,52 +833,41 @@ nav::after {
   outline: none;
 }
 
-/* currently selected language */
-.corner .lang-opt.is-active {
-  color: var(--accent-c);
-}
+.corner .lang-opt.is-active { color: var(--accent-c); }
 .corner .lang-opt.is-active::after {
   content: '\2022';
   margin-left: auto;
   color: var(--accent-c);
 }
 
-/* trigger reflects open state */
 .corner .lang-wrap.open > .cell,
 .corner .lang-wrap:hover > .cell {
   background: var(--bg-lift);
   color: var(--accent-c);
 }
 
-/* ── MOBILE: render the pane inline inside the expanded panel ── */
-@media (max-width: 700px) {
-  .corner .lang-pane {
-    position: static;
-    min-width: 0;
-    border: none;
-    border-top: 1px solid var(--line);
-    transform: none;
-    opacity: 0;
-    height: 0;
-    overflow: hidden;
-    pointer-events: none;
-  }
+/* ══════════════════════════════════════════════════════════════════
+   NARROW SCREENS — the run stays horizontal, the cells just tighten.
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 760px) {
+  .corner .cap { display: none; }
+  .corner .cell { width: 38px; font-size: 13px; }
+  .corner .cell.util { width: 34px; font-size: 10px; }
+}
 
-  .corner .lang-wrap.open .lang-pane {
-    opacity: 1;
-    height: auto;
-    overflow: visible;
-    pointer-events: auto;
-  }
-
-  .corner .lang-pane-cap { padding-left: 14px; }
-  .corner .lang-opt { padding-left: 14px; }
+@media (max-width: 440px) {
+  .corner .cell { width: 31px; font-size: 12px; }
+  .corner .cell.util { width: 29px; font-size: 9.5px; }
+  .corner .cell .lab { display: none; }
+  .corner .lang-pane { min-width: 132px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .corner,
+  .corner .cell,
+  .corner .cell .lab,
   .corner .lang-pane { transition: none; }
 }
-
 
 /* ══════════════════════════════════════════════════════════════════
    THEME CELL — "the house shifts"

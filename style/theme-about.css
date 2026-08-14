@@ -28,7 +28,12 @@ html[data-theme="light"] .stamp-text[data-t] { display: none; }
    The pyramid narrows to a point and the Board speaks from it, so the
    utterance sits directly under the tip rather than beside or inside
    the shape. It is real text at full strength, not part of the
-   wallpaper — the Board's voice is content, not texture. */
+   wallpaper — the Board's voice is content, not texture.
+
+   The solid is shaded with a density ramp (# = + : .) rather than
+   drawn as an outline: darkest at the base, fading out at the tip,
+   with a fold down the centre where the lit face meets the shadowed
+   one. A soft halo sits behind it to give the shape somewhere to be. */
 html[data-theme="light"] .board-figure {
   display: block;
   position: fixed;
@@ -40,13 +45,30 @@ html[data-theme="light"] .board-figure {
   animation: boardDrift 14s linear infinite;
 }
 
+html[data-theme="light"] .board-figure::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 34%;
+  width: 165%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    rgba(var(--accent-bright-rgb), 0.10) 0%,
+    rgba(var(--accent-rgb), 0.06) 36%,
+    transparent 68%);
+}
+
 html[data-theme="light"] .board-pyramid {
   margin: 0;
   font-family: var(--font-mono);
   font-size: clamp(4.6px, 0.6vw, 9px);
   line-height: 1.05;
   white-space: pre;
-  color: rgba(var(--accent-rgb), 0.42);
+  color: rgba(var(--accent-rgb), 0.30);
 }
 
 html[data-theme="light"] .board-speech {

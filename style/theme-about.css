@@ -4,10 +4,10 @@
    Board directive, File 05: "an audience in the Astral Plane. Near-white
    void, floating geometry, and the Board's split, plural voice."
 
-   This is the one page that does not use the Bureau's buff paper. The
-   directive asks for the inverse of every other section, so the ground
-   is repointed to an off-white void and the negative space is left
-   alone rather than filled.
+   The directive asks for the inverse of every other section. That is
+   delivered with negative space and surface weight, not with a second
+   palette: the ground stays the Bureau's buff stock so the page still
+   belongs to the same site. Only the treatment is alien.
 
    Loaded only by about.html, after about.css.
    ══════════════════════════════════════════════════════════════════ */
@@ -19,21 +19,6 @@
 
 html[data-theme="light"] #t-nav-lang,
 html[data-theme="light"] .stamp-text[data-t] { display: none; }
-
-/* ── THE VOID ─────────────────────────────────────────────────────
-   #f2f1ed per the directive, with the chrome barely separated from it.
-   Ink stays at full strength: a void is not low contrast. */
-html[data-theme="light"] {
-  --bg:     #f2f1ed;
-  --bg-rgb: 242,241,237;
-  --chrome: #eae9e4;
-
-  --glass-border: rgba(22,20,15,0.13);
-  --chrome-panel: rgba(234,233,228,0.96);
-  --chrome-line:  rgba(22,20,15,0.20);
-}
-
-html[data-theme="light"] body { background-color: var(--bg); }
 
 /* ── THE BOARD ────────────────────────────────────────────────────
    The single graphic element on the page, per the directive. Inverted,
@@ -50,7 +35,7 @@ html[data-theme="light"] .board-pyramid {
   line-height: 1.05;
   white-space: pre;
   color: var(--accent);
-  opacity: 0.26;
+  opacity: 0.40;
   pointer-events: none;
   user-select: none;
   animation: boardDrift 14s linear infinite;
@@ -68,8 +53,8 @@ html[data-theme="light"] .board-pyramid {
 
 /* ── HEADER ───────────────────────────────────────────────────────── */
 html[data-theme="light"] .about-header {
-  background: transparent;
-  border-bottom: 1px solid var(--glass-border);
+  background: var(--bg);
+  border-bottom: 2px solid rgba(var(--accent-rgb), 0.55);
 }
 html[data-theme="light"] .about-eyebrow { color: var(--accent-bright); }
 html[data-theme="light"] .about-sub     { color: var(--text-muted); }

@@ -35,7 +35,7 @@ html[data-theme="light"] .cover-sheet {
   line-height: 1.5;
   white-space: pre;
   color: var(--accent);
-  opacity: 0.20;
+  opacity: 0.34;
   pointer-events: none;
   user-select: none;
 }
@@ -238,7 +238,10 @@ html[data-theme="light"] .story-body-scroll::after {
 
 
 /* the title band is the one sheet lying on top of the page */
-html[data-theme="light"] .stories-header { background: var(--bg); }
+html[data-theme="light"] .stories-header {
+  background: var(--bg);
+  border-bottom: 2px solid rgba(var(--accent-rgb), 0.55);
+}
 
 /* ══════════════════════════════════════════════════════════════════
    TERMINAL FILLS THE FRAME

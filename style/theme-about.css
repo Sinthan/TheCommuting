@@ -1,0 +1,186 @@
+/* ══════════════════════════════════════════════════════════════════
+   theme-about.css — AUDIENCE WITH THE BOARD (light)
+
+   Board directive, File 05: "an audience in the Astral Plane. Near-white
+   void, floating geometry, and the Board's split, plural voice."
+
+   This is the one page that does not use the Bureau's buff paper. The
+   directive asks for the inverse of every other section, so the ground
+   is repointed to an off-white void and the negative space is left
+   alone rather than filled.
+
+   Loaded only by about.html, after about.css.
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── ELEMENTS THAT ONLY EXIST IN ONE THEME ──────────────────────── */
+.board-pyramid,
+.board-cap,
+.board-stamp { display: none; }
+
+html[data-theme="light"] #t-nav-lang,
+html[data-theme="light"] .stamp-text[data-t] { display: none; }
+
+/* ── THE VOID ─────────────────────────────────────────────────────
+   #f2f1ed per the directive, with the chrome barely separated from it.
+   Ink stays at full strength: a void is not low contrast. */
+html[data-theme="light"] {
+  --bg:     #f2f1ed;
+  --bg-rgb: 242,241,237;
+  --chrome: #eae9e4;
+
+  --glass-border: rgba(22,20,15,0.13);
+  --chrome-panel: rgba(234,233,228,0.96);
+  --chrome-line:  rgba(22,20,15,0.20);
+}
+
+html[data-theme="light"] body { background-color: var(--bg); }
+
+/* ── THE BOARD ────────────────────────────────────────────────────
+   The single graphic element on the page, per the directive. Inverted,
+   centred, drifting. Everything else is negative space. */
+html[data-theme="light"] .board-pyramid {
+  display: block;
+  position: fixed;
+  top: 44%;
+  left: 50%;
+  z-index: 0;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(5px, 0.7vw, 11px);
+  line-height: 1.05;
+  white-space: pre;
+  color: var(--accent);
+  opacity: 0.26;
+  pointer-events: none;
+  user-select: none;
+  animation: boardDrift 14s linear infinite;
+}
+
+@keyframes boardDrift {
+  0%   { transform: translate(-50%, -52%); }
+  50%  { transform: translate(-50%, -46%); }
+  100% { transform: translate(-50%, -52%); }
+}
+
+@media (max-width: 900px) {
+  html[data-theme="light"] .board-pyramid { display: none; }
+}
+
+/* ── HEADER ───────────────────────────────────────────────────────── */
+html[data-theme="light"] .about-header {
+  background: transparent;
+  border-bottom: 1px solid var(--glass-border);
+}
+html[data-theme="light"] .about-eyebrow { color: var(--accent-bright); }
+html[data-theme="light"] .about-sub     { color: var(--text-muted); }
+
+/* ── BOARD SPEECH ─────────────────────────────────────────────────
+   Every key noun doubled, the first struck through. The struck word
+   carries aria-hidden in the markup, so only the intended one is
+   announced. Dark hides the second word entirely. */
+html[data-theme="light"] .about-title {
+  color: var(--text-primary);
+}
+html[data-theme="light"] .about-title em {
+  font-style: normal;
+  opacity: 0.38;
+  text-decoration: line-through;
+  text-decoration-thickness: 0.07em;
+}
+html[data-theme="light"] .about-title .alt-word {
+  display: inline;
+  color: var(--accent-bright);
+  margin-left: 0.3em;
+}
+
+/* the Board speaks all tongues at once */
+html[data-theme="light"] .board-cap { display: block; }
+
+/* ── MONOLITHS ────────────────────────────────────────────────────
+   Light-grey blocks floating behind the paragraphs. Static rather than
+   parallax: the drift belongs to the pyramid, and two moving layers
+   would fight. */
+html[data-theme="light"] .dossier {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+html[data-theme="light"] .dossier-section {
+  position: relative;
+  background: rgba(22, 20, 15, 0.035);
+  border: none;
+  border-left: 2px solid rgba(var(--accent-bright-rgb), 0.35);
+  padding: 1.4rem 1.6rem;
+  margin-bottom: 1.6rem;
+}
+html[data-theme="light"] .section-label { color: var(--accent-bright); }
+
+html[data-theme="light"] .dossier-head,
+html[data-theme="light"] .dossier-foot,
+html[data-theme="light"] .dossier-foot-sep {
+  border-color: var(--glass-border);
+}
+html[data-theme="light"] .dossier-id-label,
+html[data-theme="light"] .dossier-id-sep,
+html[data-theme="light"] .meta-label { color: var(--text-muted); }
+html[data-theme="light"] .dossier-id-val,
+html[data-theme="light"] .meta-val { color: var(--text-primary); }
+html[data-theme="light"] .dossier-id-tag,
+html[data-theme="light"] .meta-val--accent { color: var(--accent-bright); }
+html[data-theme="light"] .meta-val--warn { color: var(--alarm); }
+html[data-theme="light"] .dossier-clearance { color: var(--text-muted); }
+html[data-theme="light"] .containment-note { color: var(--text-card-desc); }
+html[data-theme="light"] .obs-log { color: var(--text-muted); }
+html[data-theme="light"] .obs-green { color: var(--green); }
+
+/* ── STAMP ────────────────────────────────────────────────────────── */
+html[data-theme="light"] .board-stamp { display: inline; }
+html[data-theme="light"] .dossier-stamp {
+  color: var(--accent-bright);
+  border-color: rgba(var(--accent-bright-rgb), 0.55);
+}
+html[data-theme="light"] .stamp-marks { color: rgba(var(--accent-bright-rgb), 0.5); }
+
+/* ── PORTRAIT ─────────────────────────────────────────────────────── */
+html[data-theme="light"] .portrait-frame {
+  border: 1px solid var(--glass-border);
+  background: var(--bg);
+}
+html[data-theme="light"] .portrait-scan { display: none; }
+html[data-theme="light"] .portrait-img { filter: grayscale(1) contrast(1.1); }
+html[data-theme="light"] .portrait-caption { color: var(--text-muted); }
+html[data-theme="light"] .portrait-redact { background: var(--text-primary); }
+html[data-theme="light"] .redacted { background: var(--text-primary); color: transparent; }
+
+/* ── THE HOTLINE ──────────────────────────────────────────────────
+   Contact channels reframed. The glyph rings once, shortly after load,
+   and never again — an incoming call, not an animation loop. */
+html[data-theme="light"] .channel {
+  background: rgba(22, 20, 15, 0.03);
+  border: 1px solid var(--glass-border);
+}
+html[data-theme="light"] .channel:hover {
+  background: rgba(var(--accent-bright-rgb), 0.08);
+  border-color: rgba(var(--accent-bright-rgb), 0.45);
+}
+html[data-theme="light"] .channel-id { color: var(--text-muted); }
+html[data-theme="light"] .channel-handle { color: var(--text-primary); }
+html[data-theme="light"] .channel-sep { color: var(--text-muted); }
+html[data-theme="light"] .channel-arrow { color: var(--accent-bright); }
+html[data-theme="light"] .channel-icon {
+  color: var(--accent-bright);   /* stamp red — the Board's line */
+  animation: hotlineRing 0.5s linear 1.4s 1;
+}
+
+@keyframes hotlineRing {
+  0%, 100% { transform: rotate(0deg); }
+  20%  { transform: rotate(-11deg); }
+  40%  { transform: rotate(9deg); }
+  60%  { transform: rotate(-6deg); }
+  80%  { transform: rotate(3deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="light"] .board-pyramid,
+  html[data-theme="light"] .channel-icon { animation: none; }
+}

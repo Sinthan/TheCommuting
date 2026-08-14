@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,21 +9,67 @@
   <link rel="apple-touch-icon" href="./assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Doto:ROND,wght@1,700&family=Share+Tech+Mono&family=Special+Elite&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Doto:ROND,wght@1,700&family=Share+Tech+Mono&family=Special+Elite&family=Playfair+Display:wght@400;700&family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style/style.css">
   <link rel="stylesheet" href="./style/about.css">
+  <link rel="stylesheet" href="./style/theme.css">
+  <link rel="stylesheet" href="./style/theme-about.css">
+
+  <!-- resolve the theme before first paint -->
+  <script>
+    (function () {
+      var p = null;
+      try { p = localStorage.getItem('tc-theme'); } catch (e) {}
+      if (p !== 'light' && p !== 'dark') {
+        p = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      document.documentElement.setAttribute('data-theme', p);
+    })();
+  </script>
 </head>
 <body>
 
   <div class="scanlines"></div>
   <div class="window-frame"></div>
 
+  <!-- THE BOARD — light theme only (see theme-about.css) -->
+  <pre class="board-pyramid" aria-hidden="true">  \---------------------------------------------------------/
+   \                                                       /
+    \                                                     /
+     \                                                   /
+      \                 W E   S P E A K                 /
+       \                                               /
+        \                                             /
+         \                                           /
+          \-----------------------------------------/
+           \                                       /
+            \                                     /
+             \                                   /
+              \        W E   C H O O S E        /
+               \                               /
+                \                             /
+                 \                           /
+                  \-------------------------/
+                   \                       /
+                    \                     /
+                     \ W E  A S S I G N  /
+                      \                 /
+                       \               /
+                        \             /
+                         \-----------/
+                          \         /
+                           \       /
+                            \     /
+                             \   /
+                             \   /
+                               V</pre>
+
   <div class="site-wrapper">
 
     <!-- SYSTEM BAR -->
     <div class="sys-bar">
       <div class="sys-bar-left">
-        <span class="sys-tag">SYS:ONLINE</span>
+        <span class="sys-tag" data-flavour="sysTagAbout">SYS:ONLINE</span>
         <span>UNIT // SIN-001</span>
         <span>LOC // ARCHIVE / DOSSIER</span>
       </div>
@@ -72,6 +118,19 @@
 
         <div class="sep"></div>
 
+        <div class="lang-wrap" id="themeWrap">
+          <button class="cell util" id="themeBtn"
+                  aria-haspopup="true" aria-expanded="false" aria-label="Change theme">
+            <span class="g pyramid"></span>
+          </button>
+          <div class="lang-pane" id="themePane" role="menu" aria-label="Theme">
+            <div class="lang-pane-cap">THE HOUSE SHIFTS</div>
+            <button class="lang-opt" role="menuitem" data-theme-pref="auto">AUTO <small>system</small></button>
+            <button class="lang-opt" role="menuitem" data-theme-pref="dark">DARK <small>in transit</small></button>
+            <button class="lang-opt" role="menuitem" data-theme-pref="light">LIGHT <small>the bureau</small></button>
+          </div>
+        </div>
+
         <div class="lang-wrap" id="langWrap">
           <button class="cell util" id="langBtn"
                   aria-haspopup="true" aria-expanded="false" aria-label="Change language">
@@ -79,6 +138,7 @@
           </button>
           <div class="lang-pane" id="langPane" role="menu" aria-label="Language">
             <div class="lang-pane-cap" id="t-nav-lang">LANGUAGE</div>
+            <div class="lang-pane-cap board-cap">YOU WILL HEAR US IN</div>
             <button class="lang-opt" role="menuitem" data-lang="en">EN <small>English</small></button>
             <button class="lang-opt" role="menuitem" data-lang="it">IT <small>Italiano</small></button>
             <button class="lang-opt" role="menuitem" data-lang="zh">中文 <small>繁體</small></button>
@@ -90,7 +150,7 @@
     <!-- PAGE HEADER -->
     <div class="about-header">
       <p class="about-eyebrow">04 // ABOUT</p>
-      <h1 class="about-title">DOSSIER</h1>
+      <h1 class="about-title"><em aria-hidden="true">DOSSIER</em><span class="alt-word">AUDIENCE</span></h1>
       <p class="about-sub" data-t="aboutSub">&gt;_ Recovered file &mdash; classification logged for archival purposes</p>
     </div>
 
@@ -112,6 +172,7 @@
           <div class="dossier-stamp">
             <span class="stamp-marks">&#9608;</span>
             <span class="stamp-text" data-t="aboutStampClassified">CLASSIFIED</span>
+            <span class="stamp-text board-stamp">YOU MAY APPROACH</span>
             <span class="stamp-marks">&#9608;</span>
           </div>
         </header>
@@ -274,6 +335,7 @@
 
   </div>
 
+  <script src="./scripts/theme.js"></script>
   <script src="./scripts/translations.js"></script>
   <script src="./scripts/nav.js"></script>
 

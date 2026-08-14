@@ -3,12 +3,14 @@
    ══════════════════════════════════════════════════════════════════ */
 
 :root {
-  --dossier-paper: rgba(238,234,224,0.04);
-  --dossier-edge:  rgba(168,127,212,0.28);
-  --dossier-edge-soft: rgba(168,127,212,0.14);
+  --dossier-paper: rgba(var(--lift-rgb),0.04);
+  --dossier-edge:  rgba(var(--accent-bright-rgb),0.28);
+  --dossier-edge-soft: rgba(var(--accent-bright-rgb),0.14);
   --dossier-redact: #1a1a1a;
-  --warn-red: rgba(192,57,43,0.85);
-  --warn-red-dim: rgba(192,57,43,0.45);
+  --warn-red: rgba(var(--alarm-rgb),0.85);
+  --warn-red-dim: rgba(var(--alarm-rgb),0.45);
+  /* the dossier's own face; the light theme keeps it — a typewriter
+     is a typewriter in either house */
   --typewriter: 'Special Elite', 'Courier New', monospace;
 }
 
@@ -27,7 +29,7 @@
 }
 
 .about-title {
-  font-family: 'Doto', monospace;
+  font-family: var(--font-display);
   font-size: clamp(1.6rem, 4.5vw, 3rem);
   letter-spacing: 0.06em;
   line-height: 1.1;
@@ -38,7 +40,7 @@
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   color: var(--text-muted);
-  border-left: 2px solid rgba(123,94,167,0.35);
+  border-left: 2px solid rgba(var(--accent-rgb),0.35);
   padding-left: 0.9rem;
   max-width: 540px;
 }
@@ -146,7 +148,7 @@
 .portrait-frame {
   width: 100%;
   aspect-ratio: 3 / 4;
-  border: 1px solid rgba(123,94,167,0.4);
+  border: 1px solid rgba(var(--accent-rgb),0.4);
   background: #0d0d0d;
   position: relative;
   overflow: hidden;
@@ -165,7 +167,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(circle, rgba(168,127,212,0.18) 1px, transparent 1px);
+  background: radial-gradient(circle, rgba(var(--accent-bright-rgb),0.18) 1px, transparent 1px);
   background-size: 5px 5px;
   mix-blend-mode: screen;
   z-index: 1;
@@ -250,7 +252,7 @@
 }
 
 .section-label {
-  font-family: 'Doto', monospace;
+  font-family: var(--font-display);
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.22em;
@@ -298,7 +300,7 @@
   color: var(--text-card-desc);
   border-left: 2px solid var(--green);
   padding: 0.4rem 0 0.4rem 1rem;
-  background: rgba(74,140,92,0.04);
+  background: rgba(var(--green-rgb),0.04);
   text-align: justify;
   hyphens: auto;
 }
@@ -325,7 +327,7 @@
   text-decoration: none;
   padding: 0.55rem 0.7rem;
   border: 1px solid var(--dossier-edge-soft);
-  background: rgba(74,140,92,0.03);
+  background: rgba(var(--green-rgb),0.03);
   transition: border-color 0.2s, background 0.2s, color 0.2s;
   white-space: nowrap;
   overflow: hidden;
@@ -333,7 +335,7 @@
 
 .channel:hover {
   border-color: var(--green);
-  background: rgba(74,140,92,0.08);
+  background: rgba(var(--green-rgb),0.08);
   color: var(--green);
 }
 
@@ -379,7 +381,7 @@
 
 .channel-arrow {
   color: var(--accent-bright);
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.85rem;
   transition: transform 0.2s;
   flex-shrink: 0;

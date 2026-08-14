@@ -1,0 +1,176 @@
+/* ══════════════════════════════════════════════════════════════════
+   theme-work.css — THE EXECUTIVE SECTOR (light)
+
+   Board directive, File 04: "'A Business Trip' becomes the Executive
+   Sector personnel file — the career timeline reframed as a clearance
+   progression inside the Bureau."
+
+   Loaded only by work.html, after work.css. Every rule is scoped to
+   html[data-theme="light"], so the dark ticket is untouched.
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── ELEMENTS THAT ONLY EXIST IN ONE THEME ──────────────────────── */
+.org-chart { display: none; }
+
+/* ── SECTOR ACCENT ────────────────────────────────────────────────
+   The board gives each sector its own accent. Executive is Bureau
+   Orange, darkened to clear 4.4:1 on paper. Stamp red steps aside to
+   the alarm slot so the two never read as the same signal. */
+html[data-theme="light"] {
+  --accent-bright:     #9c4a0f;
+  --accent-bright-rgb: 156,74,15;
+  --alarm:             #b3261e;
+  --alarm-rgb:         179,38,30;
+}
+
+/* ── ORG CHART ────────────────────────────────────────────────────
+   The Board at the top, narrowing to a point, and the clearance rail
+   beneath it. Fixed behind the file, low contrast. */
+html[data-theme="light"] .org-chart {
+  display: block;
+  position: fixed;
+  top: 50%;
+  right: 1%;
+  transform: translateY(-50%);
+  z-index: 0;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(4.2px, 0.55vw, 8.5px);
+  line-height: 1.05;
+  white-space: pre;
+  color: var(--accent);
+  opacity: 0.42;
+  pointer-events: none;
+  user-select: none;
+}
+@media (max-width: 1250px) {
+  html[data-theme="light"] .org-chart { display: none; }
+}
+
+/* ── HEADER ───────────────────────────────────────────────────────── */
+html[data-theme="light"] .work-header {
+  background: var(--bg);
+  border-bottom: 2px solid rgba(var(--accent-rgb), 0.55);
+}
+html[data-theme="light"] .work-title { color: var(--text-primary); }
+html[data-theme="light"] .work-eyebrow { color: var(--accent-bright); }
+html[data-theme="light"] .work-sub { color: var(--text-muted); }
+
+/* ── THE TICKET BECOMES A PERSONNEL FILE ──────────────────────────
+   Same object, different stock: a card issued by a bureau rather than
+   a ticket issued by a railway. Ink on buff, hard edges, no glow.
+   --tk-ink / --tk-dim are declared in work.css :root; the attribute
+   selector outranks it, and this file loads later. */
+html[data-theme="light"] {
+  --tk-ink: #16140f;
+  --tk-dim: #5a5346;
+}
+
+html[data-theme="light"] .ticket {
+  background: var(--bg);
+  border: 1px solid rgba(var(--accent-rgb), 0.55);
+  border-radius: 2px;
+  box-shadow: 3px 5px 14px rgba(59, 56, 51, 0.28);
+}
+html[data-theme="light"] .ticket::before,
+html[data-theme="light"] .ticket::after { display: none; }
+
+/* hazard tape — the board allows two per page, this is the first */
+html[data-theme="light"] .ticket-top-band {
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--accent-bright) 0 8px,
+    transparent 8px 16px);
+  background-color: rgba(var(--accent-bright-rgb), 0.14);
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.45);
+}
+html[data-theme="light"] .ticket-type,
+html[data-theme="light"] .ticket-serial {
+  background: var(--bg);
+  padding: 0 0.5rem;
+  color: var(--text-primary);
+}
+
+/* punch-card hole strip in place of the perforation */
+html[data-theme="light"] .ticket-perf {
+  background-image: radial-gradient(
+    circle, rgba(22, 20, 15, 0.55) 2px, transparent 2px);
+  background-size: 12px 12px;
+  background-position: center;
+  background-repeat: repeat-x;
+  border: none;
+}
+html[data-theme="light"] .ticket-perf::before,
+html[data-theme="light"] .ticket-perf::after { display: none; }
+
+html[data-theme="light"] .tp-label { color: var(--text-muted); }
+html[data-theme="light"] .tp-value { color: var(--text-primary); }
+html[data-theme="light"] .tp-value--accent { color: var(--accent-bright); }
+html[data-theme="light"] .tp-value--green  { color: var(--green); }
+
+html[data-theme="light"] .ticket-portrait-wrap {
+  border: 1px solid rgba(var(--accent-rgb), 0.55);
+  border-radius: 0;
+}
+html[data-theme="light"] .ticket-portrait-img { filter: grayscale(1) contrast(1.15); }
+html[data-theme="light"] .ticket-portrait-vignette,
+html[data-theme="light"] .ticket-portrait-dots { display: none; }
+
+/* ── CLEARANCE RAIL ───────────────────────────────────────────────
+   Each section row is a clearance level. The number is derived with a
+   CSS counter rather than written into the markup, so adding a section
+   renumbers the rail on its own. */
+html[data-theme="light"] .ticket-sections { counter-reset: clearance; }
+html[data-theme="light"] .ticket-section-row { counter-increment: clearance; }
+html[data-theme="light"] .tsr-code::after {
+  content: ' // L' counter(clearance);
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+}
+
+html[data-theme="light"] .ticket-section-row {
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.3);
+}
+html[data-theme="light"] .ticket-section-row::before { background: var(--accent-bright); }
+html[data-theme="light"] .ticket-section-row:hover {
+  background: rgba(var(--accent-bright-rgb), 0.09);
+}
+html[data-theme="light"] .tsr-code  { color: var(--accent-bright); }
+html[data-theme="light"] .tsr-title { color: var(--text-primary); }
+html[data-theme="light"] .tsr-meta-label { color: var(--text-muted); }
+html[data-theme="light"] .tsr-meta-val   { color: var(--text-card-desc); }
+html[data-theme="light"] .tsr-arrow      { color: var(--accent-bright); }
+
+/* ── THE FILE OPENS ───────────────────────────────────────────────── */
+html[data-theme="light"] .cv-drawer {
+  background: var(--chrome);
+  border-top: 2px solid rgba(var(--accent-rgb), 0.55);
+  box-shadow: 0 -12px 44px rgba(59, 56, 51, 0.28);
+}
+html[data-theme="light"] .cv-backdrop { background: rgba(59, 56, 51, 0.45); }
+html[data-theme="light"] .cv-drawer-header {
+  border-bottom-color: rgba(var(--accent-rgb), 0.35);
+}
+html[data-theme="light"] .cv-drawer-section-id    { color: var(--accent-bright); }
+html[data-theme="light"] .cv-drawer-section-title { color: var(--text-primary); }
+html[data-theme="light"] .cv-drawer-meta { color: var(--text-muted); }
+html[data-theme="light"] .cv-drawer-body { color: var(--text-card-desc); }
+html[data-theme="light"] .cv-bullets li::before { color: var(--accent-bright); }
+
+/* hazard tape, second and last use on the page */
+html[data-theme="light"] .cv-drawer-sep {
+  height: 6px;
+  border: none;
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--accent-bright) 0 6px,
+    transparent 6px 12px);
+  opacity: 0.55;
+}
+
+html[data-theme="light"] .cv-hl-green  { color: var(--green); }
+html[data-theme="light"] .cv-hl-purple { color: var(--accent-bright); }
+html[data-theme="light"] .cv-link-list li::before { color: var(--accent-bright); }
+
+/* glow reads as smudge on paper */
+html[data-theme="light"] .spire { display: none; }

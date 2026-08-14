@@ -13,7 +13,7 @@
    ══════════════════════════════════════════════════════════════════ */
 
 /* ── ELEMENTS THAT ONLY EXIST IN ONE THEME ──────────────────────── */
-.board-pyramid,
+.board-figure,
 .board-cap,
 .board-stamp { display: none; }
 
@@ -22,33 +22,52 @@ html[data-theme="light"] .stamp-text[data-t] { display: none; }
 
 /* ── THE BOARD ────────────────────────────────────────────────────
    The single graphic element on the page, per the directive. Inverted,
-   centred, drifting. Everything else is negative space. */
-html[data-theme="light"] .board-pyramid {
+   held to the left margin, drifting. Everything to its right is the
+   negative space the file asks for.
+
+   The pyramid narrows to a point and the Board speaks from it, so the
+   utterance sits directly under the tip rather than beside or inside
+   the shape. It is real text at full strength, not part of the
+   wallpaper — the Board's voice is content, not texture. */
+html[data-theme="light"] .board-figure {
   display: block;
   position: fixed;
-  top: 44%;
-  left: 50%;
+  top: 46%;
+  left: 1.5%;
   z-index: 0;
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: clamp(5px, 0.7vw, 11px);
-  line-height: 1.05;
-  white-space: pre;
-  color: var(--accent);
-  opacity: 0.40;
   pointer-events: none;
   user-select: none;
   animation: boardDrift 14s linear infinite;
 }
 
-@keyframes boardDrift {
-  0%   { transform: translate(-50%, -52%); }
-  50%  { transform: translate(-50%, -46%); }
-  100% { transform: translate(-50%, -52%); }
+html[data-theme="light"] .board-pyramid {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(4.6px, 0.6vw, 9px);
+  line-height: 1.05;
+  white-space: pre;
+  color: rgba(var(--accent-rgb), 0.42);
 }
 
-@media (max-width: 900px) {
-  html[data-theme="light"] .board-pyramid { display: none; }
+html[data-theme="light"] .board-speech {
+  margin: 0.9rem 0 0;
+  text-align: center;
+  font-family: var(--typewriter);
+  font-size: clamp(0.58rem, 0.78vw, 0.8rem);
+  line-height: 2;
+  letter-spacing: 0.06em;
+  color: var(--accent-bright);
+  opacity: 0.85;
+}
+
+@keyframes boardDrift {
+  0%   { transform: translateY(-52%); }
+  50%  { transform: translateY(-46%); }
+  100% { transform: translateY(-52%); }
+}
+
+@media (max-width: 1250px) {
+  html[data-theme="light"] .board-figure { display: none; }
 }
 
 /* ── HEADER ───────────────────────────────────────────────────────── */
@@ -166,6 +185,6 @@ html[data-theme="light"] .channel-icon {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html[data-theme="light"] .board-pyramid,
+  html[data-theme="light"] .board-figure,
   html[data-theme="light"] .channel-icon { animation: none; }
 }
